@@ -72,7 +72,7 @@ class SessionForm extends React.Component {
             {lastName}
           </div>
           <br/>
-            <input key="5" id="login-signup-input" type="text" placeholder="Email" onChange={this.handleChange('email')}/>;
+            <input key="5" id="login-signup-input" type="text" placeholder="Email" onChange={this.handleChange('email')}/>
           <br/>
             <input id="login-signup-input" key="2"  type="password" placeholder="Password" onChange={this.handleChange('password')}/>
           <br/>

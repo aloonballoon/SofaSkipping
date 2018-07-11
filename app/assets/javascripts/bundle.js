@@ -724,7 +724,6 @@ var SessionForm = function (_React$Component) {
           ),
           _react2.default.createElement('br', null),
           _react2.default.createElement('input', { key: '5', id: 'login-signup-input', type: 'text', placeholder: 'Email', onChange: this.handleChange('email') }),
-          ';',
           _react2.default.createElement('br', null),
           _react2.default.createElement('input', { id: 'login-signup-input', key: '2', type: 'password', placeholder: 'Password', onChange: this.handleChange('password') }),
           _react2.default.createElement('br', null),
