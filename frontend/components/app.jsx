@@ -5,18 +5,17 @@ import { Route } from 'react-router-dom';
 import LogInFormContainer from './login_form_container';
 import SignUpFormContainer from './sign_up_form_container';
 import { AuthRoute } from '../util/route_util.jsx';
+import Modal from './modal';
 
 
 
 const App = () => (
 
   <div>
+    <Modal />
     <header>
       <GreetingsContainer/>
     </header>
-
-    <AuthRoute path="/login" component={LogInFormContainer} />
-    <AuthRoute path="/signup" component={SignUpFormContainer} />
   </div>
 );
 

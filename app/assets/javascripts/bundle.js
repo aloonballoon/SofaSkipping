@@ -86,6 +86,37 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./frontend/actions/modal_actions.js":
+/*!*******************************************!*\
+  !*** ./frontend/actions/modal_actions.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var OPEN_MODAL = exports.OPEN_MODAL = 'OPEN_MODAL';
+var CLOSE_MODAL = exports.CLOSE_MODAL = 'CLOSE_MODAL';
+
+var openModal = exports.openModal = function openModal(modal) {
+  return {
+    type: OPEN_MODAL,
+    modal: modal
+  };
+};
+
+var closeModal = exports.closeModal = function closeModal() {
+  return {
+    type: CLOSE_MODAL
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/session_actions.js":
 /*!*********************************************!*\
   !*** ./frontend/actions/session_actions.js ***!
@@ -195,19 +226,22 @@ var _sign_up_form_container2 = _interopRequireDefault(_sign_up_form_container);
 
 var _route_util = __webpack_require__(/*! ../util/route_util.jsx */ "./frontend/util/route_util.jsx");
 
+var _modal = __webpack_require__(/*! ./modal */ "./frontend/components/modal.jsx");
+
+var _modal2 = _interopRequireDefault(_modal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
   return _react2.default.createElement(
     'div',
     null,
+    _react2.default.createElement(_modal2.default, null),
     _react2.default.createElement(
       'header',
       null,
       _react2.default.createElement(_greetings_container2.default, null)
-    ),
-    _react2.default.createElement(_route_util.AuthRoute, { path: '/login', component: _login_form_container2.default }),
-    _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _sign_up_form_container2.default })
+    )
   );
 };
 
@@ -394,11 +428,112 @@ var mdp = function mdp(dispatch, ownProps) {
   return {
     processForm: function processForm(user) {
       return dispatch((0, _session_actions.logIn)(user));
-    }
+    },
+    otherForm: React.createElement(
+      'button',
+      { onClick: function onClick() {
+          return dispatch(openModal('signup'));
+        } },
+      'Signup'
+    ),
+    closeModal: function (_closeModal) {
+      function closeModal() {
+        return _closeModal.apply(this, arguments);
+      }
+
+      closeModal.toString = function () {
+        return _closeModal.toString();
+      };
+
+      return closeModal;
+    }(function () {
+      return dispatch(closeModal());
+    })
   };
 };
 
 exports.default = (0, _reactRedux.connect)(msp, mdp)(_session_form2.default);
+
+/***/ }),
+
+/***/ "./frontend/components/modal.jsx":
+/*!***************************************!*\
+  !*** ./frontend/components/modal.jsx ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _modal_actions = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _login_form_container = __webpack_require__(/*! ./login_form_container */ "./frontend/components/login_form_container.js");
+
+var _login_form_container2 = _interopRequireDefault(_login_form_container);
+
+var _sign_up_form_container = __webpack_require__(/*! ./sign_up_form_container */ "./frontend/components/sign_up_form_container.js");
+
+var _sign_up_form_container2 = _interopRequireDefault(_sign_up_form_container);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Modal(_ref) {
+  var modal = _ref.modal,
+      closeModal = _ref.closeModal;
+
+  if (!modal) {
+    return null;
+  }
+  var component = void 0;
+  switch (modal) {
+    case 'login':
+      component = _react2.default.createElement(_login_form_container2.default, null);
+      break;
+    case 'signup':
+      component = _react2.default.createElement(_sign_up_form_container2.default, null);
+      break;
+    default:
+      return null;
+  }
+  return _react2.default.createElement(
+    'div',
+    { className: 'modal-background', onClick: closeModal },
+    _react2.default.createElement(
+      'div',
+      { className: 'modal-child', onClick: function onClick(e) {
+          return e.stopPropagation();
+        } },
+      component
+    )
+  );
+}
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    modal: state.ui.modal
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    closeModal: function closeModal() {
+      return dispatch((0, _modal_actions.closeModal)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Modal);
 
 /***/ }),
 
@@ -695,6 +830,39 @@ exports.default = errorsReducer;
 
 /***/ }),
 
+/***/ "./frontend/reducers/modal_reducer.js":
+/*!********************************************!*\
+  !*** ./frontend/reducers/modal_reducer.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = modalReducer;
+
+var _modal_actions = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
+function modalReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _modal_actions.OPEN_MODAL:
+      return action.modal;
+    case _modal_actions.CLOSE_MODAL:
+      return null;
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+
 /***/ "./frontend/reducers/root_reducer.js":
 /*!*******************************************!*\
   !*** ./frontend/reducers/root_reducer.js ***!
@@ -723,12 +891,17 @@ var _session_reducer = __webpack_require__(/*! ./session_reducer */ "./frontend/
 
 var _session_reducer2 = _interopRequireDefault(_session_reducer);
 
+var _ui_reducer = __webpack_require__(/*! ./ui_reducer */ "./frontend/reducers/ui_reducer.js");
+
+var _ui_reducer2 = _interopRequireDefault(_ui_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
   session: _session_reducer2.default,
   entities: _entities_reducer2.default,
-  errors: _errors_reducer2.default
+  errors: _errors_reducer2.default,
+  ui: _ui_reducer2.default
 });
 
 exports.default = rootReducer;
@@ -805,6 +978,34 @@ var sessionReducer = function sessionReducer() {
 };
 
 exports.default = sessionReducer;
+
+/***/ }),
+
+/***/ "./frontend/reducers/ui_reducer.js":
+/*!*****************************************!*\
+  !*** ./frontend/reducers/ui_reducer.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+
+var _modal_reducer = __webpack_require__(/*! ./modal_reducer */ "./frontend/reducers/modal_reducer.js");
+
+var _modal_reducer2 = _interopRequireDefault(_modal_reducer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _redux.combineReducers)({
+  modal: _modal_reducer2.default
+});
 
 /***/ }),
 
