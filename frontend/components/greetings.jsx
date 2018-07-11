@@ -26,15 +26,11 @@ class Greetings extends React.Component {
 
     let button;
     let message;
-    let linkToSignUp;
-    let linkToLogIn;
     if (loggedIn) {
       message = `Hello ${this.props.currentUser.username}.`;
       button = <button onClick={() => this.props.logOut()}>Log Out</button>;
     } else {
       message = "Hello there. Would you like to sign in?";
-      linkToSignUp = <Link to="/signup">Sign Up</Link>;
-      linkToLogIn = <Link to="/login">Log In</Link>;
     }
 
 
@@ -45,10 +41,6 @@ class Greetings extends React.Component {
         {message}
         <br/>
         {button}
-        <br/>
-        {linkToLogIn}
-        <br/>
-        {linkToSignUp}
       </div>
 
 

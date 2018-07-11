@@ -7,7 +7,10 @@ class SessionForm extends React.Component {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      email: "",
+      first_name: "",
+      last_name: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -16,8 +19,13 @@ class SessionForm extends React.Component {
   handleSubmit(e) {
 
     e.preventDefault();
-    const user = Object.assign({}, this.state);
-    this.props.processForm(user).then(user => this.props.history.push('/'));
+    let user;
+    if (this.props.formType === 'login') {
+      user = Object.assign({}, {username: this.state.username}, {password: this.state.password});
+    } else if (this.props.formType === 'signup') {
+      user = Object.assign({}, this.state);
+    }
+    this.props.processForm(user).then(this.props.closeModal);
   }
 
   handleChange(field) {
@@ -27,17 +35,20 @@ class SessionForm extends React.Component {
   }
 
   render() {
-    let link;
-    if (this.props.location.pathname === '/login') {
-      link = <Link to="/signup">Log In</Link>;
-    } else if (this.props.location.pathname === '/signup') {
-      link = <Link to="/login">Sign Up</Link>;
-    }
 
     const errors = this.props.errors;
     const errorsArr = errors.map((error, idx) => {
       return <li key={idx}>{error}</li>;
     });
+
+    let firstName;
+    let lastName;
+    let email;
+    if (this.props.formType === 'signup') {
+      firstName = <input type="text" placeholder="First Name" onChange={this.handleChange('first_name')}/>;
+      lastName = <input type="text" placeholder="Last Name" onChange={this.handleChange('last_name')}/>;
+      email = <input type="text" placeholder="Email" onChange={this.handleChange('email')}/>;
+    }
 
 
 
@@ -50,11 +61,13 @@ class SessionForm extends React.Component {
           </ul>
             <header>{this.props.formType}</header>
           <br/>
-            {link}
+          {firstName}
+          {lastName}
+          {email}
           <br/>
-            <input type="text" onChange={this.handleChange('username')}/>
+            <input type="text" placeholder="Username" onChange={this.handleChange('username')}/>
           <br/>
-            <input type="text" onChange={this.handleChange('password')}/>
+            <input type="text" placeholder="Password" onChange={this.handleChange('password')}/>
           <br/>
             <button>SUBMIT</button>
         </form>

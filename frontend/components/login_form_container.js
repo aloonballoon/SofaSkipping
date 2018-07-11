@@ -15,7 +15,7 @@ const mdp = (dispatch, ownProps) => {
   return {
     processForm: (user) => dispatch(logIn(user)),
     otherForm: (
-      <button onClick={() => dispatch(openModal('signup'))}>
+      <button onClick={() => dispatch(openModal('login'))}>
         Signup
       </button>
     ),

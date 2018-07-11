@@ -323,8 +323,6 @@ var Greetings = function (_React$Component) {
 
       var button = void 0;
       var message = void 0;
-      var linkToSignUp = void 0;
-      var linkToLogIn = void 0;
       if (loggedIn) {
         message = 'Hello ' + this.props.currentUser.username + '.';
         button = _react2.default.createElement(
@@ -336,16 +334,6 @@ var Greetings = function (_React$Component) {
         );
       } else {
         message = "Hello there. Would you like to sign in?";
-        linkToSignUp = _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/signup' },
-          'Sign Up'
-        );
-        linkToLogIn = _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/login' },
-          'Log In'
-        );
       }
 
       return _react2.default.createElement(
@@ -355,11 +343,7 @@ var Greetings = function (_React$Component) {
         _react2.default.createElement('br', null),
         message,
         _react2.default.createElement('br', null),
-        button,
-        _react2.default.createElement('br', null),
-        linkToLogIn,
-        _react2.default.createElement('br', null),
-        linkToSignUp
+        button
       );
     }
   }]);
@@ -466,7 +450,7 @@ var mdp = function mdp(dispatch, ownProps) {
     otherForm: _react2.default.createElement(
       'button',
       { onClick: function onClick() {
-          return dispatch((0, _modal_actions.openModal)('signup'));
+          return dispatch((0, _modal_actions.openModal)('login'));
         } },
       'Signup'
     ),
@@ -651,7 +635,10 @@ var SessionForm = function (_React$Component) {
 
     _this.state = {
       username: "",
-      password: ""
+      password: "",
+      email: "",
+      first_name: "",
+      last_name: ""
     };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
@@ -662,42 +649,29 @@ var SessionForm = function (_React$Component) {
   _createClass(SessionForm, [{
     key: 'handleSubmit',
     value: function handleSubmit(e) {
-      var _this2 = this;
 
       e.preventDefault();
-      var user = Object.assign({}, this.state);
-      this.props.processForm(user).then(function (user) {
-        return _this2.props.history.push('/');
-      });
+      var user = void 0;
+      if (this.props.formType === 'login') {
+        user = Object.assign({}, { username: this.state.username }, { password: this.state.password });
+      } else if (this.props.formType === 'signup') {
+        user = Object.assign({}, this.state);
+      }
+      this.props.processForm(user).then(this.props.closeModal);
     }
   }, {
     key: 'handleChange',
     value: function handleChange(field) {
-      var _this3 = this;
+      var _this2 = this;
 
       return function (e) {
-        _this3.setState(_defineProperty({}, field, e.target.value));
+        _this2.setState(_defineProperty({}, field, e.target.value));
       };
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
-
-      var link = void 0;
-      if (this.props.location.pathname === '/login') {
-        link = _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/signup' },
-          'Log In'
-        );
-      } else if (this.props.location.pathname === '/signup') {
-        link = _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/login' },
-          'Sign Up'
-        );
-      }
+      var _this3 = this;
 
       var errors = this.props.errors;
       var errorsArr = errors.map(function (error, idx) {
@@ -708,6 +682,15 @@ var SessionForm = function (_React$Component) {
         );
       });
 
+      var firstName = void 0;
+      var lastName = void 0;
+      var email = void 0;
+      if (this.props.formType === 'signup') {
+        firstName = _react2.default.createElement('input', { type: 'text', placeholder: 'First Name', onChange: this.handleChange('first_name') });
+        lastName = _react2.default.createElement('input', { type: 'text', placeholder: 'Last Name', onChange: this.handleChange('last_name') });
+        email = _react2.default.createElement('input', { type: 'text', placeholder: 'Email', onChange: this.handleChange('email') });
+      }
+
       return _react2.default.createElement(
         'div',
         null,
@@ -715,7 +698,7 @@ var SessionForm = function (_React$Component) {
         _react2.default.createElement(
           'form',
           { onSubmit: function onSubmit(e) {
-              return _this4.handleSubmit(e);
+              return _this3.handleSubmit(e);
             } },
           _react2.default.createElement(
             'ul',
@@ -729,11 +712,13 @@ var SessionForm = function (_React$Component) {
             this.props.formType
           ),
           _react2.default.createElement('br', null),
-          link,
+          firstName,
+          lastName,
+          email,
           _react2.default.createElement('br', null),
-          _react2.default.createElement('input', { type: 'text', onChange: this.handleChange('username') }),
+          _react2.default.createElement('input', { type: 'text', placeholder: 'Username', onChange: this.handleChange('username') }),
           _react2.default.createElement('br', null),
-          _react2.default.createElement('input', { type: 'text', onChange: this.handleChange('password') }),
+          _react2.default.createElement('input', { type: 'text', placeholder: 'Password', onChange: this.handleChange('password') }),
           _react2.default.createElement('br', null),
           _react2.default.createElement(
             'button',
@@ -797,7 +782,7 @@ var mdp = function mdp(dispatch, ownProps) {
     otherForm: _react2.default.createElement(
       'button',
       { onClick: function onClick() {
-          return dispatch((0, _modal_actions.openModal)('login'));
+          return dispatch((0, _modal_actions.openModal)('signup'));
         } },
       'Login'
     ),
@@ -1135,6 +1120,7 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     store = (0, _store2.default)();
   }
+  window.getState = store.getState;
   window.logIn = _session_actions.logIn;
   window.dispatch = store.dispatch;
   var root = document.getElementById('root');
