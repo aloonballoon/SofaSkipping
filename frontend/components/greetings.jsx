@@ -7,6 +7,16 @@ class Greetings extends React.Component {
 
 
  render() {
+
+   const sessionLinks = () => {
+     return (
+      <nav className="login-signup" >
+        <button onClick={() => this.props.openModal('login')}>Login</button>
+        <button onClick={() => this.props.openModal('signup')}>Signup</button>
+      </nav>
+    );
+   };
+
    let loggedIn;
    if (typeof this.props.currentUser === "undefined") {
         loggedIn = false;
@@ -30,6 +40,8 @@ class Greetings extends React.Component {
 
     return (
       <div>
+        {sessionLinks()}
+        <br/>
         {message}
         <br/>
         {button}

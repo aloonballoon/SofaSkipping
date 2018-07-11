@@ -293,6 +293,27 @@ var Greetings = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      var sessionLinks = function sessionLinks() {
+        return _react2.default.createElement(
+          'nav',
+          { className: 'login-signup' },
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return _this2.props.openModal('login');
+              } },
+            'Login'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return _this2.props.openModal('signup');
+              } },
+            'Signup'
+          )
+        );
+      };
+
       var loggedIn = void 0;
       if (typeof this.props.currentUser === "undefined") {
         loggedIn = false;
@@ -330,6 +351,8 @@ var Greetings = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
+        sessionLinks(),
+        _react2.default.createElement('br', null),
         message,
         _react2.default.createElement('br', null),
         button,
@@ -370,6 +393,8 @@ var _greetings2 = _interopRequireDefault(_greetings);
 
 var _session_actions = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 
+var _modal_actions = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(_ref) {
@@ -385,6 +410,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     logOut: function logOut() {
       return dispatch((0, _session_actions.logOut)());
+    },
+    openModal: function openModal(modal) {
+      return dispatch((0, _modal_actions.openModal)(modal));
     }
   };
 };
@@ -415,6 +443,12 @@ var _session_form = __webpack_require__(/*! ./session_form */ "./frontend/compon
 
 var _session_form2 = _interopRequireDefault(_session_form);
 
+var _modal_actions = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state, ownProps) {
@@ -429,26 +463,16 @@ var mdp = function mdp(dispatch, ownProps) {
     processForm: function processForm(user) {
       return dispatch((0, _session_actions.logIn)(user));
     },
-    otherForm: React.createElement(
+    otherForm: _react2.default.createElement(
       'button',
       { onClick: function onClick() {
-          return dispatch(openModal('signup'));
+          return dispatch((0, _modal_actions.openModal)('signup'));
         } },
       'Signup'
     ),
-    closeModal: function (_closeModal) {
-      function closeModal() {
-        return _closeModal.apply(this, arguments);
-      }
-
-      closeModal.toString = function () {
-        return _closeModal.toString();
-      };
-
-      return closeModal;
-    }(function () {
-      return dispatch(closeModal());
-    })
+    closeModal: function closeModal() {
+      return dispatch((0, _modal_actions.closeModal)());
+    }
   };
 };
 
@@ -506,6 +530,7 @@ function Modal(_ref) {
     default:
       return null;
   }
+
   return _react2.default.createElement(
     'div',
     { className: 'modal-background', onClick: closeModal },
@@ -749,6 +774,12 @@ var _session_form = __webpack_require__(/*! ./session_form */ "./frontend/compon
 
 var _session_form2 = _interopRequireDefault(_session_form);
 
+var _modal_actions = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state, ownProps) {
@@ -762,6 +793,16 @@ var mdp = function mdp(dispatch, ownProps) {
   return {
     processForm: function processForm(user) {
       return dispatch((0, _session_actions.signUp)(user));
+    },
+    otherForm: _react2.default.createElement(
+      'button',
+      { onClick: function onClick() {
+          return dispatch((0, _modal_actions.openModal)('login'));
+        } },
+      'Login'
+    ),
+    closeModal: function closeModal() {
+      return dispatch((0, _modal_actions.closeModal)());
     }
   };
 };
