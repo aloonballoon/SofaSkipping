@@ -27,7 +27,7 @@ class Greetings extends React.Component {
     let button;
     let message;
     if (loggedIn) {
-      message = `Hello ${this.props.currentUser.username}.`;
+      message = `Hello ${this.props.currentUser.first_name}.`;
       button = <button onClick={() => this.props.logOut()}>Log Out</button>;
     } else {
       message = "Hello there. Would you like to sign in?";

@@ -324,7 +324,7 @@ var Greetings = function (_React$Component) {
       var button = void 0;
       var message = void 0;
       if (loggedIn) {
-        message = 'Hello ' + this.props.currentUser.username + '.';
+        message = 'Hello ' + this.props.currentUser.first_name + '.';
         button = _react2.default.createElement(
           'button',
           { onClick: function onClick() {
@@ -449,8 +449,8 @@ var mdp = function mdp(dispatch, ownProps) {
     },
     otherForm: _react2.default.createElement(
       'button',
-      { onClick: function onClick() {
-          return dispatch((0, _modal_actions.openModal)('login'));
+      { id: 'other-form-button-switch', onClick: function onClick() {
+          return dispatch((0, _modal_actions.openModal)('signup'));
         } },
       'Signup'
     ),
@@ -634,7 +634,6 @@ var SessionForm = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (SessionForm.__proto__ || Object.getPrototypeOf(SessionForm)).call(this, props));
 
     _this.state = {
-      username: "",
       password: "",
       email: "",
       first_name: "",
@@ -653,7 +652,7 @@ var SessionForm = function (_React$Component) {
       e.preventDefault();
       var user = void 0;
       if (this.props.formType === 'login') {
-        user = Object.assign({}, { username: this.state.username }, { password: this.state.password });
+        user = Object.assign({}, { email: this.state.email }, { password: this.state.password });
       } else if (this.props.formType === 'signup') {
         user = Object.assign({}, this.state);
       }
@@ -684,11 +683,25 @@ var SessionForm = function (_React$Component) {
 
       var firstName = void 0;
       var lastName = void 0;
-      var email = void 0;
+      var title = void 0;
+      var submit = void 0;
+      var text = void 0;
+      var buttonLink = void 0;
+      var switchPhrase = void 0;
+
       if (this.props.formType === 'signup') {
-        firstName = _react2.default.createElement('input', { type: 'text', placeholder: 'First Name', onChange: this.handleChange('first_name') });
-        lastName = _react2.default.createElement('input', { type: 'text', placeholder: 'Last Name', onChange: this.handleChange('last_name') });
-        email = _react2.default.createElement('input', { type: 'text', placeholder: 'Email', onChange: this.handleChange('email') });
+        title = 'Join SofaSkipping for free';
+        firstName = _react2.default.createElement('input', { key: '3', id: 'login-signup-firstname-input', type: 'text', placeholder: 'First Name', onChange: this.handleChange('first_name') });
+        lastName = _react2.default.createElement('input', { key: '4', id: 'login-signup-lastname-input', type: 'text', placeholder: 'Last Name', onChange: this.handleChange('last_name') });
+        submit = "Join with Email";
+        buttonLink = this.props.otherForm;
+        switchPhrase = "Already a member?";
+      } else {
+        title = "Log in to SofaSkipping";
+        submit = "Log In";
+        text = "Don't have an account?";
+        buttonLink = this.props.otherForm;
+        switchPhrase = "Don't have an account?";
       }
 
       return _react2.default.createElement(
@@ -701,30 +714,39 @@ var SessionForm = function (_React$Component) {
               return _this3.handleSubmit(e);
             } },
           _react2.default.createElement(
-            'ul',
-            null,
-            'Errors: ',
-            errorsArr
-          ),
-          _react2.default.createElement(
             'header',
-            null,
-            this.props.formType
+            { id: 'modal-title-container' },
+            _react2.default.createElement(
+              'h1',
+              { id: 'session-header' },
+              title
+            )
           ),
           _react2.default.createElement('br', null),
-          firstName,
-          lastName,
-          email,
+          _react2.default.createElement(
+            'div',
+            null,
+            firstName,
+            lastName
+          ),
           _react2.default.createElement('br', null),
-          _react2.default.createElement('input', { type: 'text', placeholder: 'Username', onChange: this.handleChange('username') }),
+          _react2.default.createElement('input', { key: '5', id: 'login-signup-input', type: 'text', placeholder: 'Email', onChange: this.handleChange('email') }),
+          ';',
           _react2.default.createElement('br', null),
-          _react2.default.createElement('input', { type: 'text', placeholder: 'Password', onChange: this.handleChange('password') }),
+          _react2.default.createElement('input', { id: 'login-signup-input', key: '2', type: 'password', placeholder: 'Password', onChange: this.handleChange('password') }),
           _react2.default.createElement('br', null),
           _react2.default.createElement(
             'button',
-            null,
-            'SUBMIT'
-          )
+            { id: 'session-button' },
+            submit
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'p',
+            { id: 'switch-phrase' },
+            switchPhrase
+          ),
+          buttonLink
         )
       );
     }
@@ -781,8 +803,8 @@ var mdp = function mdp(dispatch, ownProps) {
     },
     otherForm: _react2.default.createElement(
       'button',
-      { onClick: function onClick() {
-          return dispatch((0, _modal_actions.openModal)('signup'));
+      { id: 'other-form-button-switch', onClick: function onClick() {
+          return dispatch((0, _modal_actions.openModal)('login'));
         } },
       'Login'
     ),

@@ -6,7 +6,6 @@ class SessionForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
       password: "",
       email: "",
       first_name: "",
@@ -21,7 +20,7 @@ class SessionForm extends React.Component {
     e.preventDefault();
     let user;
     if (this.props.formType === 'login') {
-      user = Object.assign({}, {username: this.state.username}, {password: this.state.password});
+      user = Object.assign({}, {email: this.state.email}, {password: this.state.password});
     } else if (this.props.formType === 'signup') {
       user = Object.assign({}, this.state);
     }
@@ -43,11 +42,25 @@ class SessionForm extends React.Component {
 
     let firstName;
     let lastName;
-    let email;
+    let title;
+    let submit;
+    let text;
+    let buttonLink;
+    let switchPhrase;
+
     if (this.props.formType === 'signup') {
-      firstName = <input type="text" placeholder="First Name" onChange={this.handleChange('first_name')}/>;
-      lastName = <input type="text" placeholder="Last Name" onChange={this.handleChange('last_name')}/>;
-      email = <input type="text" placeholder="Email" onChange={this.handleChange('email')}/>;
+      title = 'Join SofaSkipping for free';
+      firstName = <input key="3" id="login-signup-firstname-input" type="text" placeholder="First Name" onChange={this.handleChange('first_name')}/>;
+      lastName = <input key="4" id="login-signup-lastname-input" type="text" placeholder="Last Name" onChange={this.handleChange('last_name')}/>;
+      submit = "Join with Email";
+      buttonLink = this.props.otherForm;
+      switchPhrase = "Already a member?";
+    } else {
+      title = "Log in to SofaSkipping";
+      submit = "Log In";
+      text = "Don't have an account?";
+      buttonLink = this.props.otherForm;
+      switchPhrase = "Don't have an account?";
     }
 
 
@@ -56,20 +69,23 @@ class SessionForm extends React.Component {
       <div>
         <br/>
         <form onSubmit={(e) => this.handleSubmit(e)}>
-          <ul>
-            Errors: {errorsArr}
-          </ul>
-            <header>{this.props.formType}</header>
+          <header id="modal-title-container"><h1 id="session-header">{title}</h1></header>
           <br/>
-          {firstName}
-          {lastName}
-          {email}
+          <div>
+            {firstName}
+            {lastName}
+          </div>
           <br/>
-            <input type="text" placeholder="Username" onChange={this.handleChange('username')}/>
+            <input key="5" id="login-signup-input" type="text" placeholder="Email" onChange={this.handleChange('email')}/>;
           <br/>
-            <input type="text" placeholder="Password" onChange={this.handleChange('password')}/>
+            <input id="login-signup-input" key="2"  type="password" placeholder="Password" onChange={this.handleChange('password')}/>
           <br/>
-            <button>SUBMIT</button>
+            <button id="session-button">{submit}</button>
+          <br/>
+          <p id="switch-phrase">
+            {switchPhrase}
+          </p>
+              {buttonLink}
         </form>
 
       </div>
