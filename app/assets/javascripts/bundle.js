@@ -174,6 +174,8 @@ var logIn = exports.logIn = function logIn(user) {
   return function (dispatch) {
     return SessionApiUtil.logIn(user).then(function (user) {
       return dispatch(receiveCurrentUser(user));
+    }, function (error) {
+      return dispatch(receiveErrors(error.responseJSON));
     });
   };
 };
@@ -672,15 +674,6 @@ var SessionForm = function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      var errors = this.props.errors;
-      var errorsArr = errors.map(function (error, idx) {
-        return _react2.default.createElement(
-          'li',
-          { key: idx },
-          error
-        );
-      });
-
       var firstName = void 0;
       var lastName = void 0;
       var title = void 0;
@@ -978,7 +971,7 @@ var sessionErrorsReducer = function sessionErrorsReducer() {
 
   switch (action.type) {
     case _session_actions.RECEIVE_SESSION_ERRORS:
-      return state.push({ errors: action.errors });
+      return state.push({ errors: action.errors[0] });
     case _session_actions.RECEIVE_CURRENT_USER:
       return [];
     default:
