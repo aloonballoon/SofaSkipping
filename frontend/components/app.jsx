@@ -1,11 +1,22 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import {Route, Redirect, Switch, Link, HashRouter} from 'react-router-dom';
+import Greetings from './greetings';
+import GreetingsContainer from './greetings_container';
+import { Route } from 'react-router-dom';
+import LogInFormContainer from './login_form_container';
+import SignUpFormContainer from './sign_up_form_container';
+import { AuthRoute } from '../util/route_util.jsx';
+
 
 
 const App = () => (
+
   <div>
-    App
+    <header>
+      <GreetingsContainer/>
+    </header>
+
+    <AuthRoute path="/login" component={LogInFormContainer} />
+    <AuthRoute path="/signup" component={SignUpFormContainer} />
   </div>
 );
 
