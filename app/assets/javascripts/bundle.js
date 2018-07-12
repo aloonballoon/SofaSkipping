@@ -598,156 +598,9 @@ exports.default = Root;
   !*** ./frontend/components/session_form.jsx ***!
   \**********************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-
-var _reactRouter = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var SessionForm = function (_React$Component) {
-  _inherits(SessionForm, _React$Component);
-
-  function SessionForm(props) {
-    _classCallCheck(this, SessionForm);
-
-    var _this = _possibleConstructorReturn(this, (SessionForm.__proto__ || Object.getPrototypeOf(SessionForm)).call(this, props));
-
-    _this.state = {
-      password: "",
-      email: "",
-      first_name: "",
-      last_name: ""
-    };
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
-    _this.handleChange = _this.handleChange.bind(_this);
-
-    return _this;
-  }
-
-  _createClass(SessionForm, [{
-    key: 'handleSubmit',
-    value: function handleSubmit(e) {
-
-      e.preventDefault();
-      var user = void 0;
-      if (this.props.formType === 'login') {
-        user = Object.assign({}, { email: this.state.email }, { password: this.state.password });
-      } else if (this.props.formType === 'signup') {
-        user = Object.assign({}, this.state);
-      }
-      this.props.processForm(user).then(this.props.closeModal);
-    }
-  }, {
-    key: 'handleChange',
-    value: function handleChange(field) {
-      var _this2 = this;
-
-      return function (e) {
-        _this2.setState(_defineProperty({}, field, e.target.value));
-      };
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this3 = this;
-
-      var firstName = void 0;
-      var lastName = void 0;
-      var title = void 0;
-      var submit = void 0;
-      var text = void 0;
-      var buttonLink = void 0;
-      var switchPhrase = void 0;
-
-      if (this.props.formType === 'signup') {
-        title = 'Join SofaSkipping for free';
-        firstName = _react2.default.createElement('input', { key: '3', id: 'login-signup-firstname-input', type: 'text', placeholder: 'First Name', onChange: this.handleChange('first_name') });
-        lastName = _react2.default.createElement('input', { key: '4', id: 'login-signup-lastname-input', type: 'text', placeholder: 'Last Name', onChange: this.handleChange('last_name') });
-        submit = "Join with Email";
-        buttonLink = this.props.otherForm;
-        switchPhrase = "Already a member?";
-      } else {
-        title = "Log in to SofaSkipping";
-        submit = "Log In";
-        text = "Don't have an account?";
-        buttonLink = this.props.otherForm;
-        switchPhrase = "Don't have an account?";
-      }
-
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(
-          'form',
-          { onSubmit: function onSubmit(e) {
-              return _this3.handleSubmit(e);
-            } },
-          _react2.default.createElement(
-            'header',
-            { id: 'modal-title-container' },
-            _react2.default.createElement(
-              'h1',
-              { id: 'session-header' },
-              title
-            )
-          ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement(
-            'div',
-            null,
-            firstName,
-            lastName
-          ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('input', { key: '5', id: 'login-signup-input', type: 'text', placeholder: 'Email', onChange: this.handleChange('email') }),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('input', { id: 'login-signup-input', key: '2', type: 'password', placeholder: 'Password', onChange: this.handleChange('password') }),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement(
-            'button',
-            { id: 'session-button' },
-            submit
-          ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement(
-            'p',
-            { id: 'switch-phrase' },
-            switchPhrase
-          ),
-          buttonLink
-        )
-      );
-    }
-  }]);
-
-  return SessionForm;
-}(_react2.default.Component);
-
-exports.default = (0, _reactRouter.withRouter)(SessionForm);
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: Unexpected token (65:6)\n\n\u001b[0m \u001b[90m 63 | \u001b[39m\n \u001b[90m 64 | \u001b[39m    \u001b[36mreturn\u001b[39m (\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 65 | \u001b[39m      \u001b[36mdebugger\u001b[39m\n \u001b[90m    | \u001b[39m      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 66 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mdiv\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 67 | \u001b[39m        \u001b[33m<\u001b[39m\u001b[33mbr\u001b[39m\u001b[33m/\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 68 | \u001b[39m        \u001b[33m<\u001b[39m\u001b[33mform\u001b[39m onSubmit\u001b[33m=\u001b[39m{(e) \u001b[33m=>\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mhandleSubmit(e)}\u001b[33m>\u001b[39m\u001b[0m\n");
 
 /***/ }),
 
@@ -970,7 +823,7 @@ var sessionErrorsReducer = function sessionErrorsReducer() {
 
   switch (action.type) {
     case _session_actions.RECEIVE_SESSION_ERRORS:
-      return state.push({ errors: action.errors[0] });
+      return action.errors;
     case _session_actions.RECEIVE_CURRENT_USER:
       return [];
     default:

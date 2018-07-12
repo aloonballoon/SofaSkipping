@@ -62,6 +62,7 @@ class SessionForm extends React.Component {
 
 
     return (
+      debugger
       <div>
         <br/>
         <form onSubmit={(e) => this.handleSubmit(e)}>
