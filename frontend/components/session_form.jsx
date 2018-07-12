@@ -15,6 +15,7 @@ class SessionForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleGuest = this.handleGuest.bind(this);
 
+
   }
   handleSubmit(e) {
 
@@ -43,6 +44,7 @@ class SessionForm extends React.Component {
       this.props.processForm(guestUser).then(this.props.closeModal);
     }
   }
+
 
   render() {
 
@@ -78,6 +80,7 @@ class SessionForm extends React.Component {
       errors = <p></p>;
     } else {
       errors = <p id="error-message"><p id="err-mes">{this.props.errors[0]}</p></p>;
+      setTimeout(() => this.props.errors = []);
     }
 
 

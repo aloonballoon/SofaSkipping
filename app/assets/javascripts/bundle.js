@@ -918,6 +918,9 @@ var SessionForm = function (_React$Component) {
             this.props.errors[0]
           )
         );
+        setTimeout(function () {
+          return _this3.props.errors = [];
+        });
       }
 
       return _react2.default.createElement(
@@ -1200,6 +1203,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _session_actions = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 
+var _modal_actions = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
 var sessionErrorsReducer = function sessionErrorsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments[1];
@@ -1208,6 +1213,7 @@ var sessionErrorsReducer = function sessionErrorsReducer() {
     case _session_actions.RECEIVE_SESSION_ERRORS:
       return action.errors;
     case _session_actions.RECEIVE_CURRENT_USER:
+    case _modal_actions.CLOSE_MODAL:
       return [];
     default:
       return state;
