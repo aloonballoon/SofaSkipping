@@ -484,7 +484,7 @@ var HomeScreen = function (_React$Component) {
         ),
         _react2.default.createElement(
           'article',
-          { className: 'why-join-section' },
+          null,
           _react2.default.createElement(_why_join2.default, null)
         )
       );
@@ -560,6 +560,10 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _why_join_form = __webpack_require__(/*! ./why_join_form1 */ "./frontend/components/homepage/why_join_form1.jsx");
+
+var _why_join_form2 = _interopRequireDefault(_why_join_form);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -583,11 +587,30 @@ var WhyJoin = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'why-join-section' },
+        { className: 'why-join-div' },
         _react2.default.createElement(
           'h1',
           { className: 'why-join-text' },
           'Why Join?'
+        ),
+        _react2.default.createElement(
+          'article',
+          { className: 'why-join-form-article' },
+          _react2.default.createElement(
+            'div',
+            { className: 'why-join-pic-div' },
+            _react2.default.createElement(_why_join_form2.default, null)
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'why-join-pic-div' },
+            _react2.default.createElement(_why_join_form2.default, null)
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'why-join-pic-div' },
+            _react2.default.createElement(_why_join_form2.default, null)
+          )
         )
       );
     }
@@ -597,6 +620,62 @@ var WhyJoin = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = WhyJoin;
+
+/***/ }),
+
+/***/ "./frontend/components/homepage/why_join_form1.jsx":
+/*!*********************************************************!*\
+  !*** ./frontend/components/homepage/why_join_form1.jsx ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var WhyJoinForm1 = function (_React$Component) {
+  _inherits(WhyJoinForm1, _React$Component);
+
+  function WhyJoinForm1() {
+    _classCallCheck(this, WhyJoinForm1);
+
+    return _possibleConstructorReturn(this, (WhyJoinForm1.__proto__ || Object.getPrototypeOf(WhyJoinForm1)).apply(this, arguments));
+  }
+
+  _createClass(WhyJoinForm1, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "this-better-work" },
+        _react2.default.createElement("img", { className: "why-join-picture", src: window.backpack_dude }),
+        "\"Couchsurfing has given me the opportunity to live very valuable and beautiful experiences. It's filled my journey with stories, people, and friends. It's given life to the places I visited, and I know that anywhere in the world I visit, I'll possibly have a good friend waiting for me!\" - Andrea (Traveling in South America)"
+      );
+    }
+  }]);
+
+  return WhyJoinForm1;
+}(_react2.default.Component);
+
+exports.default = WhyJoinForm1;
 
 /***/ }),
 

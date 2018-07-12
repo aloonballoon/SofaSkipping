@@ -12,7 +12,7 @@ class HomeScreen extends React.Component {
             <img id="home-couch-img" src={window.home_couch} />
             <section className='welcome-text'><Welcome /></section>
         </article>
-        <article className="why-join-section">
+        <article >
             <WhyJoin />
         </article>
       </div>
