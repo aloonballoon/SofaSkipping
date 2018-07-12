@@ -6,6 +6,7 @@ import LogInFormContainer from './login_form_container';
 import SignUpFormContainer from './sign_up_form_container';
 import { AuthRoute } from '../util/route_util.jsx';
 import Modal from './modal';
+import Homescreen from './homepage/homescreen';
 
 
 
@@ -16,7 +17,9 @@ const App = () => (
     <header>
       <GreetingsContainer/>
     </header>
-    <body>sfgdsfgdfgdsgsd</body>
+    <section>
+      <Route exact path="/" component={Homescreen} />
+    </section>
   </div>
 );
 

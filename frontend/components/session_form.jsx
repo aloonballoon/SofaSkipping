@@ -63,14 +63,14 @@ class SessionForm extends React.Component {
       submit = "Join with Email";
       buttonLink = this.props.otherForm;
       switchPhrase = "Already a member?";
-      email = <input key="5" id="login-signup-input" type="email" placeholder="Email" onChange={this.handleChange('email')}/>;
+      email = <input key="5" className="login-signup-input" type="email" placeholder="Email" onChange={this.handleChange('email')}/>;
     } else {
       title = "Log in to SofaSkipping";
       submit = "Log In";
       text = "Don't have an account?";
       buttonLink = this.props.otherForm;
       switchPhrase = "Don't have an account?";
-      email = <input key="5" id="login-signup-input" type="text" placeholder="Email" onChange={this.handleChange('email')}/>;
+      email = <input key="5" className="login-signup-input" type="text" placeholder="Email" onChange={this.handleChange('email')}/>;
     }
 
     let errors;
@@ -96,7 +96,7 @@ class SessionForm extends React.Component {
           <br/>
            {email}
           <br/>
-            <input required minlength="6" id="login-signup-input" key="2"  type="password" placeholder="Password" onChange={this.handleChange('password')}/>
+            <input required minlength="6" className="login-signup-input" key="2"  type="password" placeholder="Password" onChange={this.handleChange('password')}/>
           <br/>
             <button id="session-button">{submit}</button>
           <br/>

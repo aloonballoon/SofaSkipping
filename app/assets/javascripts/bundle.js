@@ -236,6 +236,10 @@ var _modal = __webpack_require__(/*! ./modal */ "./frontend/components/modal.jsx
 
 var _modal2 = _interopRequireDefault(_modal);
 
+var _homescreen = __webpack_require__(/*! ./homepage/homescreen */ "./frontend/components/homepage/homescreen.jsx");
+
+var _homescreen2 = _interopRequireDefault(_homescreen);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
@@ -249,9 +253,9 @@ var App = function App() {
       _react2.default.createElement(_greetings_container2.default, null)
     ),
     _react2.default.createElement(
-      'body',
+      'section',
       null,
-      'sfgdsfgdfgdsgsd'
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _homescreen2.default })
     )
   );
 };
@@ -413,6 +417,187 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_greetings2.default);
+
+/***/ }),
+
+/***/ "./frontend/components/homepage/homescreen.jsx":
+/*!*****************************************************!*\
+  !*** ./frontend/components/homepage/homescreen.jsx ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _welcome = __webpack_require__(/*! ./welcome */ "./frontend/components/homepage/welcome.jsx");
+
+var _welcome2 = _interopRequireDefault(_welcome);
+
+var _why_join = __webpack_require__(/*! ./why_join */ "./frontend/components/homepage/why_join.jsx");
+
+var _why_join2 = _interopRequireDefault(_why_join);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var HomeScreen = function (_React$Component) {
+  _inherits(HomeScreen, _React$Component);
+
+  function HomeScreen() {
+    _classCallCheck(this, HomeScreen);
+
+    return _possibleConstructorReturn(this, (HomeScreen.__proto__ || Object.getPrototypeOf(HomeScreen)).apply(this, arguments));
+  }
+
+  _createClass(HomeScreen, [{
+    key: 'render',
+    value: function render() {
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'article',
+          { id: 'welcome-message' },
+          _react2.default.createElement('img', { id: 'home-couch-img', src: window.home_couch }),
+          _react2.default.createElement(
+            'section',
+            { className: 'welcome-text' },
+            _react2.default.createElement(_welcome2.default, null)
+          )
+        ),
+        _react2.default.createElement(
+          'article',
+          { className: 'why-join-section' },
+          _react2.default.createElement(_why_join2.default, null)
+        )
+      );
+    }
+  }]);
+
+  return HomeScreen;
+}(_react2.default.Component);
+
+exports.default = HomeScreen;
+
+/***/ }),
+
+/***/ "./frontend/components/homepage/welcome.jsx":
+/*!**************************************************!*\
+  !*** ./frontend/components/homepage/welcome.jsx ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Welcome = function Welcome() {
+
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'h1',
+      null,
+      'Stay with Locals and Meet Travelers'
+    ),
+    _react2.default.createElement(
+      'h2',
+      null,
+      'Share Authentic Travel Experiences'
+    )
+  );
+};
+
+exports.default = Welcome;
+
+/***/ }),
+
+/***/ "./frontend/components/homepage/why_join.jsx":
+/*!***************************************************!*\
+  !*** ./frontend/components/homepage/why_join.jsx ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var WhyJoin = function (_React$Component) {
+  _inherits(WhyJoin, _React$Component);
+
+  function WhyJoin() {
+    _classCallCheck(this, WhyJoin);
+
+    return _possibleConstructorReturn(this, (WhyJoin.__proto__ || Object.getPrototypeOf(WhyJoin)).apply(this, arguments));
+  }
+
+  _createClass(WhyJoin, [{
+    key: 'render',
+    value: function render() {
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'why-join-section' },
+        _react2.default.createElement('img', { className: 'blue-background-image', src: window.blue_background }),
+        _react2.default.createElement(
+          'h1',
+          { className: 'why-join-text' },
+          'Why Join?'
+        )
+      );
+    }
+  }]);
+
+  return WhyJoin;
+}(_react2.default.Component);
+
+exports.default = WhyJoin;
 
 /***/ }),
 
@@ -711,14 +896,14 @@ var SessionForm = function (_React$Component) {
         submit = "Join with Email";
         buttonLink = this.props.otherForm;
         switchPhrase = "Already a member?";
-        email = _react2.default.createElement('input', { key: '5', id: 'login-signup-input', type: 'email', placeholder: 'Email', onChange: this.handleChange('email') });
+        email = _react2.default.createElement('input', { key: '5', className: 'login-signup-input', type: 'email', placeholder: 'Email', onChange: this.handleChange('email') });
       } else {
         title = "Log in to SofaSkipping";
         submit = "Log In";
         text = "Don't have an account?";
         buttonLink = this.props.otherForm;
         switchPhrase = "Don't have an account?";
-        email = _react2.default.createElement('input', { key: '5', id: 'login-signup-input', type: 'text', placeholder: 'Email', onChange: this.handleChange('email') });
+        email = _react2.default.createElement('input', { key: '5', className: 'login-signup-input', type: 'text', placeholder: 'Email', onChange: this.handleChange('email') });
       }
 
       var errors = void 0;
@@ -766,7 +951,7 @@ var SessionForm = function (_React$Component) {
           _react2.default.createElement('br', null),
           email,
           _react2.default.createElement('br', null),
-          _react2.default.createElement('input', { required: true, minlength: '6', id: 'login-signup-input', key: '2', type: 'password', placeholder: 'Password', onChange: this.handleChange('password') }),
+          _react2.default.createElement('input', { required: true, minlength: '6', className: 'login-signup-input', key: '2', type: 'password', placeholder: 'Password', onChange: this.handleChange('password') }),
           _react2.default.createElement('br', null),
           _react2.default.createElement(
             'button',
