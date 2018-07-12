@@ -584,7 +584,6 @@ var WhyJoin = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'why-join-section' },
-        _react2.default.createElement('img', { className: 'blue-background-image', src: window.blue_background }),
         _react2.default.createElement(
           'h1',
           { className: 'why-join-text' },
@@ -951,7 +950,7 @@ var SessionForm = function (_React$Component) {
           _react2.default.createElement('br', null),
           email,
           _react2.default.createElement('br', null),
-          _react2.default.createElement('input', { required: true, minlength: '6', className: 'login-signup-input', key: '2', type: 'password', placeholder: 'Password', onChange: this.handleChange('password') }),
+          _react2.default.createElement('input', { required: true, minLength: '6', className: 'login-signup-input', key: '2', type: 'password', placeholder: 'Password', onChange: this.handleChange('password') }),
           _react2.default.createElement('br', null),
           _react2.default.createElement(
             'button',

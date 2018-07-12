@@ -96,7 +96,7 @@ class SessionForm extends React.Component {
           <br/>
            {email}
           <br/>
-            <input required minlength="6" className="login-signup-input" key="2"  type="password" placeholder="Password" onChange={this.handleChange('password')}/>
+            <input required minLength="6" className="login-signup-input" key="2"  type="password" placeholder="Password" onChange={this.handleChange('password')}/>
           <br/>
             <button id="session-button">{submit}</button>
           <br/>
