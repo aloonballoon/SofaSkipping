@@ -28,7 +28,9 @@ export const logOut = () => {
   return dispatch => {
     return SessionApiUtil.logOut().then(() => {
       return dispatch(logoutCurrentUser());
-    });
+    }, error => (
+      dispatch(receiveErrors(error.responseJSON))
+    ));
   };
 };
 
@@ -46,6 +48,8 @@ export const signUp = (user) => {
   return dispatch => {
     return SessionApiUtil.signUp(user).then(user =>{
       return dispatch(receiveCurrentUser(user));
-    });
+    }, error => (
+      dispatch(receiveErrors(error.responseJSON))
+    ));
   };
 };

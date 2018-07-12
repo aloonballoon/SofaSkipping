@@ -11,8 +11,8 @@ class Greetings extends React.Component {
    const sessionLinks = () => {
      return (
       <nav className="login-signup" >
-        <button onClick={() => this.props.openModal('login')}>Login</button>
-        <button onClick={() => this.props.openModal('signup')}>Signup</button>
+        <button id="join-button" onClick={() => this.props.openModal('signup')}>Join</button>
+        <button id="login-button" onClick={() => this.props.openModal('login')}>Log In</button>
       </nav>
     );
    };
@@ -29,19 +29,17 @@ class Greetings extends React.Component {
     if (loggedIn) {
       message = `Hello ${this.props.currentUser.first_name}.`;
       button = <button onClick={() => this.props.logOut()}>Log Out</button>;
-    } else {
-      message = "Hello there. Would you like to sign in?";
     }
 
 
     return (
-      <div>
+      <header className="top-nav">
+        <article>
+          Logo
+        </article>
         {sessionLinks()}
-        <br/>
-        {message}
-        <br/>
         {button}
-      </div>
+      </header>
 
 
     );

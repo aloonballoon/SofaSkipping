@@ -16,7 +16,7 @@
   background-color: white;
   border-radius: 8px;
   width: 500px;
-  height: 550px;
+  height: 600px;
 }
 
 .modal-child form {
@@ -80,8 +80,8 @@
 }
 
 #other-form-button-switch {
-  margin-left: 200px;
-  margin-right: 200px;
+  margin-left: 150px;
+  margin-right: 150px;
   height: 40px;
   background-color: white;
   font-size: 15px;
@@ -91,4 +91,21 @@
 
 #switch-phrase {
    text-align: center;
+}
+
+#guest-button {
+  margin-left: 150px;
+  margin-right: 150px;
+  height: 40px;
+  background-color: #2980B9;
+  font-size: 15px;
+  color: white;
+  border-radius: 5px;
+}
+
+#error-message {
+  text-align:center;
+  margin: 0;
+  height: 50px;
+  background-color: rgba(198,61,67,0.25);
 }

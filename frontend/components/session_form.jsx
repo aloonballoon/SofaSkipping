@@ -13,6 +13,7 @@ class SessionForm extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleGuest = this.handleGuest.bind(this);
 
   }
   handleSubmit(e) {
@@ -33,6 +34,16 @@ class SessionForm extends React.Component {
     };
   }
 
+  handleGuest(e) {
+    e.preventDefault();
+    const guestUser = {email: 'guest@guest.com', password: '123456'};
+    if (this.props.formType === 'signup') {
+      this.props.guestLogIn(guestUser).then(this.props.closeModal);
+    } else if (this.props.formType === 'login') {
+      this.props.processForm(guestUser).then(this.props.closeModal);
+    }
+  }
+
   render() {
 
 
@@ -43,48 +54,59 @@ class SessionForm extends React.Component {
     let text;
     let buttonLink;
     let switchPhrase;
+    let email;
 
     if (this.props.formType === 'signup') {
       title = 'Join SofaSkipping for free';
-      firstName = <input key="3" id="login-signup-firstname-input" type="text" placeholder="First Name" onChange={this.handleChange('first_name')}/>;
-      lastName = <input key="4" id="login-signup-lastname-input" type="text" placeholder="Last Name" onChange={this.handleChange('last_name')}/>;
+      firstName = <input required key="3" id="login-signup-firstname-input" type="text" placeholder="First Name" onChange={this.handleChange('first_name')}/>;
+      lastName = <input required key="4" id="login-signup-lastname-input" type="text" placeholder="Last Name" onChange={this.handleChange('last_name')}/>;
       submit = "Join with Email";
       buttonLink = this.props.otherForm;
       switchPhrase = "Already a member?";
+      email = <input key="5" id="login-signup-input" type="email" placeholder="Email" onChange={this.handleChange('email')}/>;
     } else {
       title = "Log in to SofaSkipping";
       submit = "Log In";
       text = "Don't have an account?";
       buttonLink = this.props.otherForm;
       switchPhrase = "Don't have an account?";
+      email = <input key="5" id="login-signup-input" type="text" placeholder="Email" onChange={this.handleChange('email')}/>;
+    }
+
+    let errors;
+    if (this.props.errors.length === 0) {
+      errors = <p></p>;
+    } else {
+      errors = <p id="error-message"><p id="err-mes">{this.props.errors[0]}</p></p>;
     }
 
 
-
     return (
-      debugger
       <div>
         <br/>
         <form onSubmit={(e) => this.handleSubmit(e)}>
           <header id="modal-title-container"><h1 id="session-header">{title}</h1></header>
           <br/>
-          <div>
+            {errors}
+          <br/>
+          <section>
             {firstName}
             {lastName}
-          </div>
+          </section>
           <br/>
-            <input key="5" id="login-signup-input" type="text" placeholder="Email" onChange={this.handleChange('email')}/>
+           {email}
           <br/>
-            <input id="login-signup-input" key="2"  type="password" placeholder="Password" onChange={this.handleChange('password')}/>
+            <input required minlength="6" id="login-signup-input" key="2"  type="password" placeholder="Password" onChange={this.handleChange('password')}/>
           <br/>
             <button id="session-button">{submit}</button>
           <br/>
           <p id="switch-phrase">
             {switchPhrase}
           </p>
-              {buttonLink}
+            {buttonLink}
+          <br/>
+          <button id="guest-button" onClick={(e) => this.handleGuest(e)}>Guest Log In</button>
         </form>
-
       </div>
 
 
