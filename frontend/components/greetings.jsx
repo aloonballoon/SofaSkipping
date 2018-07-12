@@ -34,8 +34,8 @@ class Greetings extends React.Component {
 
     return (
       <header className="top-nav">
-        <article>
-          Logo
+        <article id="logo">
+          SofaSkipping
         </article>
         {sessionLinks()}
         {button}

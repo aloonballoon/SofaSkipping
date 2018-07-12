@@ -247,6 +247,11 @@ var App = function App() {
       'header',
       null,
       _react2.default.createElement(_greetings_container2.default, null)
+    ),
+    _react2.default.createElement(
+      'body',
+      null,
+      'sfgdsfgdfgdsgsd'
     )
   );
 };
@@ -345,8 +350,8 @@ var Greetings = function (_React$Component) {
         { className: 'top-nav' },
         _react2.default.createElement(
           'article',
-          null,
-          'Logo'
+          { id: 'logo' },
+          'SofaSkipping'
         ),
         sessionLinks(),
         button

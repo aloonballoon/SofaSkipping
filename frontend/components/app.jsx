@@ -16,6 +16,7 @@ const App = () => (
     <header>
       <GreetingsContainer/>
     </header>
+    <body>sfgdsfgdfgdsgsd</body>
   </div>
 );
 
