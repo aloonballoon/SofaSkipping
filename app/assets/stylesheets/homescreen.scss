@@ -43,7 +43,6 @@
 .main-hr{
   background-color: #fff;
   color: #fff;
-  margin-bottom: 1em;
   height: 2px;
   width: 50px;
   font-weight: lighter;
@@ -51,12 +50,13 @@
   top: 14%;
   left: 50%;
   transform: translateX(-50%);
+  margin: 0;
 }
 
 .why-join-text {
   position: absolute;
   width: 100%;
-  top: 5%;
+  top: 4%;
   text-align: center;
   color: white;
   font-size: 60px;
@@ -93,7 +93,7 @@
 
 .smaller-why-join-pic-div {
   width: 80%;
-  height: 480px;
+  height: auto;
 
 }
 

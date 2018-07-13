@@ -8,7 +8,7 @@ class WhyJoinForm3 extends React.Component {
         <img className="why-join-picture"  src={window.free_people} />
         <br/>
         <br/>
-        <h3>On Surfing</h3>
+        <h3>On Friends</h3>
         <br/>
         <hr></hr>
 
@@ -17,9 +17,9 @@ class WhyJoinForm3 extends React.Component {
 
           <br/>
           <br/>
-          - Michael
+          - Susan
           <br/>
-          (Traveling in Europe)
+          (Traveling in New York)
         </p>
       </div>
 

@@ -4,7 +4,7 @@ import GreetingsContainer from './greetings_container';
 import { Route } from 'react-router-dom';
 import LogInFormContainer from './login_form_container';
 import SignUpFormContainer from './sign_up_form_container';
-import { AuthRoute } from '../util/route_util.jsx';
+import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import Modal from './modal';
 import Homescreen from './homepage/homescreen';
 
@@ -15,7 +15,7 @@ const App = () => (
   <div>
     <Modal />
     <header>
-      <GreetingsContainer/>
+      <Route exact path='/' component={GreetingsContainer} />
     </header>
     <section>
       <Route exact path="/" component={Homescreen} />

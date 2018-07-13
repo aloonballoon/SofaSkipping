@@ -230,7 +230,7 @@ var _sign_up_form_container = __webpack_require__(/*! ./sign_up_form_container *
 
 var _sign_up_form_container2 = _interopRequireDefault(_sign_up_form_container);
 
-var _route_util = __webpack_require__(/*! ../util/route_util.jsx */ "./frontend/util/route_util.jsx");
+var _route_util = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
 
 var _modal = __webpack_require__(/*! ./modal */ "./frontend/components/modal.jsx");
 
@@ -250,7 +250,7 @@ var App = function App() {
     _react2.default.createElement(
       'header',
       null,
-      _react2.default.createElement(_greetings_container2.default, null)
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _greetings_container2.default })
     ),
     _react2.default.createElement(
       'section',
@@ -755,7 +755,7 @@ var WhyJoinForm2 = function (_React$Component) {
         _react2.default.createElement(
           "h3",
           null,
-          "On Surfing"
+          "On Experience"
         ),
         _react2.default.createElement("br", null),
         _react2.default.createElement("hr", null),
@@ -767,7 +767,7 @@ var WhyJoinForm2 = function (_React$Component) {
           _react2.default.createElement("br", null),
           "- Michael",
           _react2.default.createElement("br", null),
-          "(Traveling in Europe)"
+          "(Traveling in Japan)"
         )
       );
     }
@@ -829,7 +829,7 @@ var WhyJoinForm3 = function (_React$Component) {
         _react2.default.createElement(
           "h3",
           null,
-          "On Surfing"
+          "On Friends"
         ),
         _react2.default.createElement("br", null),
         _react2.default.createElement("hr", null),
@@ -839,9 +839,9 @@ var WhyJoinForm3 = function (_React$Component) {
           "\"I loved SofaSkipping so much!!! Best experience of my life. I met sooooo many cool people, omg. Best time of my life, tbh. And it was free! Hallelujah! Parents loved it too for that reason. I can't wait to tell all my friends about it. Best time of my life. Party like there's no tomorrow!\"",
           _react2.default.createElement("br", null),
           _react2.default.createElement("br", null),
-          "- Michael",
+          "- Susan",
           _react2.default.createElement("br", null),
-          "(Traveling in Europe)"
+          "(Traveling in New York)"
         )
       );
     }
@@ -1612,6 +1612,8 @@ var _root = __webpack_require__(/*! ./components/root */ "./frontend/components/
 
 var _root2 = _interopRequireDefault(_root);
 
+var _users_util = __webpack_require__(/*! ./util/users_util */ "./frontend/util/users_util.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -1635,6 +1637,7 @@ document.addEventListener('DOMContentLoaded', function () {
   window.dispatch = store.dispatch;
   var root = document.getElementById('root');
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
+  window.fetchUser = _users_util.fetchUser;
 });
 
 /***/ }),
@@ -1691,7 +1694,7 @@ exports.default = configureStore;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.AuthRoute = undefined;
+exports.ProtectedRoute = exports.AuthRoute = undefined;
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
@@ -1715,11 +1718,23 @@ var Auth = function Auth(_ref) {
     } });
 };
 
+var Protected = function Protected(_ref2) {
+  var Component = _ref2.component,
+      path = _ref2.path,
+      loggedIn = _ref2.loggedIn,
+      exact = _ref2.exact;
+  return _react2.default.createElement(_reactRouter.Route, { path: path, exact: exact, render: function render(props) {
+      return loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouter.Redirect, { to: '/' });
+    } });
+};
+
 var mapStateToProps = function mapStateToProps(state) {
   return { loggedIn: Boolean(state.session.id) };
 };
 
 var AuthRoute = exports.AuthRoute = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(Auth));
+
+var ProtectedRoute = exports.ProtectedRoute = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps)(Protected));
 
 /***/ }),
 
@@ -1756,6 +1771,28 @@ var logOut = exports.logOut = function logOut() {
   return $.ajax({
     method: 'DELETE',
     url: '/api/session'
+  });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/users_util.js":
+/*!*************************************!*\
+  !*** ./frontend/util/users_util.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var fetchUser = exports.fetchUser = function fetchUser(id) {
+  return $.ajax({
+    method: 'get',
+    url: 'api/users/' + id
   });
 };
 
@@ -3812,20 +3849,6 @@ var invariant = function(condition, format, a, b, c, d, e, f) {
 };
 
 module.exports = invariant;
-
-
-/***/ }),
-
-/***/ "./node_modules/isarray/index.js":
-/*!***************************************!*\
-  !*** ./node_modules/isarray/index.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = Array.isArray || function (arr) {
-  return Object.prototype.toString.call(arr) == '[object Array]';
-};
 
 
 /***/ }),
@@ -21416,7 +21439,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isarray = __webpack_require__(/*! isarray */ "./node_modules/isarray/index.js")
+var isarray = __webpack_require__(/*! isarray */ "./node_modules/path-to-regexp/node_modules/isarray/index.js")
 
 /**
  * Expose `pathToRegexp`.
@@ -21842,6 +21865,20 @@ function pathToRegexp (path, keys, options) {
 
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/path-to-regexp/node_modules/isarray/index.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/path-to-regexp/node_modules/isarray/index.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = Array.isArray || function (arr) {
+  return Object.prototype.toString.call(arr) == '[object Array]';
+};
 
 
 /***/ }),
