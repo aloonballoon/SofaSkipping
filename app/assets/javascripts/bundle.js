@@ -564,6 +564,14 @@ var _why_join_form = __webpack_require__(/*! ./why_join_form1 */ "./frontend/com
 
 var _why_join_form2 = _interopRequireDefault(_why_join_form);
 
+var _why_join_form3 = __webpack_require__(/*! ./why_join_form2 */ "./frontend/components/homepage/why_join_form2.jsx");
+
+var _why_join_form4 = _interopRequireDefault(_why_join_form3);
+
+var _why_join_form5 = __webpack_require__(/*! ./why_join_form3 */ "./frontend/components/homepage/why_join_form3.jsx");
+
+var _why_join_form6 = _interopRequireDefault(_why_join_form5);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -593,6 +601,7 @@ var WhyJoin = function (_React$Component) {
           { className: 'why-join-text' },
           'Why Join?'
         ),
+        _react2.default.createElement('hr', { className: 'main-hr' }),
         _react2.default.createElement(
           'article',
           { className: 'why-join-form-article' },
@@ -604,12 +613,12 @@ var WhyJoin = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'why-join-pic-div' },
-            _react2.default.createElement(_why_join_form2.default, null)
+            _react2.default.createElement(_why_join_form4.default, null)
           ),
           _react2.default.createElement(
             'div',
             { className: 'why-join-pic-div' },
-            _react2.default.createElement(_why_join_form2.default, null)
+            _react2.default.createElement(_why_join_form6.default, null)
           )
         )
       );
@@ -665,9 +674,27 @@ var WhyJoinForm1 = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         "div",
-        { className: "this-better-work" },
+        { className: "smaller-why-join-pic-div" },
         _react2.default.createElement("img", { className: "why-join-picture", src: window.backpack_dude }),
-        "\"Couchsurfing has given me the opportunity to live very valuable and beautiful experiences. It's filled my journey with stories, people, and friends. It's given life to the places I visited, and I know that anywhere in the world I visit, I'll possibly have a good friend waiting for me!\" - Andrea (Traveling in South America)"
+        _react2.default.createElement("br", null),
+        _react2.default.createElement("br", null),
+        _react2.default.createElement(
+          "h3",
+          null,
+          "On Surfing"
+        ),
+        _react2.default.createElement("br", null),
+        _react2.default.createElement("hr", null),
+        _react2.default.createElement(
+          "p",
+          null,
+          "\"Couchsurfing has given me the opportunity to live very valuable and beautiful experiences. It's filled my journey with stories, people, and friends. It's given life to the places I visited, and I know that anywhere in the world I visit, I'll possibly have a good friend waiting for me!\"",
+          _react2.default.createElement("br", null),
+          _react2.default.createElement("br", null),
+          "- Andrea",
+          _react2.default.createElement("br", null),
+          "(Traveling in South America)"
+        )
       );
     }
   }]);
@@ -676,6 +703,154 @@ var WhyJoinForm1 = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = WhyJoinForm1;
+
+/***/ }),
+
+/***/ "./frontend/components/homepage/why_join_form2.jsx":
+/*!*********************************************************!*\
+  !*** ./frontend/components/homepage/why_join_form2.jsx ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var WhyJoinForm2 = function (_React$Component) {
+  _inherits(WhyJoinForm2, _React$Component);
+
+  function WhyJoinForm2() {
+    _classCallCheck(this, WhyJoinForm2);
+
+    return _possibleConstructorReturn(this, (WhyJoinForm2.__proto__ || Object.getPrototypeOf(WhyJoinForm2)).apply(this, arguments));
+  }
+
+  _createClass(WhyJoinForm2, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "smaller-why-join-pic-div" },
+        _react2.default.createElement("img", { className: "why-join-picture", src: window.tupac_at_dinner }),
+        _react2.default.createElement("br", null),
+        _react2.default.createElement("br", null),
+        _react2.default.createElement(
+          "h3",
+          null,
+          "On Surfing"
+        ),
+        _react2.default.createElement("br", null),
+        _react2.default.createElement("hr", null),
+        _react2.default.createElement(
+          "p",
+          null,
+          "\"SofaSkipping let me meet and interact with an entire variety of new people whom I probably would never have met before. Really is a genius tool. Who ever thought of this must be a genius. I think it was Alan. Yeah, definitely Alan. He thought of it. He must be a genius.\"",
+          _react2.default.createElement("br", null),
+          _react2.default.createElement("br", null),
+          "- Michael",
+          _react2.default.createElement("br", null),
+          "(Traveling in Europe)"
+        )
+      );
+    }
+  }]);
+
+  return WhyJoinForm2;
+}(_react2.default.Component);
+
+exports.default = WhyJoinForm2;
+
+/***/ }),
+
+/***/ "./frontend/components/homepage/why_join_form3.jsx":
+/*!*********************************************************!*\
+  !*** ./frontend/components/homepage/why_join_form3.jsx ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var WhyJoinForm3 = function (_React$Component) {
+  _inherits(WhyJoinForm3, _React$Component);
+
+  function WhyJoinForm3() {
+    _classCallCheck(this, WhyJoinForm3);
+
+    return _possibleConstructorReturn(this, (WhyJoinForm3.__proto__ || Object.getPrototypeOf(WhyJoinForm3)).apply(this, arguments));
+  }
+
+  _createClass(WhyJoinForm3, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "smaller-why-join-pic-div" },
+        _react2.default.createElement("img", { className: "why-join-picture", src: window.free_people }),
+        _react2.default.createElement("br", null),
+        _react2.default.createElement("br", null),
+        _react2.default.createElement(
+          "h3",
+          null,
+          "On Surfing"
+        ),
+        _react2.default.createElement("br", null),
+        _react2.default.createElement("hr", null),
+        _react2.default.createElement(
+          "p",
+          null,
+          "\"I loved SofaSkipping so much!!! Best experience of my life. I met sooooo many cool people, omg. Best time of my life, tbh. And it was free! Hallelujah! Parents loved it too for that reason. I can't wait to tell all my friends about it. Best time of my life. Party like there's no tomorrow!\"",
+          _react2.default.createElement("br", null),
+          _react2.default.createElement("br", null),
+          "- Michael",
+          _react2.default.createElement("br", null),
+          "(Traveling in Europe)"
+        )
+      );
+    }
+  }]);
+
+  return WhyJoinForm3;
+}(_react2.default.Component);
+
+exports.default = WhyJoinForm3;
 
 /***/ }),
 
