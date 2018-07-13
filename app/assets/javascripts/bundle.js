@@ -364,7 +364,7 @@ var Greetings = function (_React$Component) {
         { className: 'top-nav' },
         _react2.default.createElement(
           'article',
-          { id: 'logo' },
+          { className: 'logo' },
           'SofaSkipping'
         ),
         sessionLinks(),
@@ -895,26 +895,99 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var LoggedInNav = function (_React$Component) {
   _inherits(LoggedInNav, _React$Component);
 
-  function LoggedInNav() {
+  function LoggedInNav(props) {
     _classCallCheck(this, LoggedInNav);
 
-    return _possibleConstructorReturn(this, (LoggedInNav.__proto__ || Object.getPrototypeOf(LoggedInNav)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (LoggedInNav.__proto__ || Object.getPrototypeOf(LoggedInNav)).call(this, props));
+
+    _this.state = _this.props.user;
+    _this.dropdownSearchClick = _this.dropdownSearchClick.bind(_this);
+    _this.dropdownUserClick = _this.dropdownUserClick.bind(_this);
+    return _this;
   }
 
   _createClass(LoggedInNav, [{
-    key: 'render',
+    key: "dropdownSearchClick",
+    value: function dropdownSearchClick() {
+      return document.getElementById("nav-dropdown").classList.toggle("show-search");
+    }
+  }, {
+    key: "dropdownUserClick",
+    value: function dropdownUserClick() {
+      return document.getElementById("nav-user-dropdown").classList.toggle("show-user");
+    }
+  }, {
+    key: "render",
     value: function render() {
       var _this2 = this;
 
       return _react2.default.createElement(
-        'header',
-        null,
+        "header",
+        { className: "dash-top-nav" },
         _react2.default.createElement(
-          'button',
-          { onClick: function onClick() {
-              return _this2.props.logOut();
-            } },
-          'Log Out'
+          "article",
+          { className: "logo" },
+          "SofaSkipping"
+        ),
+        _react2.default.createElement(
+          "form",
+          { className: "dash-nav-input-dropdown-form" },
+          _react2.default.createElement(
+            "button",
+            { onClick: function onClick() {
+                return _this2.dropdownSearchClick();
+              }, className: "dash-nav-dropdown-button" },
+            "Explore"
+          ),
+          _react2.default.createElement(
+            "div",
+            { id: "nav-dropdown", className: "dash-nav-dropdown-menu" },
+            _react2.default.createElement(
+              "a",
+              { href: "myspace.com" },
+              "MySpace"
+            )
+          ),
+          _react2.default.createElement("input", { className: "dash-nav-search-input", type: "text", placeholder: "Where are you going?" })
+        ),
+        _react2.default.createElement(
+          "form",
+          { className: "dash-nav-user-dropdown-form" },
+          _react2.default.createElement(
+            "button",
+            { onClick: function onClick() {
+                return _this2.dropdownUserClick();
+              }, className: "dash-nav-user-dropdown" },
+            "User Menu"
+          ),
+          _react2.default.createElement(
+            "div",
+            { id: "nav-user-dropdown", className: "dash-nav-user-menu" },
+            _react2.default.createElement(
+              "ul",
+              null,
+              _react2.default.createElement(
+                "li",
+                null,
+                _react2.default.createElement(
+                  "a",
+                  { href: "myspace.com" },
+                  "MySpace"
+                )
+              ),
+              _react2.default.createElement(
+                "li",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  { onClick: function onClick() {
+                      return _this2.props.logOut();
+                    } },
+                  "Log Out"
+                )
+              )
+            )
+          )
         )
       );
     }
