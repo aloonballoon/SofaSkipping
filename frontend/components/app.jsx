@@ -7,6 +7,8 @@ import SignUpFormContainer from './sign_up_form_container';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import Modal from './modal';
 import Homescreen from './homepage/homescreen';
+import UserDashboardContainer from './user/user_dashboard_container';
+import LoggedInNavContainer from './logged_in_nav/logged_in_nav_bar_container';
 
 
 
@@ -15,10 +17,12 @@ const App = () => (
   <div>
     <Modal />
     <header>
-      <Route exact path='/' component={GreetingsContainer} />
+      <AuthRoute exact path='/' component={GreetingsContainer} />
     </header>
     <section>
-      <Route exact path="/" component={Homescreen} />
+      <ProtectedRoute component={LoggedInNavContainer} />
+      <ProtectedRoute exact path='/dashboard' component={UserDashboardContainer} />
+      <AuthRoute exact path="/" component={Homescreen} />
     </section>
   </div>
 );

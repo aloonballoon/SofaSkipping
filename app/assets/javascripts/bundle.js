@@ -240,6 +240,14 @@ var _homescreen = __webpack_require__(/*! ./homepage/homescreen */ "./frontend/c
 
 var _homescreen2 = _interopRequireDefault(_homescreen);
 
+var _user_dashboard_container = __webpack_require__(/*! ./user/user_dashboard_container */ "./frontend/components/user/user_dashboard_container.jsx");
+
+var _user_dashboard_container2 = _interopRequireDefault(_user_dashboard_container);
+
+var _logged_in_nav_bar_container = __webpack_require__(/*! ./logged_in_nav/logged_in_nav_bar_container */ "./frontend/components/logged_in_nav/logged_in_nav_bar_container.js");
+
+var _logged_in_nav_bar_container2 = _interopRequireDefault(_logged_in_nav_bar_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
@@ -250,12 +258,14 @@ var App = function App() {
     _react2.default.createElement(
       'header',
       null,
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _greetings_container2.default })
+      _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _greetings_container2.default })
     ),
     _react2.default.createElement(
       'section',
       null,
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _homescreen2.default })
+      _react2.default.createElement(_route_util.ProtectedRoute, { component: _logged_in_nav_bar_container2.default }),
+      _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/dashboard', component: _user_dashboard_container2.default }),
+      _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _homescreen2.default })
     )
   );
 };
@@ -854,6 +864,115 @@ exports.default = WhyJoinForm3;
 
 /***/ }),
 
+/***/ "./frontend/components/logged_in_nav/logged_in_nav_bar.jsx":
+/*!*****************************************************************!*\
+  !*** ./frontend/components/logged_in_nav/logged_in_nav_bar.jsx ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LoggedInNav = function (_React$Component) {
+  _inherits(LoggedInNav, _React$Component);
+
+  function LoggedInNav() {
+    _classCallCheck(this, LoggedInNav);
+
+    return _possibleConstructorReturn(this, (LoggedInNav.__proto__ || Object.getPrototypeOf(LoggedInNav)).apply(this, arguments));
+  }
+
+  _createClass(LoggedInNav, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'header',
+        null,
+        _react2.default.createElement(
+          'button',
+          { onClick: function onClick() {
+              return _this2.props.logOut();
+            } },
+          'Log Out'
+        )
+      );
+    }
+  }]);
+
+  return LoggedInNav;
+}(_react2.default.Component);
+
+exports.default = LoggedInNav;
+
+/***/ }),
+
+/***/ "./frontend/components/logged_in_nav/logged_in_nav_bar_container.js":
+/*!**************************************************************************!*\
+  !*** ./frontend/components/logged_in_nav/logged_in_nav_bar_container.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _session_actions = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+
+var _logged_in_nav_bar = __webpack_require__(/*! ./logged_in_nav_bar */ "./frontend/components/logged_in_nav/logged_in_nav_bar.jsx");
+
+var _logged_in_nav_bar2 = _interopRequireDefault(_logged_in_nav_bar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var msp = function msp(state, ownProps) {
+  return {
+    user: state.entities.users[state.session.id]
+  };
+};
+
+var mdp = function mdp(dispatch, ownProps) {
+  return {
+    logOut: function logOut() {
+      return dispatch((0, _session_actions.logOut)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(msp, mdp)(_logged_in_nav_bar2.default);
+
+/***/ }),
+
 /***/ "./frontend/components/login_form_container.js":
 /*!*****************************************************!*\
   !*** ./frontend/components/login_form_container.js ***!
@@ -1303,6 +1422,110 @@ exports.default = (0, _reactRedux.connect)(msp, mdp)(_session_form2.default);
 
 /***/ }),
 
+/***/ "./frontend/components/user/user_dashboard.jsx":
+/*!*****************************************************!*\
+  !*** ./frontend/components/user/user_dashboard.jsx ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UserDashboard = function (_React$Component) {
+  _inherits(UserDashboard, _React$Component);
+
+  function UserDashboard() {
+    _classCallCheck(this, UserDashboard);
+
+    return _possibleConstructorReturn(this, (UserDashboard.__proto__ || Object.getPrototypeOf(UserDashboard)).apply(this, arguments));
+  }
+
+  _createClass(UserDashboard, [{
+    key: 'render',
+    value: function render() {
+
+      var user = this.props.user;
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        user.first_name,
+        user.last_name,
+        user.username
+      );
+    }
+  }]);
+
+  return UserDashboard;
+}(_react2.default.Component);
+
+exports.default = UserDashboard;
+
+/***/ }),
+
+/***/ "./frontend/components/user/user_dashboard_container.jsx":
+/*!***************************************************************!*\
+  !*** ./frontend/components/user/user_dashboard_container.jsx ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _user_dashboard = __webpack_require__(/*! ./user_dashboard */ "./frontend/components/user/user_dashboard.jsx");
+
+var _user_dashboard2 = _interopRequireDefault(_user_dashboard);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var msp = function msp(state, ownProps) {
+  var user = void 0;
+  if (typeof state.entities.users[state.session.id] === 'undefined') {
+    user = null;
+  } else {
+    user = state.entities.users[state.session.id];
+  }
+  return {
+    user: user
+  };
+};
+
+// const mdp = (dispatch, ownProps) => {
+//   return {
+//     fetchUser: (id) => dispatch(fetchUser(id))
+//   };
+// };
+
+exports.default = (0, _reactRedux.connect)(msp)(_user_dashboard2.default);
+
+/***/ }),
+
 /***/ "./frontend/reducers/entities_reducer.js":
 /*!***********************************************!*\
   !*** ./frontend/reducers/entities_reducer.js ***!
@@ -1714,7 +1937,7 @@ var Auth = function Auth(_ref) {
       loggedIn = _ref.loggedIn,
       exact = _ref.exact;
   return _react2.default.createElement(_reactRouter.Route, { path: path, exact: exact, render: function render(props) {
-      return !loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouter.Redirect, { to: '/' });
+      return !loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouter.Redirect, { to: '/dashboard' });
     } });
 };
 
