@@ -1518,7 +1518,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var UserDashMain = function UserDashMain(props) {
 
   return _react2.default.createElement(
-    'body',
+    'main',
     null,
     'Location Stuff'
   );
@@ -1629,7 +1629,7 @@ var UserDashboard = function (_React$Component) {
       var user = this.props.user;
 
       return _react2.default.createElement(
-        'main',
+        'body',
         null,
         _react2.default.createElement(_user_dash_sidebar2.default, { user: user }),
         _react2.default.createElement(_user_dash_main2.default, null)

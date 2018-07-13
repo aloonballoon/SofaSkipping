@@ -3,9 +3,9 @@ import React from 'react';
 const UserDashMain = (props) => {
 
   return (
-    <body>
+    <main>
       Location Stuff
-    </body>
+    </main>
   );
 };
 

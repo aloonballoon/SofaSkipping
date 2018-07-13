@@ -9,10 +9,10 @@ class UserDashboard extends React.Component {
     const user = this.props.user;
 
     return (
-      <main>
+    <body>
         <UserDashSidebar user={user} />
         <UserDashMain />
-      </main>
+    </body>
     );
   }
 }
