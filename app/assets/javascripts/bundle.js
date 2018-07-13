@@ -1495,6 +1495,88 @@ exports.default = (0, _reactRedux.connect)(msp, mdp)(_session_form2.default);
 
 /***/ }),
 
+/***/ "./frontend/components/user/user_dash_main.jsx":
+/*!*****************************************************!*\
+  !*** ./frontend/components/user/user_dash_main.jsx ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UserDashMain = function UserDashMain(props) {
+
+  return _react2.default.createElement(
+    'body',
+    null,
+    'Location Stuff'
+  );
+};
+
+exports.default = UserDashMain;
+
+/***/ }),
+
+/***/ "./frontend/components/user/user_dash_sidebar.jsx":
+/*!********************************************************!*\
+  !*** ./frontend/components/user/user_dash_sidebar.jsx ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UserDashSidebar = function UserDashSidebar(props) {
+
+  return _react2.default.createElement(
+    'aside',
+    null,
+    _react2.default.createElement(
+      'header',
+      null,
+      _react2.default.createElement(
+        'p',
+        null,
+        props.user.first_name,
+        ' ',
+        props.user.last_name
+      ),
+      _react2.default.createElement(
+        'p',
+        null,
+        'New York, New York'
+      )
+    ),
+    _react2.default.createElement('footer', null)
+  );
+};
+
+exports.default = UserDashSidebar;
+
+/***/ }),
+
 /***/ "./frontend/components/user/user_dashboard.jsx":
 /*!*****************************************************!*\
   !*** ./frontend/components/user/user_dashboard.jsx ***!
@@ -1514,6 +1596,14 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
+
+var _user_dash_sidebar = __webpack_require__(/*! ./user_dash_sidebar */ "./frontend/components/user/user_dash_sidebar.jsx");
+
+var _user_dash_sidebar2 = _interopRequireDefault(_user_dash_sidebar);
+
+var _user_dash_main = __webpack_require__(/*! ./user_dash_main */ "./frontend/components/user/user_dash_main.jsx");
+
+var _user_dash_main2 = _interopRequireDefault(_user_dash_main);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1539,11 +1629,10 @@ var UserDashboard = function (_React$Component) {
       var user = this.props.user;
 
       return _react2.default.createElement(
-        'div',
+        'main',
         null,
-        user.first_name,
-        user.last_name,
-        user.username
+        _react2.default.createElement(_user_dash_sidebar2.default, { user: user }),
+        _react2.default.createElement(_user_dash_main2.default, null)
       );
     }
   }]);

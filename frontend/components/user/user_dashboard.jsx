@@ -1,4 +1,6 @@
 import React from 'react';
+import UserDashSidebar from './user_dash_sidebar';
+import UserDashMain from './user_dash_main';
 
 class UserDashboard extends React.Component {
 
@@ -7,11 +9,10 @@ class UserDashboard extends React.Component {
     const user = this.props.user;
 
     return (
-      <div>
-        {user.first_name}
-        {user.last_name}
-        {user.username}
-      </div>
+      <main>
+        <UserDashSidebar user={user} />
+        <UserDashMain />
+      </main>
     );
   }
 }
