@@ -1518,9 +1518,28 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var UserDashMain = function UserDashMain(props) {
 
   return _react2.default.createElement(
-    'main',
-    null,
-    'Location Stuff'
+    "section",
+    { className: "dash-section" },
+    _react2.default.createElement(
+      "header",
+      null,
+      "DIVE IN THE DEEPEST LAKES, CLIMB THE HIGHEST MOUNTAINS, SEE WHERE LOTR WAS FILMED"
+    ),
+    _react2.default.createElement(
+      "div",
+      null,
+      _react2.default.createElement("img", { id: "mountain-image", src: window.mountain })
+    ),
+    _react2.default.createElement(
+      "div",
+      null,
+      _react2.default.createElement("img", { id: "lake-image", src: window.lake })
+    ),
+    _react2.default.createElement(
+      "div",
+      null,
+      _react2.default.createElement("img", { id: "esp-image", src: window.esp })
+    )
   );
 };
 
@@ -1551,29 +1570,35 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var UserDashSidebar = function UserDashSidebar(props) {
 
   return _react2.default.createElement(
-    'aside',
-    null,
+    "aside",
+    { className: "dash-sidebar-aside" },
     _react2.default.createElement(
-      'header',
-      null,
+      "header",
+      { className: "dash-sidebar-header" },
       _react2.default.createElement(
-        'p',
+        "p",
         null,
         props.user.first_name,
-        ' ',
+        " ",
         props.user.last_name
       ),
       _react2.default.createElement(
-        'p',
+        "p",
         null,
-        'New York, New York'
+        "New York, New York"
       )
     ),
-    _react2.default.createElement('footer', null)
+    _react2.default.createElement(
+      "footer",
+      { className: "dash-sidebar-footer" },
+      props.user.user_status
+    )
   );
 };
 
 exports.default = UserDashSidebar;
+
+// <input type="file" onChange={this.handleFile.bind(this)}></input>
 
 /***/ }),
 
@@ -1629,8 +1654,8 @@ var UserDashboard = function (_React$Component) {
       var user = this.props.user;
 
       return _react2.default.createElement(
-        'body',
-        null,
+        'section',
+        { className: 'user-dash-main-section' },
         _react2.default.createElement(_user_dash_sidebar2.default, { user: user }),
         _react2.default.createElement(_user_dash_main2.default, null)
       );

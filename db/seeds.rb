@@ -8,6 +8,8 @@
 
 User.destroy_all
 
+Location.destroy_all
+
 
 User.create!(first_name: "Alan", last_name: "Uraz", username: 'alanuraz', email: 'alanuraz@gmail.com', home_location_id: 1, age: 28, bio: "first member", password: "hellothere")
 
@@ -16,3 +18,15 @@ User.create!(first_name: "Ayda", last_name: "Uraz", username: 'aydauraz', email:
 User.create!(first_name: "Guest", last_name: "Guest", username: "Guest", email: "guest@guest.com", home_location_id: 1, age: 99, bio: "Just checking out the site", password: '123456')
 
 User.create!(first_name: "Leana", last_name: "Glick", username: "leanaglick", email: "leana@glick.com", home_location_id: 1, age: 29, bio: "third member", password: 'hellothere')
+
+Location.create!(city: "San Francisco", country: "United States of America", lat: 37.7749295, lng: -122.41941550000001)
+
+Location.create!(city: "Los Angeles", country: "United States of America", lat: 34.0522342, lng: -118.2436849)
+
+Location.create!(city: "New York", country: "United States of America", lat: 40.741895, lng: -73.989308)
+
+Location.create!(city: "Chicago", country: "United States of America", lat: 41.8781136, lng: -87.62979819999998)
+
+Location.create!(city: "Istanbul", country: "Turkey", lat: 41.0082376, lng: 28.97835889999999)
+
+Location.create!(city: "Sao Paulo", country: "Brazil", lat: -23.5505199, lng: -46.63330940000003)

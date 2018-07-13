@@ -1,0 +1,62 @@
+.dash-sidebar-aside {
+  display: flex;
+  flex-direction: column;
+  border-width: 1px;
+  border-color: black;
+  justify-content: center;
+  background-color: white;
+  width: auto;
+  max-width: 300px;
+  min-width: 300px;
+  max-height: 160px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.user-dash-main-section {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #F1EFEA;
+}
+
+.dash-sidebar-header {
+  width: auto;
+  height: auto;
+  background-color: white;
+  text-align: center;
+}
+
+.dash-sidebar-footer {
+  background-color: white;
+  height: auto;
+  width: auto;
+  text-align: center;
+}
+
+.dash-section {
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  max-width: 780px;
+  min-width: 300px;
+  overflow: hidden;
+  background-color: white;
+
+}
+
+.dash-section header{
+
+}
+
+.dash-section div{
+  margin: 5px;
+  max-width: 150px;
+  overflow: hidden;
+  max-height: 150px;
+}
+
+.dash-section div img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

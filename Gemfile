@@ -27,7 +27,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'annotate'
 gem 'pry-rails'
-gem 'rails_12factor'
+
+gem 'aws-sdk-s3'
 
 
 # Use ActiveStorage variant
