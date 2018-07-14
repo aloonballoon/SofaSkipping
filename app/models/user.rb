@@ -30,6 +30,21 @@ class User < ApplicationRecord
 
   has_one_attached :photo
 
+  has_many :trips,
+  primary_key: :id,
+  foreign_key: :traveler_id,
+  class_name: :Booking
+
+  has_many :hostings,
+  primary_key: :id,
+  foreign_key: :host_id,
+  class_name: :Booking
+
+  belongs_to :location,
+  primary_key: :id,
+  foreign_key: :home_location_id,
+  class_name: :Location
+
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
     return nil unless user
