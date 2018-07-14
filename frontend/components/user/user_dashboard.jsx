@@ -1,5 +1,5 @@
 import React from 'react';
-import UserDashSidebar from './user_dash_sidebar';
+import UserDashSidebarContainer from './user_dash_sidebar_container';
 import UserDashMain from './user_dash_main';
 
 class UserDashboard extends React.Component {
@@ -10,7 +10,7 @@ class UserDashboard extends React.Component {
 
     return (
     <section className="user-dash-main-section">
-        <UserDashSidebar user={user} />
+        <UserDashSidebarContainer user={user} />
         <UserDashMain />
     </section>
     );

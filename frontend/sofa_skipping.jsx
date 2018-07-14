@@ -4,6 +4,7 @@ import configureStore from './store/store';
 import { logIn } from './actions/session_actions';
 import Root from './components/root';
 import {fetchUser} from './util/users_util';
+import { updateStatus } from './actions/user_actions/user_actions';
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -26,4 +27,5 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store} />, root);
   window.fetchUser = fetchUser;
+  window.updateStatus = updateStatus;
 });

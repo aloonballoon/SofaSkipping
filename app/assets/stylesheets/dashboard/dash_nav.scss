@@ -39,18 +39,19 @@
 .show-search {
   display: block;
   background-color: grey;
-  position: absolute;
-  top: 5%;
+  position: inherit;
+  top: 10%;
 }
 
 .dash-nav-user-dropdown-form {
   padding-right: 5px;
 }
 
+
 .dash-nav-user-menu {
-  display: none;
   position: absolute;
   min-width: 160px;
+  display: none;
   z-index: 1;
 }
 

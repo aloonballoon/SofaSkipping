@@ -130,7 +130,7 @@ var closeModal = exports.closeModal = function closeModal() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.signUp = exports.logIn = exports.logOut = exports.RECEIVE_SESSION_ERRORS = exports.LOGOUT_CURRENT_USER = exports.RECEIVE_CURRENT_USER = undefined;
+exports.signUp = exports.logIn = exports.logOut = exports.receiveCurrentUser = exports.RECEIVE_SESSION_ERRORS = exports.LOGOUT_CURRENT_USER = exports.RECEIVE_CURRENT_USER = undefined;
 
 var _session_api_util = __webpack_require__(/*! ../util/session_api_util */ "./frontend/util/session_api_util.js");
 
@@ -142,7 +142,7 @@ var RECEIVE_CURRENT_USER = exports.RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER"
 var LOGOUT_CURRENT_USER = exports.LOGOUT_CURRENT_USER = "LOGOUT_CURRENT_USER";
 var RECEIVE_SESSION_ERRORS = exports.RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 
-var receiveCurrentUser = function receiveCurrentUser(user) {
+var receiveCurrentUser = exports.receiveCurrentUser = function receiveCurrentUser(user) {
   return {
     type: RECEIVE_CURRENT_USER,
     user: user
@@ -188,6 +188,41 @@ var signUp = exports.signUp = function signUp(user) {
       return dispatch(receiveCurrentUser(user));
     }, function (error) {
       return dispatch(receiveErrors(error.responseJSON));
+    });
+  };
+};
+
+/***/ }),
+
+/***/ "./frontend/actions/user_actions/user_actions.js":
+/*!*******************************************************!*\
+  !*** ./frontend/actions/user_actions/user_actions.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.updateStatus = exports.UPDATE_USER_STATUS = undefined;
+
+var _users_util = __webpack_require__(/*! ../../util/users_util */ "./frontend/util/users_util.js");
+
+var SessionApiUtil = _interopRequireWildcard(_users_util);
+
+var _session_actions = __webpack_require__(/*! ../session_actions */ "./frontend/actions/session_actions.js");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var UPDATE_USER_STATUS = exports.UPDATE_USER_STATUS = "UPDATE_USER_STATUS";
+
+var updateStatus = exports.updateStatus = function updateStatus(user) {
+  return function (dispatch) {
+    return SessionApiUtil.updateStatus(user).then(function (updated_user) {
+      return dispatch((0, _session_actions.receiveCurrentUser)(updated_user));
     });
   };
 };
@@ -1561,44 +1596,181 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var UserDashSidebar = function UserDashSidebar(props) {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  return _react2.default.createElement(
-    "aside",
-    { className: "dash-sidebar-aside" },
-    _react2.default.createElement(
-      "header",
-      { className: "dash-sidebar-header" },
-      _react2.default.createElement(
-        "p",
-        null,
-        props.user.first_name,
-        " ",
-        props.user.last_name
-      ),
-      _react2.default.createElement(
-        "p",
-        null,
-        "New York, New York"
-      )
-    ),
-    _react2.default.createElement(
-      "footer",
-      { className: "dash-sidebar-footer" },
-      props.user.user_status
-    )
-  );
-};
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UserDashSidebar = function (_React$Component) {
+  _inherits(UserDashSidebar, _React$Component);
+
+  function UserDashSidebar(props) {
+    _classCallCheck(this, UserDashSidebar);
+
+    var _this = _possibleConstructorReturn(this, (UserDashSidebar.__proto__ || Object.getPrototypeOf(UserDashSidebar)).call(this, props));
+
+    _this.state = _this.props.user;
+    _this.dropdownStatusClick = _this.dropdownStatusClick.bind(_this);
+    _this.changeStatus = _this.changeStatus.bind(_this);
+    return _this;
+  }
+
+  _createClass(UserDashSidebar, [{
+    key: "dropdownStatusClick",
+    value: function dropdownStatusClick() {
+      return document.getElementById("dash-status-dropdown-id").classList.toggle("show-dash-status-dropdown");
+    }
+  }, {
+    key: "changeStatus",
+    value: function changeStatus(e) {
+      e.preventDefault();
+      this.setState({ user_status: e.target.value });
+      this.props.updateStatus(this.state);
+      debugger;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var ACCEPTING_GUESTS = "Accepting guests";
+      var MAYBE_ACCEPTING_GUESTS = "Maybe accepting guests";
+      var NOT_ACCEPTING_GUESTS = "Not accepting guests";
+
+      var changeStatusButton = _react2.default.createElement(
+        "button",
+        { onClick: function onClick() {
+            return _this2.dropdownStatusClick();
+          }, className: "dash-status-button" },
+        this.state.user_status
+      );
+
+      return _react2.default.createElement(
+        "aside",
+        { className: "dash-sidebar-aside" },
+        _react2.default.createElement(
+          "header",
+          { className: "dash-sidebar-header" },
+          _react2.default.createElement(
+            "p",
+            null,
+            this.props.user.first_name,
+            " ",
+            this.props.user.last_name
+          ),
+          _react2.default.createElement(
+            "p",
+            null,
+            "New York, New York"
+          )
+        ),
+        _react2.default.createElement(
+          "footer",
+          { className: "dash-sidebar-footer" },
+          changeStatusButton,
+          _react2.default.createElement(
+            "div",
+            { id: "dash-status-dropdown-id", className: "hidden-dash-status-dropdown" },
+            _react2.default.createElement(
+              "ul",
+              { className: "dash-status-ul" },
+              _react2.default.createElement(
+                "li",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  { value: "Accepting guests", onClick: function onClick(e) {
+                      return _this2.changeStatus(e);
+                    } },
+                  "Accepting guests"
+                )
+              ),
+              _react2.default.createElement(
+                "li",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  { value: "Maybe accepting guests", onClick: function onClick(e) {
+                      return _this2.changeStatus(e);
+                    } },
+                  "Maybe accepting guests"
+                )
+              ),
+              _react2.default.createElement(
+                "li",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  { value: "Not accepting guests", onClick: function onClick(e) {
+                      return _this2.changeStatus(e);
+                    } },
+                  "Not accepting guests"
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return UserDashSidebar;
+}(_react2.default.Component);
 
 exports.default = UserDashSidebar;
 
 // <input type="file" onChange={this.handleFile.bind(this)}></input>
+
+/***/ }),
+
+/***/ "./frontend/components/user/user_dash_sidebar_container.js":
+/*!*****************************************************************!*\
+  !*** ./frontend/components/user/user_dash_sidebar_container.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _user_dash_sidebar = __webpack_require__(/*! ./user_dash_sidebar */ "./frontend/components/user/user_dash_sidebar.jsx");
+
+var _user_dash_sidebar2 = _interopRequireDefault(_user_dash_sidebar);
+
+var _user_actions = __webpack_require__(/*! ../../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var msp = function msp(state, ownProps) {
+  return {
+    user: state.entities.users[state.session.id]
+  };
+};
+
+var mdp = function mdp(dispatch) {
+  return {
+    updateStatus: function updateStatus(user) {
+      return dispatch((0, _user_actions.updateStatus)(user));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(msp, mdp)(_user_dash_sidebar2.default);
 
 /***/ }),
 
@@ -1622,9 +1794,9 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _user_dash_sidebar = __webpack_require__(/*! ./user_dash_sidebar */ "./frontend/components/user/user_dash_sidebar.jsx");
+var _user_dash_sidebar_container = __webpack_require__(/*! ./user_dash_sidebar_container */ "./frontend/components/user/user_dash_sidebar_container.js");
 
-var _user_dash_sidebar2 = _interopRequireDefault(_user_dash_sidebar);
+var _user_dash_sidebar_container2 = _interopRequireDefault(_user_dash_sidebar_container);
 
 var _user_dash_main = __webpack_require__(/*! ./user_dash_main */ "./frontend/components/user/user_dash_main.jsx");
 
@@ -1656,7 +1828,7 @@ var UserDashboard = function (_React$Component) {
       return _react2.default.createElement(
         'section',
         { className: 'user-dash-main-section' },
-        _react2.default.createElement(_user_dash_sidebar2.default, { user: user }),
+        _react2.default.createElement(_user_dash_sidebar_container2.default, { user: user }),
         _react2.default.createElement(_user_dash_main2.default, null)
       );
     }
@@ -2024,6 +2196,8 @@ var _root2 = _interopRequireDefault(_root);
 
 var _users_util = __webpack_require__(/*! ./util/users_util */ "./frontend/util/users_util.js");
 
+var _user_actions = __webpack_require__(/*! ./actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -2048,6 +2222,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var root = document.getElementById('root');
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
   window.fetchUser = _users_util.fetchUser;
+  window.updateStatus = _user_actions.updateStatus;
 });
 
 /***/ }),
@@ -2203,6 +2378,14 @@ var fetchUser = exports.fetchUser = function fetchUser(id) {
   return $.ajax({
     method: 'get',
     url: 'api/users/' + id
+  });
+};
+
+var updateStatus = exports.updateStatus = function updateStatus(user) {
+  return $.ajax({
+    method: 'patch',
+    url: 'api/users/' + user.id,
+    data: { user: user }
   });
 };
 
@@ -4259,6 +4442,20 @@ var invariant = function(condition, format, a, b, c, d, e, f) {
 };
 
 module.exports = invariant;
+
+
+/***/ }),
+
+/***/ "./node_modules/isarray/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/isarray/index.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = Array.isArray || function (arr) {
+  return Object.prototype.toString.call(arr) == '[object Array]';
+};
 
 
 /***/ }),
@@ -21849,7 +22046,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isarray = __webpack_require__(/*! isarray */ "./node_modules/path-to-regexp/node_modules/isarray/index.js")
+var isarray = __webpack_require__(/*! isarray */ "./node_modules/isarray/index.js")
 
 /**
  * Expose `pathToRegexp`.
@@ -22275,20 +22472,6 @@ function pathToRegexp (path, keys, options) {
 
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
-
-
-/***/ }),
-
-/***/ "./node_modules/path-to-regexp/node_modules/isarray/index.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/path-to-regexp/node_modules/isarray/index.js ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = Array.isArray || function (arr) {
-  return Object.prototype.toString.call(arr) == '[object Array]';
-};
 
 
 /***/ }),
