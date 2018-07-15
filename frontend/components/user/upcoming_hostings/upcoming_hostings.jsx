@@ -14,8 +14,6 @@ class UpcomingHostings extends React.Component {
 
   render() {
 
-    <UpcomingHostingsItem hosting={hosting} />
-
     return(
       <section>
 
