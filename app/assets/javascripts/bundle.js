@@ -972,6 +972,13 @@ var LoggedInNav = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      var userPicture = void 0;
+      if (this.props.user.photoUrl) {
+        userPicture = this.props.user.photoUrl;
+      } else {
+        userPicture = window.profile_pic_placeholder;
+      }
+
       return _react2.default.createElement(
         "header",
         { className: "dash-top-nav" },
@@ -1002,14 +1009,14 @@ var LoggedInNav = function (_React$Component) {
           _react2.default.createElement("input", { className: "dash-nav-search-input", type: "text", placeholder: "Where are you going?" })
         ),
         _react2.default.createElement(
-          "form",
-          { className: "dash-nav-user-dropdown-form" },
+          "div",
+          { className: "dash-circular-user-button-div" },
           _react2.default.createElement(
             "button",
             { onClick: function onClick() {
                 return _this2.dropdownUserClick();
-              }, className: "dash-nav-user-dropdown" },
-            "User Menu"
+              }, className: "dash-nav-user-dropdown-button" },
+            _react2.default.createElement("img", { className: "dash-nav-profile-photo", src: userPicture })
           ),
           _react2.default.createElement(
             "div",
@@ -1597,7 +1604,6 @@ var UpcomingHostings = function (_React$Component) {
           _this2.props.fetchUser(hosting.traveler_id);
         }
       });
-      debugger;
     }
   }, {
     key: 'render',

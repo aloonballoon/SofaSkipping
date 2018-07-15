@@ -19,6 +19,12 @@ class LoggedInNav extends React.Component {
 
 render() {
 
+  let userPicture;
+  if (this.props.user.photoUrl) {
+    userPicture = this.props.user.photoUrl
+  } else {
+    userPicture = window.profile_pic_placeholder
+  }
 
     return (
       <header className="dash-top-nav">
@@ -33,8 +39,8 @@ render() {
           <input className="dash-nav-search-input" type="text" placeholder="Where are you going?"></input>
         </form>
 
-        <form className="dash-nav-user-dropdown-form">
-          <button onClick={() => this.dropdownUserClick()} className="dash-nav-user-dropdown">User Menu</button>
+        <div className="dash-circular-user-button-div">
+          <button  onClick={() => this.dropdownUserClick()} className="dash-nav-user-dropdown-button"><img className="dash-nav-profile-photo" src={userPicture}/></button>
           <div id='nav-user-dropdown' className='dash-nav-user-menu'>
             <ul>
               <li>
@@ -45,7 +51,7 @@ render() {
               </li>
             </ul>
           </div>
-        </form>
+        </div>
       </header>
     );
   }

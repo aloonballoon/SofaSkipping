@@ -43,10 +43,6 @@
   top: 10%;
 }
 
-.dash-nav-user-dropdown-form {
-  padding-right: 5px;
-}
-
 
 .dash-nav-user-menu {
   position: absolute;
@@ -60,4 +56,19 @@
   background-color: grey;
   position: absolute;
   top: 5%;
+}
+
+.dash-nav-profile-photo {
+  width: 50px;
+  height: 50px
+
+}
+
+.dash-nav-user-dropdown-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 0px;
+  margin: 0px;
 }

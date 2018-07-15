@@ -9,7 +9,6 @@ class UpcomingHostings extends React.Component {
         this.props.fetchUser(hosting.traveler_id);
       }
     });
-    debugger
   }
 
   render() {
