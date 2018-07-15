@@ -17,7 +17,6 @@ class UserDashSidebar extends React.Component {
     e.preventDefault();
     this.setState({user_status: e.target.value});
     this.props.updateStatus(this.state);
-    debugger
   }
 
 

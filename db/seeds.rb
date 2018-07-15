@@ -23,3 +23,6 @@ User.create!(first_name: "Leana", last_name: "Glick", username: "leanaglick", em
 Booking.create!(host_id: 1, traveler_id: 2, start_date: "2018/05/13", end_date: "2018/06/15")
 Booking.create!(host_id: 2, traveler_id: 3, start_date: "2018/07/13", end_date: "2018/08/15")
 Booking.create!(host_id: 4, traveler_id: 1, start_date: "2018/09/13", end_date: "2018/10/15")
+Booking.create!(host_id: 1, traveler_id: 3, start_date: "2018/10/13", end_date: "2018/11/15")
+Booking.create!(host_id: 2, traveler_id: 4, start_date: "2018/11/13", end_date: "2018/12/15")
+Booking.create!(host_id: 4, traveler_id: 1, start_date: "2019/01/13", end_date: "2019/01/15")

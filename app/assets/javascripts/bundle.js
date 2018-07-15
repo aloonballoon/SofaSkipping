@@ -207,7 +207,7 @@ var signUp = exports.signUp = function signUp(user) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateStatus = exports.UPDATE_USER_STATUS = undefined;
+exports.fetchUser = exports.updateStatus = exports.receiveAssociatedUser = exports.RECEIVE_ASSOCIATED_USER = exports.UPDATE_USER_STATUS = undefined;
 
 var _users_util = __webpack_require__(/*! ../../util/users_util */ "./frontend/util/users_util.js");
 
@@ -218,11 +218,27 @@ var _session_actions = __webpack_require__(/*! ../session_actions */ "./frontend
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var UPDATE_USER_STATUS = exports.UPDATE_USER_STATUS = "UPDATE_USER_STATUS";
+var RECEIVE_ASSOCIATED_USER = exports.RECEIVE_ASSOCIATED_USER = "RECEIVE_ASSOCIATED_USER";
+
+var receiveAssociatedUser = exports.receiveAssociatedUser = function receiveAssociatedUser(user) {
+  return {
+    type: RECEIVE_ASSOCIATED_USER,
+    user: user
+  };
+};
 
 var updateStatus = exports.updateStatus = function updateStatus(user) {
   return function (dispatch) {
     return SessionApiUtil.updateStatus(user).then(function (updated_user) {
       return dispatch((0, _session_actions.receiveCurrentUser)(updated_user));
+    });
+  };
+};
+
+var fetchUser = exports.fetchUser = function fetchUser(id) {
+  return function (dispatch) {
+    return SessionApiUtil.fetchUser(id).then(function (new_user) {
+      return dispatch(receiveAssociatedUser(new_user));
     });
   };
 };
@@ -1530,6 +1546,132 @@ exports.default = (0, _reactRedux.connect)(msp, mdp)(_session_form2.default);
 
 /***/ }),
 
+/***/ "./frontend/components/user/upcoming_hostings/upcoming_hostings.jsx":
+/*!**************************************************************************!*\
+  !*** ./frontend/components/user/upcoming_hostings/upcoming_hostings.jsx ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _upcoming_hostings_item = __webpack_require__(/*! ./upcoming_hostings_item */ "./frontend/components/user/upcoming_hostings/upcoming_hostings_item.jsx");
+
+var _upcoming_hostings_item2 = _interopRequireDefault(_upcoming_hostings_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UpcomingHostings = function (_React$Component) {
+  _inherits(UpcomingHostings, _React$Component);
+
+  function UpcomingHostings() {
+    _classCallCheck(this, UpcomingHostings);
+
+    return _possibleConstructorReturn(this, (UpcomingHostings.__proto__ || Object.getPrototypeOf(UpcomingHostings)).apply(this, arguments));
+  }
+
+  _createClass(UpcomingHostings, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var guests = this.props.hostings.forEach(function (hosting) {
+        if (hosting.host_id === _this2.props.currentUser.id) {
+          _this2.props.fetchUser(hosting.traveler_id);
+        }
+      });
+      debugger;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+
+      _react2.default.createElement(_upcoming_hostings_item2.default, { hosting: hosting });
+
+      return _react2.default.createElement('section', null);
+    }
+  }]);
+
+  return UpcomingHostings;
+}(_react2.default.Component);
+
+exports.default = UpcomingHostings;
+
+/***/ }),
+
+/***/ "./frontend/components/user/upcoming_hostings/upcoming_hostings_container.js":
+/*!***********************************************************************************!*\
+  !*** ./frontend/components/user/upcoming_hostings/upcoming_hostings_container.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _upcoming_hostings = __webpack_require__(/*! ./upcoming_hostings */ "./frontend/components/user/upcoming_hostings/upcoming_hostings.jsx");
+
+var _upcoming_hostings2 = _interopRequireDefault(_upcoming_hostings);
+
+var _user_actions = __webpack_require__(/*! ../../../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var msp = function msp(state) {
+  return {
+    hostings: state.entities.users[state.session.id].hostings,
+    trips: state.entities.users[state.session.id].trips,
+    currentUser: state.entities.users[state.session.id]
+  };
+};
+
+var mdp = function mdp(dispatch) {
+  return {
+    fetchUser: function fetchUser(user) {
+      return dispatch((0, _user_actions.fetchUser)(user));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(msp, mdp)(_upcoming_hostings2.default);
+
+/***/ }),
+
+/***/ "./frontend/components/user/upcoming_hostings/upcoming_hostings_item.jsx":
+/*!*******************************************************************************!*\
+  !*** ./frontend/components/user/upcoming_hostings/upcoming_hostings_item.jsx ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+
 /***/ "./frontend/components/user/user_dash_main.jsx":
 /*!*****************************************************!*\
   !*** ./frontend/components/user/user_dash_main.jsx ***!
@@ -1635,7 +1777,6 @@ var UserDashSidebar = function (_React$Component) {
       e.preventDefault();
       this.setState({ user_status: e.target.value });
       this.props.updateStatus(this.state);
-      debugger;
     }
   }, {
     key: "render",
@@ -1802,6 +1943,10 @@ var _user_dash_main = __webpack_require__(/*! ./user_dash_main */ "./frontend/co
 
 var _user_dash_main2 = _interopRequireDefault(_user_dash_main);
 
+var _upcoming_hostings_container = __webpack_require__(/*! ./upcoming_hostings/upcoming_hostings_container */ "./frontend/components/user/upcoming_hostings/upcoming_hostings_container.js");
+
+var _upcoming_hostings_container2 = _interopRequireDefault(_upcoming_hostings_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1829,7 +1974,8 @@ var UserDashboard = function (_React$Component) {
         'section',
         { className: 'user-dash-main-section' },
         _react2.default.createElement(_user_dash_sidebar_container2.default, { user: user }),
-        _react2.default.createElement(_user_dash_main2.default, null)
+        _react2.default.createElement(_user_dash_main2.default, null),
+        _react2.default.createElement(_upcoming_hostings_container2.default, null)
       );
     }
   }]);
@@ -2145,6 +2291,8 @@ var _session_actions = __webpack_require__(/*! ../actions/session_actions */ "./
 
 var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
+var _user_actions = __webpack_require__(/*! ../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var defaultState = {};
@@ -2156,6 +2304,7 @@ var usersReducer = function usersReducer() {
   Object.freeze(state);
   switch (action.type) {
     case _session_actions.RECEIVE_CURRENT_USER:
+    case _user_actions.RECEIVE_ASSOCIATED_USER:
       return (0, _lodash.merge)({}, state, _defineProperty({}, action.user.id, action.user));
     default:
       return state;

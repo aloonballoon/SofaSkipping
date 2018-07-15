@@ -1,6 +1,7 @@
 import React from 'react';
 import UserDashSidebarContainer from './user_dash_sidebar_container';
 import UserDashMain from './user_dash_main';
+import UpcomingHostingsContainer from './upcoming_hostings/upcoming_hostings_container';
 
 class UserDashboard extends React.Component {
 
@@ -12,6 +13,7 @@ class UserDashboard extends React.Component {
     <section className="user-dash-main-section">
         <UserDashSidebarContainer user={user} />
         <UserDashMain />
+        <UpcomingHostingsContainer />
     </section>
     );
   }
