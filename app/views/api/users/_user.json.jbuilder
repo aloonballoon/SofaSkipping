@@ -26,6 +26,4 @@ json.hostings do
   end
 end
 
-json.guests user.guests
-json.hosts user.hosts
 json.home_location user.location

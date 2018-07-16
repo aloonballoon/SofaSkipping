@@ -4,7 +4,6 @@ import { RECEIVE_ASSOCIATED_USER, RECEIVE_GUESTS } from '../actions/user_actions
 
 const defaultState = {};
 const usersReducer = (state = defaultState, action) => {
-  debugger
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_CURRENT_USER:

@@ -15,7 +15,6 @@ export const receiveAssociatedUser = (user) => {
 };
 
 export const receiveGuests = (guests) => {
-  debugger
   return {
     type: RECEIVE_GUESTS,
     users: guests.users

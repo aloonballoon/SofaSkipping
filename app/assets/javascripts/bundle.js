@@ -231,7 +231,6 @@ var receiveAssociatedUser = exports.receiveAssociatedUser = function receiveAsso
 };
 
 var receiveGuests = exports.receiveGuests = function receiveGuests(guests) {
-  debugger;
   return {
     type: RECEIVE_GUESTS,
     users: guests.users
@@ -1020,9 +1019,44 @@ var LoggedInNav = function (_React$Component) {
             "div",
             { id: "nav-dropdown", className: "dash-nav-dropdown-menu" },
             _react2.default.createElement(
-              "a",
-              { href: "myspace.com" },
-              "MySpace"
+              "ul",
+              null,
+              _react2.default.createElement(
+                "li",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  null,
+                  "Explore"
+                )
+              ),
+              _react2.default.createElement(
+                "li",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  null,
+                  "Find Hosts"
+                )
+              ),
+              _react2.default.createElement(
+                "li",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  null,
+                  "Find Members"
+                )
+              ),
+              _react2.default.createElement(
+                "li",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  null,
+                  "Find Travelers"
+                )
+              )
             )
           ),
           _react2.default.createElement("input", { className: "dash-nav-search-input", type: "text", placeholder: "Where are you going?" })
@@ -1042,14 +1076,23 @@ var LoggedInNav = function (_React$Component) {
             { id: "nav-user-dropdown", className: "dash-nav-user-menu" },
             _react2.default.createElement(
               "ul",
-              null,
+              { className: "dash-nav-user-ul" },
               _react2.default.createElement(
                 "li",
                 null,
                 _react2.default.createElement(
-                  "a",
-                  { href: "myspace.com" },
-                  "MySpace"
+                  "button",
+                  null,
+                  "My Dashboard "
+                )
+              ),
+              _react2.default.createElement(
+                "li",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  null,
+                  "My Profile"
                 )
               ),
               _react2.default.createElement(
@@ -1607,13 +1650,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var UpcomingHostings = function (_React$Component) {
   _inherits(UpcomingHostings, _React$Component);
 
-  function UpcomingHostings(props) {
+  function UpcomingHostings() {
     _classCallCheck(this, UpcomingHostings);
 
-    var _this = _possibleConstructorReturn(this, (UpcomingHostings.__proto__ || Object.getPrototypeOf(UpcomingHostings)).call(this, props));
-
-    _this.state = _this.props.state;
-    return _this;
+    return _possibleConstructorReturn(this, (UpcomingHostings.__proto__ || Object.getPrototypeOf(UpcomingHostings)).apply(this, arguments));
   }
 
   _createClass(UpcomingHostings, [{
@@ -1624,10 +1664,24 @@ var UpcomingHostings = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
+      var hosting = this.props.guests.map(function (guest, idx) {
+        return _react2.default.createElement(_upcoming_hostings_item2.default, { currentUser: _this2.props.currentUser, guest: guest, key: idx });
+      });
       return _react2.default.createElement(
         'section',
-        null,
-        _react2.default.createElement('ul', null)
+        { className: 'upcoming-hostings-section' },
+        _react2.default.createElement(
+          'header',
+          null,
+          'My Upcoming Guests'
+        ),
+        _react2.default.createElement(
+          'ul',
+          null,
+          hosting
+        )
       );
     }
   }]);
@@ -1665,15 +1719,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var msp = function msp(state) {
   var guests = [];
-  state.entities.users[state.session.id].hosting_ids.map(function (id) {
+  state.entities.users[state.session.id].guest_ids.map(function (id) {
     if (state.entities.users[id]) {
       guests.push(state.entities.users[id]);
     }
   });
 
+  // let hostings = state.entities.users[state.session.id].hostings.map((hosting) => {
+  //   return hosting;
+  // });
+
   return {
     guests: guests,
     currentUser: state.entities.users[state.session.id]
+    // hostings: hostings
   };
 };
 
@@ -1733,7 +1792,14 @@ var UpcomingHostingsItem = function (_React$Component) {
     key: 'render',
     value: function render() {
 
-      return _react2.default.createElement('li', null);
+      return _react2.default.createElement(
+        'li',
+        null,
+        this.props.guest.first_name,
+        this.props.guest.last_name,
+        this.props.guest.location.city,
+        this.props.guest.location.country
+      );
     }
   }]);
 
@@ -2049,8 +2115,12 @@ var UserDashboard = function (_React$Component) {
         'section',
         { className: 'user-dash-main-section' },
         _react2.default.createElement(_user_dash_sidebar_container2.default, { user: user }),
-        _react2.default.createElement(_user_dash_main2.default, null),
-        _react2.default.createElement(_upcoming_hostings_container2.default, null)
+        _react2.default.createElement(
+          'section',
+          null,
+          _react2.default.createElement(_user_dash_main2.default, null),
+          _react2.default.createElement(_upcoming_hostings_container2.default, null)
+        )
       );
     }
   }]);
@@ -2459,7 +2529,6 @@ var usersReducer = function usersReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
   var action = arguments[1];
 
-  debugger;
   Object.freeze(state);
   switch (action.type) {
     case _session_actions.RECEIVE_CURRENT_USER:
