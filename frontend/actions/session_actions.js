@@ -7,7 +7,9 @@ export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 export const receiveCurrentUser = (user) => {
   return {
     type: RECEIVE_CURRENT_USER,
-    user,
+    user: user,
+    hostings: user.hostings,
+    trips: user.trips
   };
 };
 

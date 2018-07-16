@@ -15,6 +15,7 @@ export const receiveAssociatedUser = (user) => {
 
 export const updateStatus = (user) => {
   return dispatch => {
+    debugger
     return SessionApiUtil.updateStatus(user).then((updated_user) => {
       return dispatch(receiveCurrentUser(updated_user));
     });

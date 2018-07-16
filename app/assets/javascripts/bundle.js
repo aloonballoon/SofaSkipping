@@ -145,7 +145,9 @@ var RECEIVE_SESSION_ERRORS = exports.RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_E
 var receiveCurrentUser = exports.receiveCurrentUser = function receiveCurrentUser(user) {
   return {
     type: RECEIVE_CURRENT_USER,
-    user: user
+    user: user,
+    hostings: user.hostings,
+    trips: user.trips
   };
 };
 
@@ -229,6 +231,7 @@ var receiveAssociatedUser = exports.receiveAssociatedUser = function receiveAsso
 
 var updateStatus = exports.updateStatus = function updateStatus(user) {
   return function (dispatch) {
+    debugger;
     return SessionApiUtil.updateStatus(user).then(function (updated_user) {
       return dispatch((0, _session_actions.receiveCurrentUser)(updated_user));
     });
@@ -1588,28 +1591,36 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var UpcomingHostings = function (_React$Component) {
   _inherits(UpcomingHostings, _React$Component);
 
-  function UpcomingHostings() {
+  function UpcomingHostings(props) {
     _classCallCheck(this, UpcomingHostings);
 
-    return _possibleConstructorReturn(this, (UpcomingHostings.__proto__ || Object.getPrototypeOf(UpcomingHostings)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (UpcomingHostings.__proto__ || Object.getPrototypeOf(UpcomingHostings)).call(this, props));
+
+    _this.state = _this.props.state;
+    return _this;
   }
 
   _createClass(UpcomingHostings, [{
     key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      var guests = this.props.hostings.forEach(function (hosting) {
-        if (hosting.host_id === _this2.props.currentUser.id) {
-          _this2.props.fetchUser(hosting.traveler_id);
-        }
-      });
-    }
+    value: function componentDidMount() {}
   }, {
     key: 'render',
     value: function render() {
 
-      return _react2.default.createElement('section', null);
+      // let hostingsArr = [];
+      // const hostings = this.props.hostings.forEach((hosting, idx) => {
+      //   this.props.guests.forEach(guest => {
+      //     if (guest.id === hosting.traveler_id) {
+      //        hostingsArr.push(<UpcomingHostingsItem hosting={hosting} guest={guest} key={idx} />})
+      //     })
+      //   })
+
+
+      return _react2.default.createElement(
+        'section',
+        null,
+        _react2.default.createElement('ul', null)
+      );
     }
   }]);
 
@@ -1645,10 +1656,14 @@ var _user_actions = __webpack_require__(/*! ../../../actions/user_actions/user_a
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state) {
+  var nullGuests = [];
   return {
     hostings: state.entities.users[state.session.id].hostings,
     trips: state.entities.users[state.session.id].trips,
-    currentUser: state.entities.users[state.session.id]
+    currentUser: state.entities.users[state.session.id],
+    guests: state.entities.users[state.session.id].guests,
+    hosts: state.entities.users[state.session.id].hosts,
+    homeLocation: state.entities.users[state.session.id].home_location
   };
 };
 
@@ -1673,6 +1688,46 @@ exports.default = (0, _reactRedux.connect)(msp, mdp)(_upcoming_hostings2.default
 
 "use strict";
 
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UpcomingHostingsItem = function (_React$Component) {
+  _inherits(UpcomingHostingsItem, _React$Component);
+
+  function UpcomingHostingsItem() {
+    _classCallCheck(this, UpcomingHostingsItem);
+
+    return _possibleConstructorReturn(this, (UpcomingHostingsItem.__proto__ || Object.getPrototypeOf(UpcomingHostingsItem)).apply(this, arguments));
+  }
+
+  _createClass(UpcomingHostingsItem, [{
+    key: 'render',
+    value: function render() {
+
+      return _react2.default.createElement('li', null);
+    }
+  }]);
+
+  return UpcomingHostingsItem;
+}(_react2.default.Component);
+
+exports.default = UpcomingHostingsItem;
 
 /***/ }),
 
@@ -1778,14 +1833,17 @@ var UserDashSidebar = function (_React$Component) {
   }, {
     key: "changeStatus",
     value: function changeStatus(e) {
+      var _this2 = this;
+
       e.preventDefault();
-      this.setState({ user_status: e.target.value });
-      this.props.updateStatus(this.state);
+      this.setState({ user_status: e.target.value }, function () {
+        _this2.props.updateStatus(_this2.state);
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var ACCEPTING_GUESTS = "Accepting guests";
       var MAYBE_ACCEPTING_GUESTS = "Maybe accepting guests";
@@ -1794,7 +1852,7 @@ var UserDashSidebar = function (_React$Component) {
       var changeStatusButton = _react2.default.createElement(
         "button",
         { onClick: function onClick() {
-            return _this2.dropdownStatusClick();
+            return _this3.dropdownStatusClick();
           }, className: "dash-status-button" },
         this.state.user_status
       );
@@ -1834,7 +1892,7 @@ var UserDashSidebar = function (_React$Component) {
                 _react2.default.createElement(
                   "button",
                   { value: "Accepting guests", onClick: function onClick(e) {
-                      return _this2.changeStatus(e);
+                      return _this3.changeStatus(e);
                     } },
                   "Accepting guests"
                 )
@@ -1845,7 +1903,7 @@ var UserDashSidebar = function (_React$Component) {
                 _react2.default.createElement(
                   "button",
                   { value: "Maybe accepting guests", onClick: function onClick(e) {
-                      return _this2.changeStatus(e);
+                      return _this3.changeStatus(e);
                     } },
                   "Maybe accepting guests"
                 )
@@ -1856,7 +1914,7 @@ var UserDashSidebar = function (_React$Component) {
                 _react2.default.createElement(
                   "button",
                   { value: "Not accepting guests", onClick: function onClick(e) {
-                      return _this2.changeStatus(e);
+                      return _this3.changeStatus(e);
                     } },
                   "Not accepting guests"
                 )
@@ -2055,10 +2113,20 @@ var _users_reducer = __webpack_require__(/*! ./users_reducer */ "./frontend/redu
 
 var _users_reducer2 = _interopRequireDefault(_users_reducer);
 
+var _hostings_reducer = __webpack_require__(/*! ./hostings_reducer */ "./frontend/reducers/hostings_reducer.js");
+
+var _hostings_reducer2 = _interopRequireDefault(_hostings_reducer);
+
+var _trips_reducer = __webpack_require__(/*! ./trips_reducer */ "./frontend/reducers/trips_reducer.js");
+
+var _trips_reducer2 = _interopRequireDefault(_trips_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var entitiesReducer = (0, _redux.combineReducers)({
-  users: _users_reducer2.default
+  users: _users_reducer2.default,
+  hostings: _hostings_reducer2.default,
+  trips: _trips_reducer2.default
 });
 
 exports.default = entitiesReducer;
@@ -2092,6 +2160,43 @@ var errorsReducer = (0, _redux.combineReducers)({
 });
 
 exports.default = errorsReducer;
+
+/***/ }),
+
+/***/ "./frontend/reducers/hostings_reducer.js":
+/*!***********************************************!*\
+  !*** ./frontend/reducers/hostings_reducer.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _session_actions = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+
+var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+
+var defaultState = {};
+
+var hostingsReducer = function hostingsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _session_actions.RECEIVE_CURRENT_USER:
+      return (0, _lodash.merge)({}, state, action.hostings);
+    default:
+      return state;
+  }
+};
+
+exports.default = hostingsReducer;
 
 /***/ }),
 
@@ -2246,6 +2351,43 @@ var sessionReducer = function sessionReducer() {
 };
 
 exports.default = sessionReducer;
+
+/***/ }),
+
+/***/ "./frontend/reducers/trips_reducer.js":
+/*!********************************************!*\
+  !*** ./frontend/reducers/trips_reducer.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _session_actions = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+
+var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+
+var defaultState = {};
+
+var tripsReducer = function tripsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _session_actions.RECEIVE_CURRENT_USER:
+      return (0, _lodash.merge)({}, state, action.trips);
+    default:
+      return state;
+  }
+};
+
+exports.default = tripsReducer;
 
 /***/ }),
 

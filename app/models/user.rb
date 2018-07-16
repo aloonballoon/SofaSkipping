@@ -40,6 +40,14 @@ class User < ApplicationRecord
   foreign_key: :host_id,
   class_name: :Booking
 
+  has_many :guests,
+  through: :hostings,
+  source: :traveler
+
+  has_many :hosts,
+  through: :trips,
+  source: :host
+
   belongs_to :location,
   primary_key: :id,
   foreign_key: :home_location_id,

@@ -3,10 +3,14 @@ import UpcomingHostings from './upcoming_hostings';
 import { fetchUser } from '../../../actions/user_actions/user_actions';
 
 const msp = (state) => {
+  let nullGuests = [];
   return {
     hostings: state.entities.users[state.session.id].hostings,
     trips: state.entities.users[state.session.id].trips,
-    currentUser: state.entities.users[state.session.id]
+    currentUser: state.entities.users[state.session.id],
+    guests: state.entities.users[state.session.id].guests,
+    hosts: state.entities.users[state.session.id].hosts,
+    homeLocation: state.entities.users[state.session.id].home_location
   };
 };
 

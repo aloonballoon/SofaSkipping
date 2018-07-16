@@ -93,8 +93,10 @@
 .show-dash-status-dropdown {
   display: block;
   background-color: #f7f7f7;;
-  position: inherit;
+  position: absolute;
+  left: 10px;
   z-index: 1;
+  width: 300px;
 }
 
 .show-dash-status-dropdown li{
