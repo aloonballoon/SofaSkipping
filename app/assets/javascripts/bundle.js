@@ -209,17 +209,18 @@ var signUp = exports.signUp = function signUp(user) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchUser = exports.updateStatus = exports.receiveAssociatedUser = exports.RECEIVE_ASSOCIATED_USER = exports.UPDATE_USER_STATUS = undefined;
+exports.fetchUser = exports.updateStatus = exports.fetchGuests = exports.receiveGuests = exports.receiveAssociatedUser = exports.RECEIVE_ASSOCIATED_USER = exports.RECEIVE_GUESTS = exports.UPDATE_USER_STATUS = undefined;
 
 var _users_util = __webpack_require__(/*! ../../util/users_util */ "./frontend/util/users_util.js");
 
-var SessionApiUtil = _interopRequireWildcard(_users_util);
+var UsersApiUtil = _interopRequireWildcard(_users_util);
 
 var _session_actions = __webpack_require__(/*! ../session_actions */ "./frontend/actions/session_actions.js");
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var UPDATE_USER_STATUS = exports.UPDATE_USER_STATUS = "UPDATE_USER_STATUS";
+var RECEIVE_GUESTS = exports.RECEIVE_GUESTS = "RECEIVE_GUESTS";
 var RECEIVE_ASSOCIATED_USER = exports.RECEIVE_ASSOCIATED_USER = "RECEIVE_ASSOCIATED_USER";
 
 var receiveAssociatedUser = exports.receiveAssociatedUser = function receiveAssociatedUser(user) {
@@ -229,10 +230,25 @@ var receiveAssociatedUser = exports.receiveAssociatedUser = function receiveAsso
   };
 };
 
+var receiveGuests = exports.receiveGuests = function receiveGuests(guests) {
+  debugger;
+  return {
+    type: RECEIVE_GUESTS,
+    users: guests.users
+  };
+};
+
+var fetchGuests = exports.fetchGuests = function fetchGuests(id) {
+  return function (dispatch) {
+    return UsersApiUtil.fetchGuests(id).then(function (guests) {
+      return dispatch(receiveGuests(guests));
+    });
+  };
+};
+
 var updateStatus = exports.updateStatus = function updateStatus(user) {
   return function (dispatch) {
-    debugger;
-    return SessionApiUtil.updateStatus(user).then(function (updated_user) {
+    return UsersApiUtil.updateStatus(user).then(function (updated_user) {
       return dispatch((0, _session_actions.receiveCurrentUser)(updated_user));
     });
   };
@@ -240,7 +256,7 @@ var updateStatus = exports.updateStatus = function updateStatus(user) {
 
 var fetchUser = exports.fetchUser = function fetchUser(id) {
   return function (dispatch) {
-    return SessionApiUtil.fetchUser(id).then(function (new_user) {
+    return UsersApiUtil.fetchUser(id).then(function (new_user) {
       return dispatch(receiveAssociatedUser(new_user));
     });
   };
@@ -1602,20 +1618,12 @@ var UpcomingHostings = function (_React$Component) {
 
   _createClass(UpcomingHostings, [{
     key: 'componentDidMount',
-    value: function componentDidMount() {}
+    value: function componentDidMount() {
+      this.props.fetchGuests(this.props.currentUser.id);
+    }
   }, {
     key: 'render',
     value: function render() {
-
-      // let hostingsArr = [];
-      // const hostings = this.props.hostings.forEach((hosting, idx) => {
-      //   this.props.guests.forEach(guest => {
-      //     if (guest.id === hosting.traveler_id) {
-      //        hostingsArr.push(<UpcomingHostingsItem hosting={hosting} guest={guest} key={idx} />})
-      //     })
-      //   })
-
-
       return _react2.default.createElement(
         'section',
         null,
@@ -1656,14 +1664,16 @@ var _user_actions = __webpack_require__(/*! ../../../actions/user_actions/user_a
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state) {
-  var nullGuests = [];
+  var guests = [];
+  state.entities.users[state.session.id].hosting_ids.map(function (id) {
+    if (state.entities.users[id]) {
+      guests.push(state.entities.users[id]);
+    }
+  });
+
   return {
-    hostings: state.entities.users[state.session.id].hostings,
-    trips: state.entities.users[state.session.id].trips,
-    currentUser: state.entities.users[state.session.id],
-    guests: state.entities.users[state.session.id].guests,
-    hosts: state.entities.users[state.session.id].hosts,
-    homeLocation: state.entities.users[state.session.id].home_location
+    guests: guests,
+    currentUser: state.entities.users[state.session.id]
   };
 };
 
@@ -1671,6 +1681,9 @@ var mdp = function mdp(dispatch) {
   return {
     fetchUser: function fetchUser(user) {
       return dispatch((0, _user_actions.fetchUser)(user));
+    },
+    fetchGuests: function fetchGuests(id) {
+      return dispatch((0, _user_actions.fetchGuests)(id));
     }
   };
 };
@@ -2442,16 +2455,18 @@ var _user_actions = __webpack_require__(/*! ../actions/user_actions/user_actions
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var defaultState = {};
-
 var usersReducer = function usersReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
   var action = arguments[1];
 
+  debugger;
   Object.freeze(state);
   switch (action.type) {
     case _session_actions.RECEIVE_CURRENT_USER:
     case _user_actions.RECEIVE_ASSOCIATED_USER:
       return (0, _lodash.merge)({}, state, _defineProperty({}, action.user.id, action.user));
+    case _user_actions.RECEIVE_GUESTS:
+      return (0, _lodash.merge)({}, state, action.users);
     default:
       return state;
   }
@@ -2681,6 +2696,13 @@ var updateStatus = exports.updateStatus = function updateStatus(user) {
     method: 'patch',
     url: 'api/users/' + user.id,
     data: { user: user }
+  });
+};
+
+var fetchGuests = exports.fetchGuests = function fetchGuests(id) {
+  return $.ajax({
+    method: 'get',
+    url: 'api/users/' + id + '/guests'
   });
 };
 

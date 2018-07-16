@@ -12,3 +12,10 @@ export const updateStatus = (user) => {
     data: {user: user}
   });
 };
+
+export const fetchGuests = (id) => {
+  return $.ajax({
+    method: 'get',
+    url: `api/users/${id}/guests`
+  });
+};

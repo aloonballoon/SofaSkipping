@@ -8,21 +8,10 @@ class UpcomingHostings extends React.Component {
   }
 
   componentDidMount() {
-
+    this.props.fetchGuests(this.props.currentUser.id)
   }
 
   render() {
-
-  // let hostingsArr = [];
-  // const hostings = this.props.hostings.forEach((hosting, idx) => {
-  //   this.props.guests.forEach(guest => {
-  //     if (guest.id === hosting.traveler_id) {
-  //        hostingsArr.push(<UpcomingHostingsItem hosting={hosting} guest={guest} key={idx} />})
-  //     })
-  //   })
-
-
-
     return(
       <section>
         <ul>

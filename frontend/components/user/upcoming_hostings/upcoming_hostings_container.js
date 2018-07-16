@@ -1,22 +1,25 @@
 import { connect } from 'react-redux';
 import UpcomingHostings from './upcoming_hostings';
-import { fetchUser } from '../../../actions/user_actions/user_actions';
+import { fetchUser, fetchGuests } from '../../../actions/user_actions/user_actions';
 
 const msp = (state) => {
-  let nullGuests = [];
+  let guests = [];
+  state.entities.users[state.session.id].hosting_ids.map((id) => {
+    if (state.entities.users[id]) {
+      guests.push(state.entities.users[id]);
+    }
+  });
+
   return {
-    hostings: state.entities.users[state.session.id].hostings,
-    trips: state.entities.users[state.session.id].trips,
-    currentUser: state.entities.users[state.session.id],
-    guests: state.entities.users[state.session.id].guests,
-    hosts: state.entities.users[state.session.id].hosts,
-    homeLocation: state.entities.users[state.session.id].home_location
+    guests: guests,
+    currentUser: state.entities.users[state.session.id]
   };
 };
 
 const mdp = (dispatch) => {
   return {
-    fetchUser: (user) => dispatch(fetchUser(user))
+    fetchUser: (user) => dispatch(fetchUser(user)),
+    fetchGuests: (id) => dispatch(fetchGuests(id))
   };
 };
 
