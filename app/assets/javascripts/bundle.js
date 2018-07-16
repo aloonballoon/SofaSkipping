@@ -1689,10 +1689,6 @@ var UpcomingHostings = function (_React$Component) {
       // })
 
 
-      var hostingAndGuest = this.props.hostings.map(function (hosting) {});
-
-      debugger;
-
       return _react2.default.createElement(
         'section',
         { className: 'upcoming-hostings-section' },
@@ -1701,11 +1697,7 @@ var UpcomingHostings = function (_React$Component) {
           null,
           'My Upcoming Guests'
         ),
-        _react2.default.createElement(
-          'ul',
-          null,
-          guest
-        )
+        _react2.default.createElement('ul', null)
       );
     }
   }]);

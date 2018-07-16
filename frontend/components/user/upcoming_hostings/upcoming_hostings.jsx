@@ -16,14 +16,6 @@ class UpcomingHostings extends React.Component {
 
 
 
-    const hostingAndGuest = this.props.hostings.map(hosting => {
-      
-    })
-
-
-
-
-    debugger
 
     return(
       <section className="upcoming-hostings-section">
@@ -31,7 +23,7 @@ class UpcomingHostings extends React.Component {
       My Upcoming Guests
       </header>
         <ul>
-          {guest}
+
         </ul>
       </section>
     );
