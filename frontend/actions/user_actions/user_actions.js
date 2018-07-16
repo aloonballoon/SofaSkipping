@@ -1,10 +1,12 @@
 import * as UsersApiUtil from '../../util/users_util';
 import { receiveCurrentUser } from '../session_actions';
+import { fetchUserHostings } from '../../util/bookings_util'
 
 
 export const UPDATE_USER_STATUS = "UPDATE_USER_STATUS";
 export const RECEIVE_GUESTS = "RECEIVE_GUESTS";
 export const RECEIVE_ASSOCIATED_USER = "RECEIVE_ASSOCIATED_USER";
+export const RECEIVE_HOSTINGS = 'RECEIVE_BOOKINGS';
 
 
 export const receiveAssociatedUser = (user) => {
@@ -14,10 +16,25 @@ export const receiveAssociatedUser = (user) => {
   };
 };
 
+export const receiveHostings = (hostings) => {
+  return {
+    type: RECEIVE_HOSTINGS,
+    hostings: hostings.hostings
+  }
+}
+
 export const receiveGuests = (guests) => {
   return {
     type: RECEIVE_GUESTS,
     users: guests.users
+  };
+};
+
+export const fetchHostings = (hostId) => {
+  return dispatch => {
+    return fetchUserHostings(hostId).then(hostings => {
+      return dispatch(receiveHostings(hostings));
+    });
   };
 };
 

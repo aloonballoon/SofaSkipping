@@ -5,12 +5,21 @@ class UpcomingHostings extends React.Component {
 
   componentDidMount() {
     this.props.fetchGuests(this.props.currentUser.id)
+    this.props.fetchHostings(this.props.currentUser.id)
   }
 
   render() {
+    
+    // guestHostArr = [];
+    // this.props.guests.forEach((guest) => {
+    //   this.props.hostings.forEach((hosting) => {
+    //     if (guest.id === hosting.guest_id) {
+    //
+    //     }
+    //   })
+    // })
 
-
-    const hosting = this.props.guests.map((guest, idx) => {
+    const guest = this.props.guests.map((guest, idx) => {
       return <UpcomingHostingsItem currentUser={this.props.currentUser} guest={guest} key={idx} />
     })
     return(
@@ -19,7 +28,7 @@ class UpcomingHostings extends React.Component {
       My Upcoming Guests
       </header>
         <ul>
-          {hosting}
+          {guest}
         </ul>
       </section>
     );

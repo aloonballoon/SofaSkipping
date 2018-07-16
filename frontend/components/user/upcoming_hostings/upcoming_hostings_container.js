@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import UpcomingHostings from './upcoming_hostings';
-import { fetchUser, fetchGuests } from '../../../actions/user_actions/user_actions';
+import { fetchUser, fetchGuests, fetchHostings } from '../../../actions/user_actions/user_actions';
+
 
 const msp = (state) => {
   let guests = [];
@@ -10,6 +11,10 @@ const msp = (state) => {
     }
   });
 
+  const hostings = state.entities.users[state.session.id].hosting_ids.map((id) => {
+    return state.entities.bookings.hostings[id];
+  });
+
   // let hostings = state.entities.users[state.session.id].hostings.map((hosting) => {
   //   return hosting;
   // });
@@ -17,12 +22,14 @@ const msp = (state) => {
   return {
     guests: guests,
     currentUser: state.entities.users[state.session.id],
-    // hostings: hostings
+    hostings: hostings
+
   };
 };
 
 const mdp = (dispatch) => {
   return {
+    fetchHostings: (hostId) => dispatch(fetchHostings(hostId)),
     fetchUser: (user) => dispatch(fetchUser(user)),
     fetchGuests: (id) => dispatch(fetchGuests(id))
   };

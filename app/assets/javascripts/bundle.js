@@ -209,7 +209,7 @@ var signUp = exports.signUp = function signUp(user) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchUser = exports.updateStatus = exports.fetchGuests = exports.receiveGuests = exports.receiveAssociatedUser = exports.RECEIVE_ASSOCIATED_USER = exports.RECEIVE_GUESTS = exports.UPDATE_USER_STATUS = undefined;
+exports.fetchUser = exports.updateStatus = exports.fetchGuests = exports.fetchHostings = exports.receiveGuests = exports.receiveHostings = exports.receiveAssociatedUser = exports.RECEIVE_HOSTINGS = exports.RECEIVE_ASSOCIATED_USER = exports.RECEIVE_GUESTS = exports.UPDATE_USER_STATUS = undefined;
 
 var _users_util = __webpack_require__(/*! ../../util/users_util */ "./frontend/util/users_util.js");
 
@@ -217,11 +217,14 @@ var UsersApiUtil = _interopRequireWildcard(_users_util);
 
 var _session_actions = __webpack_require__(/*! ../session_actions */ "./frontend/actions/session_actions.js");
 
+var _bookings_util = __webpack_require__(/*! ../../util/bookings_util */ "./frontend/util/bookings_util.js");
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var UPDATE_USER_STATUS = exports.UPDATE_USER_STATUS = "UPDATE_USER_STATUS";
 var RECEIVE_GUESTS = exports.RECEIVE_GUESTS = "RECEIVE_GUESTS";
 var RECEIVE_ASSOCIATED_USER = exports.RECEIVE_ASSOCIATED_USER = "RECEIVE_ASSOCIATED_USER";
+var RECEIVE_HOSTINGS = exports.RECEIVE_HOSTINGS = 'RECEIVE_BOOKINGS';
 
 var receiveAssociatedUser = exports.receiveAssociatedUser = function receiveAssociatedUser(user) {
   return {
@@ -230,10 +233,25 @@ var receiveAssociatedUser = exports.receiveAssociatedUser = function receiveAsso
   };
 };
 
+var receiveHostings = exports.receiveHostings = function receiveHostings(hostings) {
+  return {
+    type: RECEIVE_HOSTINGS,
+    hostings: hostings.hostings
+  };
+};
+
 var receiveGuests = exports.receiveGuests = function receiveGuests(guests) {
   return {
     type: RECEIVE_GUESTS,
     users: guests.users
+  };
+};
+
+var fetchHostings = exports.fetchHostings = function fetchHostings(hostId) {
+  return function (dispatch) {
+    return (0, _bookings_util.fetchUserHostings)(hostId).then(function (hostings) {
+      return dispatch(receiveHostings(hostings));
+    });
   };
 };
 
@@ -1660,13 +1678,23 @@ var UpcomingHostings = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.fetchGuests(this.props.currentUser.id);
+      this.props.fetchHostings(this.props.currentUser.id);
     }
   }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      var hosting = this.props.guests.map(function (guest, idx) {
+      // guestHostArr = [];
+      // this.props.guests.forEach((guest) => {
+      //   this.props.hostings.forEach((hosting) => {
+      //     if (guest.id === hosting.guest_id) {
+      //
+      //     }
+      //   })
+      // })
+
+      var guest = this.props.guests.map(function (guest, idx) {
         return _react2.default.createElement(_upcoming_hostings_item2.default, { currentUser: _this2.props.currentUser, guest: guest, key: idx });
       });
       return _react2.default.createElement(
@@ -1680,7 +1708,7 @@ var UpcomingHostings = function (_React$Component) {
         _react2.default.createElement(
           'ul',
           null,
-          hosting
+          guest
         )
       );
     }
@@ -1725,19 +1753,27 @@ var msp = function msp(state) {
     }
   });
 
+  var hostings = state.entities.users[state.session.id].hosting_ids.map(function (id) {
+    return state.entities.bookings.hostings[id];
+  });
+
   // let hostings = state.entities.users[state.session.id].hostings.map((hosting) => {
   //   return hosting;
   // });
 
   return {
     guests: guests,
-    currentUser: state.entities.users[state.session.id]
-    // hostings: hostings
+    currentUser: state.entities.users[state.session.id],
+    hostings: hostings
+
   };
 };
 
 var mdp = function mdp(dispatch) {
   return {
+    fetchHostings: function fetchHostings(hostId) {
+      return dispatch((0, _user_actions.fetchHostings)(hostId));
+    },
     fetchUser: function fetchUser(user) {
       return dispatch((0, _user_actions.fetchUser)(user));
     },
@@ -1791,7 +1827,6 @@ var UpcomingHostingsItem = function (_React$Component) {
   _createClass(UpcomingHostingsItem, [{
     key: 'render',
     value: function render() {
-
       return _react2.default.createElement(
         'li',
         null,
@@ -2294,6 +2329,8 @@ var _session_actions = __webpack_require__(/*! ../actions/session_actions */ "./
 
 var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
+var _user_actions = __webpack_require__(/*! ../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
+
 var defaultState = {};
 
 var hostingsReducer = function hostingsReducer() {
@@ -2303,6 +2340,7 @@ var hostingsReducer = function hostingsReducer() {
   Object.freeze(state);
   switch (action.type) {
     case _session_actions.RECEIVE_CURRENT_USER:
+    case _user_actions.RECEIVE_HOSTINGS:
       return (0, _lodash.merge)({}, state, action.hostings);
     default:
       return state;
@@ -2672,6 +2710,28 @@ var configureStore = function configureStore() {
 };
 
 exports.default = configureStore;
+
+/***/ }),
+
+/***/ "./frontend/util/bookings_util.js":
+/*!****************************************!*\
+  !*** ./frontend/util/bookings_util.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var fetchUserHostings = exports.fetchUserHostings = function fetchUserHostings(hostId) {
+  return $.ajax({
+    method: 'get',
+    url: 'api/bookings/' + hostId
+  });
+};
 
 /***/ }),
 

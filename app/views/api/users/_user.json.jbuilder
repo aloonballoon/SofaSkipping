@@ -17,12 +17,5 @@ json.trips do
   end
 end
 
-json.hostings do
-  user.hostings.each do |hosting|
-    json.set! hosting.id do
-        json.merge! hosting.attributes
-    end
-  end
-end
 #
 json.home_location user.location
