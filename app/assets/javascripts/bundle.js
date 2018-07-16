@@ -1683,6 +1683,17 @@ var UpcomingHostings = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
+      var hostingItem = this.props.hostings.map(function (hosting, idx) {
+        var guest = null;
+        if (typeof hosting === "undefined") {
+          guest = null;
+        } else {
+          guest = _this2.props.users[hosting.guest_id];
+          return _react2.default.createElement(_upcoming_hostings_item2.default, { key: idx, guest: guest, hosting: hosting });
+        }
+      });
 
       return _react2.default.createElement(
         'section',
@@ -1692,7 +1703,11 @@ var UpcomingHostings = function (_React$Component) {
           null,
           'My Upcoming Guests'
         ),
-        _react2.default.createElement('ul', null)
+        _react2.default.createElement(
+          'ul',
+          null,
+          hostingItem
+        )
       );
     }
   }]);
@@ -1741,7 +1756,7 @@ var msp = function msp(state) {
   });
 
   return {
-    guests: guests,
+    users: state.entities.users,
     currentUser: state.entities.users[state.session.id],
     hostings: hostings
 
@@ -1804,9 +1819,41 @@ var UpcomingHostingsItem = function (_React$Component) {
   }
 
   _createClass(UpcomingHostingsItem, [{
-    key: 'render',
+    key: "render",
     value: function render() {
-      return _react2.default.createElement('li', null);
+
+      var firstName = "";
+      var lastName = "";
+      var city = "";
+      var country = "";
+      var startDate = "";
+      var endDate = "";
+
+      if (typeof this.props.guest !== 'undefined') {
+        firstName = this.props.guest.first_name;
+      }
+
+      if (typeof this.props.hosting !== 'undefined') {
+        startDate = this.props.hosting.start_date;
+        endDate = this.props.hosting.end_date;
+      }
+
+      var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+      var firstDate = new Date(startDate);
+      var secondDate = new Date(endDate);
+      var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / oneDay));
+
+      return _react2.default.createElement(
+        "li",
+        null,
+        diffDays,
+        " Days",
+        firstName,
+        city,
+        country,
+        startDate,
+        endDate
+      );
     }
   }]);
 
