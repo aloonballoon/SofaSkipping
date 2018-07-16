@@ -1,112 +1,112 @@
-.modal-background {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 10;
-}
-
-.modal-child {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  border-radius: 8px;
-  width: 500px;
-  height: 600px;
-}
-
-.modal-child form {
-  display: flex;
-  flex-direction: column;
-}
-
-#session-header {
-  padding-top: 10px;
-  padding-bottom: 25px;
-  font-weight: 100;
-  padding-left:30px;
-  border-bottom: 1px solid #e6e6e6;
-  font-weight: lighter;
-  color: #34495E
-}
-
-#modal-title-container {
-  font-size: 20px;
-}
-
-.login-signup-input {
-  margin-left: 35px;
-  margin-right: 35px;
-  height: 50px;
-  border-radius: 8px;
-  font-size: 15px;
-  border: 1px solid rgba(0,0,0,0.15);
-}
-
-#login-signup-firstname-input {
-  width: 200px;
-  display: inline-block;
-  margin-left: 35px;
-  margin-right: 10px;
-  height: 50px;
-  border-radius: 8px;
-  font-size: 15px;
-  border: 1px solid rgba(0,0,0,0.15);
-}
-
-#login-signup-lastname-input {
-  width: 200px;
-  display: inline-block;
-  margin-left: 10px;
-  // margin-right: 10px;
-  height: 50px;
-  border-radius: 8px;
-  font-size: 15px;
-  border: 1px solid rgba(0,0,0,0.15);
-}
-
-#session-button {
-  margin-left: 35px;
-  margin-right: 35px;
-  height: 40px;
-  background-color: #2980B9;
-  font-size: 15px;
-  color: white;
-  border-radius: 5px;
-}
-
-#other-form-button-switch {
-  margin-left: 150px;
-  margin-right: 150px;
-  height: 40px;
-  background-color: white;
-  font-size: 15px;
-  color: #2980B9;
-  border-radius: 5px;
-  border-color: #2980B9;
-}
-
-#switch-phrase {
-   text-align: center;
-}
-
-#guest-button {
-  margin-left: 150px;
-  margin-right: 150px;
-  height: 40px;
-  background-color: #2980B9;
-  font-size: 15px;
-  color: white;
-  border-radius: 5px;
-}
-
-#error-message {
-  text-align:center;
-  margin: 0;
-  height: 50px;
-  background-color: rgba(198,61,67,0.25);
-}
+// .modal-background {
+//   position: fixed;
+//   top: 0;
+//   bottom: 0;
+//   right: 0;
+//   left: 0;
+//   background: rgba(0, 0, 0, 0.7);
+//   z-index: 10;
+// }
+//
+// .modal-child {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   background-color: white;
+//   border-radius: 8px;
+//   width: 500px;
+//   height: 600px;
+// }
+//
+// .modal-child form {
+//   display: flex;
+//   flex-direction: column;
+// }
+//
+// #session-header {
+//   padding-top: 10px;
+//   padding-bottom: 25px;
+//   font-weight: 100;
+//   padding-left:30px;
+//   border-bottom: 1px solid #e6e6e6;
+//   font-weight: lighter;
+//   color: #34495E
+// }
+//
+// #modal-title-container {
+//   font-size: 20px;
+// }
+//
+// .login-signup-input {
+//   margin-left: 35px;
+//   margin-right: 35px;
+//   height: 50px;
+//   border-radius: 8px;
+//   font-size: 15px;
+//   border: 1px solid rgba(0,0,0,0.15);
+// }
+//
+// #login-signup-firstname-input {
+//   width: 200px;
+//   display: inline-block;
+//   margin-left: 35px;
+//   margin-right: 10px;
+//   height: 50px;
+//   border-radius: 8px;
+//   font-size: 15px;
+//   border: 1px solid rgba(0,0,0,0.15);
+// }
+//
+// #login-signup-lastname-input {
+//   width: 200px;
+//   display: inline-block;
+//   margin-left: 10px;
+//   // margin-right: 10px;
+//   height: 50px;
+//   border-radius: 8px;
+//   font-size: 15px;
+//   border: 1px solid rgba(0,0,0,0.15);
+// }
+//
+// #session-button {
+//   margin-left: 35px;
+//   margin-right: 35px;
+//   height: 40px;
+//   background-color: #2980B9;
+//   font-size: 15px;
+//   color: white;
+//   border-radius: 5px;
+// }
+//
+// #other-form-button-switch {
+//   margin-left: 150px;
+//   margin-right: 150px;
+//   height: 40px;
+//   background-color: white;
+//   font-size: 15px;
+//   color: #2980B9;
+//   border-radius: 5px;
+//   border-color: #2980B9;
+// }
+//
+// #switch-phrase {
+//    text-align: center;
+// }
+//
+// #guest-button {
+//   margin-left: 150px;
+//   margin-right: 150px;
+//   height: 40px;
+//   background-color: #2980B9;
+//   font-size: 15px;
+//   color: white;
+//   border-radius: 5px;
+// }
+//
+// #error-message {
+//   text-align:center;
+//   margin: 0;
+//   height: 50px;
+//   background-color: rgba(198,61,67,0.25);
+// }

@@ -1,127 +1,127 @@
-.dash-sidebar-aside {
-  display: flex;
-  flex-direction: column;
-  border-width: 1px;
-  border-color: black;
-  justify-content: center;
-  background-color: white;
-  width: auto;
-  max-width: 300px;
-  min-width: 300px;
-  max-height: 160px;
-  height: auto;
-  margin-right: 20px;
-  margin-top: 10px;
-  margin-left: 10px;
-}
-
-.user-dash-main-section {
-  display: flex;
-  flex-wrap: wrap;
-  background-color: #F1EFEA;
-  padding-top: 10px;
-}
-
-.dash-sidebar-header {
-  width: auto;
-  height: auto;
-  background-color: white;
-  text-align: center;
-  border-bottom: 2px solid #F1EFEA;
-  padding-top: 10px;
-}
-
-.dash-sidebar-footer {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: white;
-  height: auto;
-  width: auto;
-  text-align: center;
-  align-items: center;
-}
-
-.dash-section {
-  display: flex;
-  justify-content: center;
-  flex-flow: row wrap;
-  max-width: 780px;
-  min-width: 300px;
-  overflow: hidden;
-  background-color: white;
-  margin: 10px;
-}
-
-.dash-section header{
-  margin: 5px;
-}
-
-.dash-section header{
-
-}
-
-.dash-section div{
-  margin: 5px;
-  max-width: 150px;
-  overflow: hidden;
-  max-height: 150px;
-}
-
-.dash-section div img{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.dash-status-button {
-  border: none;
-  margin-bottom: 5px;
-  outline: none;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.hidden-dash-status-dropdown {
-  display: none;
-  z-index: 1;
-}
-
-.dash-status-ul {
-  position: relative;
-}
-
-.show-dash-status-dropdown {
-  display: block;
-  background-color: #f7f7f7;;
-  position: absolute;
-  left: 10px;
-  z-index: 1;
-  width: 300px;
-}
-
-.show-dash-status-dropdown li{
-  display: block;
-  background-color: #f7f7f7;;
-  position: inherit;
-  z-index: 1;
-  margin: 0px;
-  padding: 0px;
-}
-
-.show-dash-status-dropdown button{
-  border: none;
-  outline: none;
-  width: 100%;
-  padding: 0px;
-  font-size: 15px;
-}
-
-.show-dash-status-dropdown button:hover{
-  background-color: grey;
-}
-
-.upcoming-hostings-section {
-  width: 100px;
-  height: 100px;
-  background-color: red;
-}
+// .dash-sidebar-aside {
+//   display: flex;
+//   flex-direction: column;
+//   border-width: 1px;
+//   border-color: black;
+//   justify-content: center;
+//   background-color: white;
+//   width: auto;
+//   max-width: 300px;
+//   min-width: 300px;
+//   max-height: 160px;
+//   height: auto;
+//   margin-right: 20px;
+//   margin-top: 10px;
+//   margin-left: 10px;
+// }
+//
+// .user-dash-main-section {
+//   display: flex;
+//   flex-wrap: wrap;
+//   background-color: #F1EFEA;
+//   padding-top: 10px;
+// }
+//
+// .dash-sidebar-header {
+//   width: auto;
+//   height: auto;
+//   background-color: white;
+//   text-align: center;
+//   border-bottom: 2px solid #F1EFEA;
+//   padding-top: 10px;
+// }
+//
+// .dash-sidebar-footer {
+//   padding-top: 10px;
+//   padding-bottom: 10px;
+//   background-color: white;
+//   height: auto;
+//   width: auto;
+//   text-align: center;
+//   align-items: center;
+// }
+//
+// .dash-section {
+//   display: flex;
+//   justify-content: center;
+//   flex-flow: row wrap;
+//   max-width: 780px;
+//   min-width: 300px;
+//   overflow: hidden;
+//   background-color: white;
+//   margin: 10px;
+// }
+//
+// .dash-section header{
+//   margin: 5px;
+// }
+//
+// .dash-section header{
+//
+// }
+//
+// .dash-section div{
+//   margin: 5px;
+//   max-width: 150px;
+//   overflow: hidden;
+//   max-height: 150px;
+// }
+//
+// .dash-section div img{
+//   display: block;
+//   margin-left: auto;
+//   margin-right: auto;
+// }
+//
+// .dash-status-button {
+//   border: none;
+//   margin-bottom: 5px;
+//   outline: none;
+//   font-size: 15px;
+//   cursor: pointer;
+// }
+//
+// .hidden-dash-status-dropdown {
+//   display: none;
+//   z-index: 1;
+// }
+//
+// .dash-status-ul {
+//   position: relative;
+// }
+//
+// .show-dash-status-dropdown {
+//   display: block;
+//   background-color: #f7f7f7;;
+//   position: absolute;
+//   left: 10px;
+//   z-index: 1;
+//   width: 300px;
+// }
+//
+// .show-dash-status-dropdown li{
+//   display: block;
+//   background-color: #f7f7f7;;
+//   position: inherit;
+//   z-index: 1;
+//   margin: 0px;
+//   padding: 0px;
+// }
+//
+// .show-dash-status-dropdown button{
+//   border: none;
+//   outline: none;
+//   width: 100%;
+//   padding: 0px;
+//   font-size: 15px;
+// }
+//
+// .show-dash-status-dropdown button:hover{
+//   background-color: grey;
+// }
+//
+// .upcoming-hostings-section {
+//   width: 100px;
+//   height: 100px;
+//   background-color: red;
+// }
