@@ -1683,20 +1683,16 @@ var UpcomingHostings = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
 
-      // guestHostArr = [];
-      // this.props.guests.forEach((guest) => {
-      //   this.props.hostings.forEach((hosting) => {
-      //     if (guest.id === hosting.guest_id) {
-      //
-      //     }
-      //   })
+      // const guest = this.props.guests.map((guest, idx) => {
+      //   return <UpcomingHostingsItem currentUser={this.props.currentUser} guest={guest} key={idx} />
       // })
 
-      var guest = this.props.guests.map(function (guest, idx) {
-        return _react2.default.createElement(_upcoming_hostings_item2.default, { currentUser: _this2.props.currentUser, guest: guest, key: idx });
-      });
+
+      var hostingAndGuest = this.props.hostings.map(function (hosting) {});
+
+      debugger;
+
       return _react2.default.createElement(
         'section',
         { className: 'upcoming-hostings-section' },

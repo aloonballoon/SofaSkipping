@@ -9,19 +9,22 @@ class UpcomingHostings extends React.Component {
   }
 
   render() {
-    
-    // guestHostArr = [];
-    // this.props.guests.forEach((guest) => {
-    //   this.props.hostings.forEach((hosting) => {
-    //     if (guest.id === hosting.guest_id) {
-    //
-    //     }
-    //   })
+
+    // const guest = this.props.guests.map((guest, idx) => {
+    //   return <UpcomingHostingsItem currentUser={this.props.currentUser} guest={guest} key={idx} />
     // })
 
-    const guest = this.props.guests.map((guest, idx) => {
-      return <UpcomingHostingsItem currentUser={this.props.currentUser} guest={guest} key={idx} />
+
+
+    const hostingAndGuest = this.props.hostings.map(hosting => {
+      
     })
+
+
+
+
+    debugger
+
     return(
       <section className="upcoming-hostings-section">
       <header>
