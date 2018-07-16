@@ -10,13 +10,6 @@ class UpcomingHostings extends React.Component {
 
   render() {
 
-    // const guest = this.props.guests.map((guest, idx) => {
-    //   return <UpcomingHostingsItem currentUser={this.props.currentUser} guest={guest} key={idx} />
-    // })
-
-
-
-
     return(
       <section className="upcoming-hostings-section">
       <header>

@@ -15,10 +15,6 @@ const msp = (state) => {
     return state.entities.bookings.hostings[id];
   });
 
-  // let hostings = state.entities.users[state.session.id].hostings.map((hosting) => {
-  //   return hosting;
-  // });
-
   return {
     guests: guests,
     currentUser: state.entities.users[state.session.id],

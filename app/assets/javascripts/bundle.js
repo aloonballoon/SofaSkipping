@@ -1684,11 +1684,6 @@ var UpcomingHostings = function (_React$Component) {
     key: 'render',
     value: function render() {
 
-      // const guest = this.props.guests.map((guest, idx) => {
-      //   return <UpcomingHostingsItem currentUser={this.props.currentUser} guest={guest} key={idx} />
-      // })
-
-
       return _react2.default.createElement(
         'section',
         { className: 'upcoming-hostings-section' },
@@ -1744,10 +1739,6 @@ var msp = function msp(state) {
   var hostings = state.entities.users[state.session.id].hosting_ids.map(function (id) {
     return state.entities.bookings.hostings[id];
   });
-
-  // let hostings = state.entities.users[state.session.id].hostings.map((hosting) => {
-  //   return hosting;
-  // });
 
   return {
     guests: guests,
@@ -1815,14 +1806,7 @@ var UpcomingHostingsItem = function (_React$Component) {
   _createClass(UpcomingHostingsItem, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
-        'li',
-        null,
-        this.props.guest.first_name,
-        this.props.guest.last_name,
-        this.props.guest.location.city,
-        this.props.guest.location.country
-      );
+      return _react2.default.createElement('li', null);
     }
   }]);
 
