@@ -6,14 +6,13 @@ end
 
 json.host_ids user.host_ids
 json.guest_ids user.guest_ids
-json.trip_ids user.trip_ids
+json.trip_ids user.booking_ids
 json.hosting_ids user.hosting_ids
 
 json.trips do
-  user.trips.each do |trip|
-
-    json.set! trip.id do
-      json.extract! trip, :host_id, :traveler_id, :start_date, :end_date, :id
+  user.bookings.each do |booking|
+    json.set! booking.id do
+      json.extract! booking, :host_id, :guest_id, :start_date, :end_date, :id
     end
   end
 end

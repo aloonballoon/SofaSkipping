@@ -2176,6 +2176,41 @@ exports.default = (0, _reactRedux.connect)(msp)(_user_dashboard2.default);
 
 /***/ }),
 
+/***/ "./frontend/reducers/bookings_reducer.js":
+/*!***********************************************!*\
+  !*** ./frontend/reducers/bookings_reducer.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+
+var _trips_reducer = __webpack_require__(/*! ./trips_reducer */ "./frontend/reducers/trips_reducer.js");
+
+var _trips_reducer2 = _interopRequireDefault(_trips_reducer);
+
+var _hostings_reducer = __webpack_require__(/*! ./hostings_reducer */ "./frontend/reducers/hostings_reducer.js");
+
+var _hostings_reducer2 = _interopRequireDefault(_hostings_reducer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var bookingsReducer = (0, _redux.combineReducers)({
+  trips: _trips_reducer2.default,
+  hostings: _hostings_reducer2.default
+});
+
+exports.default = bookingsReducer;
+
+/***/ }),
+
 /***/ "./frontend/reducers/entities_reducer.js":
 /*!***********************************************!*\
   !*** ./frontend/reducers/entities_reducer.js ***!
@@ -2196,20 +2231,15 @@ var _users_reducer = __webpack_require__(/*! ./users_reducer */ "./frontend/redu
 
 var _users_reducer2 = _interopRequireDefault(_users_reducer);
 
-var _hostings_reducer = __webpack_require__(/*! ./hostings_reducer */ "./frontend/reducers/hostings_reducer.js");
+var _bookings_reducer = __webpack_require__(/*! ./bookings_reducer */ "./frontend/reducers/bookings_reducer.js");
 
-var _hostings_reducer2 = _interopRequireDefault(_hostings_reducer);
-
-var _trips_reducer = __webpack_require__(/*! ./trips_reducer */ "./frontend/reducers/trips_reducer.js");
-
-var _trips_reducer2 = _interopRequireDefault(_trips_reducer);
+var _bookings_reducer2 = _interopRequireDefault(_bookings_reducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var entitiesReducer = (0, _redux.combineReducers)({
   users: _users_reducer2.default,
-  hostings: _hostings_reducer2.default,
-  trips: _trips_reducer2.default
+  bookings: _bookings_reducer2.default
 });
 
 exports.default = entitiesReducer;

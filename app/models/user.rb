@@ -30,9 +30,9 @@ class User < ApplicationRecord
 
   has_one_attached :photo
 
-  has_many :trips,
+  has_many :bookings,
   primary_key: :id,
-  foreign_key: :traveler_id,
+  foreign_key: :guest_id,
   class_name: :Booking
 
   has_many :hostings,
@@ -42,10 +42,10 @@ class User < ApplicationRecord
 
   has_many :guests,
   through: :hostings,
-  source: :traveler
+  source: :guest
 
   has_many :hosts,
-  through: :trips,
+  through: :bookings,
   source: :host
 
   belongs_to :location,

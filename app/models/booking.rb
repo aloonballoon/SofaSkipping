@@ -7,9 +7,9 @@ class Booking < ApplicationRecord
   foreign_key: :host_id,
   class_name: :User
 
-  belongs_to :traveler,
+  belongs_to :guest,
   primary_key: :id,
-  foreign_key: :traveler_id,
+  foreign_key: :guest_id,
   class_name: :User
 
   has_one :destination,

@@ -1,7 +1,7 @@
 class BookingsController < ApplicationController
 
   def show
-    @booking = Booking.find(params[:id])
+    @bookings = Booking.where(host_id: params[:id]).includes(:traveler)
     render "api/bookings/show"
   end
 
