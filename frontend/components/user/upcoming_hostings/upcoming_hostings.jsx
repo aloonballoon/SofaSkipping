@@ -23,7 +23,8 @@ class UpcomingHostings extends React.Component {
     return(
 
       <section className="upcoming-hostings-section">
-      <header>
+      <header className="upcoming-hostings-section-header">
+      <i className="em em-house_with_garden"></i>
       My Upcoming Guests
       </header>
         <ul>

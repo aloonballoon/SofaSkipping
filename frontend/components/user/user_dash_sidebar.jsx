@@ -29,7 +29,7 @@ class UserDashSidebar extends React.Component {
     const MAYBE_ACCEPTING_GUESTS = "Maybe accepting guests";
     const NOT_ACCEPTING_GUESTS = "Not accepting guests";
 
-    let changeStatusButton = <button onClick={() => this.dropdownStatusClick()} className="dash-status-button">{this.state.user_status}</button>;
+    let changeStatusButton = <button onClick={() => this.dropdownStatusClick()} className="dash-status-button" type="button" data-toggle="dropdown">{this.state.user_status}<span className="caret"></span></button>;
 
 
     return (
@@ -40,6 +40,7 @@ class UserDashSidebar extends React.Component {
         </header>
         <footer className="dash-sidebar-footer">
           {changeStatusButton}
+          <i className="em em-arrow_down_small"></i>
           <div id="dash-status-dropdown-id" className="hidden-dash-status-dropdown">
             <ul className="dash-status-ul">
               <li>

@@ -20,6 +20,8 @@
   flex-wrap: wrap;
   background-color: #F1EFEA;
   padding-top: 10px;
+  justify-content: center;
+  height: 1000px;
 }
 
 .dash-sidebar-header {
@@ -29,6 +31,7 @@
   text-align: center;
   border-bottom: 2px solid #F1EFEA;
   padding-top: 10px;
+  font-weight: bold;
 }
 
 .dash-sidebar-footer {
@@ -39,6 +42,7 @@
   width: auto;
   text-align: center;
   align-items: center;
+  position: relative;
 }
 
 .dash-section {
@@ -79,15 +83,29 @@
   outline: none;
   font-size: 15px;
   cursor: pointer;
+  padding-right: 20px;
 }
 
 .hidden-dash-status-dropdown {
   display: none;
   z-index: 1;
+
 }
 
 .dash-status-ul {
   position: relative;
+  border-color: #F1EFEA;
+  border: 2px;
+}
+
+.dash-status-ul li button{
+  position: relative;
+  height: 40px;
+  margin: 0px;
+}
+
+.dash-status-ul li button:hover {
+  background-color: #f2f2f2
 }
 
 .show-dash-status-dropdown {
@@ -97,6 +115,8 @@
   left: 10px;
   z-index: 1;
   width: 300px;
+  position: absolute;
+  left: 0%;
 }
 
 .show-dash-status-dropdown li{
@@ -121,7 +141,117 @@
 }
 
 .upcoming-hostings-section {
-  width: 100px;
-  height: 100px;
-  background-color: red;
+  background-color: white;
+  width: 780px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.upcoming-hostings-section-header{
+  box-sizing: border-box;
+  min-height: 30px;
+  background-color: white;
+  border-bottom: 2px solid #F1EFEA;
+  width: 100%;
+  text-align:left;
+  position: absolute;
+  top: 3%;
+  height: 40px;
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+.upcoming-hostings-section ul {
+  padding-top: 40px;
+  text-align: center;
+}
+
+.upcoming-hostings-section li{
+  box-sizing: border-box;
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border-bottom: 2px solid #F1EFEA;
+  padding: 20px;
+}
+
+.upcoming-hostings-section img{
+  width: 60px;
+  height: auto;
+  margin: 10px;
+  border-radius: 50%;
+}
+
+.upcoming-guests-li-holding-div {
+
+}
+
+.upcoming-guests-li-name-header {
+  margin: 5px;
+  text-align: left;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.em-arrow_down_small {
+  width: 15px;
+  height: 15px;
+  padding-left: 20px;
+}
+
+
+.upcoming-guests-li-article {
+display: flex;
+flex-direction: column
+
+}
+
+.upcoming-guests-li-p-tag {
+  margin: 5px;
+  text-align: left;
+
+}
+
+
+.em-house_with_garden {
+  margin-right: 10px;
+}
+
+.em-couch_and_lamp {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.dash-main-header {
+  padding-top: 10px;
+  font-size: 15px;
+}
+
+.upcoming-guests-location-header {
+  margin: 5px;
+  text-align: left;
+}
+
+.em-house {
+  padding-right: 10px;
+  margin-bottom: 10px;
+}
+
+.em-spiral_calendar_pad {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+}
+
+.em-arrow_right {
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 15px;
+  height: 15px;
 }

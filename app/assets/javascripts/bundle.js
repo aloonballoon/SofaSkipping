@@ -1031,7 +1031,7 @@ var LoggedInNav = function (_React$Component) {
             { onClick: function onClick() {
                 return _this2.dropdownSearchClick();
               }, className: "dash-nav-dropdown-button" },
-            "Explore"
+            "Explore "
           ),
           _react2.default.createElement(
             "div",
@@ -1082,13 +1082,9 @@ var LoggedInNav = function (_React$Component) {
         _react2.default.createElement(
           "div",
           { className: "dash-circular-user-button-div" },
-          _react2.default.createElement(
-            "button",
-            { onClick: function onClick() {
-                return _this2.dropdownUserClick();
-              }, className: "dash-nav-user-dropdown-button" },
-            _react2.default.createElement("img", { className: "dash-nav-profile-photo", src: userPicture })
-          ),
+          _react2.default.createElement("img", { onClick: function onClick() {
+              return _this2.dropdownUserClick();
+            }, className: "dash-nav-profile-photo", src: userPicture }),
           _react2.default.createElement(
             "div",
             { id: "nav-user-dropdown", className: "dash-nav-user-menu" },
@@ -1700,7 +1696,8 @@ var UpcomingHostings = function (_React$Component) {
         { className: 'upcoming-hostings-section' },
         _react2.default.createElement(
           'header',
-          null,
+          { className: 'upcoming-hostings-section-header' },
+          _react2.default.createElement('i', { className: 'em em-house_with_garden' }),
           'My Upcoming Guests'
         ),
         _react2.default.createElement(
@@ -1828,31 +1825,96 @@ var UpcomingHostingsItem = function (_React$Component) {
       var country = "";
       var startDate = "";
       var endDate = "";
+      var guestImage = "";
 
       if (typeof this.props.guest !== 'undefined') {
         firstName = this.props.guest.first_name;
+        lastName = this.props.guest.last_name;
+        city = this.props.guest.location.city;
+        country = this.props.guest.location.country;
+        if (this.props.guest.imageUrl) {
+          guestImage = this.props.guest.imageUrl;
+        } else {
+          guestImage = window.profile_pic_placeholder;
+        }
       }
 
       if (typeof this.props.hosting !== 'undefined') {
         startDate = this.props.hosting.start_date;
         endDate = this.props.hosting.end_date;
       }
+      var endDateArray = endDate.toString().split("").map(function (t) {
+        return parseInt(t);
+      });
+      var startDateArray = startDate.toString().split("").map(function (t) {
+        return parseInt(t);
+      });
 
       var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
       var firstDate = new Date(startDate);
       var secondDate = new Date(endDate);
       var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / oneDay));
 
+      var startYear = parseInt(startDate.slice(0, 4));
+      var startMonth = parseInt(startDate.slice(5, 7));
+      var startDay = parseInt(startDate.slice(8, 10));
+      var endYear = parseInt(endDate.slice(0, 4));
+      var endMonth = parseInt(endDate.slice(5, 7));
+      var endDay = parseInt(endDate.slice(8, 10));
+
+      var MONTHS = { 1: "Januray", 2: "February", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August", 9: "September", 10: "October", 11: "November", 12: "December" };
+
+      startMonth = MONTHS[startMonth];
+      endMonth = MONTHS[endMonth];
+
       return _react2.default.createElement(
         "li",
         null,
-        diffDays,
-        " Days",
-        firstName,
-        city,
-        country,
-        startDate,
-        endDate
+        _react2.default.createElement("img", { src: guestImage }),
+        _react2.default.createElement(
+          "div",
+          { className: "upcoming-guests-li-holding-div" },
+          _react2.default.createElement(
+            "article",
+            { className: "upcoming-guests-li-article" },
+            _react2.default.createElement(
+              "header",
+              { className: "upcoming-guests-li-name-header" },
+              firstName,
+              " ",
+              lastName
+            ),
+            _react2.default.createElement(
+              "header",
+              { className: "upcoming-guests-location-header" },
+              city,
+              ", ",
+              country
+            ),
+            _react2.default.createElement(
+              "p",
+              { className: "upcoming-guests-li-p-tag" },
+              _react2.default.createElement("i", { className: "em em-house" }),
+              diffDays,
+              " Nights ",
+              _react2.default.createElement("i", { className: "em em-spiral_calendar_pad" }),
+              "   ",
+              startMonth,
+              " ",
+              startDay,
+              ", ",
+              startYear,
+              " ",
+              _react2.default.createElement("i", { className: "em em-arrow_right" }),
+              " ",
+              endMonth,
+              " ",
+              endDay,
+              ", ",
+              endYear
+            )
+          )
+        )
       );
     }
   }]);
@@ -1889,9 +1951,10 @@ var UserDashMain = function UserDashMain(props) {
   return _react2.default.createElement(
     "section",
     { className: "dash-section" },
+    _react2.default.createElement("i", { className: "em em-couch_and_lamp" }),
     _react2.default.createElement(
       "header",
-      null,
+      { className: "dash-main-header" },
       "DIVE IN THE DEEPEST LAKES, CLIMB THE HIGHEST MOUNTAINS, SEE WHERE LOTR WAS FILMED"
     ),
     _react2.default.createElement(
@@ -1986,8 +2049,9 @@ var UserDashSidebar = function (_React$Component) {
         "button",
         { onClick: function onClick() {
             return _this3.dropdownStatusClick();
-          }, className: "dash-status-button" },
-        this.state.user_status
+          }, className: "dash-status-button", type: "button", "data-toggle": "dropdown" },
+        this.state.user_status,
+        _react2.default.createElement("span", { className: "caret" })
       );
 
       return _react2.default.createElement(
@@ -2013,6 +2077,7 @@ var UserDashSidebar = function (_React$Component) {
           "footer",
           { className: "dash-sidebar-footer" },
           changeStatusButton,
+          _react2.default.createElement("i", { className: "em em-arrow_down_small" }),
           _react2.default.createElement(
             "div",
             { id: "dash-status-dropdown-id", className: "hidden-dash-status-dropdown" },

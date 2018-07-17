@@ -32,7 +32,8 @@ render() {
           SofaSkipping
         </article>
         <form className="dash-nav-input-dropdown-form">
-          <button onClick={() => this.dropdownSearchClick()} className="dash-nav-dropdown-button">Explore</button>
+          <button onClick={() => this.dropdownSearchClick()} className="dash-nav-dropdown-button">Explore </button>
+
           <div id='nav-dropdown' className='dash-nav-dropdown-menu'>
           <ul>
             <li>
@@ -53,7 +54,7 @@ render() {
         </form>
 
         <div className="dash-circular-user-button-div">
-          <button  onClick={() => this.dropdownUserClick()} className="dash-nav-user-dropdown-button"><img className="dash-nav-profile-photo" src={userPicture}/></button>
+          <img onClick={() => this.dropdownUserClick()} className="dash-nav-profile-photo" src={userPicture}/>
           <div id='nav-user-dropdown' className='dash-nav-user-menu'>
             <ul className="dash-nav-user-ul">
               <li>

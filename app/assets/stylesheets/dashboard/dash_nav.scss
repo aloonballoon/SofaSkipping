@@ -80,7 +80,12 @@
 .dash-nav-profile-photo {
   width: 50px;
   height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
 
+}
+
+.dash-nav-profile-photo:hover {
 }
 
 .dash-nav-user-dropdown-button {
@@ -90,6 +95,7 @@
   overflow: hidden;
   padding: 0px;
   margin: 0px;
+
 }
 
 .dash-circular-user-button-div {
@@ -100,6 +106,9 @@
   background-color: white;
   text-align: center;
   height: auto;
+}
+.dash-nav-user-ul button {
+  color: #929dad;
 }
 
 .dash-nav-user-ul li button:hover {
