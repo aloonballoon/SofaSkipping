@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import { logIn } from './actions/session_actions';
 import Root from './components/root';
-import {fetchUser} from './util/users_util';
+import {fetchUser, fetchHosts} from './util/users_util';
 import { updateStatus } from './actions/user_actions/user_actions';
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     store = configureStore();
   }
+  window.fetchHosts = fetchHosts;
   window.getState = store.getState;
   window.logIn = logIn;
   window.dispatch = store.dispatch;

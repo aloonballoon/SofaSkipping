@@ -209,7 +209,7 @@ var signUp = exports.signUp = function signUp(user) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchUser = exports.updateStatus = exports.fetchGuests = exports.fetchHostings = exports.receiveGuests = exports.receiveHostings = exports.receiveAssociatedUser = exports.RECEIVE_HOSTINGS = exports.RECEIVE_ASSOCIATED_USER = exports.RECEIVE_GUESTS = exports.UPDATE_USER_STATUS = undefined;
+exports.fetchUser = exports.updateStatus = exports.fetchGuests = exports.fetchHostings = exports.fetchHosts = exports.receiveGuests = exports.receiveHosts = exports.receiveHostings = exports.receiveAssociatedUser = exports.RECEIVE_HOSTS = exports.RECEIVE_HOSTINGS = exports.RECEIVE_ASSOCIATED_USER = exports.RECEIVE_GUESTS = exports.UPDATE_USER_STATUS = undefined;
 
 var _users_util = __webpack_require__(/*! ../../util/users_util */ "./frontend/util/users_util.js");
 
@@ -225,6 +225,7 @@ var UPDATE_USER_STATUS = exports.UPDATE_USER_STATUS = "UPDATE_USER_STATUS";
 var RECEIVE_GUESTS = exports.RECEIVE_GUESTS = "RECEIVE_GUESTS";
 var RECEIVE_ASSOCIATED_USER = exports.RECEIVE_ASSOCIATED_USER = "RECEIVE_ASSOCIATED_USER";
 var RECEIVE_HOSTINGS = exports.RECEIVE_HOSTINGS = 'RECEIVE_BOOKINGS';
+var RECEIVE_HOSTS = exports.RECEIVE_HOSTS = "RECEIVE_HOSTS";
 
 var receiveAssociatedUser = exports.receiveAssociatedUser = function receiveAssociatedUser(user) {
   return {
@@ -240,10 +241,25 @@ var receiveHostings = exports.receiveHostings = function receiveHostings(hosting
   };
 };
 
+var receiveHosts = exports.receiveHosts = function receiveHosts(hosts) {
+  return {
+    type: RECEIVE_HOSTS,
+    hostings: hosts.users
+  };
+};
+
 var receiveGuests = exports.receiveGuests = function receiveGuests(guests) {
   return {
     type: RECEIVE_GUESTS,
     users: guests.users
+  };
+};
+
+var fetchHosts = exports.fetchHosts = function fetchHosts(id) {
+  return function (dispatch) {
+    return UsersApiUtil.fetchHosts(id).then(function (hosts) {
+      dispatch(receiveHosts(hosts));
+    });
   };
 };
 
@@ -2688,6 +2704,8 @@ var usersReducer = function usersReducer() {
       return (0, _lodash.merge)({}, state, _defineProperty({}, action.user.id, action.user));
     case _user_actions.RECEIVE_GUESTS:
       return (0, _lodash.merge)({}, state, action.users);
+    case _user_actions.RECEIVE_HOSTS:
+      return (0, _lodash.merge)({}, state, action.users);
     default:
       return state;
   }
@@ -2747,6 +2765,7 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     store = (0, _store2.default)();
   }
+  window.fetchHosts = _users_util.fetchHosts;
   window.getState = store.getState;
   window.logIn = _session_actions.logIn;
   window.dispatch = store.dispatch;
@@ -2946,6 +2965,13 @@ var fetchGuests = exports.fetchGuests = function fetchGuests(id) {
   return $.ajax({
     method: 'get',
     url: 'api/users/' + id + '/guests'
+  });
+};
+
+var fetchHosts = exports.fetchHosts = function fetchHosts(id) {
+  return $.ajax({
+    method: 'get',
+    url: 'api/users/' + id + '/hosts'
   });
 };
 

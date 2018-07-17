@@ -19,3 +19,10 @@ export const fetchGuests = (id) => {
     url: `api/users/${id}/guests`
   });
 };
+
+export const fetchHosts = (id) => {
+  return $.ajax({
+    method: 'get',
+    url: `api/users/${id}/hosts`
+  });
+};

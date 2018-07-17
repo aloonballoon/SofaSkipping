@@ -7,6 +7,7 @@ export const UPDATE_USER_STATUS = "UPDATE_USER_STATUS";
 export const RECEIVE_GUESTS = "RECEIVE_GUESTS";
 export const RECEIVE_ASSOCIATED_USER = "RECEIVE_ASSOCIATED_USER";
 export const RECEIVE_HOSTINGS = 'RECEIVE_BOOKINGS';
+export const RECEIVE_HOSTS = "RECEIVE_HOSTS";
 
 
 export const receiveAssociatedUser = (user) => {
@@ -20,13 +21,28 @@ export const receiveHostings = (hostings) => {
   return {
     type: RECEIVE_HOSTINGS,
     hostings: hostings.hostings
-  }
-}
+  };
+};
+
+export const receiveHosts = (hosts) => {
+  return {
+    type: RECEIVE_HOSTS,
+    hostings: hosts.users
+  };
+};
 
 export const receiveGuests = (guests) => {
   return {
     type: RECEIVE_GUESTS,
     users: guests.users
+  };
+};
+
+export const fetchHosts = (id) => {
+  return dispatch => {
+    return UsersApiUtil.fetchHosts(id).then(hosts => {
+      dispatch(receiveHosts(hosts));
+    });
   };
 };
 

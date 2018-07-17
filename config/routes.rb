@@ -8,6 +8,11 @@ Rails.application.routes.draw do
       member do
         get 'guests'
       end
+
+      member do
+        get 'hosts'
+      end
+      
     end
     resource :session, only: [:create, :destroy, :show]
     resources :locations

@@ -34,6 +34,12 @@ class Api::UsersController < ApplicationController
     render 'api/users/guests'
   end
 
+  def hosts
+    @user = User.find(params[:id])
+    @hosts = @user.hosts
+    render 'api/users/hosts'
+  end
+
   private
 
   def user_params
