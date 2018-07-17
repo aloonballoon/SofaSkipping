@@ -1,12 +1,13 @@
 import * as UsersApiUtil from '../../util/users_util';
 import { receiveCurrentUser } from '../session_actions';
-import { fetchUserHostings } from '../../util/bookings_util'
+import { fetchUserHostings, fetchUserTrips } from '../../util/bookings_util'
 
 
 export const UPDATE_USER_STATUS = "UPDATE_USER_STATUS";
 export const RECEIVE_GUESTS = "RECEIVE_GUESTS";
 export const RECEIVE_ASSOCIATED_USER = "RECEIVE_ASSOCIATED_USER";
-export const RECEIVE_HOSTINGS = 'RECEIVE_BOOKINGS';
+export const RECEIVE_HOSTINGS = 'RECEIVE_HOSTINGS';
+export const RECEIVE_TRIPS = 'RECEIVE_TRIPS';
 export const RECEIVE_HOSTS = "RECEIVE_HOSTS";
 
 
@@ -24,10 +25,19 @@ export const receiveHostings = (hostings) => {
   };
 };
 
+export const receiveTrips = (trips) => {
+  return {
+    type: RECEIVE_TRIPS,
+    trips: trips.trips
+  };
+};
+
+
+
 export const receiveHosts = (hosts) => {
   return {
     type: RECEIVE_HOSTS,
-    hostings: hosts.users
+    hosts: hosts.users
   };
 };
 
@@ -53,6 +63,17 @@ export const fetchHostings = (hostId) => {
     });
   };
 };
+
+
+export const fetchTrips = (guestId) => {
+  return dispatch => {
+    return fetchUserTrips(guestId).then(trips => {
+      return dispatch(receiveTrips(trips));
+    });
+  };
+};
+
+
 
 export const fetchGuests = (id) => {
   return dispatch => {

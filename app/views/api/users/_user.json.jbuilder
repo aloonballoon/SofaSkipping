@@ -18,4 +18,4 @@ json.trips do
 end
 
 #
-json.home_location user.location
+json.location user.location

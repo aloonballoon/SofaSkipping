@@ -12,11 +12,15 @@ Rails.application.routes.draw do
       member do
         get 'hosts'
       end
-      
+
     end
     resource :session, only: [:create, :destroy, :show]
     resources :locations
-    resources :bookings
+    resources :bookings do
+      member do
+        get 'trips'
+      end
+    end
   end
 
 

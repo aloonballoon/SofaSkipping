@@ -223,6 +223,10 @@ flex-direction: column
   margin-right: 10px;
 }
 
+.em-airplane {
+  margin-right: 15px;
+}
+
 .em-couch_and_lamp {
   margin-top: 10px;
   margin-right: 10px;
@@ -254,4 +258,18 @@ flex-direction: column
   padding-right: 5px;
   width: 15px;
   height: 15px;
+}
+
+.upcoming-trips-section-header {
+  box-sizing: border-box;
+  min-height: 30px;
+  background-color: white;
+  border-bottom: 2px solid #F1EFEA;
+  width: 100%;
+  text-align:left;
+  position: absolute;
+  top: 3%;
+  height: 40px;
+  padding-left: 10px;
+  font-size: 20px;
 }

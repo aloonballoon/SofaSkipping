@@ -5,4 +5,9 @@ class Api::BookingsController < ApplicationController
     render "api/bookings/show"
   end
 
+  def trips
+    @trips = Booking.where(guest_id: params[:id]).includes(:host)
+    render "api/bookings/trips"
+  end
+
 end

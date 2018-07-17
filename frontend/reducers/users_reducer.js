@@ -12,7 +12,7 @@ const usersReducer = (state = defaultState, action) => {
     case RECEIVE_GUESTS:
       return merge({}, state, action.users);
     case RECEIVE_HOSTS:
-      return merge({}, state, action.users);
+      return merge({}, state, action.hosts);
     default:
       return state;
   }

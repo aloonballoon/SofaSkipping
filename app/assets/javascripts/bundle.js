@@ -209,7 +209,7 @@ var signUp = exports.signUp = function signUp(user) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchUser = exports.updateStatus = exports.fetchGuests = exports.fetchHostings = exports.fetchHosts = exports.receiveGuests = exports.receiveHosts = exports.receiveHostings = exports.receiveAssociatedUser = exports.RECEIVE_HOSTS = exports.RECEIVE_HOSTINGS = exports.RECEIVE_ASSOCIATED_USER = exports.RECEIVE_GUESTS = exports.UPDATE_USER_STATUS = undefined;
+exports.fetchUser = exports.updateStatus = exports.fetchGuests = exports.fetchTrips = exports.fetchHostings = exports.fetchHosts = exports.receiveGuests = exports.receiveHosts = exports.receiveTrips = exports.receiveHostings = exports.receiveAssociatedUser = exports.RECEIVE_HOSTS = exports.RECEIVE_TRIPS = exports.RECEIVE_HOSTINGS = exports.RECEIVE_ASSOCIATED_USER = exports.RECEIVE_GUESTS = exports.UPDATE_USER_STATUS = undefined;
 
 var _users_util = __webpack_require__(/*! ../../util/users_util */ "./frontend/util/users_util.js");
 
@@ -224,7 +224,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var UPDATE_USER_STATUS = exports.UPDATE_USER_STATUS = "UPDATE_USER_STATUS";
 var RECEIVE_GUESTS = exports.RECEIVE_GUESTS = "RECEIVE_GUESTS";
 var RECEIVE_ASSOCIATED_USER = exports.RECEIVE_ASSOCIATED_USER = "RECEIVE_ASSOCIATED_USER";
-var RECEIVE_HOSTINGS = exports.RECEIVE_HOSTINGS = 'RECEIVE_BOOKINGS';
+var RECEIVE_HOSTINGS = exports.RECEIVE_HOSTINGS = 'RECEIVE_HOSTINGS';
+var RECEIVE_TRIPS = exports.RECEIVE_TRIPS = 'RECEIVE_TRIPS';
 var RECEIVE_HOSTS = exports.RECEIVE_HOSTS = "RECEIVE_HOSTS";
 
 var receiveAssociatedUser = exports.receiveAssociatedUser = function receiveAssociatedUser(user) {
@@ -241,10 +242,17 @@ var receiveHostings = exports.receiveHostings = function receiveHostings(hosting
   };
 };
 
+var receiveTrips = exports.receiveTrips = function receiveTrips(trips) {
+  return {
+    type: RECEIVE_TRIPS,
+    trips: trips.trips
+  };
+};
+
 var receiveHosts = exports.receiveHosts = function receiveHosts(hosts) {
   return {
     type: RECEIVE_HOSTS,
-    hostings: hosts.users
+    hosts: hosts.users
   };
 };
 
@@ -267,6 +275,14 @@ var fetchHostings = exports.fetchHostings = function fetchHostings(hostId) {
   return function (dispatch) {
     return (0, _bookings_util.fetchUserHostings)(hostId).then(function (hostings) {
       return dispatch(receiveHostings(hostings));
+    });
+  };
+};
+
+var fetchTrips = exports.fetchTrips = function fetchTrips(guestId) {
+  return function (dispatch) {
+    return (0, _bookings_util.fetchUserTrips)(guestId).then(function (trips) {
+      return dispatch(receiveTrips(trips));
     });
   };
 };
@@ -1942,6 +1958,303 @@ exports.default = UpcomingHostingsItem;
 
 /***/ }),
 
+/***/ "./frontend/components/user/upcoming_trips/upcoming_trips.jsx":
+/*!********************************************************************!*\
+  !*** ./frontend/components/user/upcoming_trips/upcoming_trips.jsx ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _upcoming_trips_item = __webpack_require__(/*! ./upcoming_trips_item */ "./frontend/components/user/upcoming_trips/upcoming_trips_item.jsx");
+
+var _upcoming_trips_item2 = _interopRequireDefault(_upcoming_trips_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UpcomingTrips = function (_React$Component) {
+  _inherits(UpcomingTrips, _React$Component);
+
+  function UpcomingTrips() {
+    _classCallCheck(this, UpcomingTrips);
+
+    return _possibleConstructorReturn(this, (UpcomingTrips.__proto__ || Object.getPrototypeOf(UpcomingTrips)).apply(this, arguments));
+  }
+
+  _createClass(UpcomingTrips, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchHosts(this.props.currentUser.id);
+      this.props.fetchTrips(this.props.currentUser.id);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var tripItem = this.props.trips.map(function (trip, idx) {
+        var host = null;
+        if (typeof trip === "undefined") {
+          host = null;
+        } else {
+          host = _this2.props.users[trip.host_id];
+          return _react2.default.createElement(_upcoming_trips_item2.default, { key: idx, host: host, trip: trip });
+        }
+      });
+
+      return _react2.default.createElement(
+        'section',
+        { className: 'upcoming-hostings-section' },
+        _react2.default.createElement(
+          'header',
+          { className: 'upcoming-trips-section-header' },
+          _react2.default.createElement('i', { 'class': 'em em-airplane' }),
+          'My Travel Plans'
+        ),
+        _react2.default.createElement(
+          'ul',
+          null,
+          tripItem
+        )
+      );
+    }
+  }]);
+
+  return UpcomingTrips;
+}(_react2.default.Component);
+
+exports.default = UpcomingTrips;
+
+/***/ }),
+
+/***/ "./frontend/components/user/upcoming_trips/upcoming_trips_container.js":
+/*!*****************************************************************************!*\
+  !*** ./frontend/components/user/upcoming_trips/upcoming_trips_container.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _upcoming_trips = __webpack_require__(/*! ./upcoming_trips */ "./frontend/components/user/upcoming_trips/upcoming_trips.jsx");
+
+var _upcoming_trips2 = _interopRequireDefault(_upcoming_trips);
+
+var _user_actions = __webpack_require__(/*! ../../../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var msp = function msp(state) {
+  var hosts = [];
+  state.entities.users[state.session.id].host_ids.map(function (id) {
+    if (state.entities.users[id]) {
+      hosts.push(state.entities.users[id]);
+    }
+  });
+  var trips = state.entities.users[state.session.id].trip_ids.map(function (id) {
+    return state.entities.bookings.trips[id];
+  });
+
+  return {
+    users: state.entities.users,
+    currentUser: state.entities.users[state.session.id],
+    trips: trips
+
+  };
+};
+
+var mdp = function mdp(dispatch) {
+  return {
+    fetchTrips: function fetchTrips(guestId) {
+      return dispatch((0, _user_actions.fetchTrips)(guestId));
+    },
+    fetchUser: function fetchUser(user) {
+      return dispatch((0, _user_actions.fetchUser)(user));
+    },
+    fetchHosts: function fetchHosts(id) {
+      return dispatch((0, _user_actions.fetchHosts)(id));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(msp, mdp)(_upcoming_trips2.default);
+
+/***/ }),
+
+/***/ "./frontend/components/user/upcoming_trips/upcoming_trips_item.jsx":
+/*!*************************************************************************!*\
+  !*** ./frontend/components/user/upcoming_trips/upcoming_trips_item.jsx ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UpcomingTripsItem = function (_React$Component) {
+  _inherits(UpcomingTripsItem, _React$Component);
+
+  function UpcomingTripsItem() {
+    _classCallCheck(this, UpcomingTripsItem);
+
+    return _possibleConstructorReturn(this, (UpcomingTripsItem.__proto__ || Object.getPrototypeOf(UpcomingTripsItem)).apply(this, arguments));
+  }
+
+  _createClass(UpcomingTripsItem, [{
+    key: "render",
+    value: function render() {
+
+      var firstName = "";
+      var lastName = "";
+      var city = "";
+      var country = "";
+      var startDate = "";
+      var endDate = "";
+      var hostImage = "";
+
+      if (typeof this.props.host !== 'undefined') {
+        firstName = this.props.host.first_name;
+        lastName = this.props.host.last_name;
+        debugger;
+        city = this.props.host.location.city;
+        country = this.props.host.location.country;
+        if (this.props.host.imageUrl) {
+          hostImage = this.props.host.imageUrl;
+        } else {
+          hostImage = window.profile_pic_placeholder;
+        }
+      }
+
+      if (typeof this.props.trip !== 'undefined') {
+        startDate = this.props.trip.start_date;
+        endDate = this.props.trip.end_date;
+      }
+      var endDateArray = endDate.toString().split("").map(function (t) {
+        return parseInt(t);
+      });
+      var startDateArray = startDate.toString().split("").map(function (t) {
+        return parseInt(t);
+      });
+
+      var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+      var firstDate = new Date(startDate);
+      var secondDate = new Date(endDate);
+      var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / oneDay));
+
+      var startYear = parseInt(startDate.slice(0, 4));
+      var startMonth = parseInt(startDate.slice(5, 7));
+      var startDay = parseInt(startDate.slice(8, 10));
+      var endYear = parseInt(endDate.slice(0, 4));
+      var endMonth = parseInt(endDate.slice(5, 7));
+      var endDay = parseInt(endDate.slice(8, 10));
+
+      var MONTHS = { 1: "Januray", 2: "February", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August", 9: "September", 10: "October", 11: "November", 12: "December" };
+
+      startMonth = MONTHS[startMonth];
+      endMonth = MONTHS[endMonth];
+
+      return _react2.default.createElement(
+        "li",
+        null,
+        _react2.default.createElement("img", { src: hostImage }),
+        _react2.default.createElement(
+          "div",
+          { className: "upcoming-guests-li-holding-div" },
+          _react2.default.createElement(
+            "article",
+            { className: "upcoming-guests-li-article" },
+            _react2.default.createElement(
+              "header",
+              { className: "upcoming-guests-li-name-header" },
+              firstName,
+              " ",
+              lastName
+            ),
+            _react2.default.createElement(
+              "header",
+              { className: "upcoming-guests-location-header" },
+              city,
+              ", ",
+              country
+            ),
+            _react2.default.createElement(
+              "p",
+              { className: "upcoming-guests-li-p-tag" },
+              _react2.default.createElement("i", { className: "em em-house" }),
+              diffDays,
+              " Nights ",
+              _react2.default.createElement("i", { className: "em em-spiral_calendar_pad" }),
+              "   ",
+              startMonth,
+              " ",
+              startDay,
+              ", ",
+              startYear,
+              " ",
+              _react2.default.createElement("i", { className: "em em-arrow_right" }),
+              " ",
+              endMonth,
+              " ",
+              endDay,
+              ", ",
+              endYear
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return UpcomingTripsItem;
+}(_react2.default.Component);
+
+exports.default = UpcomingTripsItem;
+
+/***/ }),
+
 /***/ "./frontend/components/user/user_dash_main.jsx":
 /*!*****************************************************!*\
   !*** ./frontend/components/user/user_dash_main.jsx ***!
@@ -2223,6 +2536,10 @@ var _upcoming_hostings_container = __webpack_require__(/*! ./upcoming_hostings/u
 
 var _upcoming_hostings_container2 = _interopRequireDefault(_upcoming_hostings_container);
 
+var _upcoming_trips_container = __webpack_require__(/*! ./upcoming_trips/upcoming_trips_container */ "./frontend/components/user/upcoming_trips/upcoming_trips_container.js");
+
+var _upcoming_trips_container2 = _interopRequireDefault(_upcoming_trips_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2254,7 +2571,8 @@ var UserDashboard = function (_React$Component) {
           'section',
           null,
           _react2.default.createElement(_user_dash_main2.default, null),
-          _react2.default.createElement(_upcoming_hostings_container2.default, null)
+          _react2.default.createElement(_upcoming_hostings_container2.default, null),
+          _react2.default.createElement(_upcoming_trips_container2.default, null)
         )
       );
     }
@@ -2621,6 +2939,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _session_actions = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 
+var _user_actions = __webpack_require__(/*! ../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
+
 var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 var defaultState = {};
@@ -2632,6 +2952,7 @@ var tripsReducer = function tripsReducer() {
   Object.freeze(state);
   switch (action.type) {
     case _session_actions.RECEIVE_CURRENT_USER:
+    case _user_actions.RECEIVE_TRIPS:
       return (0, _lodash.merge)({}, state, action.trips);
     default:
       return state;
@@ -2705,7 +3026,7 @@ var usersReducer = function usersReducer() {
     case _user_actions.RECEIVE_GUESTS:
       return (0, _lodash.merge)({}, state, action.users);
     case _user_actions.RECEIVE_HOSTS:
-      return (0, _lodash.merge)({}, state, action.users);
+      return (0, _lodash.merge)({}, state, action.hosts);
     default:
       return state;
   }
@@ -2833,6 +3154,13 @@ var fetchUserHostings = exports.fetchUserHostings = function fetchUserHostings(h
   return $.ajax({
     method: 'get',
     url: 'api/bookings/' + hostId
+  });
+};
+
+var fetchUserTrips = exports.fetchUserTrips = function fetchUserTrips(tripId) {
+  return $.ajax({
+    method: 'get',
+    url: 'api/bookings/' + tripId + '/trips'
   });
 };
 
