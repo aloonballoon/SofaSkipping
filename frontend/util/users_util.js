@@ -5,6 +5,14 @@ export const fetchUser = (id) => {
   });
 };
 
+export const fetchUsers = (param) => {
+  return $.ajax({
+    method: 'get',
+    url: `api/users/`,
+    data: {user: {first_name: param, last_name: param, username: param, email: param}}
+  });
+};
+
 export const updateStatus = (user) => {
   return $.ajax({
     method: 'patch',

@@ -10,8 +10,12 @@ class Api::UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
-    render 'api/users/index'
+    @users = User.where(first_name: params[:user][:first_name]).or(User.where(last_name: params[:user][:last_name])).or(User.where(username: params[:user][:username])).or(User.where(email: params[:user][:email]))
+    unless @users.empty?
+      render 'api/users/index'
+    else
+      render json: {message: "No users by those fields found!"}, status: 422
+    end
   end
 
   def show
@@ -45,4 +49,5 @@ class Api::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:username, :password, :first_name, :last_name, :email, :user_status, :age, :bio, :home_location_id)
   end
+
 end

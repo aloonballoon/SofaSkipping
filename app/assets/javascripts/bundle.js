@@ -209,7 +209,7 @@ var signUp = exports.signUp = function signUp(user) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchUser = exports.updateStatus = exports.fetchGuests = exports.fetchTrips = exports.fetchHostings = exports.fetchHosts = exports.receiveGuests = exports.receiveHosts = exports.receiveTrips = exports.receiveHostings = exports.receiveAssociatedUser = exports.RECEIVE_HOSTS = exports.RECEIVE_TRIPS = exports.RECEIVE_HOSTINGS = exports.RECEIVE_ASSOCIATED_USER = exports.RECEIVE_GUESTS = exports.UPDATE_USER_STATUS = undefined;
+exports.receiveUsers = exports.fetchUsers = exports.fetchUser = exports.updateStatus = exports.fetchGuests = exports.fetchTrips = exports.fetchHostings = exports.fetchHosts = exports.receiveGuests = exports.receiveHosts = exports.receiveTrips = exports.receiveHostings = exports.receiveAssociatedUser = exports.RECEIVE_USERS = exports.RECEIVE_HOSTS = exports.RECEIVE_TRIPS = exports.RECEIVE_HOSTINGS = exports.RECEIVE_ASSOCIATED_USER = exports.RECEIVE_GUESTS = exports.UPDATE_USER_STATUS = undefined;
 
 var _users_util = __webpack_require__(/*! ../../util/users_util */ "./frontend/util/users_util.js");
 
@@ -227,6 +227,7 @@ var RECEIVE_ASSOCIATED_USER = exports.RECEIVE_ASSOCIATED_USER = "RECEIVE_ASSOCIA
 var RECEIVE_HOSTINGS = exports.RECEIVE_HOSTINGS = 'RECEIVE_HOSTINGS';
 var RECEIVE_TRIPS = exports.RECEIVE_TRIPS = 'RECEIVE_TRIPS';
 var RECEIVE_HOSTS = exports.RECEIVE_HOSTS = "RECEIVE_HOSTS";
+var RECEIVE_USERS = exports.RECEIVE_USERS = "RECEIVE_USERS";
 
 var receiveAssociatedUser = exports.receiveAssociatedUser = function receiveAssociatedUser(user) {
   return {
@@ -311,6 +312,21 @@ var fetchUser = exports.fetchUser = function fetchUser(id) {
   };
 };
 
+var fetchUsers = exports.fetchUsers = function fetchUsers(param) {
+  return function (dispatch) {
+    return UsersApiUtil.fetchUsers(param).then(function (users) {
+      return dispatch(receiveUsers(users));
+    });
+  };
+};
+
+var receiveUsers = exports.receiveUsers = function receiveUsers(users) {
+  return {
+    type: RECEIVE_USERS,
+    users: users
+  };
+};
+
 /***/ }),
 
 /***/ "./frontend/components/app.jsx":
@@ -367,6 +383,10 @@ var _logged_in_nav_bar_container = __webpack_require__(/*! ./logged_in_nav/logge
 
 var _logged_in_nav_bar_container2 = _interopRequireDefault(_logged_in_nav_bar_container);
 
+var _user_search_index_container = __webpack_require__(/*! ./user/user_search/user_search_index_container */ "./frontend/components/user/user_search/user_search_index_container.js");
+
+var _user_search_index_container2 = _interopRequireDefault(_user_search_index_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
@@ -384,6 +404,7 @@ var App = function App() {
       null,
       _react2.default.createElement(_route_util.ProtectedRoute, { component: _logged_in_nav_bar_container2.default }),
       _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/dashboard', component: _user_dashboard_container2.default }),
+      _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/usersearch', component: _user_search_index_container2.default }),
       _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _homescreen2.default })
     )
   );
@@ -1019,9 +1040,17 @@ var LoggedInNav = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (LoggedInNav.__proto__ || Object.getPrototypeOf(LoggedInNav)).call(this, props));
 
-    _this.state = _this.props.user;
+    _this.state = {
+      user: _this.props.user,
+      text: "",
+      searchFilter: "Find Members"
+    };
+
     _this.dropdownSearchClick = _this.dropdownSearchClick.bind(_this);
     _this.dropdownUserClick = _this.dropdownUserClick.bind(_this);
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.changeSearchFilter = _this.changeSearchFilter.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
     return _this;
   }
 
@@ -1036,15 +1065,49 @@ var LoggedInNav = function (_React$Component) {
       return document.getElementById("nav-user-dropdown").classList.toggle("show-user");
     }
   }, {
+    key: "handleChange",
+    value: function handleChange(e) {
+      var _this2 = this;
+
+      this.setState({ text: e.target.value }, function () {
+        return console.log(_this2.state.text);
+      });
+    }
+  }, {
+    key: "changeSearchFilter",
+    value: function changeSearchFilter(filter) {
+      this.setState({ searchFilter: filter });
+      this.dropdownSearchClick();
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      switch (this.state.searchFilter) {
+        case "Find Members":
+          this.props.fetchUsers(this.state.text);
+          this.props.history.push('usersearch');
+        default:
+          null;
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var userPicture = void 0;
       if (this.props.user.photoUrl) {
         userPicture = this.props.user.photoUrl;
       } else {
         userPicture = window.profile_pic_placeholder;
+      }
+
+      var placeholder = void 0;
+      if (this.state.searchFilter === "Find Members") {
+        placeholder = "Search Users";
+      } else {
+        placeholder = "Where are you going?";
       }
 
       return _react2.default.createElement(
@@ -1057,13 +1120,16 @@ var LoggedInNav = function (_React$Component) {
         ),
         _react2.default.createElement(
           "form",
-          { className: "dash-nav-input-dropdown-form" },
+          { className: "dash-nav-input-dropdown-form", onSubmit: function onSubmit(e) {
+              return _this3.handleSubmit(e);
+            } },
           _react2.default.createElement(
-            "button",
+            "div",
             { onClick: function onClick() {
-                return _this2.dropdownSearchClick();
+                return _this3.dropdownSearchClick();
               }, className: "dash-nav-dropdown-button" },
-            "Explore "
+            this.state.searchFilter,
+            " "
           ),
           _react2.default.createElement(
             "div",
@@ -1075,8 +1141,10 @@ var LoggedInNav = function (_React$Component) {
                 "li",
                 null,
                 _react2.default.createElement(
-                  "button",
-                  null,
+                  "div",
+                  { onClick: function onClick() {
+                      return _this3.changeSearchFilter("Explore");
+                    } },
                   "Explore"
                 )
               ),
@@ -1084,8 +1152,10 @@ var LoggedInNav = function (_React$Component) {
                 "li",
                 null,
                 _react2.default.createElement(
-                  "button",
-                  null,
+                  "div",
+                  { onClick: function onClick() {
+                      return _this3.changeSearchFilter("Find Hosts");
+                    } },
                   "Find Hosts"
                 )
               ),
@@ -1093,8 +1163,10 @@ var LoggedInNav = function (_React$Component) {
                 "li",
                 null,
                 _react2.default.createElement(
-                  "button",
-                  null,
+                  "div",
+                  { onClick: function onClick() {
+                      return _this3.changeSearchFilter("Find Members");
+                    } },
                   "Find Members"
                 )
               ),
@@ -1102,20 +1174,24 @@ var LoggedInNav = function (_React$Component) {
                 "li",
                 null,
                 _react2.default.createElement(
-                  "button",
-                  null,
+                  "div",
+                  { onClick: function onClick() {
+                      return _this3.changeSearchFilter("Find Travelers");
+                    } },
                   "Find Travelers"
                 )
               )
             )
           ),
-          _react2.default.createElement("input", { className: "dash-nav-search-input", type: "text", placeholder: "Where are you going?" })
+          _react2.default.createElement("input", { onChange: function onChange(e) {
+              return _this3.handleChange(e);
+            }, value: this.state.text, className: "dash-nav-search-input", type: "text", placeholder: placeholder })
         ),
         _react2.default.createElement(
           "div",
           { className: "dash-circular-user-button-div" },
           _react2.default.createElement("img", { onClick: function onClick() {
-              return _this2.dropdownUserClick();
+              return _this3.dropdownUserClick();
             }, className: "dash-nav-profile-photo", src: userPicture }),
           _react2.default.createElement(
             "div",
@@ -1147,7 +1223,7 @@ var LoggedInNav = function (_React$Component) {
                 _react2.default.createElement(
                   "button",
                   { onClick: function onClick() {
-                      return _this2.props.logOut();
+                      return _this3.props.logOut();
                     } },
                   "Log Out"
                 )
@@ -1192,6 +1268,8 @@ var _logged_in_nav_bar = __webpack_require__(/*! ./logged_in_nav_bar */ "./front
 
 var _logged_in_nav_bar2 = _interopRequireDefault(_logged_in_nav_bar);
 
+var _user_actions = __webpack_require__(/*! ../../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state, ownProps) {
@@ -1204,6 +1282,9 @@ var mdp = function mdp(dispatch, ownProps) {
   return {
     logOut: function logOut() {
       return dispatch((0, _session_actions.logOut)());
+    },
+    fetchUsers: function fetchUsers(param) {
+      return dispatch((0, _user_actions.fetchUsers)(param));
     }
   };
 };
@@ -2026,7 +2107,7 @@ var UpcomingTrips = function (_React$Component) {
         _react2.default.createElement(
           'header',
           { className: 'upcoming-trips-section-header' },
-          _react2.default.createElement('i', { 'class': 'em em-airplane' }),
+          _react2.default.createElement('i', { className: 'em em-airplane' }),
           'My Travel Plans'
         ),
         _react2.default.createElement(
@@ -2158,7 +2239,6 @@ var UpcomingTripsItem = function (_React$Component) {
       if (typeof this.props.host !== 'undefined') {
         firstName = this.props.host.first_name;
         lastName = this.props.host.last_name;
-        debugger;
         city = this.props.host.location.city;
         country = this.props.host.location.country;
         if (this.props.host.imageUrl) {
@@ -2364,6 +2444,7 @@ var UserDashSidebar = function (_React$Component) {
       this.setState({ user_status: e.target.value }, function () {
         _this2.props.updateStatus(_this2.state);
       });
+      this.dropdownStatusClick();
     }
   }, {
     key: "render",
@@ -2399,7 +2480,9 @@ var UserDashSidebar = function (_React$Component) {
           _react2.default.createElement(
             "p",
             null,
-            "New York, New York"
+            this.props.user.location.city,
+            ", ",
+            this.props.user.location.country
           )
         ),
         _react2.default.createElement(
@@ -2629,6 +2712,173 @@ exports.default = (0, _reactRedux.connect)(msp)(_user_dashboard2.default);
 
 /***/ }),
 
+/***/ "./frontend/components/user/user_search/user_search_index.jsx":
+/*!********************************************************************!*\
+  !*** ./frontend/components/user/user_search/user_search_index.jsx ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _user_search_index_items = __webpack_require__(/*! ./user_search_index_items */ "./frontend/components/user/user_search/user_search_index_items.jsx");
+
+var _user_search_index_items2 = _interopRequireDefault(_user_search_index_items);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UserSearchIndex = function (_React$Component) {
+  _inherits(UserSearchIndex, _React$Component);
+
+  function UserSearchIndex() {
+    _classCallCheck(this, UserSearchIndex);
+
+    return _possibleConstructorReturn(this, (UserSearchIndex.__proto__ || Object.getPrototypeOf(UserSearchIndex)).apply(this, arguments));
+  }
+
+  _createClass(UserSearchIndex, [{
+    key: 'render',
+    value: function render() {
+      var users = void 0;
+      if (typeof this.props.users !== 'undefined') {
+        var _users = this.props.users.map(function (user, idx) {
+          return _react2.default.createElement(_user_search_index_items2.default, { user: user, key: idx });
+        });
+      }
+      debugger;
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'ul',
+          null,
+          'HELP'
+        )
+      );
+    }
+  }]);
+
+  return UserSearchIndex;
+}(_react2.default.Component);
+
+exports.default = UserSearchIndex;
+
+/***/ }),
+
+/***/ "./frontend/components/user/user_search/user_search_index_container.js":
+/*!*****************************************************************************!*\
+  !*** ./frontend/components/user/user_search/user_search_index_container.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _user_search_index = __webpack_require__(/*! ./user_search_index */ "./frontend/components/user/user_search/user_search_index.jsx");
+
+var _user_search_index2 = _interopRequireDefault(_user_search_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var msp = function msp(state) {
+
+  var userSearchResults = undefined;
+  if (typeof state.search.searchTargets !== 'undefined') {
+    userSearchResults = state.search.searchTargets.map(function (id) {
+      return state.entities.users[id];
+    });
+  }
+
+  return {
+    users: userSearchResults
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(msp)(_user_search_index2.default);
+
+/***/ }),
+
+/***/ "./frontend/components/user/user_search/user_search_index_items.jsx":
+/*!**************************************************************************!*\
+  !*** ./frontend/components/user/user_search/user_search_index_items.jsx ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UserSearchIndexItems = function (_React$Component) {
+  _inherits(UserSearchIndexItems, _React$Component);
+
+  function UserSearchIndexItems() {
+    _classCallCheck(this, UserSearchIndexItems);
+
+    return _possibleConstructorReturn(this, (UserSearchIndexItems.__proto__ || Object.getPrototypeOf(UserSearchIndexItems)).apply(this, arguments));
+  }
+
+  _createClass(UserSearchIndexItems, [{
+    key: 'render',
+    value: function render() {
+      debugger;
+      return _react2.default.createElement(
+        'li',
+        null,
+        'help'
+      );
+    }
+  }]);
+
+  return UserSearchIndexItems;
+}(_react2.default.Component);
+
+exports.default = UserSearchIndexItems;
+
+/***/ }),
+
 /***/ "./frontend/reducers/bookings_reducer.js":
 /*!***********************************************!*\
   !*** ./frontend/reducers/bookings_reducer.js ***!
@@ -2834,16 +3084,57 @@ var _ui_reducer = __webpack_require__(/*! ./ui_reducer */ "./frontend/reducers/u
 
 var _ui_reducer2 = _interopRequireDefault(_ui_reducer);
 
+var _search_reducer = __webpack_require__(/*! ./search_reducer */ "./frontend/reducers/search_reducer.js");
+
+var _search_reducer2 = _interopRequireDefault(_search_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
   session: _session_reducer2.default,
   entities: _entities_reducer2.default,
   errors: _errors_reducer2.default,
-  ui: _ui_reducer2.default
+  ui: _ui_reducer2.default,
+  search: _search_reducer2.default
 });
 
 exports.default = rootReducer;
+
+/***/ }),
+
+/***/ "./frontend/reducers/search_reducer.js":
+/*!*********************************************!*\
+  !*** ./frontend/reducers/search_reducer.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+
+var _user_actions = __webpack_require__(/*! ../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
+
+var defaultState = {};
+var searchReducer = function searchReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _user_actions.RECEIVE_USERS:
+      return (0, _lodash.merge)({}, state, { searchTargets: [action.users.search] });
+    default:
+      return state;
+  }
+};
+
+exports.default = searchReducer;
 
 /***/ }),
 
@@ -3027,6 +3318,8 @@ var usersReducer = function usersReducer() {
       return (0, _lodash.merge)({}, state, action.users);
     case _user_actions.RECEIVE_HOSTS:
       return (0, _lodash.merge)({}, state, action.hosts);
+    case _user_actions.RECEIVE_USERS:
+      return (0, _lodash.merge)({}, state, action.users);
     default:
       return state;
   }
@@ -3278,6 +3571,14 @@ var fetchUser = exports.fetchUser = function fetchUser(id) {
   return $.ajax({
     method: 'get',
     url: 'api/users/' + id
+  });
+};
+
+var fetchUsers = exports.fetchUsers = function fetchUsers(param) {
+  return $.ajax({
+    method: 'get',
+    url: 'api/users/',
+    data: { user: { first_name: param, last_name: param, username: param, email: param } }
   });
 };
 

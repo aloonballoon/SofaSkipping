@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { logOut } from '../../actions/session_actions';
 import LoggedInNav from './logged_in_nav_bar';
+import { fetchUsers } from '../../actions/user_actions/user_actions';
 
 
 
@@ -13,7 +14,8 @@ const msp = (state, ownProps) => {
 
 const mdp = (dispatch, ownProps) => {
   return {
-    logOut: () => dispatch(logOut())
+    logOut: () => dispatch(logOut()),
+    fetchUsers: (param) => dispatch(fetchUsers(param))
   };
 };
 

@@ -19,6 +19,7 @@ User.create!(id: 1, first_name: "Alan", last_name: "Uraz", username: 'alanuraz',
 User.create!(id: 2, first_name: "Ayda", last_name: "Uraz", username: 'aydauraz', email: 'aydauraz@gmail.com', home_location_id: 2, age: 24, bio: "second member", password: "hellothere")
 User.create!(id: 3, first_name: "Guest", last_name: "Guest", username: "Guest", email: "guest@guest.com", home_location_id: 3, age: 99, bio: "Just checking out the site", password: '123456')
 User.create!(id: 4, first_name: "Leana", last_name: "Glick", username: "leanaglick", email: "leana@glick.com", home_location_id: 4, age: 29, bio: "third member", password: 'hellothere')
+User.create!(id: 20, first_name: "John", last_name: "Freedman", username: "jfreed", email: "jfreedman@freedman.com", home_location_id: 4, age: 29, bio: "hella", password: 'hellothere')
 
 Booking.create!(id: 1, host_id: 1, guest_id: 2, start_date: "2018/05/13", end_date: "2018/06/15")
 Booking.create!(id: 2,host_id: 2, guest_id: 3, start_date: "2018/07/13", end_date: "2018/08/15")

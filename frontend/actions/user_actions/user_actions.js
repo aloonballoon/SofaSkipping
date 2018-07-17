@@ -9,6 +9,7 @@ export const RECEIVE_ASSOCIATED_USER = "RECEIVE_ASSOCIATED_USER";
 export const RECEIVE_HOSTINGS = 'RECEIVE_HOSTINGS';
 export const RECEIVE_TRIPS = 'RECEIVE_TRIPS';
 export const RECEIVE_HOSTS = "RECEIVE_HOSTS";
+export const RECEIVE_USERS = "RECEIVE_USERS";
 
 
 export const receiveAssociatedUser = (user) => {
@@ -96,5 +97,20 @@ export const fetchUser = (id) => {
     return UsersApiUtil.fetchUser(id).then((new_user) => {
       return dispatch(receiveAssociatedUser(new_user));
     });
+  };
+};
+
+export const fetchUsers = (param) => {
+  return dispatch => {
+    return UsersApiUtil.fetchUsers(param).then((users) => {
+      return dispatch(receiveUsers(users));
+    });
+  };
+};
+
+export const receiveUsers = (users) => {
+  return {
+    type: RECEIVE_USERS,
+    users: users
   };
 };

@@ -23,7 +23,7 @@ class UpcomingTrips extends React.Component {
     return(
       <section className="upcoming-hostings-section">
       <header className="upcoming-trips-section-header">
-      <i class="em em-airplane"></i>
+      <i className="em em-airplane"></i>
       My Travel Plans
       </header>
         <ul>

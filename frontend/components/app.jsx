@@ -9,6 +9,7 @@ import Modal from './modal';
 import Homescreen from './homepage/homescreen';
 import UserDashboardContainer from './user/user_dashboard_container';
 import LoggedInNavContainer from './logged_in_nav/logged_in_nav_bar_container';
+import UserSearchIndexContainer from './user/user_search/user_search_index_container';
 
 
 
@@ -22,6 +23,7 @@ const App = () => (
     <section>
       <ProtectedRoute component={LoggedInNavContainer} />
       <ProtectedRoute exact path='/dashboard' component={UserDashboardContainer} />
+      <ProtectedRoute exact path='/usersearch' component={UserSearchIndexContainer} />
       <AuthRoute exact path="/" component={Homescreen} />
     </section>
   </div>

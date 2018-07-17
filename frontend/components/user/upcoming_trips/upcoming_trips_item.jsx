@@ -15,7 +15,6 @@ class UpcomingTripsItem extends React.Component {
     if (typeof this.props.host !== 'undefined') {
       firstName = this.props.host.first_name;
       lastName = this.props.host.last_name;
-      debugger
       city = this.props.host.location.city;
       country = this.props.host.location.country;
       if (this.props.host.imageUrl) {

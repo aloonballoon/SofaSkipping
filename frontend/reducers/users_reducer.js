@@ -1,6 +1,6 @@
 import { RECEIVE_CURRENT_USER } from '../actions/session_actions';
 import { merge } from 'lodash';
-import { RECEIVE_ASSOCIATED_USER, RECEIVE_GUESTS, RECEIVE_HOSTS } from '../actions/user_actions/user_actions';
+import { RECEIVE_ASSOCIATED_USER, RECEIVE_GUESTS, RECEIVE_HOSTS, RECEIVE_USERS } from '../actions/user_actions/user_actions';
 
 const defaultState = {};
 const usersReducer = (state = defaultState, action) => {
@@ -13,6 +13,8 @@ const usersReducer = (state = defaultState, action) => {
       return merge({}, state, action.users);
     case RECEIVE_HOSTS:
       return merge({}, state, action.hosts);
+      case RECEIVE_USERS:
+      return merge({}, state, action.users);
     default:
       return state;
   }

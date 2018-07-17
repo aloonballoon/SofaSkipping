@@ -17,8 +17,8 @@ class UserDashSidebar extends React.Component {
     e.preventDefault();
     this.setState({user_status: e.target.value}, () => {
       this.props.updateStatus(this.state);
-
     });
+    this.dropdownStatusClick();
   }
 
 
@@ -36,7 +36,7 @@ class UserDashSidebar extends React.Component {
       <aside className="dash-sidebar-aside">
         <header className="dash-sidebar-header">
           <p>{this.props.user.first_name} {this.props.user.last_name}</p>
-          <p>New York, New York</p>
+          <p>{this.props.user.location.city}, {this.props.user.location.country}</p>
         </header>
         <footer className="dash-sidebar-footer">
           {changeStatusButton}
