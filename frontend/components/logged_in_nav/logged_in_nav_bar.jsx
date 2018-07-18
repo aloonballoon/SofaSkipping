@@ -39,10 +39,12 @@ class LoggedInNav extends React.Component {
     e.preventDefault();
     switch (this.state.searchFilter) {
       case "Find Members":
-        this.props.fetchUsers(this.state.text)
-        this.props.history.push('usersearch')
+        this.props.fetchUsers(this.state.text).then(() => {
+          this.props.history.push(`/membersearch/${this.state.text}`);
+        });
       default:
         null;
+
     }
   }
 

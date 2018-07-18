@@ -1,19 +1,28 @@
 import { connect } from 'react-redux';
 import UserSearchIndex from './user_search_index';
+import { fetchUsers } from '../../../actions/user_actions/user_actions';
+import { withRouter } from 'react-router-dom';
 
-const msp = (state) => {
+const msp = (state, ownProps) => {
 
-  let userSearchResults = undefined;
-  if (typeof state.search.searchTargets !== 'undefined') {
-    userSearchResults = state.search.searchTargets.map((id) => {
-      return state.entities.users[id];
-    });
-  }
+  const userSearchResults = state.search.searchTargets.map((id) => {
+    return state.entities.users[id];
+  });
 
-
+  const searchParam = ownProps.location.pathname.slice(14);
+  
   return {
-    users: userSearchResults
+    users: userSearchResults,
+    searchParam: searchParam
   };
 };
 
-export default connect(msp)(UserSearchIndex);
+
+const mdp = (dispatch) => {
+  return {
+    fetchUsers: (params) => dispatch(fetchUsers(params))
+  };
+};
+
+
+export default connect(msp, mdp)(UserSearchIndex);

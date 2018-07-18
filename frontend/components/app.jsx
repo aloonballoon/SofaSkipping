@@ -23,7 +23,8 @@ const App = () => (
     <section>
       <ProtectedRoute component={LoggedInNavContainer} />
       <ProtectedRoute exact path='/dashboard' component={UserDashboardContainer} />
-      <ProtectedRoute exact path='/usersearch' component={UserSearchIndexContainer} />
+      <ProtectedRoute exact path='/membersearch/:name' component={UserSearchIndexContainer} />
+      <ProtectedRoute exact path='/members/:userId' component={UserSearchIndexContainer} />
       <AuthRoute exact path="/" component={Homescreen} />
     </section>
   </div>

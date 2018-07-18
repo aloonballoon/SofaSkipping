@@ -22,10 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     store = configureStore();
   }
+
+
+
   window.fetchHosts = fetchHosts;
   window.getState = store.getState;
   window.logIn = logIn;
   window.dispatch = store.dispatch;
+
+
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store} />, root);
   window.fetchUser = fetchUser;

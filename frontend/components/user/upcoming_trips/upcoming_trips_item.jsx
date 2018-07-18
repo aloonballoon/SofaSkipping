@@ -1,9 +1,19 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom'
 
 class UpcomingTripsItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props;
+    this.handleClick = this.handleClick.bind(this);
+
+  }
+
+  handleClick() {
+
+  }
 
   render() {
-
     let firstName = "";
     let lastName = "";
     let city = "";
@@ -50,10 +60,9 @@ class UpcomingTripsItem extends React.Component {
     startMonth = MONTHS[startMonth];
     endMonth = MONTHS[endMonth];
 
-
     return(
       <li>
-        <img src={hostImage}/>
+        <img onClick={() => this.handleClick()} src={hostImage}/>
         <div className="upcoming-guests-li-holding-div">
 
            <article className="upcoming-guests-li-article">

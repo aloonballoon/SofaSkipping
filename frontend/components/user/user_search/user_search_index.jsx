@@ -3,23 +3,29 @@ import UserSearchIndexItems from './user_search_index_items';
 
 
 class UserSearchIndex extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props
+  }
 
+  componentDidMount() {
+    this.props.fetchUsers(this.props.searchParam);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps)
+  }
 
   render() {
-    let users;
-    if (typeof this.props.users !== 'undefined') {
-      let users = this.props.users.map((user, idx) => {
-        return <UserSearchIndexItems user={user} key={idx} />
-      });
-    }
-    debugger
+    const users = this.props.users.map((user, idx) => {
+      return <UserSearchIndexItems user={user} key={idx} />
+    });
+
 
     return (
-      <div>
-       <ul>
-      HELP
-       </ul>
-      </div>
+      <ul>
+        {users}
+      </ul>
     )
   }
 }
