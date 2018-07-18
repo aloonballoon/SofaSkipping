@@ -25,7 +25,7 @@ class LoggedInNav extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({text: e.target.value}, () => console.log(this.state.text))
+    this.setState({text: e.target.value});
   }
 
   changeSearchFilter(filter) {

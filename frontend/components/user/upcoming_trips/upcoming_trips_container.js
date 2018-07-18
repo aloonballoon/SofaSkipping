@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import UpcomingTrips from './upcoming_trips';
 import { fetchUser, fetchHosts, fetchHostings, fetchTrips } from '../../../actions/user_actions/user_actions';
+import { withRouter } from 'react-router';
 
 
 const msp = (state) => {

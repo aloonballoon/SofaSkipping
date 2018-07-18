@@ -1068,11 +1068,7 @@ var LoggedInNav = function (_React$Component) {
   }, {
     key: "handleChange",
     value: function handleChange(e) {
-      var _this2 = this;
-
-      this.setState({ text: e.target.value }, function () {
-        return console.log(_this2.state.text);
-      });
+      this.setState({ text: e.target.value });
     }
   }, {
     key: "changeSearchFilter",
@@ -1083,13 +1079,13 @@ var LoggedInNav = function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
-      var _this3 = this;
+      var _this2 = this;
 
       e.preventDefault();
       switch (this.state.searchFilter) {
         case "Find Members":
           this.props.fetchUsers(this.state.text).then(function () {
-            _this3.props.history.push("/membersearch/" + _this3.state.text);
+            _this2.props.history.push("/membersearch/" + _this2.state.text);
           });
         default:
           null;
@@ -1099,7 +1095,7 @@ var LoggedInNav = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       var userPicture = void 0;
       if (this.props.user.photoUrl) {
@@ -1126,12 +1122,12 @@ var LoggedInNav = function (_React$Component) {
         _react2.default.createElement(
           "form",
           { className: "dash-nav-input-dropdown-form", onSubmit: function onSubmit(e) {
-              return _this4.handleSubmit(e);
+              return _this3.handleSubmit(e);
             } },
           _react2.default.createElement(
             "div",
             { onClick: function onClick() {
-                return _this4.dropdownSearchClick();
+                return _this3.dropdownSearchClick();
               }, className: "dash-nav-dropdown-button" },
             this.state.searchFilter,
             " "
@@ -1148,7 +1144,7 @@ var LoggedInNav = function (_React$Component) {
                 _react2.default.createElement(
                   "div",
                   { onClick: function onClick() {
-                      return _this4.changeSearchFilter("Explore");
+                      return _this3.changeSearchFilter("Explore");
                     } },
                   "Explore"
                 )
@@ -1159,7 +1155,7 @@ var LoggedInNav = function (_React$Component) {
                 _react2.default.createElement(
                   "div",
                   { onClick: function onClick() {
-                      return _this4.changeSearchFilter("Find Hosts");
+                      return _this3.changeSearchFilter("Find Hosts");
                     } },
                   "Find Hosts"
                 )
@@ -1170,7 +1166,7 @@ var LoggedInNav = function (_React$Component) {
                 _react2.default.createElement(
                   "div",
                   { onClick: function onClick() {
-                      return _this4.changeSearchFilter("Find Members");
+                      return _this3.changeSearchFilter("Find Members");
                     } },
                   "Find Members"
                 )
@@ -1181,7 +1177,7 @@ var LoggedInNav = function (_React$Component) {
                 _react2.default.createElement(
                   "div",
                   { onClick: function onClick() {
-                      return _this4.changeSearchFilter("Find Travelers");
+                      return _this3.changeSearchFilter("Find Travelers");
                     } },
                   "Find Travelers"
                 )
@@ -1189,14 +1185,14 @@ var LoggedInNav = function (_React$Component) {
             )
           ),
           _react2.default.createElement("input", { onChange: function onChange(e) {
-              return _this4.handleChange(e);
+              return _this3.handleChange(e);
             }, value: this.state.text, className: "dash-nav-search-input", type: "text", placeholder: placeholder })
         ),
         _react2.default.createElement(
           "div",
           { className: "dash-circular-user-button-div" },
           _react2.default.createElement("img", { onClick: function onClick() {
-              return _this4.dropdownUserClick();
+              return _this3.dropdownUserClick();
             }, className: "dash-nav-profile-photo", src: userPicture }),
           _react2.default.createElement(
             "div",
@@ -1228,7 +1224,7 @@ var LoggedInNav = function (_React$Component) {
                 _react2.default.createElement(
                   "button",
                   { onClick: function onClick() {
-                      return _this4.props.logOut();
+                      return _this3.props.logOut();
                     } },
                   "Log Out"
                 )
@@ -1916,6 +1912,8 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1927,15 +1925,25 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var UpcomingHostingsItem = function (_React$Component) {
   _inherits(UpcomingHostingsItem, _React$Component);
 
-  function UpcomingHostingsItem() {
+  function UpcomingHostingsItem(props) {
     _classCallCheck(this, UpcomingHostingsItem);
 
-    return _possibleConstructorReturn(this, (UpcomingHostingsItem.__proto__ || Object.getPrototypeOf(UpcomingHostingsItem)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (UpcomingHostingsItem.__proto__ || Object.getPrototypeOf(UpcomingHostingsItem)).call(this, props));
+
+    _this.state = _this.props;
+    _this.handleClick = _this.handleClick.bind(_this);
+    return _this;
   }
 
   _createClass(UpcomingHostingsItem, [{
-    key: "render",
+    key: 'handleClick',
+    value: function handleClick() {
+      this.props.history.push('/membersearch/' + this.props.guest.id);
+    }
+  }, {
+    key: 'render',
     value: function render() {
+      var _this2 = this;
 
       var firstName = "";
       var lastName = "";
@@ -1986,49 +1994,51 @@ var UpcomingHostingsItem = function (_React$Component) {
       endMonth = MONTHS[endMonth];
 
       return _react2.default.createElement(
-        "li",
+        'li',
         null,
-        _react2.default.createElement("img", { src: guestImage }),
+        _react2.default.createElement('img', { className: 'dash-main-guest-host-img', onClick: function onClick() {
+            return _this2.handleClick();
+          }, src: guestImage }),
         _react2.default.createElement(
-          "div",
-          { className: "upcoming-guests-li-holding-div" },
+          'div',
+          { className: 'upcoming-guests-li-holding-div' },
           _react2.default.createElement(
-            "article",
-            { className: "upcoming-guests-li-article" },
+            'article',
+            { className: 'upcoming-guests-li-article' },
             _react2.default.createElement(
-              "header",
-              { className: "upcoming-guests-li-name-header" },
+              'header',
+              { className: 'upcoming-guests-li-name-header' },
               firstName,
-              " ",
+              ' ',
               lastName
             ),
             _react2.default.createElement(
-              "header",
-              { className: "upcoming-guests-location-header" },
+              'header',
+              { className: 'upcoming-guests-location-header' },
               city,
-              ", ",
+              ', ',
               country
             ),
             _react2.default.createElement(
-              "p",
-              { className: "upcoming-guests-li-p-tag" },
-              _react2.default.createElement("i", { className: "em em-house" }),
+              'p',
+              { className: 'upcoming-guests-li-p-tag' },
+              _react2.default.createElement('i', { className: 'em em-house' }),
               diffDays,
-              " Nights ",
-              _react2.default.createElement("i", { className: "em em-spiral_calendar_pad" }),
-              "   ",
+              ' Nights ',
+              _react2.default.createElement('i', { className: 'em em-spiral_calendar_pad' }),
+              '   ',
               startMonth,
-              " ",
+              ' ',
               startDay,
-              ", ",
+              ', ',
               startYear,
-              " ",
-              _react2.default.createElement("i", { className: "em em-arrow_right" }),
-              " ",
+              ' ',
+              _react2.default.createElement('i', { className: 'em em-arrow_right' }),
+              ' ',
               endMonth,
-              " ",
+              ' ',
               endDay,
-              ", ",
+              ', ',
               endYear
             )
           )
@@ -2040,7 +2050,7 @@ var UpcomingHostingsItem = function (_React$Component) {
   return UpcomingHostingsItem;
 }(_react2.default.Component);
 
-exports.default = UpcomingHostingsItem;
+exports.default = (0, _reactRouter.withRouter)(UpcomingHostingsItem);
 
 /***/ }),
 
@@ -2153,6 +2163,8 @@ var _upcoming_trips2 = _interopRequireDefault(_upcoming_trips);
 
 var _user_actions = __webpack_require__(/*! ../../../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
 
+var _reactRouter = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state) {
@@ -2212,7 +2224,7 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+var _reactRouter = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2238,7 +2250,9 @@ var UpcomingTripsItem = function (_React$Component) {
 
   _createClass(UpcomingTripsItem, [{
     key: 'handleClick',
-    value: function handleClick() {}
+    value: function handleClick() {
+      this.props.history.push('/membersearch/' + this.props.host.id);
+    }
   }, {
     key: 'render',
     value: function render() {
@@ -2295,7 +2309,7 @@ var UpcomingTripsItem = function (_React$Component) {
       return _react2.default.createElement(
         'li',
         null,
-        _react2.default.createElement('img', { onClick: function onClick() {
+        _react2.default.createElement('img', { className: 'dash-main-guest-host-img', onClick: function onClick() {
             return _this2.handleClick();
           }, src: hostImage }),
         _react2.default.createElement(
@@ -2349,7 +2363,7 @@ var UpcomingTripsItem = function (_React$Component) {
   return UpcomingTripsItem;
 }(_react2.default.Component);
 
-exports.default = UpcomingTripsItem;
+exports.default = (0, _reactRouter.withRouter)(UpcomingTripsItem);
 
 /***/ }),
 
@@ -2899,16 +2913,22 @@ var UserSearchIndexItems = function (_React$Component) {
     key: 'render',
     value: function render() {
 
-      var user = this.props.user;
-      var firstName = void 0;
-      if (typeof this.props.user !== 'undefined') {
-        firstName = user.first_name;
-      }
+      var user = this.props.user || {};
+      var firstName = user.first_name;
+      var lastName = user.last_name;
+      var city = user.location.city;
+      var country = user.location.country;
 
       return _react2.default.createElement(
         'li',
         null,
-        firstName
+        firstName,
+        ' ',
+        lastName,
+        ': ',
+        city,
+        ', ',
+        country
       );
     }
   }]);

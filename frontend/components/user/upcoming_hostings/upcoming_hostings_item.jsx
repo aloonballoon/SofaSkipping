@@ -1,6 +1,16 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 
 class UpcomingHostingsItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props;
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.props.history.push(`/membersearch/${this.props.guest.id}`);
+  }
 
 
   render() {
@@ -54,7 +64,7 @@ class UpcomingHostingsItem extends React.Component {
 
     return(
       <li>
-        <img src={guestImage}/>
+        <img className="dash-main-guest-host-img" onClick={() => this.handleClick()} src={guestImage}/>
         <div className="upcoming-guests-li-holding-div">
 
            <article className="upcoming-guests-li-article">
@@ -77,4 +87,4 @@ class UpcomingHostingsItem extends React.Component {
 
 }
 
-export default UpcomingHostingsItem;
+export default withRouter(UpcomingHostingsItem);

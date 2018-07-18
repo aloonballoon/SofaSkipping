@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router'
 
 class UpcomingTripsItem extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class UpcomingTripsItem extends React.Component {
   }
 
   handleClick() {
-
+    this.props.history.push(`/membersearch/${this.props.host.id}`);
   }
 
   render() {
@@ -62,7 +62,7 @@ class UpcomingTripsItem extends React.Component {
 
     return(
       <li>
-        <img onClick={() => this.handleClick()} src={hostImage}/>
+        <img className="dash-main-guest-host-img" onClick={() => this.handleClick()} src={hostImage}/>
         <div className="upcoming-guests-li-holding-div">
 
            <article className="upcoming-guests-li-article">
@@ -87,4 +87,4 @@ class UpcomingTripsItem extends React.Component {
 
 
 
-export default UpcomingTripsItem;
+export default withRouter(UpcomingTripsItem);
