@@ -1,11 +1,13 @@
+/* line 1, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/navbar.scss */
 .top-nav {
   display: flex;
-  border-bottom: 1px solid rgba(0,0,0,0.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   justify-content: space-between;
   height: 60px;
   align-items: center;
 }
 
+/* line 9, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/navbar.scss */
 #login-button {
   margin-left: 5px;
   margin-right: 5px;
@@ -15,8 +17,10 @@
   font-size: 15px;
   color: #2980B9;
   border-radius: 5px;
-  border-color: #2980B9
+  border-color: #2980B9;
 }
+
+/* line 20, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/navbar.scss */
 #join-button {
   margin-left: 5px;
   margin-right: 5px;
@@ -29,9 +33,9 @@
   font-weight: lighter;
 }
 
+/* line 32, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/navbar.scss */
 .logo {
   font-family: papyrus;
   color: #D4490B;
   margin: 10px;
-  cursor: pointer;
 }

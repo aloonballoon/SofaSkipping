@@ -18,14 +18,16 @@ class UserSearchIndex extends React.Component {
 
   render() {
     const users = this.props.users.map((user, idx) => {
-      return <UserSearchIndexItems user={user} key={idx} />
+      return <UserSearchIndexItems user={user} key={idx} fetchUser={this.props.fetchUser} />
     });
 
 
     return (
-      <ul>
-        {users}
-      </ul>
+      <section className="user-search-section">
+        <ul className="user-search-ul">
+          {users}
+        </ul>
+      </section>
     )
   }
 }

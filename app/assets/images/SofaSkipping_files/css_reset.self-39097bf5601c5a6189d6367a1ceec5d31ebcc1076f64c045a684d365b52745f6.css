@@ -1,0 +1,18 @@
+/* line 1, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/css_reset.scss */
+html, body, div, span, h1, h2, h3, h4, a, ol, ul, li, form, label, article, aside, figure, figcaption, footer, header, nav {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: Lato;
+  vertical-align: baseline;
+  list-style-type: none;
+}
+
+/* line 11, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/css_reset.scss */
+button {
+  border-style: solid;
+  background-color: white;
+  border-color: white;
+  cursor: pointer;
+}

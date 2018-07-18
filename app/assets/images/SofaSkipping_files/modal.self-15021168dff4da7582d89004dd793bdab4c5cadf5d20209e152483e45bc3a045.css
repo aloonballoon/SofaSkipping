@@ -1,0 +1,124 @@
+/* line 1, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/modal.scss */
+.modal-background {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+}
+
+/* line 11, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/modal.scss */
+.modal-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 8px;
+  width: 500px;
+  height: 600px;
+}
+
+/* line 22, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/modal.scss */
+.modal-child form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* line 27, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/modal.scss */
+#session-header {
+  padding-top: 10px;
+  padding-bottom: 25px;
+  font-weight: 100;
+  padding-left: 30px;
+  border-bottom: 1px solid #e6e6e6;
+  font-weight: lighter;
+  color: #34495E;
+}
+
+/* line 37, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/modal.scss */
+#modal-title-container {
+  font-size: 20px;
+}
+
+/* line 41, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/modal.scss */
+.login-signup-input {
+  margin-left: 35px;
+  margin-right: 35px;
+  height: 50px;
+  border-radius: 8px;
+  font-size: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* line 50, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/modal.scss */
+#login-signup-firstname-input {
+  width: 200px;
+  display: inline-block;
+  margin-left: 35px;
+  margin-right: 10px;
+  height: 50px;
+  border-radius: 8px;
+  font-size: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* line 61, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/modal.scss */
+#login-signup-lastname-input {
+  width: 200px;
+  display: inline-block;
+  margin-left: 10px;
+  height: 50px;
+  border-radius: 8px;
+  font-size: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* line 72, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/modal.scss */
+#session-button {
+  margin-left: 35px;
+  margin-right: 35px;
+  height: 40px;
+  background-color: #2980B9;
+  font-size: 15px;
+  color: white;
+  border-radius: 5px;
+}
+
+/* line 82, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/modal.scss */
+#other-form-button-switch {
+  margin-left: 150px;
+  margin-right: 150px;
+  height: 40px;
+  background-color: white;
+  font-size: 15px;
+  color: #2980B9;
+  border-radius: 5px;
+  border-color: #2980B9;
+}
+
+/* line 93, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/modal.scss */
+#switch-phrase {
+  text-align: center;
+}
+
+/* line 97, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/modal.scss */
+#guest-button {
+  margin-left: 150px;
+  margin-right: 150px;
+  height: 40px;
+  background-color: #2980B9;
+  font-size: 15px;
+  color: white;
+  border-radius: 5px;
+}
+
+/* line 107, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/homescreen/modal.scss */
+#error-message {
+  text-align: center;
+  margin: 0;
+  height: 50px;
+  background-color: rgba(198, 61, 67, 0.25);
+}

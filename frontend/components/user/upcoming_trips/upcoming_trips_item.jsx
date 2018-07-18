@@ -10,7 +10,7 @@ class UpcomingTripsItem extends React.Component {
   }
 
   handleClick() {
-    this.props.history.push(`/membersearch/${this.props.host.id}`);
+    this.props.history.push(`/members/${this.props.host.id}`);
   }
 
   render() {
@@ -27,8 +27,8 @@ class UpcomingTripsItem extends React.Component {
       lastName = this.props.host.last_name;
       city = this.props.host.location.city;
       country = this.props.host.location.country;
-      if (this.props.host.imageUrl) {
-        hostImage = this.props.host.imageUrl;
+      if (this.props.host.photoUrl) {
+        hostImage = this.props.host.photoUrl;
       } else {
         hostImage = window.profile_pic_placeholder;
       }

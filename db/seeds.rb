@@ -37,3 +37,8 @@ Booking.create!(host_id: alan.id, guest_id: leana.id, start_date: "2018/09/13", 
 Booking.create!(host_id: leana.id, guest_id: ayda.id, start_date: "2018/10/13", end_date: "2018/11/15")
 Booking.create!(host_id: guest.id, guest_id: alan.id, start_date: "2018/11/13", end_date: "2018/12/15")
 Booking.create!(host_id: alan.id, guest_id: guest.id, start_date: "2019/01/13", end_date: "2019/01/15")
+
+
+alan.photo.attach(io: File.open("/home/auraz/Desktop/alananddog.jpg"), filename: "alananddog.jpg")
+
+ayda.photo.attach(io: File.open("/home/auraz/Desktop/nasa-45072-unsplash.jpg"), filename: "nasa-45072-unsplash.jpg")

@@ -6,7 +6,7 @@ const searchReducer = (state = defaultState, action) => {
   Object.freeze(state);
   switch (action.type) {
       case RECEIVE_USERS:
-      return {searchTargets: [action.users.search]};
+      return {searchTargets: action.users.search};
     default:
       return state;
   }

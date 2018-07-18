@@ -14,6 +14,7 @@ class LoggedInNav extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.changeSearchFilter = this.changeSearchFilter.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   dropdownSearchClick() {
@@ -31,6 +32,10 @@ class LoggedInNav extends React.Component {
   changeSearchFilter(filter) {
     this.setState({searchFilter: filter})
     this.dropdownSearchClick();
+  }
+
+  handleClick() {
+    this.props.history.push('/dashboard');
   }
 
 
@@ -67,7 +72,7 @@ render() {
     return (
 
       <header className="dash-top-nav">
-        <article className="logo">
+        <article className="logo" onClick={() => this.handleClick()}>
           SofaSkipping
         </article>
         <form className="dash-nav-input-dropdown-form" onSubmit={(e) => this.handleSubmit(e)}>

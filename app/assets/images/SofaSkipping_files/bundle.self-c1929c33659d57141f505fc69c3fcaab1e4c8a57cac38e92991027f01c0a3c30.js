@@ -1,4 +1,5 @@
-/******/ (function(modules) { // webpackBootstrap
+/******/
+ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -387,10 +388,6 @@ var _user_search_index_container = __webpack_require__(/*! ./user/user_search/us
 
 var _user_search_index_container2 = _interopRequireDefault(_user_search_index_container);
 
-var _user_show_container = __webpack_require__(/*! ./user/user_show/user_show_container */ "./frontend/components/user/user_show/user_show_container.js");
-
-var _user_show_container2 = _interopRequireDefault(_user_show_container);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
@@ -409,7 +406,7 @@ var App = function App() {
       _react2.default.createElement(_route_util.ProtectedRoute, { component: _logged_in_nav_bar_container2.default }),
       _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/dashboard', component: _user_dashboard_container2.default }),
       _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/membersearch/:name', component: _user_search_index_container2.default }),
-      _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/members/:userId', component: _user_show_container2.default }),
+      _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/members/:userId', component: _user_search_index_container2.default }),
       _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _homescreen2.default })
     )
   );
@@ -1056,7 +1053,6 @@ var LoggedInNav = function (_React$Component) {
     _this.handleChange = _this.handleChange.bind(_this);
     _this.changeSearchFilter = _this.changeSearchFilter.bind(_this);
     _this.handleSubmit = _this.handleSubmit.bind(_this);
-    _this.handleClick = _this.handleClick.bind(_this);
     return _this;
   }
 
@@ -1080,11 +1076,6 @@ var LoggedInNav = function (_React$Component) {
     value: function changeSearchFilter(filter) {
       this.setState({ searchFilter: filter });
       this.dropdownSearchClick();
-    }
-  }, {
-    key: "handleClick",
-    value: function handleClick() {
-      this.props.history.push('/dashboard');
     }
   }, {
     key: "handleSubmit",
@@ -1126,9 +1117,7 @@ var LoggedInNav = function (_React$Component) {
         { className: "dash-top-nav" },
         _react2.default.createElement(
           "article",
-          { className: "logo", onClick: function onClick() {
-              return _this3.handleClick();
-            } },
+          { className: "logo" },
           "SofaSkipping"
         ),
         _react2.default.createElement(
@@ -1950,7 +1939,7 @@ var UpcomingHostingsItem = function (_React$Component) {
   _createClass(UpcomingHostingsItem, [{
     key: 'handleClick',
     value: function handleClick() {
-      this.props.history.push('/members/' + this.props.guest.id);
+      this.props.history.push('/membersearch/' + this.props.guest.id);
     }
   }, {
     key: 'render',
@@ -1970,8 +1959,8 @@ var UpcomingHostingsItem = function (_React$Component) {
         lastName = this.props.guest.last_name;
         city = this.props.guest.location.city;
         country = this.props.guest.location.country;
-        if (this.props.guest.photoUrl) {
-          guestImage = this.props.guest.photoUrl;
+        if (this.props.guest.imageUrl) {
+          guestImage = this.props.guest.imageUrl;
         } else {
           guestImage = window.profile_pic_placeholder;
         }
@@ -2263,7 +2252,7 @@ var UpcomingTripsItem = function (_React$Component) {
   _createClass(UpcomingTripsItem, [{
     key: 'handleClick',
     value: function handleClick() {
-      this.props.history.push('/members/' + this.props.host.id);
+      this.props.history.push('/membersearch/' + this.props.host.id);
     }
   }, {
     key: 'render',
@@ -2283,8 +2272,8 @@ var UpcomingTripsItem = function (_React$Component) {
         lastName = this.props.host.last_name;
         city = this.props.host.location.city;
         country = this.props.host.location.country;
-        if (this.props.host.photoUrl) {
-          hostImage = this.props.host.photoUrl;
+        if (this.props.host.imageUrl) {
+          hostImage = this.props.host.imageUrl;
         } else {
           hostImage = window.profile_pic_placeholder;
         }
@@ -2813,20 +2802,14 @@ var UserSearchIndex = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var users = this.props.users.map(function (user, idx) {
-        return _react2.default.createElement(_user_search_index_items2.default, { user: user, key: idx, fetchUser: _this2.props.fetchUser });
+        return _react2.default.createElement(_user_search_index_items2.default, { user: user, key: idx });
       });
 
       return _react2.default.createElement(
-        'section',
-        { className: 'user-search-section' },
-        _react2.default.createElement(
-          'ul',
-          { className: 'user-search-ul' },
-          users
-        )
+        'ul',
+        null,
+        users
       );
     }
   }]);
@@ -2867,6 +2850,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var msp = function msp(state, ownProps) {
 
   var userSearchResults = state.search.searchTargets.map(function (id) {
+    debugger;
     return state.entities.users[id];
   });
 
@@ -2882,9 +2866,6 @@ var mdp = function mdp(dispatch) {
   return {
     fetchUsers: function fetchUsers(params) {
       return dispatch((0, _user_actions.fetchUsers)(params));
-    },
-    fetchUser: function fetchUser(id) {
-      return dispatch((0, _user_actions.fetchUser)(id));
     }
   };
 };
@@ -2913,8 +2894,6 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2926,93 +2905,31 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var UserSearchIndexItems = function (_React$Component) {
   _inherits(UserSearchIndexItems, _React$Component);
 
-  function UserSearchIndexItems(props) {
+  function UserSearchIndexItems() {
     _classCallCheck(this, UserSearchIndexItems);
 
-    var _this = _possibleConstructorReturn(this, (UserSearchIndexItems.__proto__ || Object.getPrototypeOf(UserSearchIndexItems)).call(this, props));
-
-    _this.state = {
-      user: _this.props.user
-    };
-    _this.handleClick = _this.handleClick.bind(_this);
-    return _this;
+    return _possibleConstructorReturn(this, (UserSearchIndexItems.__proto__ || Object.getPrototypeOf(UserSearchIndexItems)).apply(this, arguments));
   }
 
   _createClass(UserSearchIndexItems, [{
-    key: 'handleClick',
-    value: function handleClick() {
-      var _this2 = this;
-
-      this.props.fetchUser(this.props.user.id).then(function () {
-        return _this2.props.history.push('/members/' + _this2.props.user.id);
-      });
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
-
-      var userPhoto = void 0;
       var user = this.props.user || {};
       var firstName = user.first_name;
       var lastName = user.last_name;
       var city = user.location.city;
       var country = user.location.country;
-      var userStatus = user.user_status;
-      if (user.photoUrl) {
-        userPhoto = user.photoUrl;
-      } else {
-        userPhoto = window.profile_pic_placeholder;
-      }
-
-      var classStatus = void 0;
-      if (userStatus === "Accepting guests") {
-        classStatus = "user-search-status-accepting";
-      } else if (userStatus === "Not accepting guests") {
-        classStatus = "user-search-status-not-accepting";
-      } else {
-        classStatus = "user-search-status-maybe";
-      }
 
       return _react2.default.createElement(
         'li',
-        { className: 'user-search-li' },
-        _react2.default.createElement(
-          'section',
-          { className: 'user-search-li-section' },
-          _react2.default.createElement('img', { src: userPhoto, onClick: function onClick() {
-              return _this3.handleClick();
-            }, className: 'user-search-li-img' }),
-          _react2.default.createElement(
-            'article',
-            { className: 'user-search-name-location-article' },
-            _react2.default.createElement(
-              'div',
-              { className: 'user-search-article-div' },
-              _react2.default.createElement(
-                'h1',
-                { className: 'user-search-article-h1', onClick: function onClick() {
-                    return _this3.handleClick();
-                  } },
-                firstName,
-                ' ',
-                lastName
-              ),
-              _react2.default.createElement(
-                'h2',
-                { className: "user-search-article-h2" },
-                city,
-                ', ',
-                country
-              )
-            )
-          ),
-          _react2.default.createElement(
-            'aside',
-            { className: classStatus },
-            userStatus
-          )
-        )
+        null,
+        firstName,
+        ' ',
+        lastName,
+        ': ',
+        city,
+        ', ',
+        country
       );
     }
   }]);
@@ -3020,208 +2937,7 @@ var UserSearchIndexItems = function (_React$Component) {
   return UserSearchIndexItems;
 }(_react2.default.Component);
 
-exports.default = (0, _reactRouter.withRouter)(UserSearchIndexItems);
-
-/***/ }),
-
-/***/ "./frontend/components/user/user_show/user_show.jsx":
-/*!**********************************************************!*\
-  !*** ./frontend/components/user/user_show/user_show.jsx ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var UserShow = function (_React$Component) {
-  _inherits(UserShow, _React$Component);
-
-  function UserShow(props) {
-    _classCallCheck(this, UserShow);
-
-    var _this = _possibleConstructorReturn(this, (UserShow.__proto__ || Object.getPrototypeOf(UserShow)).call(this, props));
-
-    _this.state = {
-      user: _this.props.user || {}
-    };
-    return _this;
-  }
-
-  _createClass(UserShow, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.fetchUser(this.props.match.params.userId);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var user = this.props.user || {};
-
-      var userPhoto = void 0;
-      if (user.photoUrl) {
-        userPhoto = user.photoUrl;
-      } else {
-        userPhoto = window.profile_pic_placeholder;
-      }
-
-      var classStatus = void 0;
-      var userStatus = user.user_status;
-      if (userStatus === "Accepting guests") {
-        classStatus = "user-show-status-accepting";
-      } else if (userStatus === "Not accepting guests") {
-        classStatus = "user-show-status-not-accepting";
-      } else {
-        classStatus = "user-show-status-maybe";
-      }
-
-      var location = user.location || {};
-      var city = location.city || null;
-      var country = location.country || null;
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'user-show-background-div' },
-        _react2.default.createElement(
-          'aside',
-          { className: 'user-show-aside-name-image' },
-          _react2.default.createElement('img', { className: 'user-show-img', src: userPhoto }),
-          _react2.default.createElement(
-            'div',
-            { className: 'user-show-div-name-location' },
-            _react2.default.createElement(
-              'h1',
-              { className: 'user-show-h1' },
-              user.first_name,
-              ' ',
-              user.last_name
-            )
-          ),
-          _react2.default.createElement(
-            'footer',
-            { className: 'user-show-footer' },
-            _react2.default.createElement(
-              'h2',
-              { className: 'user-show-h2' },
-              city,
-              ', ',
-              country
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'section',
-          { className: 'user-show-info-section' },
-          _react2.default.createElement(
-            'article',
-            { className: 'user-show-article-status' },
-            _react2.default.createElement(
-              'div',
-              _defineProperty({ className: 'user-show-user-status-div' }, 'className', classStatus),
-              user.user_status
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'user-show-button-div' },
-              _react2.default.createElement(
-                'button',
-                { className: 'user-show-send-message-button' },
-                'Send Request'
-              ),
-              _react2.default.createElement(
-                'button',
-                { className: 'user-show-send-message-button' },
-                'Write a Review'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            'section',
-            { className: 'user-show-section-bio' },
-            _react2.default.createElement(
-              'header',
-              { className: 'user-show-bio-header' },
-              'ABOUT ME'
-            ),
-            _react2.default.createElement(
-              'article',
-              { className: 'user-show-bio-body' },
-              user.bio
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return UserShow;
-}(_react2.default.Component);
-
-exports.default = (0, _reactRouter.withRouter)(UserShow);
-
-/***/ }),
-
-/***/ "./frontend/components/user/user_show/user_show_container.js":
-/*!*******************************************************************!*\
-  !*** ./frontend/components/user/user_show/user_show_container.js ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-
-var _user_show = __webpack_require__(/*! ./user_show */ "./frontend/components/user/user_show/user_show.jsx");
-
-var _user_show2 = _interopRequireDefault(_user_show);
-
-var _user_actions = __webpack_require__(/*! ../../../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var msp = function msp(state, ownProps) {
-  return {
-    user: state.entities.users[ownProps.match.params.userId]
-  };
-};
-
-var mdp = function mdp(dispatch) {
-  return {
-    fetchUser: function fetchUser(id) {
-      return dispatch((0, _user_actions.fetchUser)(id));
-    }
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(msp, mdp)(_user_show2.default);
+exports.default = UserSearchIndexItems;
 
 /***/ }),
 

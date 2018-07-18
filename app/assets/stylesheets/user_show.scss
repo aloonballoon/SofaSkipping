@@ -1,0 +1,135 @@
+.user-show-background-div {
+  background-color: #F1EFEA;
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  height: 1000px;
+}
+
+.user-show-aside-name-image {
+  width: 300px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 20px;
+  box-shadow: 2px 2px 8px #777777;
+  max-height: 400px;
+}
+
+.user-show-img {
+  width: 225px;
+  height: 225px;
+  border-radius: 50%;
+  margin: 10px;
+  margin-left: 40px;
+}
+
+.user-show-h1 {
+  width: 300px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: lighter;
+  margin-bottom: 10px;
+}
+
+.user-show-h2 {
+  width: 275px;
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e6e6e6;
+  margin-left: 15px;
+}
+
+.user-show-footer {
+  display: flex;
+  align-items: center;
+}
+
+.user-show-article-status {
+  max-width: 780px;
+  min-width: 550px;
+  background-color: white;
+  margin: 10px;
+  margin-top: 20px;
+  max-height: 125px;
+  min-height: 100px;
+  box-shadow: 2px 2px 8px #777777;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.user-show-send-message-button {
+  height: 40px;
+  width: 120px;
+  background-color: #2980B9;
+  font-size: 15px;
+  color: white;
+  border-radius: 5px;
+  font-weight: bolder;
+  margin-right: 10px;
+}
+
+.user-show-user-status-div {
+  font-size: 25px;
+  font-weight: bold;
+  max-width: 300px;
+}
+
+.user-show-status-accepting {
+  color: green;
+  font-size: 25px;
+  font-weight: bold;
+  max-width: 300px;
+}
+
+.user-show-status-maybe {
+  color: black;
+  font-size: 25px;
+  font-weight: bold;
+  max-width: 300px;
+}
+
+.user-show-status-not-accepting {
+  color: #A6193C;
+  font-size: 20px;
+  font-weight: bold;
+  max-width: 300px;
+}
+
+.user-show-button-div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.user-show-section-bio {
+  max-width: 780px;
+  min-width: 550px;
+  background-color: white;
+  margin: 10px;
+  margin-top: 20px;
+  max-height: 125px;
+  min-height: 300px;
+  box-shadow: 2px 2px 8px #777777;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-show-bio-header {
+  text-align: left;
+  width: 90%;
+  padding-left: 10px;
+  padding-top: 20px;
+  font-size: 20px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.user-show-bio-body {
+  text-align: left;
+  height: 100%;
+  width: 90%;
+  margin-top: 10px;
+}

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import UserShow from './user_show';
-import { withRouter } 'react-router-dom';
+import { fetchUser } from '../../../actions/user_actions/user_actions';
+
 
 const msp = (state, ownProps) => {
   return {
@@ -10,8 +11,8 @@ const msp = (state, ownProps) => {
 
 const mdp = dispatch => {
   return {
-    fetchUser: (user) => dispatch(fetchUser(user))
+    fetchUser: (id) => dispatch(fetchUser(id))
   };
 };
 
-export default withRouter(connect(msp, mdp)(UserShow));
+export default connect(msp, mdp)(UserShow);

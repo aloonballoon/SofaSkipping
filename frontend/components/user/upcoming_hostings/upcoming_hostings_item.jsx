@@ -9,7 +9,7 @@ class UpcomingHostingsItem extends React.Component {
   }
 
   handleClick() {
-    this.props.history.push(`/membersearch/${this.props.guest.id}`);
+    this.props.history.push(`/members/${this.props.guest.id}`);
   }
 
 
@@ -28,8 +28,8 @@ class UpcomingHostingsItem extends React.Component {
       lastName = this.props.guest.last_name;
       city = this.props.guest.location.city;
       country = this.props.guest.location.country;
-      if (this.props.guest.imageUrl) {
-        guestImage = this.props.guest.imageUrl;
+      if (this.props.guest.photoUrl) {
+        guestImage = this.props.guest.photoUrl;
       } else {
         guestImage = window.profile_pic_placeholder;
       }

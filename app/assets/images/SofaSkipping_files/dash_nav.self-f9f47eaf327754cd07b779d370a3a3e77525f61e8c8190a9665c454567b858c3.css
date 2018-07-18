@@ -1,0 +1,152 @@
+/* line 1, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.dash-top-nav {
+  display: flex;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  justify-content: space-between;
+  height: 60px;
+  align-items: center;
+}
+
+/* line 9, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.dash-nav-search-input {
+  border: none;
+  height: auto;
+  min-height: 22px;
+  max-height: 35px;
+  outline: none;
+  padding-top: 4px;
+  width: 150px;
+  padding-right: 10px;
+}
+
+/* line 20, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.dash-nav-dropdown-button {
+  border: none;
+  height: auto;
+  min-height: 22px;
+  max-height: 35px;
+  outline: none;
+  padding-top: 6px;
+  width: 125px;
+  position: relative;
+  cursor: pointer;
+  text-align: left;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+/* line 35, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.dash-nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  width: 100px;
+  z-index: 1;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* line 43, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.show-search {
+  display: block;
+  position: absolute;
+  background-color: white;
+  left: 10%;
+  top: 99.5%;
+}
+
+/* line 51, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.show-search ul li div {
+  height: 34px;
+  width: 100%;
+  border: 0px;
+  text-align: left;
+  font-size: 15px;
+  text-align: center;
+  align-content: center;
+  cursor: pointer;
+}
+
+/* line 62, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.show-search ul li div:hover {
+  background-color: #f2f2f2;
+}
+
+/* line 67, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.dash-nav-user-menu {
+  position: absolute;
+  min-width: 160px;
+  display: none;
+  z-index: 1;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* line 77, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.show-user {
+  display: block;
+  position: absolute;
+  top: 55px;
+  right: 10px;
+  box-sizing: border-box;
+}
+
+/* line 85, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.dash-nav-profile-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* line 96, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.dash-nav-user-dropdown-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 0px;
+  margin: 0px;
+}
+
+/* line 106, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.dash-circular-user-button-div {
+  padding-right: 10px;
+}
+
+/* line 110, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.dash-nav-user-ul li {
+  background-color: white;
+  text-align: center;
+  height: auto;
+}
+
+/* line 115, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.dash-nav-user-ul button {
+  color: #929dad;
+}
+
+/* line 119, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.dash-nav-user-ul li button:hover {
+  color: #D4490B;
+  background-color: #f2f2f2;
+}
+
+/* line 124, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.dash-nav-user-ul li button {
+  height: 40px;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  border: 0px;
+}
+
+/* line 132, /home/auraz/Desktop/SofaSkipping/app/assets/stylesheets/dashboard/dash_nav.scss */
+.dash-nav-input-dropdown-form {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 50px;
+  min-width: 350px;
+  min-height: 40px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
