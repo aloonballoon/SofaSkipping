@@ -7,7 +7,8 @@ class UserShow extends React.Component {
     this.state = {
       startDate: "",
       endDate: "",
-      errors: ""
+      errors: "",
+      success: ""
     }
     this.handleStartDate = this.handleStartDate.bind(this);
     this.handleEndDate = this.handleEndDate.bind(this);
@@ -29,14 +30,15 @@ class UserShow extends React.Component {
     this.setState({startDate: "", endDate: ""})
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
     if (new Date(this.state.startDate) < new Date(this.state.endDate)) {
       this.setState({errors: ""})
       this.props.createTrip({
         startDate: this.state.startDate,
         endDate: this.state.endDate,
         userId: this.props.user.id
-      }).then(() => console.log("success"))
+      }).then(() => this.setState({success: "SUCCESS! Awaiting confirmation by host."}))
     } else {
       this.setState({errors: "Invalid Dates!!"})
     }
@@ -44,7 +46,7 @@ class UserShow extends React.Component {
 
   render() {
     let user = this.props.user || {};
-
+    let successMessage;
     let userPhoto;
     if (user.photoUrl) {
       userPhoto = user.photoUrl;
@@ -73,6 +75,10 @@ class UserShow extends React.Component {
       errors = this.state.errors;
     }
 
+    if (this.state.success !== "") {
+      successMessage = <div>{this.state.success}</div>
+    }
+
     return(
       <div className="user-show-background-div">
         <aside className="user-show-aside-name-image">
@@ -98,8 +104,9 @@ class UserShow extends React.Component {
               <button className="user-show-send-message-button" >Write a Review</button>
             </div>
           </article>
-          <form className={hiddenFormState} onSubmit={() => this.handleSubmit()}>
+          <form className={hiddenFormState} onSubmit={(e) => this.handleSubmit(e)}>
               <div>{errors}</div>
+              {successMessage}
               <div className="user-show-section-date-div">
                 <div className="user-show-arrival-date-div">
                   <p>Arrival Date</p>

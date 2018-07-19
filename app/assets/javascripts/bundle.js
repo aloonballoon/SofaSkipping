@@ -2315,7 +2315,6 @@ var _reactRouter = __webpack_require__(/*! react-router */ "./node_modules/react
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state) {
-  debugger;
   var hosts = [];
   state.entities.users[state.session.id].host_ids.map(function (id) {
     if (state.entities.users[id]) {
@@ -3212,7 +3211,8 @@ var UserShow = function (_React$Component) {
     _this.state = {
       startDate: "",
       endDate: "",
-      errors: ""
+      errors: "",
+      success: ""
     };
     _this.handleStartDate = _this.handleStartDate.bind(_this);
     _this.handleEndDate = _this.handleEndDate.bind(_this);
@@ -3249,7 +3249,10 @@ var UserShow = function (_React$Component) {
     }
   }, {
     key: 'handleSubmit',
-    value: function handleSubmit() {
+    value: function handleSubmit(e) {
+      var _this4 = this;
+
+      e.preventDefault();
       if (new Date(this.state.startDate) < new Date(this.state.endDate)) {
         this.setState({ errors: "" });
         this.props.createTrip({
@@ -3257,7 +3260,7 @@ var UserShow = function (_React$Component) {
           endDate: this.state.endDate,
           userId: this.props.user.id
         }).then(function () {
-          return console.log("success");
+          return _this4.setState({ success: "SUCCESS! Awaiting confirmation by host." });
         });
       } else {
         this.setState({ errors: "Invalid Dates!!" });
@@ -3266,10 +3269,10 @@ var UserShow = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       var user = this.props.user || {};
-
+      var successMessage = void 0;
       var userPhoto = void 0;
       if (user.photoUrl) {
         userPhoto = user.photoUrl;
@@ -3296,6 +3299,14 @@ var UserShow = function (_React$Component) {
       var errors = void 0;
       if (this.state.errors !== "") {
         errors = this.state.errors;
+      }
+
+      if (this.state.success !== "") {
+        successMessage = _react2.default.createElement(
+          'div',
+          null,
+          this.state.success
+        );
       }
 
       return _react2.default.createElement(
@@ -3356,14 +3367,15 @@ var UserShow = function (_React$Component) {
           ),
           _react2.default.createElement(
             'form',
-            { className: hiddenFormState, onSubmit: function onSubmit() {
-                return _this4.handleSubmit();
+            { className: hiddenFormState, onSubmit: function onSubmit(e) {
+                return _this5.handleSubmit(e);
               } },
             _react2.default.createElement(
               'div',
               null,
               errors
             ),
+            successMessage,
             _react2.default.createElement(
               'div',
               { className: 'user-show-section-date-div' },
@@ -3376,7 +3388,7 @@ var UserShow = function (_React$Component) {
                   'Arrival Date'
                 ),
                 _react2.default.createElement('input', { required: true, type: 'date', onChange: function onChange(e) {
-                    return _this4.handleStartDate(e);
+                    return _this5.handleStartDate(e);
                   }, value: this.state.startDate })
               ),
               _react2.default.createElement(
@@ -3388,7 +3400,7 @@ var UserShow = function (_React$Component) {
                   'Departure Date'
                 ),
                 _react2.default.createElement('input', { required: true, type: 'date', onChange: function onChange(e) {
-                    return _this4.handleEndDate(e);
+                    return _this5.handleEndDate(e);
                   }, value: this.state.endDate })
               )
             ),
@@ -3403,12 +3415,12 @@ var UserShow = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'user-show-cancel-div', onClick: function onClick() {
-                    return _this4.cancelInputs();
+                    return _this5.cancelInputs();
                   } },
                 _react2.default.createElement(
                   'div',
                   { className: 'text-div', onClick: function onClick() {
-                      return _this4.cancelInputs();
+                      return _this5.cancelInputs();
                     } },
                   'Cancel'
                 )
