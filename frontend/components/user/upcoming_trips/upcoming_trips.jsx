@@ -17,15 +17,13 @@ class UpcomingTrips extends React.Component {
 
   render() {
 
-    const tripItem = this.props.trips.map((trip, idx) => {
+    const tripItem = this.props.trips.map((trip) => {
       let host = null;
       if (typeof trip === "undefined") {
         host = null;
-      } else if (trip.confirmed === false) {
-        host = null;
       } else {
         host = this.props.users[trip.host_id]
-        return <UpcomingTripsItem key={idx} host={host} trip={trip} />
+        return <UpcomingTripsItem key={trip.id} host={host} trip={trip} />
       }
     })
 

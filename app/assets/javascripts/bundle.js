@@ -2253,15 +2253,13 @@ var UpcomingTrips = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      var tripItem = this.props.trips.map(function (trip, idx) {
+      var tripItem = this.props.trips.map(function (trip) {
         var host = null;
         if (typeof trip === "undefined") {
           host = null;
-        } else if (trip.confirmed === false) {
-          host = null;
         } else {
           host = _this2.props.users[trip.host_id];
-          return _react2.default.createElement(_upcoming_trips_item2.default, { key: idx, host: host, trip: trip });
+          return _react2.default.createElement(_upcoming_trips_item2.default, { key: trip.id, host: host, trip: trip });
         }
       });
 
@@ -2317,6 +2315,7 @@ var _reactRouter = __webpack_require__(/*! react-router */ "./node_modules/react
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state) {
+  debugger;
   var hosts = [];
   state.entities.users[state.session.id].host_ids.map(function (id) {
     if (state.entities.users[id]) {
@@ -2415,6 +2414,7 @@ var UpcomingTripsItem = function (_React$Component) {
       var endDate = "";
       var hostImage = "";
 
+      var confirmed = void 0;
       if (typeof this.props.host !== 'undefined') {
         firstName = this.props.host.first_name;
         lastName = this.props.host.last_name;
@@ -2424,6 +2424,13 @@ var UpcomingTripsItem = function (_React$Component) {
           hostImage = this.props.host.photoUrl;
         } else {
           hostImage = window.profile_pic_placeholder;
+        }
+        if (this.props.trip.confirmed === false) {
+          confirmed = _react2.default.createElement(
+            'div',
+            { className: 'upcoming-trip-pending-div' },
+            'PENDING'
+          );
         }
       }
 
@@ -2464,6 +2471,7 @@ var UpcomingTripsItem = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'upcoming-guests-li-holding-div' },
+          confirmed,
           _react2.default.createElement(
             'article',
             { className: 'upcoming-guests-li-article' },
@@ -3915,6 +3923,8 @@ var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js
 
 var _user_actions = __webpack_require__(/*! ../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
 
+var _booking_actions = __webpack_require__(/*! ../actions/booking_actions */ "./frontend/actions/booking_actions.js");
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var defaultState = {};
@@ -3922,6 +3932,7 @@ var usersReducer = function usersReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
   var action = arguments[1];
 
+  var newState = void 0;
   Object.freeze(state);
   switch (action.type) {
     case _session_actions.RECEIVE_CURRENT_USER:
@@ -3933,6 +3944,11 @@ var usersReducer = function usersReducer() {
       return (0, _lodash.merge)({}, state, action.hosts);
     case _user_actions.RECEIVE_USERS:
       return (0, _lodash.merge)({}, state, action.users);
+    case _booking_actions.RECEIVE_TRIP:
+      newState = (0, _lodash.merge)({}, state);
+      var currentUser = newState[Object.values(action.trip)[0].guest_id];
+      currentUser.trip_ids.push(Object.values(action.trip)[0].id);
+      return (0, _lodash.merge)({}, newState, currentUser);
     default:
       return state;
   }

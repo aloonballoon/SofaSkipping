@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 
 
 const msp = (state) => {
+  debugger
   let hosts = [];
   state.entities.users[state.session.id].host_ids.map((id) => {
     if (state.entities.users[id]) {

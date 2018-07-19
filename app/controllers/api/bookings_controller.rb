@@ -30,7 +30,9 @@ class Api::BookingsController < ApplicationController
   def update
     @booking = Booking.find(params[:id])
     @booking.confirmed = true
-    render 'api/bookings/update'
+    if @booking.save
+      render 'api/bookings/update'
+    end
   end
 
   def booking_params

@@ -22,6 +22,7 @@ class UpcomingTripsItem extends React.Component {
     let endDate = "";
     let hostImage = ""
 
+    let confirmed;
     if (typeof this.props.host !== 'undefined') {
       firstName = this.props.host.first_name;
       lastName = this.props.host.last_name;
@@ -31,6 +32,9 @@ class UpcomingTripsItem extends React.Component {
         hostImage = this.props.host.photoUrl;
       } else {
         hostImage = window.profile_pic_placeholder;
+      }
+      if (this.props.trip.confirmed === false) {
+        confirmed = <div className="upcoming-trip-pending-div">PENDING</div>
       }
     }
 
@@ -64,7 +68,7 @@ class UpcomingTripsItem extends React.Component {
       <li>
         <img className="dash-main-guest-host-img" onClick={() => this.handleClick()} src={hostImage}/>
         <div className="upcoming-guests-li-holding-div">
-
+            {confirmed}
            <article className="upcoming-guests-li-article">
            <header className="upcoming-guests-li-name-header">
            {firstName} {lastName}
