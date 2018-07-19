@@ -11,6 +11,7 @@ import UserDashboardContainer from './user/user_dashboard_container';
 import LoggedInNavContainer from './logged_in_nav/logged_in_nav_bar_container';
 import UserSearchIndexContainer from './user/user_search/user_search_index_container';
 import UserShowContainer from './user/user_show/user_show_container';
+import LocationShowContainer from './locations/locations_show_container';
 
 
 
@@ -24,6 +25,7 @@ const App = () => (
     <section>
       <ProtectedRoute component={LoggedInNavContainer} />
       <ProtectedRoute exact path='/dashboard' component={UserDashboardContainer} />
+      <ProtectedRoute exact path='/location/:location' component={LocationShowContainer} />
       <ProtectedRoute exact path='/membersearch/:name' component={UserSearchIndexContainer} />
       <ProtectedRoute exact path='/members/:userId' component={UserShowContainer} />
       <AuthRoute exact path="/" component={Homescreen} />

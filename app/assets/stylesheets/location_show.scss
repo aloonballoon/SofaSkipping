@@ -1,0 +1,26 @@
+.location-show-background-image {
+  width: 100%;
+}
+
+.location-show-background-image-header {
+  overflow: hidden;
+  max-height: 500px;
+  position: relative;
+}
+
+.location-show-entire-container-div {
+  background-color: #F1EFEA;
+  min-height: 1000px;
+  height: 100%;
+}
+
+.location-show-title-h1 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 10%;
+  font-size: 80px;
+  color: black;
+  width: 100%;
+  text-align: center;
+}

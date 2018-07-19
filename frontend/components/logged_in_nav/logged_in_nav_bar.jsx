@@ -47,6 +47,12 @@ class LoggedInNav extends React.Component {
         this.props.fetchUsers(this.state.text).then(() => {
           this.props.history.push(`/membersearch/${this.state.text}`);
         });
+      break;
+      case "Explore":
+        this.props.fetchLocation(this.state.text).then(() => {
+          this.props.history.push(`/location/${this.state.text}`);
+        });
+      break;
       default:
         null;
 
@@ -62,6 +68,13 @@ render() {
     userPicture = window.profile_pic_placeholder
   }
 
+  let errors;
+  if (this.props.errors.length === 0) {
+    errors = null;
+  } else {
+    errors = this.props.errors.message
+  }
+
     let placeholder;
     if (this.state.searchFilter === "Find Members") {
       placeholder = "Search Users"
@@ -75,6 +88,9 @@ render() {
         <article className="logo" onClick={() => this.handleClick()}>
           SofaSkipping
         </article>
+        <div className="logged-in-nav-errors-div">
+          {errors}
+        </div>
         <form className="dash-nav-input-dropdown-form" onSubmit={(e) => this.handleSubmit(e)}>
           <div onClick={() => this.dropdownSearchClick()} className="dash-nav-dropdown-button">{this.state.searchFilter} </div>
 
@@ -84,13 +100,7 @@ render() {
               <div onClick={() => this.changeSearchFilter("Explore")}>Explore</div>
             </li>
             <li>
-              <div onClick={() => this.changeSearchFilter("Find Hosts")} >Find Hosts</div>
-            </li>
-            <li>
               <div onClick={() => this.changeSearchFilter("Find Members")}>Find Members</div>
-            </li>
-            <li>
-              <div onClick={() => this.changeSearchFilter("Find Travelers")}>Find Travelers</div>
             </li>
           </ul>
           </div>

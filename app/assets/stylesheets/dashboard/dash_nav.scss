@@ -4,6 +4,7 @@
   justify-content: space-between;
   height: 60px;
   align-items: center;
+  position: relative;
 }
 
 .dash-nav-search-input {
@@ -137,4 +138,10 @@
   display: flex;
   justify-content: center;
   position: relative;
+}
+
+.logged-in-nav-errors-div {
+  position: absolute;
+  color: red;
+  left: 20%;
 }

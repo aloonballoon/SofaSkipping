@@ -1,6 +1,8 @@
 class Api::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
+    @new_york = Location.find_by(city: "New York")
+    @user.home_location_id = @new_york.id
     if @user.save
       login(@user)
       render "api/users/show"
@@ -14,7 +16,7 @@ class Api::UsersController < ApplicationController
     unless @users.empty?
       render 'api/users/index'
     else
-      render json: {message: "No users by those fields found!"}, status: 422
+      render json: {message: "No users by those fields found!"}, status: 404
     end
   end
   #LIKE!!!!!

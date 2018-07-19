@@ -160,6 +160,50 @@ var RECEIVE_CANCELED_HOSTING = exports.RECEIVE_CANCELED_HOSTING = 'RECEIVE_CANCE
 
 /***/ }),
 
+/***/ "./frontend/actions/location_actions.js":
+/*!**********************************************!*\
+  !*** ./frontend/actions/location_actions.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchLocation = exports.receiveLocation = exports.RECEIVE_LOCATION = undefined;
+
+var _locations_util = __webpack_require__(/*! ../util/locations_util */ "./frontend/util/locations_util.js");
+
+var LocationApiUtil = _interopRequireWildcard(_locations_util);
+
+var _user_actions = __webpack_require__(/*! ./user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_LOCATION = exports.RECEIVE_LOCATION = "RECEIVE_LOCATION";
+
+var receiveLocation = exports.receiveLocation = function receiveLocation(locations) {
+  return {
+    type: RECEIVE_LOCATION,
+    locations: locations
+  };
+};
+
+var fetchLocation = exports.fetchLocation = function fetchLocation(location) {
+  return function (dispatch) {
+    return LocationApiUtil.fetchLocation(location).then(function (location) {
+      return dispatch(receiveLocation(location));
+    }, function (error) {
+      return dispatch((0, _user_actions.receiveSearchErrors)(error.responseJSON));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/modal_actions.js":
 /*!*******************************************!*\
   !*** ./frontend/actions/modal_actions.js ***!
@@ -283,7 +327,7 @@ var signUp = exports.signUp = function signUp(user) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.receiveUsers = exports.fetchUsers = exports.fetchUser = exports.updateStatus = exports.fetchGuests = exports.fetchTrips = exports.fetchHostings = exports.fetchHosts = exports.receiveGuests = exports.receiveHosts = exports.receiveTrips = exports.receiveHostings = exports.receiveAssociatedUser = exports.RECEIVE_USERS = exports.RECEIVE_HOSTS = exports.RECEIVE_TRIPS = exports.RECEIVE_HOSTINGS = exports.RECEIVE_ASSOCIATED_USER = exports.RECEIVE_GUESTS = exports.UPDATE_USER_STATUS = undefined;
+exports.RECEIVE_SEARCH_ERRORS = exports.receiveSearchErrors = exports.receiveUsers = exports.fetchUsers = exports.fetchUser = exports.updateStatus = exports.fetchGuests = exports.fetchTrips = exports.fetchHostings = exports.fetchHosts = exports.receiveGuests = exports.receiveHosts = exports.receiveTrips = exports.receiveHostings = exports.receiveAssociatedUser = exports.RECEIVE_SESSION_ERRORS = exports.RECEIVE_USERS = exports.RECEIVE_HOSTS = exports.RECEIVE_TRIPS = exports.RECEIVE_HOSTINGS = exports.RECEIVE_ASSOCIATED_USER = exports.RECEIVE_GUESTS = exports.UPDATE_USER_STATUS = undefined;
 
 var _users_util = __webpack_require__(/*! ../../util/users_util */ "./frontend/util/users_util.js");
 
@@ -302,6 +346,7 @@ var RECEIVE_HOSTINGS = exports.RECEIVE_HOSTINGS = 'RECEIVE_HOSTINGS';
 var RECEIVE_TRIPS = exports.RECEIVE_TRIPS = 'RECEIVE_TRIPS';
 var RECEIVE_HOSTS = exports.RECEIVE_HOSTS = "RECEIVE_HOSTS";
 var RECEIVE_USERS = exports.RECEIVE_USERS = "RECEIVE_USERS";
+var RECEIVE_SESSION_ERRORS = exports.RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 
 var receiveAssociatedUser = exports.receiveAssociatedUser = function receiveAssociatedUser(user) {
   return {
@@ -390,6 +435,8 @@ var fetchUsers = exports.fetchUsers = function fetchUsers(param) {
   return function (dispatch) {
     return UsersApiUtil.fetchUsers(param).then(function (users) {
       return dispatch(receiveUsers(users));
+    }, function (error) {
+      return dispatch(receiveSearchErrors(error.responseJSON));
     });
   };
 };
@@ -400,6 +447,15 @@ var receiveUsers = exports.receiveUsers = function receiveUsers(users) {
     users: users
   };
 };
+
+var receiveSearchErrors = exports.receiveSearchErrors = function receiveSearchErrors(error) {
+  return {
+    type: RECEIVE_SEARCH_ERRORS,
+    error: error
+  };
+};
+
+var RECEIVE_SEARCH_ERRORS = exports.RECEIVE_SEARCH_ERRORS = "RECEIVE_SEARCH_ERRORS";
 
 /***/ }),
 
@@ -465,6 +521,10 @@ var _user_show_container = __webpack_require__(/*! ./user/user_show/user_show_co
 
 var _user_show_container2 = _interopRequireDefault(_user_show_container);
 
+var _locations_show_container = __webpack_require__(/*! ./locations/locations_show_container */ "./frontend/components/locations/locations_show_container.js");
+
+var _locations_show_container2 = _interopRequireDefault(_locations_show_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
@@ -482,6 +542,7 @@ var App = function App() {
       null,
       _react2.default.createElement(_route_util.ProtectedRoute, { component: _logged_in_nav_bar_container2.default }),
       _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/dashboard', component: _user_dashboard_container2.default }),
+      _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/location/:location', component: _locations_show_container2.default }),
       _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/membersearch/:name', component: _user_search_index_container2.default }),
       _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/members/:userId', component: _user_show_container2.default }),
       _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _homescreen2.default })
@@ -1083,6 +1144,110 @@ exports.default = WhyJoinForm3;
 
 /***/ }),
 
+/***/ "./frontend/components/locations/location_show.jsx":
+/*!*********************************************************!*\
+  !*** ./frontend/components/locations/location_show.jsx ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LocationShow = function (_React$Component) {
+  _inherits(LocationShow, _React$Component);
+
+  function LocationShow() {
+    _classCallCheck(this, LocationShow);
+
+    return _possibleConstructorReturn(this, (LocationShow.__proto__ || Object.getPrototypeOf(LocationShow)).apply(this, arguments));
+  }
+
+  _createClass(LocationShow, [{
+    key: "render",
+    value: function render() {
+
+      var locationName = this.props.location;
+
+      return _react2.default.createElement(
+        "div",
+        { className: "location-show-entire-container-div" },
+        _react2.default.createElement(
+          "header",
+          { className: "location-show-background-image-header" },
+          _react2.default.createElement(
+            "h1",
+            { className: "location-show-title-h1" },
+            locationName
+          ),
+          _react2.default.createElement("img", { className: "location-show-background-image", src: window.beautiful_beach })
+        )
+      );
+    }
+  }]);
+
+  return LocationShow;
+}(_react2.default.Component);
+
+exports.default = LocationShow;
+
+/***/ }),
+
+/***/ "./frontend/components/locations/locations_show_container.js":
+/*!*******************************************************************!*\
+  !*** ./frontend/components/locations/locations_show_container.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _location_show = __webpack_require__(/*! ./location_show */ "./frontend/components/locations/location_show.jsx");
+
+var _location_show2 = _interopRequireDefault(_location_show);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var msp = function msp(state, ownProps) {
+
+  var users = state.search.searchTargets.map(function (id) {
+    return state.entities.users[id];
+  });
+  return {
+    users: users,
+    location: ownProps.location.pathname.slice(10)
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(msp)(_location_show2.default);
+
+/***/ }),
+
 /***/ "./frontend/components/logged_in_nav/logged_in_nav_bar.jsx":
 /*!*****************************************************************!*\
   !*** ./frontend/components/logged_in_nav/logged_in_nav_bar.jsx ***!
@@ -1171,6 +1336,12 @@ var LoggedInNav = function (_React$Component) {
           this.props.fetchUsers(this.state.text).then(function () {
             _this2.props.history.push("/membersearch/" + _this2.state.text);
           });
+          break;
+        case "Explore":
+          this.props.fetchLocation(this.state.text).then(function () {
+            _this2.props.history.push("/location/" + _this2.state.text);
+          });
+          break;
         default:
           null;
 
@@ -1186,6 +1357,13 @@ var LoggedInNav = function (_React$Component) {
         userPicture = this.props.user.photoUrl;
       } else {
         userPicture = window.profile_pic_placeholder;
+      }
+
+      var errors = void 0;
+      if (this.props.errors.length === 0) {
+        errors = null;
+      } else {
+        errors = this.props.errors.message;
       }
 
       var placeholder = void 0;
@@ -1204,6 +1382,11 @@ var LoggedInNav = function (_React$Component) {
               return _this3.handleClick();
             } },
           "SofaSkipping"
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "logged-in-nav-errors-div" },
+          errors
         ),
         _react2.default.createElement(
           "form",
@@ -1241,31 +1424,9 @@ var LoggedInNav = function (_React$Component) {
                 _react2.default.createElement(
                   "div",
                   { onClick: function onClick() {
-                      return _this3.changeSearchFilter("Find Hosts");
-                    } },
-                  "Find Hosts"
-                )
-              ),
-              _react2.default.createElement(
-                "li",
-                null,
-                _react2.default.createElement(
-                  "div",
-                  { onClick: function onClick() {
                       return _this3.changeSearchFilter("Find Members");
                     } },
                   "Find Members"
-                )
-              ),
-              _react2.default.createElement(
-                "li",
-                null,
-                _react2.default.createElement(
-                  "div",
-                  { onClick: function onClick() {
-                      return _this3.changeSearchFilter("Find Travelers");
-                    } },
-                  "Find Travelers"
                 )
               )
             )
@@ -1357,11 +1518,14 @@ var _logged_in_nav_bar2 = _interopRequireDefault(_logged_in_nav_bar);
 
 var _user_actions = __webpack_require__(/*! ../../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
 
+var _location_actions = __webpack_require__(/*! ../../actions/location_actions */ "./frontend/actions/location_actions.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state, ownProps) {
   return {
-    user: state.entities.users[state.session.id]
+    user: state.entities.users[state.session.id],
+    errors: state.errors.search
   };
 };
 
@@ -1372,6 +1536,9 @@ var mdp = function mdp(dispatch, ownProps) {
     },
     fetchUsers: function fetchUsers(param) {
       return dispatch((0, _user_actions.fetchUsers)(param));
+    },
+    fetchLocation: function fetchLocation(location) {
+      return dispatch((0, _location_actions.fetchLocation)(location));
     }
   };
 };
@@ -3240,12 +3407,15 @@ var UserShow = function (_React$Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
+      window.scrollTo(0, 0);
       this.props.fetchUser(this.props.match.params.userId);
     }
   }, {
     key: 'cancelInputs',
     value: function cancelInputs() {
       this.setState({ startDate: "", endDate: "" });
+      this.setState({ errors: "" });
+      this.setState({ success: "" });
     }
   }, {
     key: 'handleSubmit',
@@ -3296,16 +3466,30 @@ var UserShow = function (_React$Component) {
 
       var hiddenFormState = "user-show-hidden";
 
+      var errorMessage = void 0;
       var errors = void 0;
       if (this.state.errors !== "") {
         errors = this.state.errors;
+        errorMessage = _react2.default.createElement(
+          'div',
+          { className: 'user-show-errors-message-div' },
+          _react2.default.createElement(
+            'div',
+            null,
+            errors
+          )
+        );
       }
 
       if (this.state.success !== "") {
         successMessage = _react2.default.createElement(
           'div',
-          null,
-          this.state.success
+          { className: 'user-show-success-message-div' },
+          _react2.default.createElement(
+            'div',
+            null,
+            this.state.success
+          )
         );
       }
 
@@ -3370,11 +3554,7 @@ var UserShow = function (_React$Component) {
             { className: hiddenFormState, onSubmit: function onSubmit(e) {
                 return _this5.handleSubmit(e);
               } },
-            _react2.default.createElement(
-              'div',
-              null,
-              errors
-            ),
+            errorMessage,
             successMessage,
             _react2.default.createElement(
               'div',
@@ -3559,11 +3739,16 @@ var _bookings_reducer = __webpack_require__(/*! ./bookings_reducer */ "./fronten
 
 var _bookings_reducer2 = _interopRequireDefault(_bookings_reducer);
 
+var _locations_reducer = __webpack_require__(/*! ./locations_reducer */ "./frontend/reducers/locations_reducer.js");
+
+var _locations_reducer2 = _interopRequireDefault(_locations_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var entitiesReducer = (0, _redux.combineReducers)({
   users: _users_reducer2.default,
-  bookings: _bookings_reducer2.default
+  bookings: _bookings_reducer2.default,
+  locations: _locations_reducer2.default
 });
 
 exports.default = entitiesReducer;
@@ -3590,10 +3775,15 @@ var _session_errors_reducer = __webpack_require__(/*! ./session_errors_reducer *
 
 var _session_errors_reducer2 = _interopRequireDefault(_session_errors_reducer);
 
+var _search_errors_reducer = __webpack_require__(/*! ./search_errors_reducer */ "./frontend/reducers/search_errors_reducer.js");
+
+var _search_errors_reducer2 = _interopRequireDefault(_search_errors_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var errorsReducer = (0, _redux.combineReducers)({
-  session: _session_errors_reducer2.default
+  session: _session_errors_reducer2.default,
+  search: _search_errors_reducer2.default
 });
 
 exports.default = errorsReducer;
@@ -3645,6 +3835,43 @@ var hostingsReducer = function hostingsReducer() {
 };
 
 exports.default = hostingsReducer;
+
+/***/ }),
+
+/***/ "./frontend/reducers/locations_reducer.js":
+/*!************************************************!*\
+  !*** ./frontend/reducers/locations_reducer.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _location_actions = __webpack_require__(/*! ../actions/location_actions */ "./frontend/actions/location_actions.js");
+
+var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+
+var defaultState = {};
+
+var locationsReducer = function locationsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _location_actions.RECEIVE_LOCATION:
+      return (0, _lodash.merge)({}, state, action.locations.locations);
+    default:
+      return state;
+  }
+};
+
+exports.default = locationsReducer;
 
 /***/ }),
 
@@ -3731,6 +3958,40 @@ exports.default = rootReducer;
 
 /***/ }),
 
+/***/ "./frontend/reducers/search_errors_reducer.js":
+/*!****************************************************!*\
+  !*** ./frontend/reducers/search_errors_reducer.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _user_actions = __webpack_require__(/*! ../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
+
+var searchErrorsReducer = function searchErrorsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _user_actions.RECEIVE_SEARCH_ERRORS:
+      return action.error;
+    case _user_actions.RECEIVE_USERS:
+      return [];
+    default:
+      return state;
+  }
+};
+
+exports.default = searchErrorsReducer;
+
+/***/ }),
+
 /***/ "./frontend/reducers/search_reducer.js":
 /*!*********************************************!*\
   !*** ./frontend/reducers/search_reducer.js ***!
@@ -3749,6 +4010,8 @@ var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js
 
 var _user_actions = __webpack_require__(/*! ../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
 
+var _location_actions = __webpack_require__(/*! ../actions/location_actions */ "./frontend/actions/location_actions.js");
+
 var defaultState = { searchTargets: [] };
 var searchReducer = function searchReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
@@ -3758,6 +4021,8 @@ var searchReducer = function searchReducer() {
   switch (action.type) {
     case _user_actions.RECEIVE_USERS:
       return { searchTargets: action.users.search };
+    case _location_actions.RECEIVE_LOCATION:
+      return { searchTargets: action.locations.search };
     default:
       return state;
   }
@@ -3937,6 +4202,8 @@ var _user_actions = __webpack_require__(/*! ../actions/user_actions/user_actions
 
 var _booking_actions = __webpack_require__(/*! ../actions/booking_actions */ "./frontend/actions/booking_actions.js");
 
+var _location_actions = __webpack_require__(/*! ../actions/location_actions */ "./frontend/actions/location_actions.js");
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var defaultState = {};
@@ -3956,6 +4223,8 @@ var usersReducer = function usersReducer() {
       return (0, _lodash.merge)({}, state, action.hosts);
     case _user_actions.RECEIVE_USERS:
       return (0, _lodash.merge)({}, state, action.users);
+    case _location_actions.RECEIVE_LOCATION:
+      return (0, _lodash.merge)({}, state, action.locations.hosts);
     case _booking_actions.RECEIVE_TRIP:
       newState = (0, _lodash.merge)({}, state);
       var currentUser = newState[Object.values(action.trip)[0].guest_id];
@@ -4119,6 +4388,29 @@ var cancelHosting = exports.cancelHosting = function cancelHosting(id) {
   return $.ajax({
     method: 'delete',
     url: 'api/bookings/' + id
+  });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/locations_util.js":
+/*!*****************************************!*\
+  !*** ./frontend/util/locations_util.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var fetchLocation = exports.fetchLocation = function fetchLocation(location) {
+  return $.ajax({
+    method: 'get',
+    url: 'api/locations',
+    data: { location: { city: location, country: location } }
   });
 };
 

@@ -1,6 +1,7 @@
 import * as UsersApiUtil from '../../util/users_util';
 import { receiveCurrentUser } from '../session_actions';
-import { fetchUserHostings, fetchUserTrips } from '../../util/bookings_util'
+import { fetchUserHostings, fetchUserTrips } from '../../util/bookings_util';
+import { receiveErrors } from '../session_actions';
 
 
 export const UPDATE_USER_STATUS = "UPDATE_USER_STATUS";
@@ -10,6 +11,7 @@ export const RECEIVE_HOSTINGS = 'RECEIVE_HOSTINGS';
 export const RECEIVE_TRIPS = 'RECEIVE_TRIPS';
 export const RECEIVE_HOSTS = "RECEIVE_HOSTS";
 export const RECEIVE_USERS = "RECEIVE_USERS";
+export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 
 
 export const receiveAssociatedUser = (user) => {
@@ -104,7 +106,7 @@ export const fetchUsers = (param) => {
   return dispatch => {
     return UsersApiUtil.fetchUsers(param).then((users) => {
       return dispatch(receiveUsers(users));
-    });
+    }, error => (dispatch(receiveSearchErrors(error.responseJSON))));
   };
 };
 
@@ -114,3 +116,12 @@ export const receiveUsers = (users) => {
     users: users
   };
 };
+
+export const receiveSearchErrors = (error) => {
+  return {
+    type: RECEIVE_SEARCH_ERRORS,
+    error: error
+  };
+};
+
+export const RECEIVE_SEARCH_ERRORS = "RECEIVE_SEARCH_ERRORS";

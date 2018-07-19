@@ -11,6 +11,7 @@ Location.destroy_all
 Booking.destroy_all
 
 
+
 sf = Location.create!(city: "San Francisco", country: "United States of America", lat: 37.7749295, lng: -122.41941550000001)
 la = Location.create!(city: "Los Angeles", country: "United States of America", lat: 34.0522342, lng: -118.2436849)
 ny = Location.create!(city: "New York", country: "United States of America", lat: 40.741895, lng: -73.989308)
@@ -37,8 +38,3 @@ Booking.create!(host_id: alan.id, guest_id: leana.id, start_date: "2018/09/13", 
 Booking.create!(host_id: leana.id, guest_id: ayda.id, start_date: "2018/10/13", end_date: "2018/11/15", confirmed: true)
 Booking.create!(host_id: guest.id, guest_id: alan.id, start_date: "2018/11/13", end_date: "2018/12/15", confirmed: true)
 Booking.create!(host_id: alan.id, guest_id: guest.id, start_date: "2019/01/13", end_date: "2019/01/15", confirmed: true)
-
-
-alan.photo.attach(io: File.open("/home/auraz/Desktop/alananddog.jpg"), filename: "alananddog.jpg")
-
-ayda.photo.attach(io: File.open("/home/auraz/Desktop/nasa-45072-unsplash.jpg"), filename: "nasa-45072-unsplash.jpg")

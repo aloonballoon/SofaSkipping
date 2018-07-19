@@ -23,11 +23,14 @@ class UserShow extends React.Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0)
     this.props.fetchUser(this.props.match.params.userId)
   }
 
   cancelInputs() {
     this.setState({startDate: "", endDate: ""})
+    this.setState({errors: ""})
+    this.setState({success: ""})
   }
 
   handleSubmit(e) {
@@ -70,13 +73,15 @@ class UserShow extends React.Component {
 
     let hiddenFormState = "user-show-hidden";
 
+    let errorMessage;
     let errors;
     if (this.state.errors !== "") {
       errors = this.state.errors;
+      errorMessage = <div className="user-show-errors-message-div"><div>{errors}</div></div>
     }
 
     if (this.state.success !== "") {
-      successMessage = <div>{this.state.success}</div>
+      successMessage = <div className="user-show-success-message-div"><div>{this.state.success}</div></div>
     }
 
     return(
@@ -105,7 +110,7 @@ class UserShow extends React.Component {
             </div>
           </article>
           <form className={hiddenFormState} onSubmit={(e) => this.handleSubmit(e)}>
-              <div>{errors}</div>
+              {errorMessage}
               {successMessage}
               <div className="user-show-section-date-div">
                 <div className="user-show-arrival-date-div">

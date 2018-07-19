@@ -5,6 +5,10 @@ class Location < ApplicationRecord
   foreign_key: :home_location_id,
   class_name: :User
 
+  has_many :bookings,
+  through: :hosts,
+  source: :bookings
+
   has_one_attached :photo
 
 end

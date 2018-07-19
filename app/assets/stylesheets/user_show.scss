@@ -208,3 +208,23 @@
 .text-div {
   margin-bottom: 3px;
 }
+
+.user-show-success-message-div {
+  width: 100%;
+  height: 70px;
+  background-color: #90EE90;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-show-errors-message-div {
+  width: 100%;
+  height: 70px;
+  background-color: rgba(198,61,67,0.25);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
