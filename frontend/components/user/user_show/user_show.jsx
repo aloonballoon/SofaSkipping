@@ -6,7 +6,8 @@ class UserShow extends React.Component {
     super(props);
     this.state = {
       startDate: "",
-      endDate: ""
+      endDate: "",
+      errors: ""
     }
     this.handleStartDate = this.handleStartDate.bind(this);
     this.handleEndDate = this.handleEndDate.bind(this);
@@ -29,11 +30,16 @@ class UserShow extends React.Component {
   }
 
   handleSubmit() {
-    this.props.createTrip({
-      startDate: this.state.startDate,
-      endDate: this.state.endDate,
-      userId: this.props.user.id
-    }).then(() => console.log("success"))
+    if (new Date(this.state.startDate) < new Date(this.state.endDate)) {
+      this.setState({errors: ""})
+      this.props.createTrip({
+        startDate: this.state.startDate,
+        endDate: this.state.endDate,
+        userId: this.props.user.id
+      }).then(() => console.log("success"))
+    } else {
+      this.setState({errors: "Invalid Dates!!"})
+    }
   }
 
   render() {
@@ -62,6 +68,11 @@ class UserShow extends React.Component {
 
     let hiddenFormState = "user-show-hidden";
 
+    let errors;
+    if (this.state.errors !== "") {
+      errors = this.state.errors;
+    }
+
     return(
       <div className="user-show-background-div">
         <aside className="user-show-aside-name-image">
@@ -88,6 +99,7 @@ class UserShow extends React.Component {
             </div>
           </article>
           <form className={hiddenFormState} onSubmit={() => this.handleSubmit()}>
+              <div>{errors}</div>
               <div className="user-show-section-date-div">
                 <div className="user-show-arrival-date-div">
                   <p>Arrival Date</p>

@@ -3199,7 +3199,8 @@ var UserShow = function (_React$Component) {
 
     _this.state = {
       startDate: "",
-      endDate: ""
+      endDate: "",
+      errors: ""
     };
     _this.handleStartDate = _this.handleStartDate.bind(_this);
     _this.handleEndDate = _this.handleEndDate.bind(_this);
@@ -3237,13 +3238,18 @@ var UserShow = function (_React$Component) {
   }, {
     key: 'handleSubmit',
     value: function handleSubmit() {
-      this.props.createTrip({
-        startDate: this.state.startDate,
-        endDate: this.state.endDate,
-        userId: this.props.user.id
-      }).then(function () {
-        return console.log("success");
-      });
+      if (new Date(this.state.startDate) < new Date(this.state.endDate)) {
+        this.setState({ errors: "" });
+        this.props.createTrip({
+          startDate: this.state.startDate,
+          endDate: this.state.endDate,
+          userId: this.props.user.id
+        }).then(function () {
+          return console.log("success");
+        });
+      } else {
+        this.setState({ errors: "Invalid Dates!!" });
+      }
     }
   }, {
     key: 'render',
@@ -3274,6 +3280,11 @@ var UserShow = function (_React$Component) {
       var country = location.country || null;
 
       var hiddenFormState = "user-show-hidden";
+
+      var errors = void 0;
+      if (this.state.errors !== "") {
+        errors = this.state.errors;
+      }
 
       return _react2.default.createElement(
         'div',
@@ -3336,6 +3347,11 @@ var UserShow = function (_React$Component) {
             { className: hiddenFormState, onSubmit: function onSubmit() {
                 return _this4.handleSubmit();
               } },
+            _react2.default.createElement(
+              'div',
+              null,
+              errors
+            ),
             _react2.default.createElement(
               'div',
               { className: 'user-show-section-date-div' },

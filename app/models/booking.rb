@@ -1,7 +1,5 @@
 class Booking < ApplicationRecord
 
-  # validates :dates
-
   belongs_to :host,
   primary_key: :id,
   foreign_key: :host_id,
@@ -17,5 +15,6 @@ class Booking < ApplicationRecord
   has_one :destination,
   through: :host,
   source: :location
+
 
 end
