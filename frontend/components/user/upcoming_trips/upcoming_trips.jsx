@@ -8,11 +8,20 @@ class UpcomingTrips extends React.Component {
     this.props.fetchTrips(this.props.currentUser.id)
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.trips.length !== prevProps.trips.length ) {
+      this.props.fetchHosts(this.props.currentUser.id)
+      this.props.fetchTrips(this.props.currentUser.id)
+    }
+  }
+
   render() {
 
     const tripItem = this.props.trips.map((trip, idx) => {
       let host = null;
       if (typeof trip === "undefined") {
+        host = null;
+      } else if (trip.confirmed === false) {
         host = null;
       } else {
         host = this.props.users[trip.host_id]

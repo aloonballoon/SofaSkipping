@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import UserShow from './user_show';
 import { fetchUser } from '../../../actions/user_actions/user_actions';
+import { createTrip } from '../../../actions/booking_actions';
 
 
 const msp = (state, ownProps) => {
@@ -11,7 +12,8 @@ const msp = (state, ownProps) => {
 
 const mdp = dispatch => {
   return {
-    fetchUser: (id) => dispatch(fetchUser(id))
+    fetchUser: (id) => dispatch(fetchUser(id)),
+    createTrip: (info) => dispatch(createTrip(info))
   };
 };
 

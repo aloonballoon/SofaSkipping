@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_16_170309) do
+ActiveRecord::Schema.define(version: 2018_07_19_013145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2018_07_16_170309) do
     t.integer "guest_id", null: false
     t.date "start_date", null: false
     t.date "end_date", null: false
+    t.boolean "confirmed", default: false
   end
 
   create_table "locations", force: :cascade do |t|

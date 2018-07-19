@@ -86,6 +86,80 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./frontend/actions/booking_actions.js":
+/*!*********************************************!*\
+  !*** ./frontend/actions/booking_actions.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.RECEIVE_CANCELED_HOSTING = exports.RECEIVE_CONFIRMED_HOSTING = exports.receiveCanceledHosting = exports.receiveConfirmedHosting = exports.confirmHosting = exports.cancelHosting = exports.createTrip = exports.receiveTrip = exports.RECEIVE_TRIP = undefined;
+
+var _bookings_util = __webpack_require__(/*! ../util/bookings_util */ "./frontend/util/bookings_util.js");
+
+var BookingApiUtil = _interopRequireWildcard(_bookings_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_TRIP = exports.RECEIVE_TRIP = "RECEIVE_TRIP";
+
+var receiveTrip = exports.receiveTrip = function receiveTrip(trip) {
+  return {
+    type: RECEIVE_TRIP,
+    trip: trip
+  };
+};
+
+var createTrip = exports.createTrip = function createTrip(trip) {
+  return function (dispatch) {
+    return BookingApiUtil.createTrip(trip).then(function (trip) {
+      return dispatch(receiveTrip(trip));
+    });
+  };
+};
+
+var cancelHosting = exports.cancelHosting = function cancelHosting(id) {
+  return function (dispatch) {
+    return BookingApiUtil.cancelHosting(id).then(function (hosting) {
+      return dispatch(receiveCanceledHosting(hosting));
+    });
+  };
+};
+
+var confirmHosting = exports.confirmHosting = function confirmHosting(id) {
+  return function (dispatch) {
+    return BookingApiUtil.confirmHosting(id).then(function (hosting) {
+      return dispatch.receiveConfirmedHosting(hosting);
+    });
+  };
+};
+
+var receiveConfirmedHosting = exports.receiveConfirmedHosting = function receiveConfirmedHosting(hosting) {
+  return {
+    type: RECEIVE_CONFIRMED_HOSTING,
+    hosting: hosting
+  };
+};
+
+var receiveCanceledHosting = exports.receiveCanceledHosting = function receiveCanceledHosting(hosting) {
+  return {
+    type: RECEIVE_CANCELED_HOSTING,
+    id: hosting.id
+  };
+};
+
+var RECEIVE_CONFIRMED_HOSTING = exports.RECEIVE_CONFIRMED_HOSTING = "RECEIVE_CONFIRMED_HOSTING";
+
+var RECEIVE_CANCELED_HOSTING = exports.RECEIVE_CANCELED_HOSTING = 'RECEIVE_CANCELED_HOSTING';
+
+/***/ }),
+
 /***/ "./frontend/actions/modal_actions.js":
 /*!*******************************************!*\
   !*** ./frontend/actions/modal_actions.js ***!
@@ -1803,6 +1877,14 @@ var UpcomingHostings = function (_React$Component) {
       this.props.fetchHostings(this.props.currentUser.id);
     }
   }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.hostings.length !== prevProps.hostings.length) {
+        this.props.fetchGuests(this.props.currentUser.id);
+        this.props.fetchHostings(this.props.currentUser.id);
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -1813,7 +1895,7 @@ var UpcomingHostings = function (_React$Component) {
           guest = null;
         } else {
           guest = _this2.props.users[hosting.guest_id];
-          return _react2.default.createElement(_upcoming_hostings_item2.default, { key: idx, guest: guest, hosting: hosting });
+          return _react2.default.createElement(_upcoming_hostings_item2.default, { key: idx, guest: guest, hosting: hosting, confirmHosting: _this2.props.confirmHosting, cancelHosting: _this2.props.cancelHosting });
         }
       });
 
@@ -1864,6 +1946,8 @@ var _upcoming_hostings2 = _interopRequireDefault(_upcoming_hostings);
 
 var _user_actions = __webpack_require__(/*! ../../../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
 
+var _booking_actions = __webpack_require__(/*! ../../../actions/booking_actions */ "./frontend/actions/booking_actions.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state) {
@@ -1896,6 +1980,12 @@ var mdp = function mdp(dispatch) {
     },
     fetchGuests: function fetchGuests(id) {
       return dispatch((0, _user_actions.fetchGuests)(id));
+    },
+    cancelHosting: function cancelHosting(id) {
+      return dispatch((0, _booking_actions.cancelHosting)(id));
+    },
+    confirmHosting: function confirmHosting(id) {
+      return dispatch((0, _booking_actions.confirmHosting)(id));
     }
   };
 };
@@ -1944,6 +2034,8 @@ var UpcomingHostingsItem = function (_React$Component) {
 
     _this.state = _this.props;
     _this.handleClick = _this.handleClick.bind(_this);
+    _this.cancelHosting = _this.cancelHosting.bind(_this);
+    _this.confirmHosting = _this.confirmHosting.bind(_this);
     return _this;
   }
 
@@ -1951,6 +2043,16 @@ var UpcomingHostingsItem = function (_React$Component) {
     key: 'handleClick',
     value: function handleClick() {
       this.props.history.push('/members/' + this.props.guest.id);
+    }
+  }, {
+    key: 'cancelHosting',
+    value: function cancelHosting() {
+      this.props.cancelHosting(this.props.hosting.id);
+    }
+  }, {
+    key: 'confirmHosting',
+    value: function confirmHosting() {
+      this.props.confirmHosting(this.props.hosting.id);
     }
   }, {
     key: 'render',
@@ -2005,6 +2107,25 @@ var UpcomingHostingsItem = function (_React$Component) {
       startMonth = MONTHS[startMonth];
       endMonth = MONTHS[endMonth];
 
+      var confirm = void 0;
+      var deny = void 0;
+      if (typeof this.props.hosting !== 'undefined' && this.props.hosting.confirmed === false) {
+        confirm = _react2.default.createElement(
+          'button',
+          { onClick: function onClick() {
+              return _this2.confirmHosting();
+            } },
+          'Confirm'
+        );
+        deny = _react2.default.createElement(
+          'button',
+          { onClick: function onClick() {
+              return _this2.cancelHosting();
+            } },
+          'Deny'
+        );
+      }
+
       return _react2.default.createElement(
         'li',
         null,
@@ -2052,7 +2173,9 @@ var UpcomingHostingsItem = function (_React$Component) {
               endDay,
               ', ',
               endYear
-            )
+            ),
+            confirm,
+            deny
           )
         )
       );
@@ -2114,6 +2237,14 @@ var UpcomingTrips = function (_React$Component) {
       this.props.fetchTrips(this.props.currentUser.id);
     }
   }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.trips.length !== prevProps.trips.length) {
+        this.props.fetchHosts(this.props.currentUser.id);
+        this.props.fetchTrips(this.props.currentUser.id);
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -2121,6 +2252,8 @@ var UpcomingTrips = function (_React$Component) {
       var tripItem = this.props.trips.map(function (trip, idx) {
         var host = null;
         if (typeof trip === "undefined") {
+          host = null;
+        } else if (trip.confirmed === false) {
           host = null;
         } else {
           host = _this2.props.users[trip.host_id];
@@ -3065,19 +3198,58 @@ var UserShow = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (UserShow.__proto__ || Object.getPrototypeOf(UserShow)).call(this, props));
 
     _this.state = {
-      user: _this.props.user || {}
+      startDate: "",
+      endDate: ""
     };
+    _this.handleStartDate = _this.handleStartDate.bind(_this);
+    _this.handleEndDate = _this.handleEndDate.bind(_this);
     return _this;
   }
 
   _createClass(UserShow, [{
+    key: 'handleStartDate',
+    value: function handleStartDate(e) {
+      var _this2 = this;
+
+      this.setState({ startDate: e.target.value }, function () {
+        return console.log(_this2.state.startDate);
+      });
+    }
+  }, {
+    key: 'handleEndDate',
+    value: function handleEndDate(e) {
+      var _this3 = this;
+
+      this.setState({ endDate: e.target.value }, function () {
+        return console.log(_this3.state.endDate);
+      });
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.fetchUser(this.props.match.params.userId);
     }
   }, {
+    key: 'cancelInputs',
+    value: function cancelInputs() {
+      this.setState({ startDate: "", endDate: "" });
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit() {
+      this.props.createTrip({
+        startDate: this.state.startDate,
+        endDate: this.state.endDate,
+        userId: this.props.user.id
+      }).then(function () {
+        return console.log("success");
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this4 = this;
+
       var user = this.props.user || {};
 
       var userPhoto = void 0;
@@ -3100,6 +3272,8 @@ var UserShow = function (_React$Component) {
       var location = user.location || {};
       var city = location.city || null;
       var country = location.country || null;
+
+      var hiddenFormState = "user-show-hidden";
 
       return _react2.default.createElement(
         'div',
@@ -3158,6 +3332,62 @@ var UserShow = function (_React$Component) {
             )
           ),
           _react2.default.createElement(
+            'form',
+            { className: hiddenFormState, onSubmit: function onSubmit() {
+                return _this4.handleSubmit();
+              } },
+            _react2.default.createElement(
+              'div',
+              { className: 'user-show-section-date-div' },
+              _react2.default.createElement(
+                'div',
+                { className: 'user-show-arrival-date-div' },
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  'Arrival Date'
+                ),
+                _react2.default.createElement('input', { required: true, type: 'date', onChange: function onChange(e) {
+                    return _this4.handleStartDate(e);
+                  }, value: this.state.startDate })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'user-show-departure-date-div' },
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  'Departure Date'
+                ),
+                _react2.default.createElement('input', { required: true, type: 'date', onChange: function onChange(e) {
+                    return _this4.handleEndDate(e);
+                  }, value: this.state.endDate })
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'user-show-request-buttons-div' },
+              _react2.default.createElement(
+                'button',
+                { className: 'user-show-send-message-button-final' },
+                'Send'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'user-show-cancel-div', onClick: function onClick() {
+                    return _this4.cancelInputs();
+                  } },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'text-div', onClick: function onClick() {
+                      return _this4.cancelInputs();
+                    } },
+                  'Cancel'
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
             'section',
             { className: 'user-show-section-bio' },
             _react2.default.createElement(
@@ -3205,6 +3435,8 @@ var _user_show2 = _interopRequireDefault(_user_show);
 
 var _user_actions = __webpack_require__(/*! ../../../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
 
+var _booking_actions = __webpack_require__(/*! ../../../actions/booking_actions */ "./frontend/actions/booking_actions.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state, ownProps) {
@@ -3217,6 +3449,9 @@ var mdp = function mdp(dispatch) {
   return {
     fetchUser: function fetchUser(id) {
       return dispatch((0, _user_actions.fetchUser)(id));
+    },
+    createTrip: function createTrip(info) {
+      return dispatch((0, _booking_actions.createTrip)(info));
     }
   };
 };
@@ -3345,6 +3580,8 @@ var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js
 
 var _user_actions = __webpack_require__(/*! ../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
 
+var _booking_actions = __webpack_require__(/*! ../actions/booking_actions */ "./frontend/actions/booking_actions.js");
+
 var defaultState = {};
 
 var hostingsReducer = function hostingsReducer() {
@@ -3356,6 +3593,12 @@ var hostingsReducer = function hostingsReducer() {
     case _session_actions.RECEIVE_CURRENT_USER:
     case _user_actions.RECEIVE_HOSTINGS:
       return (0, _lodash.merge)({}, state, action.hostings);
+    case _booking_actions.RECEIVE_CONFIRMED_HOSTING:
+      return (0, _lodash.merge)({}, state, action.hosting);
+    case _booking_actions.RECEIVE_CANCELED_HOSTING:
+      var newState = (0, _lodash.merge)({}, state);
+      delete newState[action.id];
+      return newState;
     default:
       return state;
   }
@@ -3580,6 +3823,8 @@ var _user_actions = __webpack_require__(/*! ../actions/user_actions/user_actions
 
 var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
+var _booking_actions = __webpack_require__(/*! ../actions/booking_actions */ "./frontend/actions/booking_actions.js");
+
 var defaultState = {};
 
 var tripsReducer = function tripsReducer() {
@@ -3591,6 +3836,8 @@ var tripsReducer = function tripsReducer() {
     case _session_actions.RECEIVE_CURRENT_USER:
     case _user_actions.RECEIVE_TRIPS:
       return (0, _lodash.merge)({}, state, action.trips);
+    case _booking_actions.RECEIVE_TRIP:
+      return (0, _lodash.merge)({}, state, action.trip);
     default:
       return state;
   }
@@ -3802,6 +4049,28 @@ var fetchUserTrips = exports.fetchUserTrips = function fetchUserTrips(tripId) {
   return $.ajax({
     method: 'get',
     url: 'api/bookings/' + tripId + '/trips'
+  });
+};
+
+var createTrip = exports.createTrip = function createTrip(info) {
+  return $.ajax({
+    method: 'post',
+    url: 'api/bookings/',
+    data: { booking: { start_date: info.startDate, end_date: info.endDate, host_id: info.userId } }
+  });
+};
+
+var confirmHosting = exports.confirmHosting = function confirmHosting(id) {
+  return $.ajax({
+    method: 'patch',
+    url: 'api/bookings/' + id
+  });
+};
+
+var cancelHosting = exports.cancelHosting = function cancelHosting(id) {
+  return $.ajax({
+    method: 'delete',
+    url: 'api/bookings/' + id
   });
 };
 

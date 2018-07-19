@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import UpcomingHostings from './upcoming_hostings';
 import { fetchUser, fetchGuests, fetchHostings } from '../../../actions/user_actions/user_actions';
+import { cancelHosting, confirmHosting } from '../../../actions/booking_actions';
 
 
 const msp = (state) => {
@@ -28,7 +29,9 @@ const mdp = (dispatch) => {
   return {
     fetchHostings: (hostId) => dispatch(fetchHostings(hostId)),
     fetchUser: (user) => dispatch(fetchUser(user)),
-    fetchGuests: (id) => dispatch(fetchGuests(id))
+    fetchGuests: (id) => dispatch(fetchGuests(id)),
+    cancelHosting: (id) => dispatch(cancelHosting(id)),
+    confirmHosting: (id) => dispatch(confirmHosting(id))
   };
 };
 

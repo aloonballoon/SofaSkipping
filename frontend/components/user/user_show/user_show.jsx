@@ -5,12 +5,35 @@ class UserShow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: this.props.user || {}
+      startDate: "",
+      endDate: ""
     }
+    this.handleStartDate = this.handleStartDate.bind(this);
+    this.handleEndDate = this.handleEndDate.bind(this);
+  }
+
+  handleStartDate(e) {
+    this.setState({startDate: e.target.value}, () => console.log(this.state.startDate))
+  }
+
+  handleEndDate(e) {
+    this.setState({endDate: e.target.value}, () => console.log(this.state.endDate))
   }
 
   componentDidMount() {
     this.props.fetchUser(this.props.match.params.userId)
+  }
+
+  cancelInputs() {
+    this.setState({startDate: "", endDate: ""})
+  }
+
+  handleSubmit() {
+    this.props.createTrip({
+      startDate: this.state.startDate,
+      endDate: this.state.endDate,
+      userId: this.props.user.id
+    }).then(() => console.log("success"))
   }
 
   render() {
@@ -37,6 +60,8 @@ class UserShow extends React.Component {
     let city = location.city || null;
     let country = location.country || null;
 
+    let hiddenFormState = "user-show-hidden";
+
     return(
       <div className="user-show-background-div">
         <aside className="user-show-aside-name-image">
@@ -62,6 +87,24 @@ class UserShow extends React.Component {
               <button className="user-show-send-message-button" >Write a Review</button>
             </div>
           </article>
+          <form className={hiddenFormState} onSubmit={() => this.handleSubmit()}>
+              <div className="user-show-section-date-div">
+                <div className="user-show-arrival-date-div">
+                  <p>Arrival Date</p>
+                  <input required type="date" onChange={(e) => this.handleStartDate(e)} value={this.state.startDate}/>
+                </div>
+                <div className="user-show-departure-date-div">
+                  <p>Departure Date</p>
+                  <input required type="date" onChange={(e) => this.handleEndDate(e)} value={this.state.endDate}/>
+                </div>
+              </div>
+              <div className="user-show-request-buttons-div">
+                <button className="user-show-send-message-button-final">Send</button>
+                <div className="user-show-cancel-div" onClick={() => this.cancelInputs()}><div className="text-div" onClick={() => this.cancelInputs()}>Cancel</div></div>
+              </div>
+
+
+          </form>
           <section className="user-show-section-bio">
             <header className="user-show-bio-header">
               ABOUT ME

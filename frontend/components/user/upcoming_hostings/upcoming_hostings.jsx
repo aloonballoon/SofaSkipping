@@ -8,6 +8,13 @@ class UpcomingHostings extends React.Component {
     this.props.fetchHostings(this.props.currentUser.id)
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.hostings.length !== prevProps.hostings.length ) {
+      this.props.fetchGuests(this.props.currentUser.id)
+      this.props.fetchHostings(this.props.currentUser.id)
+    }
+  }
+
   render() {
 
     const hostingItem = this.props.hostings.map((hosting, idx) => {
@@ -16,7 +23,7 @@ class UpcomingHostings extends React.Component {
         guest = null;
       } else {
         guest = this.props.users[hosting.guest_id]
-        return <UpcomingHostingsItem key={idx} guest={guest} hosting={hosting} />
+        return <UpcomingHostingsItem key={idx} guest={guest} hosting={hosting} confirmHosting={this.props.confirmHosting} cancelHosting={this.props.cancelHosting} />
       }
     })
 

@@ -31,12 +31,12 @@ jess = User.create!(first_name: "Jess", last_name: "Or", username: "jbird", emai
 john = User.create!(first_name: "John", last_name: "Freedman", username: "jjj", email: "jj@freedman.com", home_location_id: la.id, age: 29, bio: "hella", password: 'hellothere')
 john = User.create!(first_name: "John", last_name: "Freedman", username: "freeeed", email: "jf@freedman.com", home_location_id: la.id, age: 29, bio: "hella", password: 'hellothere')
 
-Booking.create!(host_id: alan.id, guest_id: ayda.id, start_date: "2018/05/13", end_date: "2018/06/15")
-Booking.create!(host_id: ayda.id, guest_id: leana.id, start_date: "2018/07/13", end_date: "2018/08/15")
-Booking.create!(host_id: alan.id, guest_id: leana.id, start_date: "2018/09/13", end_date: "2018/10/15")
-Booking.create!(host_id: leana.id, guest_id: ayda.id, start_date: "2018/10/13", end_date: "2018/11/15")
-Booking.create!(host_id: guest.id, guest_id: alan.id, start_date: "2018/11/13", end_date: "2018/12/15")
-Booking.create!(host_id: alan.id, guest_id: guest.id, start_date: "2019/01/13", end_date: "2019/01/15")
+Booking.create!(host_id: alan.id, guest_id: ayda.id, start_date: "2018/05/13", end_date: "2018/06/15", confirmed: true)
+Booking.create!(host_id: ayda.id, guest_id: leana.id, start_date: "2018/07/13", end_date: "2018/08/15", confirmed: true)
+Booking.create!(host_id: alan.id, guest_id: leana.id, start_date: "2018/09/13", end_date: "2018/10/15", confirmed: true)
+Booking.create!(host_id: leana.id, guest_id: ayda.id, start_date: "2018/10/13", end_date: "2018/11/15", confirmed: true)
+Booking.create!(host_id: guest.id, guest_id: alan.id, start_date: "2018/11/13", end_date: "2018/12/15", confirmed: true)
+Booking.create!(host_id: alan.id, guest_id: guest.id, start_date: "2019/01/13", end_date: "2019/01/15", confirmed: true)
 
 
 alan.photo.attach(io: File.open("/home/auraz/Desktop/alananddog.jpg"), filename: "alananddog.jpg")

@@ -6,10 +6,20 @@ class UpcomingHostingsItem extends React.Component {
     super(props);
     this.state = this.props;
     this.handleClick = this.handleClick.bind(this);
+    this.cancelHosting = this.cancelHosting.bind(this);
+    this.confirmHosting = this.confirmHosting.bind(this);
   }
 
   handleClick() {
     this.props.history.push(`/members/${this.props.guest.id}`);
+  }
+
+  cancelHosting() {
+    this.props.cancelHosting(this.props.hosting.id)
+  }
+
+  confirmHosting() {
+    this.props.confirmHosting(this.props.hosting.id)
   }
 
 
@@ -61,6 +71,13 @@ class UpcomingHostingsItem extends React.Component {
     startMonth = MONTHS[startMonth];
     endMonth = MONTHS[endMonth];
 
+    let confirm;
+    let deny;
+    if (typeof this.props.hosting !== 'undefined' && this.props.hosting.confirmed === false) {
+      confirm = (<button onClick={() => this.confirmHosting()}>Confirm</button>);
+      deny = (<button onClick={() => this.cancelHosting()}>Deny</button>);
+    }
+
 
     return(
       <li>
@@ -78,7 +95,8 @@ class UpcomingHostingsItem extends React.Component {
               <i className="em em-house"></i>
                 {diffDays} Nights <i className="em em-spiral_calendar_pad"></i>   {startMonth} {startDay}, {startYear} <i className="em em-arrow_right"></i> {endMonth} {endDay}, {endYear}
               </p>
-
+              {confirm}
+              {deny}
             </article>
           </div>
       </li>
