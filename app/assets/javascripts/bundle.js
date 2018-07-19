@@ -135,7 +135,7 @@ var cancelHosting = exports.cancelHosting = function cancelHosting(id) {
 var confirmHosting = exports.confirmHosting = function confirmHosting(id) {
   return function (dispatch) {
     return BookingApiUtil.confirmHosting(id).then(function (hosting) {
-      return dispatch.receiveConfirmedHosting(hosting);
+      return dispatch(receiveConfirmedHosting(hosting));
     });
   };
 };
@@ -2112,14 +2112,14 @@ var UpcomingHostingsItem = function (_React$Component) {
       if (typeof this.props.hosting !== 'undefined' && this.props.hosting.confirmed === false) {
         confirm = _react2.default.createElement(
           'button',
-          { onClick: function onClick() {
+          { className: 'dash-main-confirm-deny-button', onClick: function onClick() {
               return _this2.confirmHosting();
             } },
           'Confirm'
         );
         deny = _react2.default.createElement(
           'button',
-          { onClick: function onClick() {
+          { className: 'dash-main-confirm-deny-button', onClick: function onClick() {
               return _this2.cancelHosting();
             } },
           'Deny'
@@ -2174,8 +2174,12 @@ var UpcomingHostingsItem = function (_React$Component) {
               ', ',
               endYear
             ),
-            confirm,
-            deny
+            _react2.default.createElement(
+              'div',
+              null,
+              confirm,
+              deny
+            )
           )
         )
       );
@@ -3610,7 +3614,7 @@ var hostingsReducer = function hostingsReducer() {
     case _user_actions.RECEIVE_HOSTINGS:
       return (0, _lodash.merge)({}, state, action.hostings);
     case _booking_actions.RECEIVE_CONFIRMED_HOSTING:
-      return (0, _lodash.merge)({}, state, action.hosting);
+      return (0, _lodash.merge)({}, state, action.hosting.hosting);
     case _booking_actions.RECEIVE_CANCELED_HOSTING:
       var newState = (0, _lodash.merge)({}, state);
       delete newState[action.id];

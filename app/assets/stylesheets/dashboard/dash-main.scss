@@ -277,3 +277,14 @@ flex-direction: column
 .dash-main-guest-host-img {
   cursor: pointer;
 }
+
+.dash-main-confirm-deny-button {
+  height: 30px;
+  width: 100px;
+  background-color: #2980B9;
+  font-size: 15px;
+  color: white;
+  border-radius: 5px;
+  font-weight: bolder;
+  margin-right: 10px;
+}

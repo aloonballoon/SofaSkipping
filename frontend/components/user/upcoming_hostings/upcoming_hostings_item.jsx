@@ -74,8 +74,8 @@ class UpcomingHostingsItem extends React.Component {
     let confirm;
     let deny;
     if (typeof this.props.hosting !== 'undefined' && this.props.hosting.confirmed === false) {
-      confirm = (<button onClick={() => this.confirmHosting()}>Confirm</button>);
-      deny = (<button onClick={() => this.cancelHosting()}>Deny</button>);
+      confirm = (<button className="dash-main-confirm-deny-button" onClick={() => this.confirmHosting()}>Confirm</button>);
+      deny = (<button className="dash-main-confirm-deny-button" onClick={() => this.cancelHosting()}>Deny</button>);
     }
 
 
@@ -95,8 +95,10 @@ class UpcomingHostingsItem extends React.Component {
               <i className="em em-house"></i>
                 {diffDays} Nights <i className="em em-spiral_calendar_pad"></i>   {startMonth} {startDay}, {startYear} <i className="em em-arrow_right"></i> {endMonth} {endDay}, {endYear}
               </p>
+              <div>
               {confirm}
               {deny}
+              </div>
             </article>
           </div>
       </li>

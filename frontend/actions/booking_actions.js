@@ -29,7 +29,7 @@ export const cancelHosting = (id) => {
 export const confirmHosting = (id) => {
   return dispatch => {
     return BookingApiUtil.confirmHosting(id).then((hosting) => {
-      return dispatch.receiveConfirmedHosting(hosting);
+      return dispatch(receiveConfirmedHosting(hosting));
     });
   };
 };

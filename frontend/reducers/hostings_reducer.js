@@ -12,7 +12,7 @@ const hostingsReducer = (state = defaultState, action) => {
     case RECEIVE_HOSTINGS:
       return merge({}, state, action.hostings);
     case RECEIVE_CONFIRMED_HOSTING:
-      return merge({}, state, action.hosting);
+      return merge({}, state, action.hosting.hosting);
     case RECEIVE_CANCELED_HOSTING:
       let newState = merge({}, state);
       delete newState[action.id];
