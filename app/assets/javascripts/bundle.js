@@ -1164,6 +1164,10 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _location_user_show = __webpack_require__(/*! ./location_user_show */ "./frontend/components/locations/location_user_show.jsx");
+
+var _location_user_show2 = _interopRequireDefault(_location_user_show);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1182,23 +1186,50 @@ var LocationShow = function (_React$Component) {
   }
 
   _createClass(LocationShow, [{
-    key: "render",
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchLocation(this.props.location);
+    }
+  }, {
+    key: 'render',
     value: function render() {
 
       var locationName = this.props.location;
+      var locationUser = this.props.users.map(function (user) {
+        return _react2.default.createElement(_location_user_show2.default, { user: user, key: user.id });
+      });
 
       return _react2.default.createElement(
-        "div",
-        { className: "location-show-entire-container-div" },
+        'div',
+        { className: 'location-show-entire-container-div' },
         _react2.default.createElement(
-          "header",
-          { className: "location-show-background-image-header" },
+          'header',
+          { className: 'location-show-background-image-header' },
           _react2.default.createElement(
-            "h1",
-            { className: "location-show-title-h1" },
+            'h1',
+            { className: 'location-show-title-h1' },
             locationName
           ),
-          _react2.default.createElement("img", { className: "location-show-background-image", src: window.beautiful_beach })
+          _react2.default.createElement('img', { className: 'location-show-background-image', src: window.beautiful_beach })
+        ),
+        _react2.default.createElement(
+          'section',
+          { className: 'location-user-show-section' },
+          _react2.default.createElement(
+            'header',
+            { className: 'location-user-show-header' },
+            _react2.default.createElement(
+              'h1',
+              null,
+              _react2.default.createElement('i', { 'class': 'em em-house_with_garden' }),
+              'Local Hosts'
+            )
+          ),
+          _react2.default.createElement(
+            'article',
+            { className: 'location-user-show-article' },
+            locationUser
+          )
         )
       );
     }
@@ -1208,6 +1239,85 @@ var LocationShow = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = LocationShow;
+
+/***/ }),
+
+/***/ "./frontend/components/locations/location_user_show.jsx":
+/*!**************************************************************!*\
+  !*** ./frontend/components/locations/location_user_show.jsx ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LocationUserShow = function (_React$Component) {
+  _inherits(LocationUserShow, _React$Component);
+
+  function LocationUserShow(props) {
+    _classCallCheck(this, LocationUserShow);
+
+    var _this = _possibleConstructorReturn(this, (LocationUserShow.__proto__ || Object.getPrototypeOf(LocationUserShow)).call(this, props));
+
+    _this.handleClick = _this.handleClick.bind(_this);
+    return _this;
+  }
+
+  _createClass(LocationUserShow, [{
+    key: 'handleClick',
+    value: function handleClick() {
+      this.props.history.push('/members/' + this.props.user.id);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var user = this.props.user || {};
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'location-user-show-div' },
+        _react2.default.createElement('img', { className: 'location-user-show-image', src: window.profile_pic_placeholder, onClick: function onClick() {
+            return _this2.handleClick();
+          } }),
+        _react2.default.createElement(
+          'span',
+          { className: 'location-user-show-name' },
+          user.first_name,
+          ' ',
+          user.last_name,
+          ' '
+        )
+      );
+    }
+  }]);
+
+  return LocationUserShow;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRouterDom.withRouter)(LocationUserShow);
 
 /***/ }),
 
@@ -1231,6 +1341,8 @@ var _location_show = __webpack_require__(/*! ./location_show */ "./frontend/comp
 
 var _location_show2 = _interopRequireDefault(_location_show);
 
+var _location_actions = __webpack_require__(/*! ../../actions/location_actions */ "./frontend/actions/location_actions.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state, ownProps) {
@@ -1238,13 +1350,22 @@ var msp = function msp(state, ownProps) {
   var users = state.search.searchTargets.map(function (id) {
     return state.entities.users[id];
   });
+
   return {
     users: users,
     location: ownProps.location.pathname.slice(10)
   };
 };
 
-exports.default = (0, _reactRedux.connect)(msp)(_location_show2.default);
+var mdp = function mdp(dispatch) {
+  return {
+    fetchLocation: function fetchLocation(location) {
+      return dispatch((0, _location_actions.fetchLocation)(location));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(msp, mdp)(_location_show2.default);
 
 /***/ }),
 
@@ -3974,6 +4095,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _user_actions = __webpack_require__(/*! ../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
 
+var _location_actions = __webpack_require__(/*! ../actions/location_actions */ "./frontend/actions/location_actions.js");
+
 var searchErrorsReducer = function searchErrorsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments[1];
@@ -3982,6 +4105,7 @@ var searchErrorsReducer = function searchErrorsReducer() {
     case _user_actions.RECEIVE_SEARCH_ERRORS:
       return action.error;
     case _user_actions.RECEIVE_USERS:
+    case _location_actions.RECEIVE_LOCATION:
       return [];
     default:
       return state;

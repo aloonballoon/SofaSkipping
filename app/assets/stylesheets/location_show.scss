@@ -6,12 +6,17 @@
   overflow: hidden;
   max-height: 500px;
   position: relative;
+  width: 100%;
 }
 
 .location-show-entire-container-div {
   background-color: #F1EFEA;
   min-height: 1000px;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .location-show-title-h1 {
@@ -23,4 +28,61 @@
   color: black;
   width: 100%;
   text-align: center;
+}
+
+.location-user-show-image {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+}
+
+.location-user-show-image:hover {
+ -webkit-filter: brightness(70%);
+ -webkit-transition: all 1s ease;
+ -moz-transition: all 1s ease;
+ -o-transition: all 1s ease;
+ -ms-transition: all 1s ease;
+ transition: all 1s ease;
+ cursor: pointer;
+}
+
+.location-user-show-section {
+  background-color: white;
+  width: 450px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.location-user-show-div {
+  width: 80px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.location-user-show-div span{
+  text-align: center;
+}
+
+.location-user-show-article {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px;
+  justify-content: space-around;
+}
+
+.location-user-show-header {
+  text-align: center;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  border-bottom: 2px solid #F1EFEA;
+}
+
+.location-user-show-header h1{
+  padding-bottom: 10px;
+  padding-top: 10px;
+  font-size: 20px;
 }
