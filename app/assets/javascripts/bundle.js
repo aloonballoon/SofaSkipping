@@ -1459,6 +1459,7 @@ var LoggedInNav = function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleClick = _this.handleClick.bind(_this);
     _this.handleGoogle = _this.handleGoogle.bind(_this);
+    _this.handleDashClick = _this.handleDashClick.bind(_this);
     return _this;
   }
 
@@ -1489,12 +1490,17 @@ var LoggedInNav = function (_React$Component) {
     key: 'handleClick',
     value: function handleClick() {
       this.props.history.push('/dashboard');
-      this.dropdownUserClick();
     }
   }, {
     key: 'handleProfile',
     value: function handleProfile() {
       this.props.history.push('/members/' + this.props.user.id);
+      this.dropdownUserClick();
+    }
+  }, {
+    key: 'handleDashClick',
+    value: function handleDashClick() {
+      this.props.history.push('/dashboard');
       this.dropdownUserClick();
     }
   }, {
@@ -1658,7 +1664,7 @@ var LoggedInNav = function (_React$Component) {
                 _react2.default.createElement(
                   'button',
                   { onClick: function onClick() {
-                      return _this3.handleClick();
+                      return _this3.handleDashClick();
                     } },
                   'My Dashboard '
                 )

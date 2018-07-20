@@ -19,6 +19,7 @@ class LoggedInNav extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleGoogle = this.handleGoogle.bind(this);
+    this.handleDashClick= this.handleDashClick.bind(this);
   }
 
   dropdownSearchClick() {
@@ -42,11 +43,15 @@ class LoggedInNav extends React.Component {
 
   handleClick() {
     this.props.history.push('/dashboard');
-    this.dropdownUserClick();
   }
 
   handleProfile() {
-    this.props.history.push(`/members/${this.props.user.id}`)
+    this.props.history.push(`/members/${this.props.user.id}`);
+    this.dropdownUserClick();
+  }
+
+  handleDashClick() {
+    this.props.history.push('/dashboard');
     this.dropdownUserClick();
   }
 
@@ -99,7 +104,7 @@ render() {
       placeholder = "Where are you going?"
     }
 
-    let input
+    let input;
     if (this.state.searchFilter === "Find Members") {
         input = <form className="dash-nav-input-form" onSubmit={(e) => this.handleSubmit(e)}>
                   <input onChange= {(e) => this.handleChange(e)} value={this.state.text} className="dash-nav-search-input" type="text" placeholder={placeholder} onSubmit={(e) => this.handleSubmit(e)}>
@@ -149,7 +154,7 @@ render() {
           <div id='nav-user-dropdown' className='dash-nav-user-menu'>
             <ul className="dash-nav-user-ul">
               <li>
-                <button onClick={() => this.handleClick()}>My Dashboard </button>
+                <button onClick={() => this.handleDashClick()}>My Dashboard </button>
               </li>
               <li>
                 <button onClick={() => this.handleProfile()}>My Profile</button>
