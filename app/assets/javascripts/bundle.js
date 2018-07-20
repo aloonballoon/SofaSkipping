@@ -1194,6 +1194,9 @@ var LocationShow = function (_React$Component) {
     key: 'render',
     value: function render() {
 
+      var picArr = [window.space_cat, window.volcano, window.palms, window.beautiful_beach2];
+      var randomPic = picArr[Math.floor(Math.random() * picArr.length)];
+
       var locationName = this.props.location;
       var locationUser = this.props.users.map(function (user) {
         return _react2.default.createElement(_location_user_show2.default, { user: user, key: user.id });
@@ -1214,7 +1217,7 @@ var LocationShow = function (_React$Component) {
             { className: 'location-show-title-h1' },
             locationName
           ),
-          _react2.default.createElement('img', { className: 'location-show-background-image', src: window.beautiful_beach })
+          _react2.default.createElement('img', { className: 'location-show-background-image', src: randomPic })
         ),
         _react2.default.createElement(
           'section',
@@ -1425,6 +1428,8 @@ var _reactGoogleAutocomplete = __webpack_require__(/*! react-google-autocomplete
 
 var _reactGoogleAutocomplete2 = _interopRequireDefault(_reactGoogleAutocomplete);
 
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1484,6 +1489,13 @@ var LoggedInNav = function (_React$Component) {
     key: 'handleClick',
     value: function handleClick() {
       this.props.history.push('/dashboard');
+      this.dropdownUserClick();
+    }
+  }, {
+    key: 'handleProfile',
+    value: function handleProfile() {
+      this.props.history.push('/members/' + this.props.user.id);
+      this.dropdownUserClick();
     }
   }, {
     key: 'handleSubmit',
@@ -1645,7 +1657,9 @@ var LoggedInNav = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                   'button',
-                  null,
+                  { onClick: function onClick() {
+                      return _this3.handleClick();
+                    } },
                   'My Dashboard '
                 )
               ),
@@ -1654,7 +1668,9 @@ var LoggedInNav = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                   'button',
-                  null,
+                  { onClick: function onClick() {
+                      return _this3.handleProfile();
+                    } },
                   'My Profile'
                 )
               ),
@@ -3796,6 +3812,42 @@ var UserShow = function (_React$Component) {
                       return _this5.cancelInputs();
                     } },
                   'Cancel'
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'section',
+            { className: 'user-show-section-bio' },
+            _react2.default.createElement(
+              'header',
+              { className: 'user-show-bio-header' },
+              'OVERVIEW'
+            ),
+            _react2.default.createElement(
+              'article',
+              { className: 'user-show-bio-body' },
+              _react2.default.createElement(
+                'ul',
+                { className: 'user-show-overview-ul' },
+                _react2.default.createElement(
+                  'li',
+                  null,
+                  _react2.default.createElement('i', { className: 'em em-left_speech_bubble' }),
+                  '  No languages listed'
+                ),
+                _react2.default.createElement(
+                  'li',
+                  null,
+                  _react2.default.createElement('i', { className: 'em em-older_adult' }),
+                  '  ',
+                  user.age
+                ),
+                _react2.default.createElement(
+                  'li',
+                  null,
+                  _react2.default.createElement('i', { className: 'em em-briefcase' }),
+                  '  No occupation listed'
                 )
               )
             )

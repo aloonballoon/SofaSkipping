@@ -10,6 +10,9 @@ class LocationShow extends React.Component {
 
   render() {
 
+    const picArr = [window.space_cat, window.volcano, window.palms, window.beautiful_beach2];
+    const randomPic = picArr[Math.floor(Math.random()*picArr.length)];
+
     const locationName = this.props.location
     const locationUser = this.props.users.map(user => {
       return <LocationUserShow user={user} key={user.id} />
@@ -26,7 +29,7 @@ class LocationShow extends React.Component {
           <h1 className="location-show-title-h1">
             {locationName}
           </h1>
-          <img className="location-show-background-image" src={window.beautiful_beach}/>
+          <img className="location-show-background-image" src={randomPic}/>
         </header>
         <section className="location-user-show-host-and-guest-wrapper">
         <section className="location-user-show-section">

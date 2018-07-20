@@ -1,5 +1,6 @@
 import React from 'react';
 import Autocomplete from 'react-google-autocomplete';
+import { withRouter } from 'react-router-dom';
 
 
 class LoggedInNav extends React.Component {
@@ -41,6 +42,12 @@ class LoggedInNav extends React.Component {
 
   handleClick() {
     this.props.history.push('/dashboard');
+    this.dropdownUserClick();
+  }
+
+  handleProfile() {
+    this.props.history.push(`/members/${this.props.user.id}`)
+    this.dropdownUserClick();
   }
 
 
@@ -94,17 +101,21 @@ render() {
 
     let input
     if (this.state.searchFilter === "Find Members") {
-      input = <form className="dash-nav-input-form" onSubmit={(e) => this.handleSubmit(e)}><input onChange= {(e) => this.handleChange(e)} value={this.state.text} className="dash-nav-search-input" type="text" placeholder={placeholder} onSubmit={(e) => this.handleSubmit(e)}></input></form>
+        input = <form className="dash-nav-input-form" onSubmit={(e) => this.handleSubmit(e)}>
+                  <input onChange= {(e) => this.handleChange(e)} value={this.state.text} className="dash-nav-search-input" type="text" placeholder={placeholder} onSubmit={(e) => this.handleSubmit(e)}>
+                  </input>
+                </form>
     } else if (this.state.searchFilter === "Explore") {
-      input = <form onSubmit={(e) => this.handleSubmit(e)}><Autocomplete
-          className="dash-nav-search-input" style={{width: '80%'}, {height: '80%'}}
-          onChange={(e) => this.handleChange(e)}
-          onPlaceSelected={(place) => {
-            this.handleGoogle({place});
-          }}
-          types={['(regions)']}
-      /></form>
-    }
+        input = <form onSubmit={(e) => this.handleSubmit(e)}>
+                  <Autocomplete
+                    className="dash-nav-search-input" style={{width: '80%'}, {height: '80%'}}
+                    onChange={(e) => this.handleChange(e)}
+                    onPlaceSelected={(place) => {
+                    this.handleGoogle({place});
+                    }}
+                    types={['(regions)']}
+                  />
+                </form>}
 
     return (
 
@@ -138,10 +149,10 @@ render() {
           <div id='nav-user-dropdown' className='dash-nav-user-menu'>
             <ul className="dash-nav-user-ul">
               <li>
-                <button>My Dashboard </button>
+                <button onClick={() => this.handleClick()}>My Dashboard </button>
               </li>
               <li>
-                <button>My Profile</button>
+                <button onClick={() => this.handleProfile()}>My Profile</button>
               </li>
               <li>
               <button onClick={() => this.props.logOut()}>Log Out</button>
