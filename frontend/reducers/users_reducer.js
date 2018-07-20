@@ -19,7 +19,7 @@ const usersReducer = (state = defaultState, action) => {
     case RECEIVE_USERS:
       return merge({}, state, action.users);
     case RECEIVE_LOCATION:
-      return merge({}, state, action.locations.hosts);
+      return merge({}, state, action.locations.hosts, action.locations.guests);
     case RECEIVE_TRIP:
       newState = merge({}, state);
       let currentUser = newState[Object.values(action.trip)[0].guest_id];

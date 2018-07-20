@@ -9,6 +9,10 @@ class Location < ApplicationRecord
   through: :hosts,
   source: :bookings
 
+  has_many :guests,
+  through: :hosts,
+  source: :guests
+
   has_one_attached :photo
 
 end

@@ -5,7 +5,8 @@ class Api::LocationsController < ApplicationController
   end
 
   def index
-    @locations = Location.where(city: params[:location][:city]).or(Location.where(country: params[:location][:country]))
+    like_keyword = params[:location][:city]
+    @locations = Location.where("city LIKE :query", query: "#{like_keyword}")
     if @locations != []
       render 'api/locations/index'
     else

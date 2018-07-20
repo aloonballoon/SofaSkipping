@@ -17,7 +17,6 @@ class UserSearchIndexItems extends React.Component {
 
 
  render() {
-
    let userPhoto;
    const user = this.props.user || {};
    const firstName = user.first_name;

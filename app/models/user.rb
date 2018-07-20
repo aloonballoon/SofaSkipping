@@ -17,6 +17,9 @@
 #  updated_at       :datetime         not null
 #
 
+#places
+#AIzaSyDRH6WlxuNIolazAJVgG7opxvexsSH9SdM
+
 class User < ApplicationRecord
 
   attr_reader :password

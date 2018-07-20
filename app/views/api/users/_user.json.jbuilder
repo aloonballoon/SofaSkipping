@@ -19,3 +19,6 @@ end
 
 #
 json.location user.location
+
+
+#unique duplicate ids

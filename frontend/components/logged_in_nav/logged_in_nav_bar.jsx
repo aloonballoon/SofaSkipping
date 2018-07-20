@@ -1,4 +1,6 @@
 import React from 'react';
+import Autocomplete from 'react-google-autocomplete';
+
 
 class LoggedInNav extends React.Component {
   constructor(props) {
@@ -15,6 +17,7 @@ class LoggedInNav extends React.Component {
     this.changeSearchFilter = this.changeSearchFilter.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleGoogle = this.handleGoogle.bind(this);
   }
 
   dropdownSearchClick() {
@@ -27,11 +30,13 @@ class LoggedInNav extends React.Component {
 
   handleChange(e) {
     this.setState({text: e.target.value});
+    console.log(this.state.text)
   }
 
   changeSearchFilter(filter) {
     this.setState({searchFilter: filter})
     this.dropdownSearchClick();
+    this.setState({text: ""});
   }
 
   handleClick() {
@@ -59,6 +64,11 @@ class LoggedInNav extends React.Component {
     }
   }
 
+  handleGoogle(place) {
+    this.setState({text: place.place.address_components[0].long_name})
+  }
+
+
 render() {
 
   let userPicture;
@@ -82,6 +92,20 @@ render() {
       placeholder = "Where are you going?"
     }
 
+    let input
+    if (this.state.searchFilter === "Find Members") {
+      input = <form className="dash-nav-input-form" onSubmit={(e) => this.handleSubmit(e)}><input onChange= {(e) => this.handleChange(e)} value={this.state.text} className="dash-nav-search-input" type="text" placeholder={placeholder} onSubmit={(e) => this.handleSubmit(e)}></input></form>
+    } else if (this.state.searchFilter === "Explore") {
+      input = <form onSubmit={(e) => this.handleSubmit(e)}><Autocomplete
+          className="dash-nav-search-input" style={{width: '80%'}, {height: '80%'}}
+          onChange={(e) => this.handleChange(e)}
+          onPlaceSelected={(place) => {
+            this.handleGoogle({place});
+          }}
+          types={['(regions)']}
+      /></form>
+    }
+
     return (
 
       <header className="dash-top-nav">
@@ -91,8 +115,10 @@ render() {
         <div className="logged-in-nav-errors-div">
           {errors}
         </div>
-        <form className="dash-nav-input-dropdown-form" onSubmit={(e) => this.handleSubmit(e)}>
+
+        <article className="dash-nav-input-dropdown-form" >
           <div onClick={() => this.dropdownSearchClick()} className="dash-nav-dropdown-button">{this.state.searchFilter} </div>
+
 
           <div id='nav-dropdown' className='dash-nav-dropdown-menu'>
           <ul>
@@ -104,8 +130,8 @@ render() {
             </li>
           </ul>
           </div>
-          <input onChange= {(e) => this.handleChange(e)} value={this.state.text} className="dash-nav-search-input" type="text" placeholder={placeholder}></input>
-        </form>
+          {input}
+        </article>
 
         <div className="dash-circular-user-button-div">
           <img onClick={() => this.dropdownUserClick()} className="dash-nav-profile-photo" src={userPicture}/>

@@ -17,6 +17,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .location-show-title-h1 {
@@ -52,7 +53,7 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  margin-top: 10px;
+  margin: 10px;
 }
 
 .location-user-show-div {
@@ -85,4 +86,13 @@
   padding-bottom: 10px;
   padding-top: 10px;
   font-size: 20px;
+  color: 	#191970
+}
+
+.location-user-show-host-and-guest-wrapper {
+  display: flex;
+}
+
+.em-small_airplane {
+  margin-right: 10px;
 }

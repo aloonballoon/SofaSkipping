@@ -30,6 +30,7 @@ gem 'annotate'
 gem 'pry-rails'
 
 gem 'aws-sdk-s3'
+gem 'activerecord-like'
 
 
 # Use ActiveStorage variant

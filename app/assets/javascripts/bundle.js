@@ -1199,6 +1199,10 @@ var LocationShow = function (_React$Component) {
         return _react2.default.createElement(_location_user_show2.default, { user: user, key: user.id });
       });
 
+      var locationGuest = this.props.guests.map(function (guest) {
+        return _react2.default.createElement(_location_user_show2.default, { user: guest, key: guest.id });
+      });
+
       return _react2.default.createElement(
         'div',
         { className: 'location-show-entire-container-div' },
@@ -1214,21 +1218,44 @@ var LocationShow = function (_React$Component) {
         ),
         _react2.default.createElement(
           'section',
-          { className: 'location-user-show-section' },
+          { className: 'location-user-show-host-and-guest-wrapper' },
           _react2.default.createElement(
-            'header',
-            { className: 'location-user-show-header' },
+            'section',
+            { className: 'location-user-show-section' },
             _react2.default.createElement(
-              'h1',
-              null,
-              _react2.default.createElement('i', { 'class': 'em em-house_with_garden' }),
-              'Local Hosts'
+              'header',
+              { className: 'location-user-show-header' },
+              _react2.default.createElement(
+                'h1',
+                null,
+                _react2.default.createElement('i', { className: 'em em-house_with_garden' }),
+                'Local Hosts'
+              )
+            ),
+            _react2.default.createElement(
+              'article',
+              { className: 'location-user-show-article' },
+              locationUser
             )
           ),
           _react2.default.createElement(
-            'article',
-            { className: 'location-user-show-article' },
-            locationUser
+            'section',
+            { className: 'location-user-show-section' },
+            _react2.default.createElement(
+              'header',
+              { className: 'location-user-show-header' },
+              _react2.default.createElement(
+                'h1',
+                null,
+                _react2.default.createElement('i', { className: 'em em-small_airplane' }),
+                'Local Travelers'
+              )
+            ),
+            _react2.default.createElement(
+              'article',
+              { className: 'location-user-show-article' },
+              locationGuest
+            )
           )
         )
       );
@@ -1351,9 +1378,14 @@ var msp = function msp(state, ownProps) {
     return state.entities.users[id];
   });
 
+  var guests = state.guestSearch.searchTargets.map(function (id) {
+    return state.entities.users[id];
+  });
+
   return {
     users: users,
-    location: ownProps.location.pathname.slice(10)
+    location: ownProps.location.pathname.slice(10),
+    guests: guests
   };
 };
 
@@ -1389,6 +1421,10 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactGoogleAutocomplete = __webpack_require__(/*! react-google-autocomplete */ "./node_modules/react-google-autocomplete/index.js");
+
+var _reactGoogleAutocomplete2 = _interopRequireDefault(_reactGoogleAutocomplete);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1417,37 +1453,40 @@ var LoggedInNav = function (_React$Component) {
     _this.changeSearchFilter = _this.changeSearchFilter.bind(_this);
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleClick = _this.handleClick.bind(_this);
+    _this.handleGoogle = _this.handleGoogle.bind(_this);
     return _this;
   }
 
   _createClass(LoggedInNav, [{
-    key: "dropdownSearchClick",
+    key: 'dropdownSearchClick',
     value: function dropdownSearchClick() {
       return document.getElementById("nav-dropdown").classList.toggle("show-search");
     }
   }, {
-    key: "dropdownUserClick",
+    key: 'dropdownUserClick',
     value: function dropdownUserClick() {
       return document.getElementById("nav-user-dropdown").classList.toggle("show-user");
     }
   }, {
-    key: "handleChange",
+    key: 'handleChange',
     value: function handleChange(e) {
       this.setState({ text: e.target.value });
+      console.log(this.state.text);
     }
   }, {
-    key: "changeSearchFilter",
+    key: 'changeSearchFilter',
     value: function changeSearchFilter(filter) {
       this.setState({ searchFilter: filter });
       this.dropdownSearchClick();
+      this.setState({ text: "" });
     }
   }, {
-    key: "handleClick",
+    key: 'handleClick',
     value: function handleClick() {
       this.props.history.push('/dashboard');
     }
   }, {
-    key: "handleSubmit",
+    key: 'handleSubmit',
     value: function handleSubmit(e) {
       var _this2 = this;
 
@@ -1455,12 +1494,12 @@ var LoggedInNav = function (_React$Component) {
       switch (this.state.searchFilter) {
         case "Find Members":
           this.props.fetchUsers(this.state.text).then(function () {
-            _this2.props.history.push("/membersearch/" + _this2.state.text);
+            _this2.props.history.push('/membersearch/' + _this2.state.text);
           });
           break;
         case "Explore":
           this.props.fetchLocation(this.state.text).then(function () {
-            _this2.props.history.push("/location/" + _this2.state.text);
+            _this2.props.history.push('/location/' + _this2.state.text);
           });
           break;
         default:
@@ -1469,7 +1508,12 @@ var LoggedInNav = function (_React$Component) {
       }
     }
   }, {
-    key: "render",
+    key: 'handleGoogle',
+    value: function handleGoogle(place) {
+      this.setState({ text: place.place.address_components[0].long_name });
+    }
+  }, {
+    key: 'render',
     value: function render() {
       var _this3 = this;
 
@@ -1494,107 +1538,135 @@ var LoggedInNav = function (_React$Component) {
         placeholder = "Where are you going?";
       }
 
+      var input = void 0;
+      if (this.state.searchFilter === "Find Members") {
+        input = _react2.default.createElement(
+          'form',
+          { className: 'dash-nav-input-form', onSubmit: function onSubmit(e) {
+              return _this3.handleSubmit(e);
+            } },
+          _react2.default.createElement('input', { onChange: function onChange(e) {
+              return _this3.handleChange(e);
+            }, value: this.state.text, className: 'dash-nav-search-input', type: 'text', placeholder: placeholder, onSubmit: function onSubmit(e) {
+              return _this3.handleSubmit(e);
+            } })
+        );
+      } else if (this.state.searchFilter === "Explore") {
+        input = _react2.default.createElement(
+          'form',
+          { onSubmit: function onSubmit(e) {
+              return _this3.handleSubmit(e);
+            } },
+          _react2.default.createElement(_reactGoogleAutocomplete2.default, {
+            className: 'dash-nav-search-input', style: ({ width: '80%' }, { height: '80%' }),
+            onChange: function onChange(e) {
+              return _this3.handleChange(e);
+            },
+            onPlaceSelected: function onPlaceSelected(place) {
+              _this3.handleGoogle({ place: place });
+            },
+            types: ['(regions)']
+          })
+        );
+      }
+
       return _react2.default.createElement(
-        "header",
-        { className: "dash-top-nav" },
+        'header',
+        { className: 'dash-top-nav' },
         _react2.default.createElement(
-          "article",
-          { className: "logo", onClick: function onClick() {
+          'article',
+          { className: 'logo', onClick: function onClick() {
               return _this3.handleClick();
             } },
-          "SofaSkipping"
+          'SofaSkipping'
         ),
         _react2.default.createElement(
-          "div",
-          { className: "logged-in-nav-errors-div" },
+          'div',
+          { className: 'logged-in-nav-errors-div' },
           errors
         ),
         _react2.default.createElement(
-          "form",
-          { className: "dash-nav-input-dropdown-form", onSubmit: function onSubmit(e) {
-              return _this3.handleSubmit(e);
-            } },
+          'article',
+          { className: 'dash-nav-input-dropdown-form' },
           _react2.default.createElement(
-            "div",
+            'div',
             { onClick: function onClick() {
                 return _this3.dropdownSearchClick();
-              }, className: "dash-nav-dropdown-button" },
+              }, className: 'dash-nav-dropdown-button' },
             this.state.searchFilter,
-            " "
+            ' '
           ),
           _react2.default.createElement(
-            "div",
-            { id: "nav-dropdown", className: "dash-nav-dropdown-menu" },
+            'div',
+            { id: 'nav-dropdown', className: 'dash-nav-dropdown-menu' },
             _react2.default.createElement(
-              "ul",
+              'ul',
               null,
               _react2.default.createElement(
-                "li",
+                'li',
                 null,
                 _react2.default.createElement(
-                  "div",
+                  'div',
                   { onClick: function onClick() {
                       return _this3.changeSearchFilter("Explore");
                     } },
-                  "Explore"
+                  'Explore'
                 )
               ),
               _react2.default.createElement(
-                "li",
+                'li',
                 null,
                 _react2.default.createElement(
-                  "div",
+                  'div',
                   { onClick: function onClick() {
                       return _this3.changeSearchFilter("Find Members");
                     } },
-                  "Find Members"
+                  'Find Members'
                 )
               )
             )
           ),
-          _react2.default.createElement("input", { onChange: function onChange(e) {
-              return _this3.handleChange(e);
-            }, value: this.state.text, className: "dash-nav-search-input", type: "text", placeholder: placeholder })
+          input
         ),
         _react2.default.createElement(
-          "div",
-          { className: "dash-circular-user-button-div" },
-          _react2.default.createElement("img", { onClick: function onClick() {
+          'div',
+          { className: 'dash-circular-user-button-div' },
+          _react2.default.createElement('img', { onClick: function onClick() {
               return _this3.dropdownUserClick();
-            }, className: "dash-nav-profile-photo", src: userPicture }),
+            }, className: 'dash-nav-profile-photo', src: userPicture }),
           _react2.default.createElement(
-            "div",
-            { id: "nav-user-dropdown", className: "dash-nav-user-menu" },
+            'div',
+            { id: 'nav-user-dropdown', className: 'dash-nav-user-menu' },
             _react2.default.createElement(
-              "ul",
-              { className: "dash-nav-user-ul" },
+              'ul',
+              { className: 'dash-nav-user-ul' },
               _react2.default.createElement(
-                "li",
+                'li',
                 null,
                 _react2.default.createElement(
-                  "button",
+                  'button',
                   null,
-                  "My Dashboard "
+                  'My Dashboard '
                 )
               ),
               _react2.default.createElement(
-                "li",
+                'li',
                 null,
                 _react2.default.createElement(
-                  "button",
+                  'button',
                   null,
-                  "My Profile"
+                  'My Profile'
                 )
               ),
               _react2.default.createElement(
-                "li",
+                'li',
                 null,
                 _react2.default.createElement(
-                  "button",
+                  'button',
                   { onClick: function onClick() {
                       return _this3.props.logOut();
                     } },
-                  "Log Out"
+                  'Log Out'
                 )
               )
             )
@@ -3911,6 +3983,46 @@ exports.default = errorsReducer;
 
 /***/ }),
 
+/***/ "./frontend/reducers/guest_search_reducer.js":
+/*!***************************************************!*\
+  !*** ./frontend/reducers/guest_search_reducer.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+
+var _user_actions = __webpack_require__(/*! ../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
+
+var _location_actions = __webpack_require__(/*! ../actions/location_actions */ "./frontend/actions/location_actions.js");
+
+var defaultState = { searchTargets: [] };
+var guestSearchReducer = function guestSearchReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _user_actions.RECEIVE_USERS:
+      return { searchTargets: action.users.search };
+    case _location_actions.RECEIVE_LOCATION:
+      return { searchTargets: action.locations.guest_search };
+    default:
+      return state;
+  }
+};
+
+exports.default = guestSearchReducer;
+
+/***/ }),
+
 /***/ "./frontend/reducers/hostings_reducer.js":
 /*!***********************************************!*\
   !*** ./frontend/reducers/hostings_reducer.js ***!
@@ -4065,6 +4177,10 @@ var _search_reducer = __webpack_require__(/*! ./search_reducer */ "./frontend/re
 
 var _search_reducer2 = _interopRequireDefault(_search_reducer);
 
+var _guest_search_reducer = __webpack_require__(/*! ./guest_search_reducer */ "./frontend/reducers/guest_search_reducer.js");
+
+var _guest_search_reducer2 = _interopRequireDefault(_guest_search_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
@@ -4072,7 +4188,8 @@ var rootReducer = (0, _redux.combineReducers)({
   entities: _entities_reducer2.default,
   errors: _errors_reducer2.default,
   ui: _ui_reducer2.default,
-  search: _search_reducer2.default
+  search: _search_reducer2.default,
+  guestSearch: _guest_search_reducer2.default
 });
 
 exports.default = rootReducer;
@@ -4348,7 +4465,7 @@ var usersReducer = function usersReducer() {
     case _user_actions.RECEIVE_USERS:
       return (0, _lodash.merge)({}, state, action.users);
     case _location_actions.RECEIVE_LOCATION:
-      return (0, _lodash.merge)({}, state, action.locations.hosts);
+      return (0, _lodash.merge)({}, state, action.locations.hosts, action.locations.guests);
     case _booking_actions.RECEIVE_TRIP:
       newState = (0, _lodash.merge)({}, state);
       var currentUser = newState[Object.values(action.trip)[0].guest_id];
@@ -42985,6 +43102,210 @@ if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react-dom.development.js */ "./node_modules/react-dom/cjs/react-dom.development.js");
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/react-google-autocomplete/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/react-google-autocomplete/index.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(/*! ./lib */ "./node_modules/react-google-autocomplete/lib/index.js");
+
+
+/***/ }),
+
+/***/ "./node_modules/react-google-autocomplete/lib/index.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/react-google-autocomplete/lib/index.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ReactCustomGoogleAutocomplete = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ReactGoogleAutocomplete = function (_React$Component) {
+  _inherits(ReactGoogleAutocomplete, _React$Component);
+
+  function ReactGoogleAutocomplete(props) {
+    _classCallCheck(this, ReactGoogleAutocomplete);
+
+    var _this = _possibleConstructorReturn(this, (ReactGoogleAutocomplete.__proto__ || Object.getPrototypeOf(ReactGoogleAutocomplete)).call(this, props));
+
+    _this.autocomplete = null;
+    _this.event = null;
+    return _this;
+  }
+
+  _createClass(ReactGoogleAutocomplete, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _props = this.props,
+          _props$types = _props.types,
+          types = _props$types === undefined ? ['(cities)'] : _props$types,
+          componentRestrictions = _props.componentRestrictions,
+          bounds = _props.bounds;
+
+      var config = {
+        types: types,
+        bounds: bounds
+      };
+
+      if (componentRestrictions) {
+        config.componentRestrictions = componentRestrictions;
+      }
+
+      this.autocomplete = new google.maps.places.Autocomplete(this.refs.input, config);
+
+      this.event = this.autocomplete.addListener('place_changed', this.onSelected.bind(this));
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.event.remove();
+    }
+  }, {
+    key: 'onSelected',
+    value: function onSelected() {
+      if (this.props.onPlaceSelected) {
+        this.props.onPlaceSelected(this.autocomplete.getPlace());
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props2 = this.props,
+          onPlaceSelected = _props2.onPlaceSelected,
+          types = _props2.types,
+          componentRestrictions = _props2.componentRestrictions,
+          bounds = _props2.bounds,
+          rest = _objectWithoutProperties(_props2, ['onPlaceSelected', 'types', 'componentRestrictions', 'bounds']);
+
+      return _react2.default.createElement('input', _extends({
+        ref: 'input'
+      }, rest));
+    }
+  }]);
+
+  return ReactGoogleAutocomplete;
+}(_react2.default.Component);
+
+ReactGoogleAutocomplete.propTypes = {
+  onPlaceSelected: _propTypes2.default.func,
+  types: _propTypes2.default.array,
+  componentRestrictions: _propTypes2.default.object,
+  bounds: _propTypes2.default.object
+};
+exports.default = ReactGoogleAutocomplete;
+
+var ReactCustomGoogleAutocomplete = exports.ReactCustomGoogleAutocomplete = function (_React$Component2) {
+  _inherits(ReactCustomGoogleAutocomplete, _React$Component2);
+
+  function ReactCustomGoogleAutocomplete(props) {
+    _classCallCheck(this, ReactCustomGoogleAutocomplete);
+
+    var _this2 = _possibleConstructorReturn(this, (ReactCustomGoogleAutocomplete.__proto__ || Object.getPrototypeOf(ReactCustomGoogleAutocomplete)).call(this, props));
+
+    _this2.service = new google.maps.places.AutocompleteService();
+    return _this2;
+  }
+
+  _createClass(ReactCustomGoogleAutocomplete, [{
+    key: 'onChange',
+    value: function onChange(e) {
+      var _this3 = this;
+
+      var _props$types2 = this.props.types,
+          types = _props$types2 === undefined ? ['(cities)'] : _props$types2;
+
+
+      if (e.target.value) {
+        this.service.getPlacePredictions({ input: e.target.value, types: types }, function (predictions, status) {
+          if (status === 'OK' && predictions && predictions.length > 0) {
+            _this3.props.onOpen(predictions);
+            console.log(predictions);
+          } else {
+            _this3.props.onClose();
+          }
+        });
+      } else {
+        this.props.onClose();
+      }
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this4 = this;
+
+      if (this.props.input.value) {
+        this.placeService = new google.maps.places.PlacesService(this.refs.div);
+        this.placeService.getDetails({ placeId: this.props.input.value }, function (e, status) {
+          if (status === 'OK') {
+            _this4.refs.input.value = e.formatted_address;
+          }
+        });
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this5 = this;
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.cloneElement(this.props.input, _extends({}, this.props, {
+          ref: 'input',
+          onChange: function onChange(e) {
+            _this5.onChange(e);
+          }
+        })),
+        _react2.default.createElement('div', { ref: 'div' })
+      );
+    }
+  }]);
+
+  return ReactCustomGoogleAutocomplete;
+}(_react2.default.Component);
+
+ReactCustomGoogleAutocomplete.propTypes = {
+  input: _propTypes2.default.node.isRequired,
+  onOpen: _propTypes2.default.func.isRequired,
+  onClose: _propTypes2.default.func.isRequired
+};
 
 /***/ }),
 

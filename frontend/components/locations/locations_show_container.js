@@ -8,9 +8,14 @@ const msp = (state, ownProps) => {
     return state.entities.users[id];
   });
 
+  const guests = state.guestSearch.searchTargets.map(id => {
+    return state.entities.users[id];
+  });
+
   return {
     users: users,
-    location: ownProps.location.pathname.slice(10)
+    location: ownProps.location.pathname.slice(10),
+    guests: guests
   };
 };
 
