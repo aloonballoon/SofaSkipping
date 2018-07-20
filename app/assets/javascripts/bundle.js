@@ -3766,6 +3766,11 @@ var UserShow = function (_React$Component) {
             errorMessage,
             successMessage,
             _react2.default.createElement(
+              'h1',
+              { className: 'user-show-hang-out-banner' },
+              'Send a Request to Hang Out'
+            ),
+            _react2.default.createElement(
               'div',
               { className: 'user-show-section-date-div' },
               _react2.default.createElement(
@@ -3811,7 +3816,7 @@ var UserShow = function (_React$Component) {
                   { className: 'text-div', onClick: function onClick() {
                       return _this5.cancelInputs();
                     } },
-                  'Cancel'
+                  'Clear'
                 )
               )
             )

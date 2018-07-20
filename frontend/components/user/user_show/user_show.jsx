@@ -112,6 +112,7 @@ class UserShow extends React.Component {
           <form className={hiddenFormState} onSubmit={(e) => this.handleSubmit(e)}>
               {errorMessage}
               {successMessage}
+              <h1 className="user-show-hang-out-banner">Send a Request to Hang Out</h1>
               <div className="user-show-section-date-div">
                 <div className="user-show-arrival-date-div">
                   <p>Arrival Date</p>
@@ -124,7 +125,7 @@ class UserShow extends React.Component {
               </div>
               <div className="user-show-request-buttons-div">
                 <button className="user-show-send-message-button-final">Send</button>
-                <div className="user-show-cancel-div" onClick={() => this.cancelInputs()}><div className="text-div" onClick={() => this.cancelInputs()}>Cancel</div></div>
+                <div className="user-show-cancel-div" onClick={() => this.cancelInputs()}><div className="text-div" onClick={() => this.cancelInputs()}>Clear</div></div>
               </div>
 
 
