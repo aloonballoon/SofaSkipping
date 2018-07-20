@@ -18,6 +18,14 @@ ny = Location.create!(city: "New York", country: "United States of America", lat
 ch = Location.create!(city: "Chicago", country: "United States of America", lat: 41.8781136, lng: -87.62979819999998)
 ist = Location.create!(city: "Istanbul", country: "Turkey", lat: 41.0082376, lng: 28.97835889999999)
 sp = Location.create!(city: "Sao Paulo", country: "Brazil", lat: -23.5505199, lng: -46.63330940000003)
+cr = Location.create!(city: "Caracas", country: "Venezuela", lat: -23.5505199, lng: -46.63330940000003)
+tk = Location.create!(city: "Tokyo", country: "Japan", lat: -23.5505199, lng: -46.63330940000003)
+bj = Location.create!(city: "Beijing", country: "China", lat: -23.5505199, lng: -46.63330940000003)
+
+
+
+
+
 
 alan = User.create!(first_name: "Alan", last_name: "Uraz", username: 'alanuraz', email: 'alanuraz@gmail.com', home_location_id: sf.id, age: 28, bio: "first member", password: "hellothere")
 ayda = User.create!(first_name: "Ayda", last_name: "Uraz", username: 'aydauraz', email: 'aydauraz@gmail.com', home_location_id: sf.id, age: 24, bio: "second member", password: "hellothere")
@@ -38,3 +46,15 @@ Booking.create!(host_id: alan.id, guest_id: leana.id, start_date: "2018/09/13", 
 Booking.create!(host_id: leana.id, guest_id: ayda.id, start_date: "2018/10/13", end_date: "2018/11/15", confirmed: true)
 Booking.create!(host_id: guest.id, guest_id: alan.id, start_date: "2018/11/13", end_date: "2018/12/15", confirmed: true)
 Booking.create!(host_id: alan.id, guest_id: guest.id, start_date: "2019/01/13", end_date: "2019/01/15", confirmed: true)
+
+users_arr = []
+50.times do
+  age = (1..100).to_a.sample
+  quote = Faker::DumbAndDumber.quote
+  fname = Faker::Name.first_name
+  lname = Faker::Name.last_name
+  email = "#{fname}#{lname}@aa.com"
+  random_city = [sf, la, ny, ch, ist, bj, tk, sp].sample
+  user = User.create!(first_name: fname, last_name: lname, home_location_id: random_city.id, email: email, password: "hellothere", bio: quote, age: age)
+  users_arr << user
+end
