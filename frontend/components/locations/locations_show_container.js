@@ -3,19 +3,21 @@ import LocationShow from './location_show';
 import { fetchLocation } from '../../actions/location_actions';
 
 const msp = (state, ownProps) => {
-
-  const users = state.search.searchTargets.map(id => {
+  const hosts = state.search.searchTargets.map(id => {
     return state.entities.users[id];
   });
 
   const guests = state.guestSearch.searchTargets.map(id => {
     return state.entities.users[id];
   });
+  const location = state.entities.locations[state.locationSearch.locationSearchTarget];
+
 
   return {
-    users: users,
-    location: ownProps.location.pathname.slice(10),
-    guests: guests
+    hosts: hosts,
+    locationName: ownProps.location.pathname.slice(10),
+    guests: guests,
+    location: location
   };
 };
 

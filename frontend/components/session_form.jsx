@@ -60,19 +60,25 @@ class SessionForm extends React.Component {
 
     if (this.props.formType === 'signup') {
       title = 'Join SofaSkipping for free';
-      firstName = <input required key="3" id="login-signup-firstname-input" type="text" placeholder="First Name" onChange={this.handleChange('first_name')}/>;
-      lastName = <input required key="4" id="login-signup-lastname-input" type="text" placeholder="Last Name" onChange={this.handleChange('last_name')}/>;
+
+      firstName = <input required key="3" id="login-signup-firstname-input" type="text" placeholder="  First Name" onChange={this.handleChange('first_name')}/>;
+
+      lastName = <input required key="4" id="login-signup-lastname-input" type="text" placeholder="  Last Name" onChange={this.handleChange('last_name')}/>;
+
       submit = "Join with Email";
       buttonLink = this.props.otherForm;
       switchPhrase = "Already a member?";
+
       email = <input key="5" className="login-signup-input" type="email" placeholder="Email" onChange={this.handleChange('email')}/>;
+
     } else {
       title = "Log in to SofaSkipping";
       submit = "Log In";
       text = "Don't have an account?";
       buttonLink = this.props.otherForm;
       switchPhrase = "Don't have an account?";
-      email = <input key="5" className="login-signup-input" type="text" placeholder="Email" onChange={this.handleChange('email')}/>;
+
+      email = <input key="5" className="login-signup-input" type="text" placeholder="  Email" onChange={this.handleChange('email')}/>;
     }
 
     let errors;

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { logOut } from '../../actions/session_actions';
 import LoggedInNav from './logged_in_nav_bar';
 import { fetchUsers } from '../../actions/user_actions/user_actions';
-import { fetchLocation } from '../../actions/location_actions';
+import { fetchLocation, createLocation } from '../../actions/location_actions';
 
 
 
@@ -18,7 +18,8 @@ const mdp = (dispatch, ownProps) => {
   return {
     logOut: () => dispatch(logOut()),
     fetchUsers: (param) => dispatch(fetchUsers(param)),
-    fetchLocation: (location) => dispatch(fetchLocation(location))
+    fetchLocation: (location) => dispatch(fetchLocation(location)),
+    createLocation: (location) => dispatch(createLocation(location))
   };
 };
 

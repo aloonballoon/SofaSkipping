@@ -50,9 +50,13 @@ class UserShow extends React.Component {
   render() {
     let user = this.props.user || {};
     let successMessage;
-    let userPhoto;
+    let userPhoto
     if (user.photoUrl) {
       userPhoto = user.photoUrl;
+    } else if (
+      user.first_name === "Alan" && user.last_name === "Uraz"
+    ) {
+      userPhoto = window.alan;
     } else {
       userPhoto = window.profile_pic_placeholder;
     }

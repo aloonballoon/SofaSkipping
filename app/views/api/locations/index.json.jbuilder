@@ -41,3 +41,4 @@ end
 
 json.search user_ids_array.uniq
 json.guest_search user_guest_ids_array.uniq
+json.locationSearch @locations[0].id

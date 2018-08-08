@@ -17,8 +17,7 @@
 #  updated_at       :datetime         not null
 #
 
-#places
-#AIzaSyDRH6WlxuNIolazAJVgG7opxvexsSH9SdM
+
 
 class User < ApplicationRecord
 
@@ -56,6 +55,16 @@ class User < ApplicationRecord
   foreign_key: :home_location_id,
   class_name: :Location,
   optional: true
+
+  has_many :submitted_reviews,
+  primary_key: :id,
+  foreign_key: :reviewer_id,
+  class_name: :Review
+
+  has_many :received_reviews,
+  primary_key: :id,
+  foreign_key: :reviewee_id,
+  class_name: :Review
 
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)

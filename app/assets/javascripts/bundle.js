@@ -173,7 +173,7 @@ var RECEIVE_CANCELED_HOSTING = exports.RECEIVE_CANCELED_HOSTING = 'RECEIVE_CANCE
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchLocation = exports.receiveLocation = exports.RECEIVE_LOCATION = undefined;
+exports.updateLocationPhotos = exports.receiveLocationPhotos = exports.createLocation = exports.fetchLocation = exports.receiveLocation = exports.RECEIVE_LOCATION_PHOTOS = exports.RECEIVE_LOCATION = undefined;
 
 var _locations_util = __webpack_require__(/*! ../util/locations_util */ "./frontend/util/locations_util.js");
 
@@ -184,6 +184,7 @@ var _user_actions = __webpack_require__(/*! ./user_actions/user_actions */ "./fr
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var RECEIVE_LOCATION = exports.RECEIVE_LOCATION = "RECEIVE_LOCATION";
+var RECEIVE_LOCATION_PHOTOS = exports.RECEIVE_LOCATION_PHOTOS = "RECEIVE_LOCATION_PHOTOS";
 
 var receiveLocation = exports.receiveLocation = function receiveLocation(locations) {
   return {
@@ -199,6 +200,29 @@ var fetchLocation = exports.fetchLocation = function fetchLocation(location) {
     }, function (error) {
       return dispatch((0, _user_actions.receiveSearchErrors)(error.responseJSON));
     });
+  };
+};
+
+var createLocation = exports.createLocation = function createLocation(location) {
+  return function (dispatch) {
+    return LocationApiUtil.createLocation(location).then(function (location) {
+      return dispatch(receiveLocation(location));
+    }, function (error) {
+      return dispatch((0, _user_actions.receiveSearchErrors)(error.responseJSON));
+    });
+  };
+};
+
+var receiveLocationPhotos = exports.receiveLocationPhotos = function receiveLocationPhotos(photos) {
+  return {
+    type: RECEIVE_LOCATION_PHOTOS,
+    locationPhotos: photos
+  };
+};
+
+var updateLocationPhotos = exports.updateLocationPhotos = function updateLocationPhotos(photos) {
+  return function (dispatch) {
+    return dispatch(receiveLocationPhotos(photos));
   };
 };
 
@@ -1160,6 +1184,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _reactGoogleAutocomplete = __webpack_require__(/*! react-google-autocomplete */ "./node_modules/react-google-autocomplete/index.js");
+
+var _reactGoogleAutocomplete2 = _interopRequireDefault(_reactGoogleAutocomplete);
+
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -1188,34 +1216,57 @@ var LocationShow = function (_React$Component) {
   _createClass(LocationShow, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchLocation(this.props.location);
+      this.props.fetchLocation(this.props.locationName);
     }
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
 
+      var display = { visibility: 'hidden', height: '0px' };
       var picArr = [window.space_cat, window.volcano, window.palms, window.beautiful_beach2];
       var randomPic = picArr[Math.floor(Math.random() * picArr.length)];
-
-      var locationName = this.props.location;
-      var locationUser = this.props.users.map(function (user) {
-        return _react2.default.createElement(_location_user_show2.default, { user: user, key: user.id });
+      var location = this.props.location || {};
+      var locationCityName = location.city;
+      var locationCountryName = location.country;
+      var locationHost = this.props.hosts.map(function (host) {
+        return _react2.default.createElement(_location_user_show2.default, { user: host, key: host.id });
       });
 
       var locationGuest = this.props.guests.map(function (guest) {
         return _react2.default.createElement(_location_user_show2.default, { user: guest, key: guest.id });
       });
 
+      var input = _react2.default.createElement(
+        'form',
+        { style: display, onSubmit: function onSubmit(e) {
+            return _this2.handleSubmit(e);
+          } },
+        _react2.default.createElement(_reactGoogleAutocomplete2.default, {
+          className: 'dash-nav-search-input', style: ({ width: '80%' }, { height: '80%' }),
+          onChange: function onChange(e) {
+            return _this2.handleChange(e);
+          },
+          onPlaceSelected: function onPlaceSelected(place) {
+            _this2.handleGoogle({ place: place });
+          },
+          types: ['(regions)']
+        })
+      );
+
       return _react2.default.createElement(
         'div',
         { className: 'location-show-entire-container-div' },
+        input,
         _react2.default.createElement(
           'header',
           { className: 'location-show-background-image-header' },
           _react2.default.createElement(
             'h1',
             { className: 'location-show-title-h1' },
-            locationName
+            locationCityName,
+            ', ',
+            locationCountryName
           ),
           _react2.default.createElement('img', { className: 'location-show-background-image', src: randomPic })
         ),
@@ -1238,7 +1289,7 @@ var LocationShow = function (_React$Component) {
             _react2.default.createElement(
               'article',
               { className: 'location-user-show-article' },
-              locationUser
+              locationHost
             )
           ),
           _react2.default.createElement(
@@ -1376,19 +1427,20 @@ var _location_actions = __webpack_require__(/*! ../../actions/location_actions *
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state, ownProps) {
-
-  var users = state.search.searchTargets.map(function (id) {
+  var hosts = state.search.searchTargets.map(function (id) {
     return state.entities.users[id];
   });
 
   var guests = state.guestSearch.searchTargets.map(function (id) {
     return state.entities.users[id];
   });
+  var location = state.entities.locations[state.locationSearch.locationSearchTarget];
 
   return {
-    users: users,
-    location: ownProps.location.pathname.slice(10),
-    guests: guests
+    hosts: hosts,
+    locationName: ownProps.location.pathname.slice(10),
+    guests: guests,
+    location: location
   };
 };
 
@@ -1449,7 +1501,12 @@ var LoggedInNav = function (_React$Component) {
     _this.state = {
       user: _this.props.user,
       text: "",
-      searchFilter: "Find Members"
+      searchFilter: "Find Members",
+      lat: "",
+      lng: "",
+      city: "",
+      country: "",
+      photos: ""
     };
 
     _this.dropdownSearchClick = _this.dropdownSearchClick.bind(_this);
@@ -1477,7 +1534,6 @@ var LoggedInNav = function (_React$Component) {
     key: 'handleChange',
     value: function handleChange(e) {
       this.setState({ text: e.target.value });
-      console.log(this.state.text);
     }
   }, {
     key: 'changeSearchFilter',
@@ -1518,6 +1574,10 @@ var LoggedInNav = function (_React$Component) {
         case "Explore":
           this.props.fetchLocation(this.state.text).then(function () {
             _this2.props.history.push('/location/' + _this2.state.text);
+          }, function () {
+            _this2.props.createLocation(_this2.state).then(function () {
+              _this2.props.history.push('/location/' + _this2.state.text);
+            });
           });
           break;
         default:
@@ -1528,7 +1588,15 @@ var LoggedInNav = function (_React$Component) {
   }, {
     key: 'handleGoogle',
     value: function handleGoogle(place) {
-      this.setState({ text: place.place.address_components[0].long_name });
+      debugger;
+      // if (place)
+      this.setState({ text: place.place.name,
+        city: place.place.address_components[0].long_name,
+        country: place.place.address_components.slice(-1)[0].long_name,
+        lat: place.place.geometry.location.lat(),
+        lng: place.place.geometry.location.lng(),
+        photos: place.place.photos
+      });
     }
   }, {
     key: 'render',
@@ -1754,6 +1822,9 @@ var mdp = function mdp(dispatch, ownProps) {
     },
     fetchLocation: function fetchLocation(location) {
       return dispatch((0, _location_actions.fetchLocation)(location));
+    },
+    createLocation: function createLocation(location) {
+      return dispatch((0, _location_actions.createLocation)(location));
     }
   };
 };
@@ -2052,11 +2123,15 @@ var SessionForm = function (_React$Component) {
 
       if (this.props.formType === 'signup') {
         title = 'Join SofaSkipping for free';
-        firstName = _react2.default.createElement('input', { required: true, key: '3', id: 'login-signup-firstname-input', type: 'text', placeholder: 'First Name', onChange: this.handleChange('first_name') });
-        lastName = _react2.default.createElement('input', { required: true, key: '4', id: 'login-signup-lastname-input', type: 'text', placeholder: 'Last Name', onChange: this.handleChange('last_name') });
+
+        firstName = _react2.default.createElement('input', { required: true, key: '3', id: 'login-signup-firstname-input', type: 'text', placeholder: '  First Name', onChange: this.handleChange('first_name') });
+
+        lastName = _react2.default.createElement('input', { required: true, key: '4', id: 'login-signup-lastname-input', type: 'text', placeholder: '  Last Name', onChange: this.handleChange('last_name') });
+
         submit = "Join with Email";
         buttonLink = this.props.otherForm;
         switchPhrase = "Already a member?";
+
         email = _react2.default.createElement('input', { key: '5', className: 'login-signup-input', type: 'email', placeholder: 'Email', onChange: this.handleChange('email') });
       } else {
         title = "Log in to SofaSkipping";
@@ -2064,7 +2139,8 @@ var SessionForm = function (_React$Component) {
         text = "Don't have an account?";
         buttonLink = this.props.otherForm;
         switchPhrase = "Don't have an account?";
-        email = _react2.default.createElement('input', { key: '5', className: 'login-signup-input', type: 'text', placeholder: 'Email', onChange: this.handleChange('email') });
+
+        email = _react2.default.createElement('input', { key: '5', className: 'login-signup-input', type: 'text', placeholder: '  Email', onChange: this.handleChange('email') });
       }
 
       var errors = void 0;
@@ -3661,6 +3737,8 @@ var UserShow = function (_React$Component) {
       var userPhoto = void 0;
       if (user.photoUrl) {
         userPhoto = user.photoUrl;
+      } else if (user.first_name === "Alan" && user.last_name === "Uraz") {
+        userPhoto = window.alan;
       } else {
         userPhoto = window.profile_pic_placeholder;
       }
@@ -4171,6 +4249,46 @@ exports.default = locationsReducer;
 
 /***/ }),
 
+/***/ "./frontend/reducers/locations_search_reducer.js":
+/*!*******************************************************!*\
+  !*** ./frontend/reducers/locations_search_reducer.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+
+var _user_actions = __webpack_require__(/*! ../actions/user_actions/user_actions */ "./frontend/actions/user_actions/user_actions.js");
+
+var _location_actions = __webpack_require__(/*! ../actions/location_actions */ "./frontend/actions/location_actions.js");
+
+var defaultState = { locationSearchTargets: [] };
+var locationsSearchReducer = function locationsSearchReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    // case RECEIVE_USERS:
+    // return {locationSearchTargets: action.users.search};
+    case _location_actions.RECEIVE_LOCATION:
+      return { locationSearchTarget: action.locations.locationSearch };
+    default:
+      return state;
+  }
+};
+
+exports.default = locationsSearchReducer;
+
+/***/ }),
+
 /***/ "./frontend/reducers/modal_reducer.js":
 /*!********************************************!*\
   !*** ./frontend/reducers/modal_reducer.js ***!
@@ -4244,6 +4362,10 @@ var _guest_search_reducer = __webpack_require__(/*! ./guest_search_reducer */ ".
 
 var _guest_search_reducer2 = _interopRequireDefault(_guest_search_reducer);
 
+var _locations_search_reducer = __webpack_require__(/*! ./locations_search_reducer */ "./frontend/reducers/locations_search_reducer.js");
+
+var _locations_search_reducer2 = _interopRequireDefault(_locations_search_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
@@ -4252,7 +4374,8 @@ var rootReducer = (0, _redux.combineReducers)({
   errors: _errors_reducer2.default,
   ui: _ui_reducer2.default,
   search: _search_reducer2.default,
-  guestSearch: _guest_search_reducer2.default
+  guestSearch: _guest_search_reducer2.default,
+  locationSearch: _locations_search_reducer2.default
 });
 
 exports.default = rootReducer;
@@ -4715,6 +4838,14 @@ var fetchLocation = exports.fetchLocation = function fetchLocation(location) {
     method: 'get',
     url: 'api/locations',
     data: { location: { city: location, country: location } }
+  });
+};
+
+var createLocation = exports.createLocation = function createLocation(location) {
+  return $.ajax({
+    method: 'post',
+    url: 'api/locations',
+    data: { location: { city: location.city, country: location.country, lat: location.lat, lng: location.lng } }
   });
 };
 

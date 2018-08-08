@@ -9,7 +9,12 @@ class LoggedInNav extends React.Component {
     this.state = {
       user: this.props.user,
       text: "",
-      searchFilter: "Find Members"
+      searchFilter: "Find Members",
+      lat: "",
+      lng: "",
+      city: "",
+      country: "",
+      photos: ""
     }
 
     this.dropdownSearchClick = this.dropdownSearchClick.bind(this);
@@ -32,7 +37,6 @@ class LoggedInNav extends React.Component {
 
   handleChange(e) {
     this.setState({text: e.target.value});
-    console.log(this.state.text)
   }
 
   changeSearchFilter(filter) {
@@ -68,6 +72,10 @@ class LoggedInNav extends React.Component {
       case "Explore":
         this.props.fetchLocation(this.state.text).then(() => {
           this.props.history.push(`/location/${this.state.text}`);
+        }, () => {
+          this.props.createLocation(this.state).then(() => {
+          this.props.history.push(`/location/${this.state.text}`)
+          })
         });
       break;
       default:
@@ -77,7 +85,15 @@ class LoggedInNav extends React.Component {
   }
 
   handleGoogle(place) {
-    this.setState({text: place.place.address_components[0].long_name})
+    debugger
+    // if (place)
+    this.setState({text: place.place.name,
+                   city: place.place.address_components[0].long_name,
+                   country: place.place.address_components.slice(-1)[0].long_name,
+                   lat: place.place.geometry.location.lat(),
+                   lng: place.place.geometry.location.lng(),
+                   photos: place.place.photos
+                 })
   }
 
 

@@ -5,6 +5,7 @@ import sessionReducer from './session_reducer';
 import uiReducer from './ui_reducer';
 import searchReducer from './search_reducer';
 import guestSearchReducer from './guest_search_reducer';
+import locationsSearchReducer from './locations_search_reducer';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   errors: errorsReducer,
   ui: uiReducer,
   search: searchReducer,
-  guestSearch: guestSearchReducer
+  guestSearch: guestSearchReducer,
+  locationSearch: locationsSearchReducer
 });
 
 export default rootReducer;
