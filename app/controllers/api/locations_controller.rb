@@ -24,6 +24,16 @@ class Api::LocationsController < ApplicationController
     end
   end
 
+  def update
+    @locations = Location.where("city LIKE :query", query: "#{like_keyword}")
+    @locations.update(location_params)
+    if @locations.save
+      render 'api/locations/index'
+    else
+      render json: {message: "Location could not update"}, status: 422
+    end
+  end
+
   def location_params
     params.require(:location).permit(:city, :country, :lat, :lng, :photos)
   end

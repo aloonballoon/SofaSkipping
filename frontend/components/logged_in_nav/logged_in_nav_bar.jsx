@@ -85,14 +85,17 @@ class LoggedInNav extends React.Component {
   }
 
   handleGoogle(place) {
-    debugger
-    // if (place)
+    let country;
+    if (Number.isInteger(Number(place.place.address_components.slice(-1)[0].long_name))) {
+      country = place.place.address_components.slice(-2)[0].long_name
+    } else {
+      country = place.place.address_components.slice(-1)[0].long_name
+    }
     this.setState({text: place.place.name,
                    city: place.place.address_components[0].long_name,
-                   country: place.place.address_components.slice(-1)[0].long_name,
+                   country: country,
                    lat: place.place.geometry.location.lat(),
-                   lng: place.place.geometry.location.lng(),
-                   photos: place.place.photos
+                   lng: place.place.geometry.location.lng()
                  })
   }
 

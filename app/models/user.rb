@@ -5,19 +5,17 @@
 #  id               :bigint(8)        not null, primary key
 #  first_name       :string           not null
 #  last_name        :string           not null
-#  username         :string           not null
+#  username         :string
 #  email            :string           not null
 #  session_token    :string           not null
 #  password_digest  :string           not null
-#  home_location_id :integer          not null
+#  home_location_id :integer
 #  user_status      :string
 #  age              :integer
 #  bio              :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
-
-
 
 class User < ApplicationRecord
 
