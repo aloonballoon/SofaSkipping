@@ -21,45 +21,47 @@ export default class Slider extends Component {
     this.setState({images: this.props.photos})
   }
 
-  goToPrevSlide() {
-    // Exiting the method early if we are at the end of the images array.
-    // We also want to reset currentIndex and translateValue, so we return
-    // to the first image in the array.
-    if(this.state.currentIndex === this.state.images.length - 1) {
-      return this.setState({
-        currentIndex: 0,
-        translateValue: 0
-      })
+  componentDidUpdate(prevProps) {
+    if (this.props.photos !== prevProps.photos) {
+      this.setState({images: this.props.photos, currentIndex: 0, translateValue: 0})
     }
-
-    // This will not run if we met the if condition above
-    this.setState(prevState => ({
-      currentIndex: prevState.currentIndex + 1,
-      translateValue: prevState.translateValue + -(this.slideWidth())
-    }));
   }
+
+  goToPrevSlide() {
+      if(this.state.currentIndex === 0) {
+        return this.setState({
+          currentIndex: this.state.images.length - 1,
+          translateValue: 0
+        })
+      }
+
+      console.log(this.state.currentIndex)
+      this.setState(prevState => ({
+        currentIndex: prevState.currentIndex - 1,
+        translateValue: prevState.translateValue - -(this.slideWidth())
+      }));
+    }
 
   goToNextSlide() {
-    // Exiting the method early if we are at the end of the images array.
-    // We also want to reset currentIndex and translateValue, so we return
-    // to the first image in the array.
-    if(this.state.currentIndex === this.state.images.length + 1) {
-      return this.setState({
-        currentIndex: 0,
-        translateValue: 0
-      })
+      if(this.state.currentIndex === this.state.images.length - 1) {
+        return this.setState({
+          currentIndex: 0,
+          translateValue: 0
+        })
+      }
+
+      console.log(this.state.currentIndex)
+      this.setState(prevState => ({
+        currentIndex: prevState.currentIndex + 1,
+        translateValue: prevState.translateValue + -(this.slideWidth())
+      }));
     }
 
-    // This will not run if we met the if condition above
-    this.setState(prevState => ({
-      currentIndex: prevState.currentIndex - 1,
-      translateValue: prevState.translateValue - -(this.slideWidth())
-    }));
-  }
 
   slideWidth() {
      return document.querySelector('.slide').clientWidth
   }
+
 
   render() {
 
@@ -73,7 +75,7 @@ export default class Slider extends Component {
           }}>
             {
               this.state.images.map((image, i) => (
-                <Slide key={i} image={image} />
+                <Slide className="location-photo-slide" key={i} image={image} />
               ))
             }
         </div>

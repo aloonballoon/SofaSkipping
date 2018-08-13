@@ -1191,7 +1191,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var LeftArrow = function LeftArrow(props) {
   return _react2.default.createElement(
     "div",
-    { className: "backArrow", onClick: props.goToPrevSlide },
+    { className: "left-arrow", onClick: props.goToPrevSlide },
     _react2.default.createElement("i", { className: "fa fa-arrow-left fa-2x", "aria-hidden": "true" })
   );
 };
@@ -1553,7 +1553,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var RightArrow = function RightArrow(props) {
   return _react2.default.createElement(
     "div",
-    { className: "nextArrow", onClick: props.goToNextSlide },
+    { className: "right-arrow", onClick: props.goToNextSlide },
     _react2.default.createElement("i", { className: "fa fa-arrow-right fa-2x", "aria-hidden": "true" })
   );
 };
@@ -1594,7 +1594,7 @@ var Slide = function Slide(_ref) {
   return _react2.default.createElement(
     'div',
     { className: 'slide', style: styles },
-    _react2.default.createElement('img', { src: url })
+    _react2.default.createElement('img', { className: 'slide-img', src: url })
   );
 };
 
@@ -1667,25 +1667,29 @@ var Slider = function (_Component) {
       this.setState({ images: this.props.photos });
     }
   }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.photos !== prevProps.photos) {
+        this.setState({ images: this.props.photos, currentIndex: 0, translateValue: 0 });
+      }
+    }
+  }, {
     key: 'goToPrevSlide',
     value: function goToPrevSlide() {
       var _this2 = this;
 
-      // Exiting the method early if we are at the end of the images array.
-      // We also want to reset currentIndex and translateValue, so we return
-      // to the first image in the array.
-      if (this.state.currentIndex === this.state.images.length - 1) {
+      if (this.state.currentIndex === 0) {
         return this.setState({
-          currentIndex: 0,
+          currentIndex: this.state.images.length - 1,
           translateValue: 0
         });
       }
 
-      // This will not run if we met the if condition above
+      console.log(this.state.currentIndex);
       this.setState(function (prevState) {
         return {
-          currentIndex: prevState.currentIndex + 1,
-          translateValue: prevState.translateValue + -_this2.slideWidth()
+          currentIndex: prevState.currentIndex - 1,
+          translateValue: prevState.translateValue - -_this2.slideWidth()
         };
       });
     }
@@ -1694,21 +1698,18 @@ var Slider = function (_Component) {
     value: function goToNextSlide() {
       var _this3 = this;
 
-      // Exiting the method early if we are at the end of the images array.
-      // We also want to reset currentIndex and translateValue, so we return
-      // to the first image in the array.
-      if (this.state.currentIndex === this.state.images.length + 1) {
+      if (this.state.currentIndex === this.state.images.length - 1) {
         return this.setState({
           currentIndex: 0,
           translateValue: 0
         });
       }
 
-      // This will not run if we met the if condition above
+      console.log(this.state.currentIndex);
       this.setState(function (prevState) {
         return {
-          currentIndex: prevState.currentIndex - 1,
-          translateValue: prevState.translateValue - -_this3.slideWidth()
+          currentIndex: prevState.currentIndex + 1,
+          translateValue: prevState.translateValue + -_this3.slideWidth()
         };
       });
     }
@@ -1732,7 +1733,7 @@ var Slider = function (_Component) {
               transition: 'transform ease-out 0.45s'
             } },
           this.state.images.map(function (image, i) {
-            return _react2.default.createElement(_slide2.default, { key: i, image: image });
+            return _react2.default.createElement(_slide2.default, { className: 'location-photo-slide', key: i, image: image });
           })
         ),
         _react2.default.createElement(_left_arrow2.default, {
