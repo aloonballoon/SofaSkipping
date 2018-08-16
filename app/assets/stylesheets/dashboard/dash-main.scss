@@ -203,6 +203,10 @@
   font-weight: bold;
 }
 
+.upcoming-guests-li-name-header:hover {
+  cursor:pointer;
+}
+
 .em-arrow_down_small {
   width: 15px;
   height: 15px;
@@ -278,7 +282,13 @@ flex-direction: column
   margin-top: 10px;
 }
 
-.dash-main-guest-host-img {
+.dash-main-guest-host-img:hover {
+  -webkit-filter: brightness(70%);
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  transition: all 1s ease;
   cursor: pointer;
 }
 

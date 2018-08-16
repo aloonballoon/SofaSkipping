@@ -2901,7 +2901,9 @@ var UpcomingHostingsItem = function (_React$Component) {
             { className: 'upcoming-guests-li-article' },
             _react2.default.createElement(
               'header',
-              { className: 'upcoming-guests-li-name-header' },
+              { className: 'upcoming-guests-li-name-header', onClick: function onClick() {
+                  return _this2.handleClick();
+                } },
               firstName,
               ' ',
               lastName
@@ -3237,7 +3239,9 @@ var UpcomingTripsItem = function (_React$Component) {
             { className: 'upcoming-guests-li-article' },
             _react2.default.createElement(
               'header',
-              { className: 'upcoming-guests-li-name-header' },
+              { className: 'upcoming-guests-li-name-header', onClick: function onClick() {
+                  return _this2.handleClick();
+                } },
               firstName,
               ' ',
               lastName
