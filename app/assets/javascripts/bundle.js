@@ -1781,6 +1781,8 @@ var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_module
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -1976,38 +1978,39 @@ var LoggedInNav = function (_React$Component) {
           { className: 'dash-nav-input-dropdown-form' },
           _react2.default.createElement(
             'div',
-            { onClick: function onClick() {
-                return _this3.dropdownSearchClick();
-              }, className: 'dash-nav-dropdown-button' },
-            this.state.searchFilter,
-            ' '
-          ),
-          _react2.default.createElement(
-            'div',
-            { id: 'nav-dropdown', className: 'dash-nav-dropdown-menu' },
+            { className: 'dropdown' },
             _react2.default.createElement(
-              'ul',
-              null,
+              'button',
+              _defineProperty({ className: 'dropbtn' }, 'className', 'dash-nav-dropdown-menu'),
+              this.state.searchFilter
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'dropdown-content' },
               _react2.default.createElement(
-                'li',
-                null,
+                'ul',
+                { className: 'directions-ul' },
                 _react2.default.createElement(
-                  'div',
-                  { onClick: function onClick() {
-                      return _this3.changeSearchFilter("Explore");
-                    } },
-                  'Explore'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    'div',
+                    { onClick: function onClick() {
+                        return _this3.changeSearchFilter("Explore");
+                      } },
+                    'Explore'
+                  )
+                ),
                 _react2.default.createElement(
-                  'div',
-                  { onClick: function onClick() {
-                      return _this3.changeSearchFilter("Find Members");
-                    } },
-                  'Find Members'
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    'div',
+                    { onClick: function onClick() {
+                        return _this3.changeSearchFilter("Find Members");
+                      } },
+                    'Find Members'
+                  )
                 )
               )
             )

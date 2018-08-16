@@ -152,19 +152,20 @@ render() {
         </div>
 
         <article className="dash-nav-input-dropdown-form" >
-          <div onClick={() => this.dropdownSearchClick()} className="dash-nav-dropdown-button">{this.state.searchFilter} </div>
 
-
-          <div id='nav-dropdown' className='dash-nav-dropdown-menu'>
-          <ul>
+        <div className="dropdown">
+          <button className="dropbtn" className="dash-nav-dropdown-menu">{this.state.searchFilter}</button>
+          <div className="dropdown-content">
+            <ul className="directions-ul">
             <li>
               <div onClick={() => this.changeSearchFilter("Explore")}>Explore</div>
             </li>
             <li>
               <div onClick={() => this.changeSearchFilter("Find Members")}>Find Members</div>
             </li>
-          </ul>
+            </ul>
           </div>
+        </div>
           {input}
         </article>
 
