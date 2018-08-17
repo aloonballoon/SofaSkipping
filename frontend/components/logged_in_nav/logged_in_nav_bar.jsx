@@ -17,22 +17,11 @@ class LoggedInNav extends React.Component {
       photos: ""
     }
 
-    this.dropdownSearchClick = this.dropdownSearchClick.bind(this);
-    this.dropdownUserClick = this.dropdownUserClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.changeSearchFilter = this.changeSearchFilter.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.handleGoogle = this.handleGoogle.bind(this);
     this.handleDashClick= this.handleDashClick.bind(this);
-  }
-
-  dropdownSearchClick() {
-    return document.getElementById("nav-dropdown").classList.toggle("show-search");
-  }
-
-  dropdownUserClick() {
-    return document.getElementById("nav-user-dropdown").classList.toggle("show-user");
   }
 
   handleChange(e) {
@@ -41,25 +30,16 @@ class LoggedInNav extends React.Component {
 
   changeSearchFilter(filter) {
     this.setState({searchFilter: filter})
-    this.dropdownSearchClick();
     this.setState({text: ""});
-  }
-
-  handleClick() {
-    this.props.history.push('/dashboard');
   }
 
   handleProfile() {
     this.props.history.push(`/members/${this.props.user.id}`);
-    this.dropdownUserClick();
   }
 
   handleDashClick() {
     this.props.history.push('/dashboard');
-    this.dropdownUserClick();
   }
-
-
 
   handleSubmit(e) {
     e.preventDefault();
@@ -144,7 +124,7 @@ render() {
     return (
 
       <header className="dash-top-nav">
-        <article className="logo" onClick={() => this.handleClick()}>
+        <article className="logo" onClick={() => this.handleDashClick()}>
           SofaSkipping
         </article>
         <div className="logged-in-nav-errors-div">
@@ -169,18 +149,18 @@ render() {
           {input}
         </article>
 
-        <div className="dash-circular-user-button-div">
-          <img onClick={() => this.dropdownUserClick()} className="dash-nav-profile-photo" src={userPicture}/>
-          <div id='nav-user-dropdown' className='dash-nav-user-menu'>
-            <ul className="dash-nav-user-ul">
-              <li>
-                <button onClick={() => this.handleDashClick()}>My Dashboard </button>
+        <div className="dropdown-profile">
+          <img className="dash-nav-profile-photo" src={userPicture}/>
+          <div className="dropdown-content-profile">
+            <ul className="directions-ul">
+              <li onClick={() => this.handleDashClick()}>
+                <div>My Dashboard </div>
               </li>
-              <li>
-                <button onClick={() => this.handleProfile()}>My Profile</button>
+              <li onClick={() => this.handleProfile()}>
+                <div>My Profile</div>
               </li>
-              <li>
-              <button onClick={() => this.props.logOut()}>Log Out</button>
+              <li onClick={() => this.props.logOut()}>
+              <div>Log Out</div>
               </li>
             </ul>
           </div>

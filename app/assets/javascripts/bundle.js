@@ -1808,28 +1808,15 @@ var LoggedInNav = function (_React$Component) {
       photos: ""
     };
 
-    _this.dropdownSearchClick = _this.dropdownSearchClick.bind(_this);
-    _this.dropdownUserClick = _this.dropdownUserClick.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
     _this.changeSearchFilter = _this.changeSearchFilter.bind(_this);
     _this.handleSubmit = _this.handleSubmit.bind(_this);
-    _this.handleClick = _this.handleClick.bind(_this);
     _this.handleGoogle = _this.handleGoogle.bind(_this);
     _this.handleDashClick = _this.handleDashClick.bind(_this);
     return _this;
   }
 
   _createClass(LoggedInNav, [{
-    key: 'dropdownSearchClick',
-    value: function dropdownSearchClick() {
-      return document.getElementById("nav-dropdown").classList.toggle("show-search");
-    }
-  }, {
-    key: 'dropdownUserClick',
-    value: function dropdownUserClick() {
-      return document.getElementById("nav-user-dropdown").classList.toggle("show-user");
-    }
-  }, {
     key: 'handleChange',
     value: function handleChange(e) {
       this.setState({ text: e.target.value });
@@ -1838,25 +1825,17 @@ var LoggedInNav = function (_React$Component) {
     key: 'changeSearchFilter',
     value: function changeSearchFilter(filter) {
       this.setState({ searchFilter: filter });
-      this.dropdownSearchClick();
       this.setState({ text: "" });
-    }
-  }, {
-    key: 'handleClick',
-    value: function handleClick() {
-      this.props.history.push('/dashboard');
     }
   }, {
     key: 'handleProfile',
     value: function handleProfile() {
       this.props.history.push('/members/' + this.props.user.id);
-      this.dropdownUserClick();
     }
   }, {
     key: 'handleDashClick',
     value: function handleDashClick() {
       this.props.history.push('/dashboard');
-      this.dropdownUserClick();
     }
   }, {
     key: 'handleSubmit',
@@ -1964,7 +1943,7 @@ var LoggedInNav = function (_React$Component) {
         _react2.default.createElement(
           'article',
           { className: 'logo', onClick: function onClick() {
-              return _this3.handleClick();
+              return _this3.handleDashClick();
             } },
           'SofaSkipping'
         ),
@@ -2019,46 +1998,44 @@ var LoggedInNav = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          { className: 'dash-circular-user-button-div' },
-          _react2.default.createElement('img', { onClick: function onClick() {
-              return _this3.dropdownUserClick();
-            }, className: 'dash-nav-profile-photo', src: userPicture }),
+          { className: 'dropdown-profile' },
+          _react2.default.createElement('img', { className: 'dash-nav-profile-photo', src: userPicture }),
           _react2.default.createElement(
             'div',
-            { id: 'nav-user-dropdown', className: 'dash-nav-user-menu' },
+            { className: 'dropdown-content-profile' },
             _react2.default.createElement(
               'ul',
-              { className: 'dash-nav-user-ul' },
+              { className: 'directions-ul' },
               _react2.default.createElement(
                 'li',
-                null,
+                { onClick: function onClick() {
+                    return _this3.handleDashClick();
+                  } },
                 _react2.default.createElement(
-                  'button',
-                  { onClick: function onClick() {
-                      return _this3.handleDashClick();
-                    } },
+                  'div',
+                  null,
                   'My Dashboard '
                 )
               ),
               _react2.default.createElement(
                 'li',
-                null,
+                { onClick: function onClick() {
+                    return _this3.handleProfile();
+                  } },
                 _react2.default.createElement(
-                  'button',
-                  { onClick: function onClick() {
-                      return _this3.handleProfile();
-                    } },
+                  'div',
+                  null,
                   'My Profile'
                 )
               ),
               _react2.default.createElement(
                 'li',
-                null,
+                { onClick: function onClick() {
+                    return _this3.props.logOut();
+                  } },
                 _react2.default.createElement(
-                  'button',
-                  { onClick: function onClick() {
-                      return _this3.props.logOut();
-                    } },
+                  'div',
+                  null,
                   'Log Out'
                 )
               )
