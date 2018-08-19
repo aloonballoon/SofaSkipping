@@ -1971,23 +1971,23 @@ var LoggedInNav = function (_React$Component) {
                 { className: 'directions-ul' },
                 _react2.default.createElement(
                   'li',
-                  null,
+                  { onClick: function onClick() {
+                      return _this3.changeSearchFilter("Explore");
+                    } },
                   _react2.default.createElement(
                     'div',
-                    { onClick: function onClick() {
-                        return _this3.changeSearchFilter("Explore");
-                      } },
+                    null,
                     'Explore'
                   )
                 ),
                 _react2.default.createElement(
                   'li',
-                  null,
+                  { onClick: function onClick() {
+                      return _this3.changeSearchFilter("Find Members");
+                    } },
                   _react2.default.createElement(
                     'div',
-                    { onClick: function onClick() {
-                        return _this3.changeSearchFilter("Find Members");
-                      } },
+                    null,
                     'Find Members'
                   )
                 )
@@ -2404,15 +2404,15 @@ var SessionForm = function (_React$Component) {
       if (this.props.formType === 'signup') {
         title = 'Join SofaSkipping for free';
 
-        firstName = _react2.default.createElement('input', { required: true, key: '3', id: 'login-signup-firstname-input', type: 'text', placeholder: '  First Name', onChange: this.handleChange('first_name') });
+        firstName = _react2.default.createElement('input', { required: true, key: '3', id: 'login-signup-firstname-input', type: 'text', placeholder: ' First Name', onChange: this.handleChange('first_name') });
 
-        lastName = _react2.default.createElement('input', { required: true, key: '4', id: 'login-signup-lastname-input', type: 'text', placeholder: '  Last Name', onChange: this.handleChange('last_name') });
+        lastName = _react2.default.createElement('input', { required: true, key: '4', id: 'login-signup-lastname-input', type: 'text', placeholder: ' Last Name', onChange: this.handleChange('last_name') });
 
         submit = "Join with Email";
         buttonLink = this.props.otherForm;
         switchPhrase = "Already a member?";
 
-        email = _react2.default.createElement('input', { key: '5', className: 'login-signup-input', type: 'email', placeholder: 'Email', onChange: this.handleChange('email') });
+        email = _react2.default.createElement('input', { key: '5', className: 'login-signup-input', type: 'email', placeholder: ' Email', onChange: this.handleChange('email') });
       } else {
         title = "Log in to SofaSkipping";
         submit = "Log In";
@@ -2420,7 +2420,7 @@ var SessionForm = function (_React$Component) {
         buttonLink = this.props.otherForm;
         switchPhrase = "Don't have an account?";
 
-        email = _react2.default.createElement('input', { key: '5', className: 'login-signup-input', type: 'text', placeholder: '  Email', onChange: this.handleChange('email') });
+        email = _react2.default.createElement('input', { key: '5', className: 'login-signup-input', type: 'text', placeholder: ' Email', onChange: this.handleChange('email') });
       }
 
       var errors = void 0;
@@ -2471,7 +2471,7 @@ var SessionForm = function (_React$Component) {
           _react2.default.createElement('br', null),
           email,
           _react2.default.createElement('br', null),
-          _react2.default.createElement('input', { required: true, minLength: '6', className: 'login-signup-input', key: '2', type: 'password', placeholder: 'Password', onChange: this.handleChange('password') }),
+          _react2.default.createElement('input', { required: true, minLength: '6', className: 'login-signup-input', key: '2', type: 'password', placeholder: ' Password', onChange: this.handleChange('password') }),
           _react2.default.createElement('br', null),
           _react2.default.createElement(
             'button',

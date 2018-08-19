@@ -137,11 +137,11 @@ render() {
           <button className="dropbtn" className="dash-nav-dropdown-menu">{this.state.searchFilter}</button>
           <div className="dropdown-content">
             <ul className="directions-ul">
-            <li>
-              <div onClick={() => this.changeSearchFilter("Explore")}>Explore</div>
+            <li onClick={() => this.changeSearchFilter("Explore")}>
+              <div>Explore</div>
             </li>
-            <li>
-              <div onClick={() => this.changeSearchFilter("Find Members")}>Find Members</div>
+            <li onClick={() => this.changeSearchFilter("Find Members")}>
+              <div>Find Members</div>
             </li>
             </ul>
           </div>
