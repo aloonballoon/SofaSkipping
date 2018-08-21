@@ -201,8 +201,13 @@
   border-radius: 50%;
 }
 
-.upcoming-guests-li-holding-div {
+.upcoming-guests-li-name-header-div {
+  display: inline-block;
+}
 
+.upcoming-guests-li-name-header-div:hover {
+  cursor:pointer;
+  color: blue;
 }
 
 .upcoming-guests-li-name-header {
@@ -210,10 +215,6 @@
   text-align: left;
   font-size: 20px;
   font-weight: bold;
-}
-
-.upcoming-guests-li-name-header:hover {
-  cursor:pointer;
 }
 
 .em-arrow_down_small {

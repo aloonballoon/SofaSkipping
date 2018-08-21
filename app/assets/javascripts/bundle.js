@@ -2897,9 +2897,13 @@ var UpcomingHostingsItem = function (_React$Component) {
               { className: 'upcoming-guests-li-name-header', onClick: function onClick() {
                   return _this2.handleClick();
                 } },
-              firstName,
-              ' ',
-              lastName
+              _react2.default.createElement(
+                'div',
+                { className: 'upcoming-guests-li-name-header-div' },
+                firstName,
+                ' ',
+                lastName
+              )
             ),
             _react2.default.createElement(
               'header',
@@ -3235,9 +3239,13 @@ var UpcomingTripsItem = function (_React$Component) {
               { className: 'upcoming-guests-li-name-header', onClick: function onClick() {
                   return _this2.handleClick();
                 } },
-              firstName,
-              ' ',
-              lastName
+              _react2.default.createElement(
+                'div',
+                { className: 'upcoming-guests-li-name-header-div' },
+                firstName,
+                ' ',
+                lastName
+              )
             ),
             _react2.default.createElement(
               'header',
@@ -3371,17 +3379,11 @@ var UserDashSidebar = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (UserDashSidebar.__proto__ || Object.getPrototypeOf(UserDashSidebar)).call(this, props));
 
     _this.state = _this.props.user;
-    _this.dropdownStatusClick = _this.dropdownStatusClick.bind(_this);
     _this.changeStatus = _this.changeStatus.bind(_this);
     return _this;
   }
 
   _createClass(UserDashSidebar, [{
-    key: "dropdownStatusClick",
-    value: function dropdownStatusClick() {
-      return document.getElementById("dash-status-dropdown-id").classList.toggle("show-dash-status-dropdown");
-    }
-  }, {
     key: "changeStatus",
     value: function changeStatus(e) {
       var _this2 = this;
@@ -3390,7 +3392,6 @@ var UserDashSidebar = function (_React$Component) {
       this.setState({ user_status: e.target.value }, function () {
         _this2.props.updateStatus(_this2.state);
       });
-      this.dropdownStatusClick();
     }
   }, {
     key: "render",
@@ -3403,9 +3404,7 @@ var UserDashSidebar = function (_React$Component) {
 
       var changeStatusButton = _react2.default.createElement(
         "button",
-        { onClick: function onClick() {
-            return _this3.dropdownStatusClick();
-          }, className: "dash-status-button", type: "button", "data-toggle": "dropdown" },
+        { className: "dash-status-button", type: "button", "data-toggle": "dropdown" },
         this.state.user_status,
         _react2.default.createElement("span", { className: "caret" })
       );

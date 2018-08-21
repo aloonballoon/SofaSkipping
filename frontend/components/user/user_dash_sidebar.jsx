@@ -5,12 +5,7 @@ class UserDashSidebar extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props.user;
-    this.dropdownStatusClick = this.dropdownStatusClick.bind(this);
     this.changeStatus = this.changeStatus.bind(this);
-  }
-
-  dropdownStatusClick() {
-    return document.getElementById("dash-status-dropdown-id").classList.toggle("show-dash-status-dropdown");
   }
 
   changeStatus(e) {
@@ -18,7 +13,6 @@ class UserDashSidebar extends React.Component {
     this.setState({user_status: e.target.value}, () => {
       this.props.updateStatus(this.state);
     });
-    this.dropdownStatusClick();
   }
 
 
@@ -29,7 +23,7 @@ class UserDashSidebar extends React.Component {
     const MAYBE_ACCEPTING_GUESTS = "Maybe accepting guests";
     const NOT_ACCEPTING_GUESTS = "Not accepting guests";
 
-    let changeStatusButton = <button onClick={() => this.dropdownStatusClick()} className="dash-status-button" type="button" data-toggle="dropdown">{this.state.user_status}<span className="caret"></span></button>;
+    let changeStatusButton = <button className="dash-status-button" type="button" data-toggle="dropdown">{this.state.user_status}<span className="caret"></span></button>;
 
 
     return (

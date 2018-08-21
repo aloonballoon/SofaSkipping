@@ -86,7 +86,7 @@ class UpcomingHostingsItem extends React.Component {
 
            <article className="upcoming-guests-li-article">
            <header className="upcoming-guests-li-name-header" onClick={() => this.handleClick()}>
-           {firstName} {lastName}
+            <div className="upcoming-guests-li-name-header-div">{firstName} {lastName}</div>
            </header>
            <header className="upcoming-guests-location-header">
             {city}, {country}
