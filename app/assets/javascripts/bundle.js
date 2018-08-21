@@ -1805,7 +1805,8 @@ var LoggedInNav = function (_React$Component) {
       lng: "",
       city: "",
       country: "",
-      photos: ""
+      photos: "",
+      borderBold: "unbold"
     };
 
     _this.handleChange = _this.handleChange.bind(_this);
@@ -1813,10 +1814,17 @@ var LoggedInNav = function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleGoogle = _this.handleGoogle.bind(_this);
     _this.handleDashClick = _this.handleDashClick.bind(_this);
+    _this.toggleClassOnFocus = _this.toggleClassOnFocus.bind(_this);
     return _this;
   }
 
   _createClass(LoggedInNav, [{
+    key: 'toggleClassOnFocus',
+    value: function toggleClassOnFocus() {
+      var css = this.state.borderBold === "unbold" ? "bold" : "unbold";
+      this.setState({ borderBold: css });
+    }
+  }, {
     key: 'handleChange',
     value: function handleChange(e) {
       this.setState({ text: e.target.value });
@@ -1909,7 +1917,11 @@ var LoggedInNav = function (_React$Component) {
       if (this.state.searchFilter === "Find Members") {
         input = _react2.default.createElement(
           'form',
-          { className: 'dash-nav-input-form', onSubmit: function onSubmit(e) {
+          { className: 'dash-nav-input-form', onFocus: function onFocus() {
+              return _this3.toggleClassOnFocus();
+            }, onBlur: function onBlur() {
+              return _this3.toggleClassOnFocus();
+            }, onSubmit: function onSubmit(e) {
               return _this3.handleSubmit(e);
             } },
           _react2.default.createElement('input', { onChange: function onChange(e) {
@@ -1923,6 +1935,10 @@ var LoggedInNav = function (_React$Component) {
           'form',
           { onSubmit: function onSubmit(e) {
               return _this3.handleSubmit(e);
+            }, onFocus: function onFocus() {
+              return _this3.toggleClassOnFocus();
+            }, onBlur: function onBlur() {
+              return _this3.toggleClassOnFocus();
             } },
           _react2.default.createElement(_reactGoogleAutocomplete2.default, {
             className: 'dash-nav-search-input', style: ({ width: '80%' }, { height: '80%' }),
@@ -1954,7 +1970,7 @@ var LoggedInNav = function (_React$Component) {
         ),
         _react2.default.createElement(
           'article',
-          { className: 'dash-nav-input-dropdown-form' },
+          { className: 'dash-nav-input-dropdown-form', id: this.state.borderBold },
           _react2.default.createElement(
             'div',
             { className: 'dropdown' },

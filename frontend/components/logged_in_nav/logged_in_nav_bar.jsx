@@ -14,14 +14,21 @@ class LoggedInNav extends React.Component {
       lng: "",
       city: "",
       country: "",
-      photos: ""
+      photos: "",
+      borderBold: "unbold"
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.changeSearchFilter = this.changeSearchFilter.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleGoogle = this.handleGoogle.bind(this);
-    this.handleDashClick= this.handleDashClick.bind(this);
+    this.handleDashClick = this.handleDashClick.bind(this);
+    this.toggleClassOnFocus = this.toggleClassOnFocus.bind(this);
+  }
+
+  toggleClassOnFocus() {
+    let css = (this.state.borderBold === "unbold") ? "bold" : "unbold";
+    this.setState({borderBold: css});
   }
 
   handleChange(e) {
@@ -105,12 +112,12 @@ render() {
 
     let input;
     if (this.state.searchFilter === "Find Members") {
-        input = <form className="dash-nav-input-form" onSubmit={(e) => this.handleSubmit(e)}>
+        input = <form className="dash-nav-input-form" onFocus={() => this.toggleClassOnFocus()} onBlur={() => this.toggleClassOnFocus()} onSubmit={(e) => this.handleSubmit(e)}>
                   <input onChange= {(e) => this.handleChange(e)} value={this.state.text} className="dash-nav-search-input" type="text" placeholder={placeholder} onSubmit={(e) => this.handleSubmit(e)}>
                   </input>
                 </form>
     } else if (this.state.searchFilter === "Explore") {
-        input = <form onSubmit={(e) => this.handleSubmit(e)}>
+        input = <form onSubmit={(e) => this.handleSubmit(e)} onFocus={() => this.toggleClassOnFocus()} onBlur={() => this.toggleClassOnFocus()}>
                   <Autocomplete
                     className="dash-nav-search-input" style={{width: '80%'}, {height: '80%'}}
                     onChange={(e) => this.handleChange(e)}
@@ -131,7 +138,7 @@ render() {
           {errors}
         </div>
 
-        <article className="dash-nav-input-dropdown-form" >
+        <article className="dash-nav-input-dropdown-form" id={this.state.borderBold}>
 
         <div className="dropdown">
           <button className="dropbtn" className="dash-nav-dropdown-menu">{this.state.searchFilter}</button>
