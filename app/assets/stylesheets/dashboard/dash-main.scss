@@ -43,11 +43,24 @@
   padding-top: 10px;
   padding-bottom: 10px;
   background-color: white;
-  height: auto;
+  height: 100%;
   width: auto;
   text-align: center;
   align-items: center;
   position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.dash-sidebar-footer:hover .dash-status-button{
+  background-color: #f2f2f2;
+}
+
+.dash-sidebar-footer:hover{
+  background-color: #f2f2f2;
+  border: 1px solid grey;
+  border-color: rgba(51, 40, 40, 0.2);
+  box-shadow: 0 0 5px rgba(51, 40, 40, 0.2);
 }
 
 .dash-section {
@@ -63,10 +76,6 @@
 
 .dash-section header{
   margin: 5px;
-}
-
-.dash-section header{
-
 }
 
 .dash-section div{
@@ -94,13 +103,24 @@
 .hidden-dash-status-dropdown {
   display: none;
   z-index: 1;
-
 }
 
 .dash-status-ul {
   position: relative;
   border-color: #F1EFEA;
   border: 2px;
+}
+
+.dash-sidebar-footer:hover .hidden-dash-status-dropdown {
+  display: block;
+  background-color: #f7f7f7;;
+  position: absolute;
+  left: 10px;
+  z-index: 1;
+  width: 300px;
+  position: absolute;
+  top: 102%;
+  left: 0%;
 }
 
 .dash-status-ul li button{
@@ -113,18 +133,7 @@
   background-color: #f2f2f2
 }
 
-.show-dash-status-dropdown {
-  display: block;
-  background-color: #f7f7f7;;
-  position: absolute;
-  left: 10px;
-  z-index: 1;
-  width: 300px;
-  position: absolute;
-  left: 0%;
-}
-
-.show-dash-status-dropdown li{
+.hidden-dash-status-dropdown li{
   display: block;
   background-color: #f7f7f7;;
   position: inherit;
@@ -133,7 +142,7 @@
   padding: 0px;
 }
 
-.show-dash-status-dropdown button{
+.hidden-dash-status-dropdown button{
   border: none;
   outline: none;
   width: 100%;
