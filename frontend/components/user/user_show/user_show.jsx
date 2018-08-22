@@ -12,6 +12,11 @@ class UserShow extends React.Component {
     }
     this.handleStartDate = this.handleStartDate.bind(this);
     this.handleEndDate = this.handleEndDate.bind(this);
+    this.handleLocationClick = this.handleLocationClick.bind(this);
+  }
+
+  handleLocationClick() {
+    this.props.history.push(`/location/${this.props.user.location.city}`)
   }
 
   handleStartDate(e) {
@@ -98,7 +103,7 @@ class UserShow extends React.Component {
             </h1>
           </div>
           <footer className="user-show-footer">
-            <h2 className="user-show-h2">
+            <h2 className="user-show-h2" onClick={() => this.handleLocationClick()}>
               {city}, {country}
             </h2>
           </footer>

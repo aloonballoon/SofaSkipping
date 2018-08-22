@@ -3991,10 +3991,16 @@ var UserShow = function (_React$Component) {
     };
     _this.handleStartDate = _this.handleStartDate.bind(_this);
     _this.handleEndDate = _this.handleEndDate.bind(_this);
+    _this.handleLocationClick = _this.handleLocationClick.bind(_this);
     return _this;
   }
 
   _createClass(UserShow, [{
+    key: 'handleLocationClick',
+    value: function handleLocationClick() {
+      this.props.history.push('/location/' + this.props.user.location.city);
+    }
+  }, {
     key: 'handleStartDate',
     value: function handleStartDate(e) {
       var _this2 = this;
@@ -4126,7 +4132,9 @@ var UserShow = function (_React$Component) {
             { className: 'user-show-footer' },
             _react2.default.createElement(
               'h2',
-              { className: 'user-show-h2' },
+              { className: 'user-show-h2', onClick: function onClick() {
+                  return _this5.handleLocationClick();
+                } },
               city,
               ', ',
               country
