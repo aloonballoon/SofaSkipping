@@ -2787,16 +2787,22 @@ var UpcomingHostingsItem = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (UpcomingHostingsItem.__proto__ || Object.getPrototypeOf(UpcomingHostingsItem)).call(this, props));
 
     _this.state = _this.props;
-    _this.handleClick = _this.handleClick.bind(_this);
+    _this.handleUserClick = _this.handleUserClick.bind(_this);
     _this.cancelHosting = _this.cancelHosting.bind(_this);
     _this.confirmHosting = _this.confirmHosting.bind(_this);
+    _this.handleLocationClick = _this.handleLocationClick.bind(_this);
     return _this;
   }
 
   _createClass(UpcomingHostingsItem, [{
-    key: 'handleClick',
-    value: function handleClick() {
+    key: 'handleUserClick',
+    value: function handleUserClick() {
       this.props.history.push('/members/' + this.props.guest.id);
+    }
+  }, {
+    key: 'handleLocationClick',
+    value: function handleLocationClick() {
+      this.props.history.push('/location/' + this.props.guest.location.city);
     }
   }, {
     key: 'cancelHosting',
@@ -2884,7 +2890,7 @@ var UpcomingHostingsItem = function (_React$Component) {
         'li',
         null,
         _react2.default.createElement('img', { className: 'dash-main-guest-host-img', onClick: function onClick() {
-            return _this2.handleClick();
+            return _this2.handleUserClick();
           }, src: guestImage }),
         _react2.default.createElement(
           'div',
@@ -2894,12 +2900,12 @@ var UpcomingHostingsItem = function (_React$Component) {
             { className: 'upcoming-guests-li-article' },
             _react2.default.createElement(
               'header',
-              { className: 'upcoming-guests-li-name-header', onClick: function onClick() {
-                  return _this2.handleClick();
-                } },
+              { className: 'upcoming-guests-li-name-header' },
               _react2.default.createElement(
                 'div',
-                { className: 'upcoming-guests-li-name-header-div' },
+                { className: 'upcoming-guests-li-name-header-div', onClick: function onClick() {
+                    return _this2.handleUserClick();
+                  } },
                 firstName,
                 ' ',
                 lastName
@@ -2907,7 +2913,9 @@ var UpcomingHostingsItem = function (_React$Component) {
             ),
             _react2.default.createElement(
               'header',
-              { className: 'upcoming-guests-location-header' },
+              { className: 'upcoming-guests-location-header', onClick: function onClick() {
+                  return _this2.handleLocationClick();
+                } },
               city,
               ', ',
               country
@@ -3081,6 +3089,7 @@ var msp = function msp(state) {
       hosts.push(state.entities.users[id]);
     }
   });
+
   var trips = state.entities.users[state.session.id].trip_ids.map(function (id) {
     return state.entities.bookings.trips[id];
   });
@@ -3150,15 +3159,20 @@ var UpcomingTripsItem = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (UpcomingTripsItem.__proto__ || Object.getPrototypeOf(UpcomingTripsItem)).call(this, props));
 
     _this.state = _this.props;
-    _this.handleClick = _this.handleClick.bind(_this);
-
+    _this.handleUserClick = _this.handleUserClick.bind(_this);
+    _this.handleLocationClick = _this.handleLocationClick.bind(_this);
     return _this;
   }
 
   _createClass(UpcomingTripsItem, [{
-    key: 'handleClick',
-    value: function handleClick() {
+    key: 'handleUserClick',
+    value: function handleUserClick() {
       this.props.history.push('/members/' + this.props.host.id);
+    }
+  }, {
+    key: 'handleLocationClick',
+    value: function handleLocationClick() {
+      this.props.history.push('/location/' + this.props.host.location.city);
     }
   }, {
     key: 'render',
@@ -3172,8 +3186,8 @@ var UpcomingTripsItem = function (_React$Component) {
       var startDate = "";
       var endDate = "";
       var hostImage = "";
-
       var confirmed = void 0;
+
       if (typeof this.props.host !== 'undefined') {
         firstName = this.props.host.first_name;
         lastName = this.props.host.last_name;
@@ -3225,7 +3239,7 @@ var UpcomingTripsItem = function (_React$Component) {
         'li',
         null,
         _react2.default.createElement('img', { className: 'dash-main-guest-host-img', onClick: function onClick() {
-            return _this2.handleClick();
+            return _this2.handleUserClick();
           }, src: hostImage }),
         _react2.default.createElement(
           'div',
@@ -3236,12 +3250,12 @@ var UpcomingTripsItem = function (_React$Component) {
             { className: 'upcoming-guests-li-article' },
             _react2.default.createElement(
               'header',
-              { className: 'upcoming-guests-li-name-header', onClick: function onClick() {
-                  return _this2.handleClick();
-                } },
+              { className: 'upcoming-guests-li-name-header' },
               _react2.default.createElement(
                 'div',
-                { className: 'upcoming-guests-li-name-header-div' },
+                { className: 'upcoming-guests-li-name-header-div', onClick: function onClick() {
+                    return _this2.handleUserClick();
+                  } },
                 firstName,
                 ' ',
                 lastName
@@ -3249,7 +3263,9 @@ var UpcomingTripsItem = function (_React$Component) {
             ),
             _react2.default.createElement(
               'header',
-              { className: 'upcoming-guests-location-header' },
+              { className: 'upcoming-guests-location-header', onClick: function onClick() {
+                  return _this2.handleLocationClick();
+                } },
               city,
               ', ',
               country
@@ -3362,6 +3378,8 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3380,11 +3398,12 @@ var UserDashSidebar = function (_React$Component) {
 
     _this.state = _this.props.user;
     _this.changeStatus = _this.changeStatus.bind(_this);
+    _this.handleLocationClick = _this.handleLocationClick.bind(_this);
     return _this;
   }
 
   _createClass(UserDashSidebar, [{
-    key: "changeStatus",
+    key: 'changeStatus',
     value: function changeStatus(e) {
       var _this2 = this;
 
@@ -3394,7 +3413,12 @@ var UserDashSidebar = function (_React$Component) {
       });
     }
   }, {
-    key: "render",
+    key: 'handleLocationClick',
+    value: function handleLocationClick() {
+      this.props.history.push('/location/' + this.props.user.location.city);
+    }
+  }, {
+    key: 'render',
     value: function render() {
       var _this3 = this;
 
@@ -3403,75 +3427,77 @@ var UserDashSidebar = function (_React$Component) {
       var NOT_ACCEPTING_GUESTS = "Not accepting guests";
 
       var changeStatusButton = _react2.default.createElement(
-        "button",
-        { className: "dash-status-button", type: "button", "data-toggle": "dropdown" },
+        'button',
+        { className: 'dash-status-button', type: 'button', 'data-toggle': 'dropdown' },
         this.state.user_status,
-        _react2.default.createElement("span", { className: "caret" })
+        _react2.default.createElement('span', { className: 'caret' })
       );
 
       return _react2.default.createElement(
-        "aside",
-        { className: "dash-sidebar-aside" },
+        'aside',
+        { className: 'dash-sidebar-aside' },
         _react2.default.createElement(
-          "header",
-          { className: "dash-sidebar-header" },
+          'header',
+          { className: 'dash-sidebar-header' },
           _react2.default.createElement(
-            "p",
+            'p',
             null,
             this.props.user.first_name,
-            " ",
+            ' ',
             this.props.user.last_name
           ),
           _react2.default.createElement(
-            "p",
-            null,
+            'p',
+            { className: 'dash-sidebar-location-p', onClick: function onClick() {
+                return _this3.handleLocationClick();
+              } },
             this.props.user.location.city,
-            ", ",
+            ', ',
             this.props.user.location.country
           )
         ),
         _react2.default.createElement(
-          "footer",
-          { className: "dash-sidebar-footer" },
+          'footer',
+          { className: 'dash-sidebar-footer' },
           changeStatusButton,
-          _react2.default.createElement("i", { className: "em em-arrow_down_small" }),
+          _react2.default.createElement('i', { className: 'em em-arrow_down_small' }),
           _react2.default.createElement(
-            "div",
-            { id: "dash-status-dropdown-id", className: "hidden-dash-status-dropdown" },
+            'div',
+            { id: 'dash-status-dropdown-id', className: 'hidden-dash-status-dropdown' },
             _react2.default.createElement(
-              "ul",
-              { className: "dash-status-ul" },
+              'ul',
+              { className: 'dash-status-ul' },
               _react2.default.createElement(
-                "li",
+                'li',
                 null,
                 _react2.default.createElement(
-                  "button",
-                  { value: "Accepting guests", onClick: function onClick(e) {
+                  'button',
+                  { value: 'Accepting guests', onClick: function onClick(e) {
                       return _this3.changeStatus(e);
                     } },
-                  "Accepting guests"
+                  'Accepting guests'
                 )
               ),
               _react2.default.createElement(
-                "li",
+                'li',
                 null,
                 _react2.default.createElement(
-                  "button",
-                  { value: "Maybe accepting guests", onClick: function onClick(e) {
+                  'button',
+                  { value: 'Maybe accepting guests', onClick: function onClick(e) {
                       return _this3.changeStatus(e);
                     } },
-                  "Maybe accepting guests"
+                  'Maybe accepting guests'
                 )
               ),
               _react2.default.createElement(
-                "li",
+                'li',
                 null,
                 _react2.default.createElement(
-                  "button",
-                  { value: "Not accepting guests", onClick: function onClick(e) {
+                  'button',
+                  { value: 'Not accepting guests', onClick: function onClick(e) {
                       return _this3.changeStatus(e);
                     } },
-                  "Not accepting guests"
+                  'Not accepting guests'
                 )
               )
             )
@@ -3484,9 +3510,7 @@ var UserDashSidebar = function (_React$Component) {
   return UserDashSidebar;
 }(_react2.default.Component);
 
-exports.default = UserDashSidebar;
-
-// <input type="file" onChange={this.handleFile.bind(this)}></input>
+exports.default = (0, _reactRouter.withRouter)(UserDashSidebar);
 
 /***/ }),
 
@@ -3646,12 +3670,6 @@ var msp = function msp(state, ownProps) {
     user: user
   };
 };
-
-// const mdp = (dispatch, ownProps) => {
-//   return {
-//     fetchUser: (id) => dispatch(fetchUser(id))
-//   };
-// };
 
 exports.default = (0, _reactRedux.connect)(msp)(_user_dashboard2.default);
 

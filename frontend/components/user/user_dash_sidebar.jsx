@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 
 
 class UserDashSidebar extends React.Component {
@@ -6,6 +7,7 @@ class UserDashSidebar extends React.Component {
     super(props);
     this.state = this.props.user;
     this.changeStatus = this.changeStatus.bind(this);
+    this.handleLocationClick = this.handleLocationClick.bind(this);
   }
 
   changeStatus(e) {
@@ -13,6 +15,10 @@ class UserDashSidebar extends React.Component {
     this.setState({user_status: e.target.value}, () => {
       this.props.updateStatus(this.state);
     });
+  }
+
+  handleLocationClick() {
+    this.props.history.push(`/location/${this.props.user.location.city}`)
   }
 
 
@@ -30,7 +36,7 @@ class UserDashSidebar extends React.Component {
       <aside className="dash-sidebar-aside">
         <header className="dash-sidebar-header">
           <p>{this.props.user.first_name} {this.props.user.last_name}</p>
-          <p>{this.props.user.location.city}, {this.props.user.location.country}</p>
+          <p className="dash-sidebar-location-p" onClick={() => this.handleLocationClick()} >{this.props.user.location.city}, {this.props.user.location.country}</p>
         </header>
         <footer className="dash-sidebar-footer">
           {changeStatusButton}
@@ -54,8 +60,4 @@ class UserDashSidebar extends React.Component {
   }
 }
 
-export default UserDashSidebar;
-
-
-
-// <input type="file" onChange={this.handleFile.bind(this)}></input>
+export default withRouter(UserDashSidebar);

@@ -15,10 +15,4 @@ const msp = (state, ownProps) => {
   };
 };
 
-// const mdp = (dispatch, ownProps) => {
-//   return {
-//     fetchUser: (id) => dispatch(fetchUser(id))
-//   };
-// };
-
 export default connect(msp)(UserDashboard);

@@ -5,13 +5,18 @@ class UpcomingHostingsItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props;
-    this.handleClick = this.handleClick.bind(this);
+    this.handleUserClick = this.handleUserClick.bind(this);
     this.cancelHosting = this.cancelHosting.bind(this);
     this.confirmHosting = this.confirmHosting.bind(this);
+    this.handleLocationClick = this.handleLocationClick.bind(this);
   }
 
-  handleClick() {
+  handleUserClick() {
     this.props.history.push(`/members/${this.props.guest.id}`);
+  }
+
+  handleLocationClick() {
+    this.props.history.push(`/location/${this.props.guest.location.city}`);
   }
 
   cancelHosting() {
@@ -81,14 +86,14 @@ class UpcomingHostingsItem extends React.Component {
 
     return(
       <li>
-        <img className="dash-main-guest-host-img" onClick={() => this.handleClick()} src={guestImage}/>
+        <img className="dash-main-guest-host-img" onClick={() => this.handleUserClick()} src={guestImage}/>
         <div className="upcoming-guests-li-holding-div">
 
            <article className="upcoming-guests-li-article">
-           <header className="upcoming-guests-li-name-header" onClick={() => this.handleClick()}>
-            <div className="upcoming-guests-li-name-header-div">{firstName} {lastName}</div>
+           <header className="upcoming-guests-li-name-header" >
+            <div className="upcoming-guests-li-name-header-div" onClick={() => this.handleUserClick()}>{firstName} {lastName}</div>
            </header>
-           <header className="upcoming-guests-location-header">
+           <header className="upcoming-guests-location-header" onClick={() => this.handleLocationClick()}>
             {city}, {country}
            </header>
               <p className="upcoming-guests-li-p-tag">

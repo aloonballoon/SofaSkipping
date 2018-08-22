@@ -11,10 +11,10 @@ const msp = (state) => {
       hosts.push(state.entities.users[id]);
     }
   });
+  
   const trips = state.entities.users[state.session.id].trip_ids.map((id) => {
     return state.entities.bookings.trips[id];
   });
-
 
   return {
     users: state.entities.users,

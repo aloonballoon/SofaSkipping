@@ -5,12 +5,16 @@ class UpcomingTripsItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props;
-    this.handleClick = this.handleClick.bind(this);
-
+    this.handleUserClick = this.handleUserClick.bind(this);
+    this.handleLocationClick = this.handleLocationClick.bind(this);
   }
 
-  handleClick() {
+  handleUserClick() {
     this.props.history.push(`/members/${this.props.host.id}`);
+  }
+
+  handleLocationClick() {
+    this.props.history.push(`/location/${this.props.host.location.city}`);
   }
 
   render() {
@@ -21,8 +25,8 @@ class UpcomingTripsItem extends React.Component {
     let startDate = ""
     let endDate = "";
     let hostImage = ""
-
     let confirmed;
+
     if (typeof this.props.host !== 'undefined') {
       firstName = this.props.host.first_name;
       lastName = this.props.host.last_name;
@@ -66,14 +70,14 @@ class UpcomingTripsItem extends React.Component {
 
     return(
       <li>
-        <img className="dash-main-guest-host-img" onClick={() => this.handleClick()} src={hostImage}/>
+        <img className="dash-main-guest-host-img" onClick={() => this.handleUserClick()} src={hostImage}/>
         <div className="upcoming-guests-li-holding-div">
             {confirmed}
            <article className="upcoming-guests-li-article">
-           <header className="upcoming-guests-li-name-header" onClick={() => this.handleClick()}>
-            <div className="upcoming-guests-li-name-header-div">{firstName} {lastName}</div>
+           <header className="upcoming-guests-li-name-header">
+            <div className="upcoming-guests-li-name-header-div" onClick={() => this.handleUserClick()}>{firstName} {lastName}</div>
            </header>
-           <header className="upcoming-guests-location-header">
+           <header className="upcoming-guests-location-header" onClick={() => this.handleLocationClick()}>
             {city}, {country}
            </header>
               <p className="upcoming-guests-li-p-tag">

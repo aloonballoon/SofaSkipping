@@ -39,6 +39,11 @@
   font-weight: bold;
 }
 
+.dash-sidebar-location-p:hover {
+  color: blue;
+  cursor: pointer;
+}
+
 .dash-sidebar-footer {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -258,6 +263,11 @@ flex-direction: column
 .upcoming-guests-location-header {
   margin: 5px;
   text-align: left;
+}
+
+.upcoming-guests-location-header:hover {
+  color: blue;
+  cursor: pointer;
 }
 
 .em-house {
