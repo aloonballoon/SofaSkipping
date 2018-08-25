@@ -14,11 +14,12 @@ class UserDashboard extends React.Component {
     return (
     <section className="user-dash-main-section">
         <UserDashSidebarContainer user={user} />
-        <section>
+        <section className="dash-main-section">
           <UserDashMain />
           <UpcomingHostingsContainer />
           <UpcomingTripsContainer />
         </section>
+        <div className="empty-div-dash-main"></div>
     </section>
     );
   }

@@ -19,7 +19,7 @@ class Api::UsersController < ApplicationController
       render json: {message: "No users by those fields found!"}, status: 404
     end
   end
-  #LIKE!!!!!
+
 
   def show
     @user = User.find(params[:id])

@@ -3325,31 +3325,64 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var UserDashMain = function UserDashMain(props) {
 
   return _react2.default.createElement(
     "section",
     { className: "dash-section" },
-    _react2.default.createElement("i", { className: "em em-couch_and_lamp" }),
     _react2.default.createElement(
       "header",
       { className: "dash-main-header" },
-      "DIVE IN THE DEEPEST LAKES, CLIMB THE HIGHEST MOUNTAINS, SEE WHERE LOTR WAS FILMED"
+      _react2.default.createElement("i", { className: "em em-couch_and_lamp" }),
+      "DIVE IN THE DEEPEST LAKES, CLIMB THE HIGHEST MOUNTAINS, SEE WHERE LORD OF THE RINGS WAS FILMED"
     ),
     _react2.default.createElement(
-      "div",
-      null,
-      _react2.default.createElement("img", { id: "mountain-image", src: window.mountain })
-    ),
-    _react2.default.createElement(
-      "div",
-      null,
-      _react2.default.createElement("img", { id: "lake-image", src: window.lake })
-    ),
-    _react2.default.createElement(
-      "div",
-      null,
-      _react2.default.createElement("img", { id: "esp-image", src: window.esp })
+      "section",
+      { className: "dash-main-pictures-section" },
+      _react2.default.createElement(
+        "div",
+        _defineProperty({ className: "dash-main-picture1" }, "className", "dash-section-divs"),
+        _react2.default.createElement("img", { id: "mountain-image", src: window.mountain }),
+        _react2.default.createElement(
+          "div",
+          { className: "image-overlay" },
+          _react2.default.createElement(
+            "div",
+            { className: "image-overlay-text" },
+            "Visit Switzerland!"
+          )
+        )
+      ),
+      _react2.default.createElement(
+        "div",
+        _defineProperty({ className: "dash-main-picture2" }, "className", "dash-section-divs"),
+        _react2.default.createElement("img", { id: "lake-image", src: window.lake }),
+        _react2.default.createElement(
+          "div",
+          { className: "image-overlay" },
+          _react2.default.createElement(
+            "div",
+            { className: "image-overlay-text" },
+            "Visit Yosemite!"
+          )
+        )
+      ),
+      _react2.default.createElement(
+        "div",
+        _defineProperty({ className: "dash-main-picture3" }, "className", "dash-section-divs"),
+        _react2.default.createElement("img", { id: "esp-image", src: window.esp }),
+        _react2.default.createElement(
+          "div",
+          { className: "image-overlay" },
+          _react2.default.createElement(
+            "div",
+            { className: "image-overlay-text" },
+            "Visit New York!"
+          )
+        )
+      )
     )
   );
 };
@@ -3621,11 +3654,12 @@ var UserDashboard = function (_React$Component) {
         _react2.default.createElement(_user_dash_sidebar_container2.default, { user: user }),
         _react2.default.createElement(
           'section',
-          null,
+          { className: 'dash-main-section' },
           _react2.default.createElement(_user_dash_main2.default, null),
           _react2.default.createElement(_upcoming_hostings_container2.default, null),
           _react2.default.createElement(_upcoming_trips_container2.default, null)
-        )
+        ),
+        _react2.default.createElement('div', { className: 'empty-div-dash-main' })
       );
     }
   }]);
