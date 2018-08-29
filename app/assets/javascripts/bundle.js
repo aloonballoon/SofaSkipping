@@ -3319,75 +3319,115 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var UserDashMain = function UserDashMain(props) {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  return _react2.default.createElement(
-    "section",
-    { className: "dash-section" },
-    _react2.default.createElement(
-      "header",
-      { className: "dash-main-header" },
-      _react2.default.createElement("i", { className: "em em-couch_and_lamp" }),
-      "DIVE IN THE DEEPEST LAKES, CLIMB THE HIGHEST MOUNTAINS, SEE WHERE LORD OF THE RINGS WAS FILMED"
-    ),
-    _react2.default.createElement(
-      "section",
-      { className: "dash-main-pictures-section" },
-      _react2.default.createElement(
-        "div",
-        _defineProperty({ className: "dash-main-picture1" }, "className", "dash-section-divs"),
-        _react2.default.createElement("img", { id: "mountain-image", src: window.mountain }),
-        _react2.default.createElement(
-          "div",
-          { className: "image-overlay" },
-          _react2.default.createElement(
-            "div",
-            { className: "image-overlay-text" },
-            "Visit Switzerland!"
-          )
-        )
-      ),
-      _react2.default.createElement(
-        "div",
-        _defineProperty({ className: "dash-main-picture2" }, "className", "dash-section-divs"),
-        _react2.default.createElement("img", { id: "lake-image", src: window.lake }),
-        _react2.default.createElement(
-          "div",
-          { className: "image-overlay" },
-          _react2.default.createElement(
-            "div",
-            { className: "image-overlay-text" },
-            "Visit Yosemite!"
-          )
-        )
-      ),
-      _react2.default.createElement(
-        "div",
-        _defineProperty({ className: "dash-main-picture3" }, "className", "dash-section-divs"),
-        _react2.default.createElement("img", { id: "esp-image", src: window.esp }),
-        _react2.default.createElement(
-          "div",
-          { className: "image-overlay" },
-          _react2.default.createElement(
-            "div",
-            { className: "image-overlay-text" },
-            "Visit New York!"
-          )
-        )
-      )
-    )
-  );
-};
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-exports.default = UserDashMain;
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UserDashMain = function (_React$Component) {
+  _inherits(UserDashMain, _React$Component);
+
+  function UserDashMain(props) {
+    _classCallCheck(this, UserDashMain);
+
+    var _this = _possibleConstructorReturn(this, (UserDashMain.__proto__ || Object.getPrototypeOf(UserDashMain)).call(this, props));
+
+    _this.handleRecommendationClick = _this.handleRecommendationClick.bind(_this);
+    return _this;
+  }
+
+  _createClass(UserDashMain, [{
+    key: 'handleRecommendationClick',
+    value: function handleRecommendationClick(location) {
+      this.props.history.push('/location/' + location);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'section',
+        { className: 'dash-section' },
+        _react2.default.createElement(
+          'header',
+          { className: 'dash-main-header' },
+          _react2.default.createElement('i', { className: 'em em-couch_and_lamp' }),
+          'DIVE IN THE DEEPEST LAKES, CLIMB THE HIGHEST MOUNTAINS, SEE WHERE LORD OF THE RINGS WAS FILMED'
+        ),
+        _react2.default.createElement(
+          'section',
+          { className: 'dash-main-pictures-section' },
+          _react2.default.createElement(
+            'div',
+            _defineProperty({ className: 'dash-main-picture1' }, 'className', 'dash-section-divs'),
+            _react2.default.createElement('img', { id: 'mountain-image', src: window.everest }),
+            _react2.default.createElement(
+              'div',
+              { className: 'image-overlay', onClick: function onClick() {
+                  return _this2.handleRecommendationClick("Khumjung");
+                } },
+              _react2.default.createElement(
+                'div',
+                { className: 'image-overlay-text' },
+                'Visit Mount Everest!'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            _defineProperty({ className: 'dash-main-picture2' }, 'className', 'dash-section-divs'),
+            _react2.default.createElement('img', { id: 'lake-image', src: window.borabora }),
+            _react2.default.createElement(
+              'div',
+              { className: 'image-overlay', onClick: function onClick() {
+                  return _this2.handleRecommendationClick("French Polynesia");
+                } },
+              _react2.default.createElement(
+                'div',
+                { className: 'image-overlay-text' },
+                'Visit Bora Bora!'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            _defineProperty({ className: 'dash-main-picture3' }, 'className', 'dash-section-divs'),
+            _react2.default.createElement('img', { id: 'esp-image', src: window.esp }),
+            _react2.default.createElement(
+              'div',
+              { className: 'image-overlay', onClick: function onClick() {
+                  return _this2.handleRecommendationClick("New York");
+                } },
+              _react2.default.createElement(
+                'div',
+                { className: 'image-overlay-text' },
+                'Visit New York!'
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return UserDashMain;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRouter.withRouter)(UserDashMain);
 
 /***/ }),
 
