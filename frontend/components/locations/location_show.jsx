@@ -3,6 +3,7 @@ import GoogleMapReact from 'google-map-react'
 import React from 'react';
 import LocationUserShow from './location_user_show';
 import Slider from './slider';
+import Slick from './slick';
 let searched = false;
 
 class LocationShow extends React.Component {
@@ -56,6 +57,7 @@ class LocationShow extends React.Component {
   }
 
   render() {
+    let slick = null;
     let slider = null;
     const picArr = [window.space_cat, window.volcano, window.palms, window.beautiful_beach2];
     const randomPic = picArr[Math.floor(Math.random()*picArr.length)];
@@ -72,7 +74,7 @@ class LocationShow extends React.Component {
     })
 
     if (Array.isArray(this.state.photosUrl)) {
-      slider = <Slider photos={this.state.photosUrl} />
+      slick = <Slick photos={this.state.photosUrl} />
     }
 
 
@@ -83,7 +85,9 @@ class LocationShow extends React.Component {
             {locationCityName}, {locationCountryName}
           </h1>
         </header>
-        {slider}
+        <section className="location-google-photos-section">
+          {slick}
+        </section>
         <section className="location-user-show-host-and-guest-wrapper">
         <section className="location-user-show-section">
         <header className="location-user-show-header">
