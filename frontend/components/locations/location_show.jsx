@@ -59,8 +59,7 @@ class LocationShow extends React.Component {
   render() {
     let slick = null;
     let slider = null;
-    const picArr = [window.space_cat, window.volcano, window.palms, window.beautiful_beach2];
-    const randomPic = picArr[Math.floor(Math.random()*picArr.length)];
+
     const location = this.props.location || {}
     const locationCityName = location.city
     const locationCountryName = location.country

@@ -1316,8 +1316,7 @@ var LocationShow = function (_React$Component) {
     value: function render() {
       var slick = null;
       var slider = null;
-      var picArr = [window.space_cat, window.volcano, window.palms, window.beautiful_beach2];
-      var randomPic = picArr[Math.floor(Math.random() * picArr.length)];
+
       var location = this.props.location || {};
       var locationCityName = location.city;
       var locationCountryName = location.country;
@@ -1644,7 +1643,9 @@ var SimpleSlider = function (_React$Component) {
         autoplay: false,
         autoplaySpeed: 2000
       };
-      var divStyle = { display: 'unset' };
+      var divStyle = {
+        display: 'unset'
+      };
 
       var photos = this.state.images.map(function (photo, idx) {
         return _react2.default.createElement(

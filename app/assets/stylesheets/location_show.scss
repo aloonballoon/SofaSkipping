@@ -92,6 +92,7 @@
 
 .location-user-show-host-and-guest-wrapper {
   display: flex;
+  margin-top: 30px;
 }
 
 .em-small_airplane {
@@ -246,7 +247,7 @@
 }
 
 .location-google-photos-section {
-  background-color: rgba(0,0,0,1);
+  background-color: #008CBA;
   width: 100%;
   height: 100%;
 }
@@ -254,7 +255,7 @@
 .location-google-slider-photo-div {
   height: 500px;
   width: 500px;
-  display: flex;
+  display: flex !important;
   justify-content: center;
 }
 
@@ -262,9 +263,19 @@
   max-height: 100%;
   max-width: 100%;
   margin: 0px;
-  display: unset;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 2px solid white;
 }
 
 .slick-slide img {
   display: unset;
+}
+
+.slick-prev {
+  left: 10px;
+}
+
+.slick-next {
+  right: 10px;
 }

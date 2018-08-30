@@ -30,7 +30,9 @@ class SimpleSlider extends React.Component {
       autoplay: false,
       autoplaySpeed: 2000
     };
-    let divStyle={display: 'unset'};
+    let divStyle={
+          display: 'unset'
+        };
 
     let photos = this.state.images.map((photo, idx) => {
       return <div key={idx} style={divStyle} className="location-google-slider-photo-div">
