@@ -6,7 +6,8 @@ import { createTrip } from '../../../actions/booking_actions';
 
 const msp = (state, ownProps) => {
   return {
-    user: state.entities.users[ownProps.match.params.userId]
+    user: state.entities.users[ownProps.match.params.userId],
+    currentUser: state.entities.users[state.session.id]
   };
 };
 

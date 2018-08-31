@@ -2,7 +2,6 @@ import Autocomplete from 'react-google-autocomplete';
 import GoogleMapReact from 'google-map-react'
 import React from 'react';
 import LocationUserShow from './location_user_show';
-import Slider from './slider';
 import Slick from './slick';
 let searched = false;
 

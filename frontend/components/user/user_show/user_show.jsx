@@ -8,11 +8,18 @@ class UserShow extends React.Component {
       startDate: "",
       endDate: "",
       errors: "",
-      success: ""
+      success: "",
+      hidden: true
     }
     this.handleStartDate = this.handleStartDate.bind(this);
     this.handleEndDate = this.handleEndDate.bind(this);
     this.handleLocationClick = this.handleLocationClick.bind(this);
+    this.toggleDateSelector = this.toggleDateSelector.bind(this);
+  }
+
+  toggleDateSelector() {
+    let css = this.state.hidden ? false : true;
+    this.setState({hidden: css})
   }
 
   handleLocationClick() {
@@ -54,6 +61,7 @@ class UserShow extends React.Component {
 
   render() {
     let user = this.props.user || {};
+    let currentUser = this.props.currentUser || {};
     let successMessage;
     let userPhoto
     if (user.photoUrl) {
@@ -81,6 +89,12 @@ class UserShow extends React.Component {
     let country = location.country || null;
 
     let hiddenFormState = "user-show-hidden";
+    let hiddenFormStateAddOn = "hidden";
+    if (this.state.hidden) {
+      hiddenFormStateAddOn = "hidden";
+    } else {
+      hiddenFormStateAddOn = "show";
+    }
 
     let errorMessage;
     let errors;
@@ -93,8 +107,17 @@ class UserShow extends React.Component {
       successMessage = <div className="user-show-success-message-div"><div>{this.state.success}</div></div>
     }
 
+    let sendRequestButton;
+    let sendReviewButton;
+
+    if (user.id !== currentUser.id) {
+      sendRequestButton = <button className="user-show-send-request-review-button message" onClick={() => this.toggleDateSelector()}>Send Request</button>
+      sendReviewButton = <button className="user-show-send-request-review-button review" >Write a Review</button>
+    }
+
     return(
       <div className="user-show-background-div">
+
         <aside className="user-show-aside-name-image">
           <img className="user-show-img" src={userPhoto} />
           <div className="user-show-div-name-location">
@@ -108,17 +131,20 @@ class UserShow extends React.Component {
             </h2>
           </footer>
         </aside>
+
         <section className="user-show-info-section">
           <article className="user-show-article-status">
             <div className="user-show-user-status-div" className={classStatus}>
               {user.user_status}
             </div>
             <div className="user-show-button-div">
-              <button className="user-show-send-message-button" >Send Request</button>
-              <button className="user-show-send-message-button" >Write a Review</button>
+              {sendRequestButton}
+              {sendReviewButton}
+
             </div>
           </article>
-          <form className={hiddenFormState} onSubmit={(e) => this.handleSubmit(e)}>
+
+          <form className={hiddenFormState + ` ${hiddenFormStateAddOn}`} onSubmit={(e) => this.handleSubmit(e)}>
               {errorMessage}
               {successMessage}
               <h1 className="user-show-hang-out-banner">Send a Request to Hang Out</h1>
@@ -136,8 +162,14 @@ class UserShow extends React.Component {
                 <button className="user-show-send-message-button-final">Send</button>
                 <div className="user-show-cancel-div" onClick={() => this.cancelInputs()}><div className="text-div" onClick={() => this.cancelInputs()}>Clear</div></div>
               </div>
+          </form>
 
-
+          <form className="user-show-review-form" onSubmit={(e) => this.handleSubmit(e)}>
+              <h1 className="user-show-write-review-h1">Write a Review for {user.first_name}</h1>
+              <section className="user-show-write-review-section">
+                <input type="text"></input>
+                <textarea rows="4" cols="50"></textarea>
+              </section>
           </form>
 
           <section className="user-show-section-bio">

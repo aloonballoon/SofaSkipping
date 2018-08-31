@@ -1168,38 +1168,6 @@ exports.default = WhyJoinForm3;
 
 /***/ }),
 
-/***/ "./frontend/components/locations/left_arrow.jsx":
-/*!******************************************************!*\
-  !*** ./frontend/components/locations/left_arrow.jsx ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var LeftArrow = function LeftArrow(props) {
-  return _react2.default.createElement(
-    "div",
-    { className: "left-arrow", onClick: props.goToPrevSlide },
-    _react2.default.createElement("i", { className: "fa fa-arrow-left fa-2x", "aria-hidden": "true" })
-  );
-};
-
-exports.default = LeftArrow;
-
-/***/ }),
-
 /***/ "./frontend/components/locations/location_show.jsx":
 /*!*********************************************************!*\
   !*** ./frontend/components/locations/location_show.jsx ***!
@@ -1231,10 +1199,6 @@ var _react2 = _interopRequireDefault(_react);
 var _location_user_show = __webpack_require__(/*! ./location_user_show */ "./frontend/components/locations/location_user_show.jsx");
 
 var _location_user_show2 = _interopRequireDefault(_location_user_show);
-
-var _slider = __webpack_require__(/*! ./slider */ "./frontend/components/locations/slider.jsx");
-
-var _slider2 = _interopRequireDefault(_slider);
 
 var _slick = __webpack_require__(/*! ./slick */ "./frontend/components/locations/slick.jsx");
 
@@ -1538,38 +1502,6 @@ exports.default = (0, _reactRedux.connect)(msp, mdp)(_location_show2.default);
 
 /***/ }),
 
-/***/ "./frontend/components/locations/right_arrow.jsx":
-/*!*******************************************************!*\
-  !*** ./frontend/components/locations/right_arrow.jsx ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var RightArrow = function RightArrow(props) {
-  return _react2.default.createElement(
-    "div",
-    { className: "right-arrow", onClick: props.goToNextSlide },
-    _react2.default.createElement("i", { className: "fa fa-arrow-right fa-2x", "aria-hidden": "true" })
-  );
-};
-
-exports.default = RightArrow;
-
-/***/ }),
-
 /***/ "./frontend/components/locations/slick.jsx":
 /*!*************************************************!*\
   !*** ./frontend/components/locations/slick.jsx ***!
@@ -1667,197 +1599,6 @@ var SimpleSlider = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = SimpleSlider;
-
-/***/ }),
-
-/***/ "./frontend/components/locations/slide.jsx":
-/*!*************************************************!*\
-  !*** ./frontend/components/locations/slide.jsx ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Slide = function Slide(_ref) {
-  var image = _ref.image;
-
-  var url = image.getUrl({ maxWidth: 5000, maxHeight: 5000 });
-  var styles = {
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: '50% 50%'
-  };
-  return _react2.default.createElement(
-    'div',
-    { className: 'slide', style: styles },
-    _react2.default.createElement('img', { className: 'slide-img', src: url })
-  );
-};
-
-exports.default = Slide;
-
-/***/ }),
-
-/***/ "./frontend/components/locations/slider.jsx":
-/*!**************************************************!*\
-  !*** ./frontend/components/locations/slider.jsx ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _slide = __webpack_require__(/*! ./slide */ "./frontend/components/locations/slide.jsx");
-
-var _slide2 = _interopRequireDefault(_slide);
-
-var _left_arrow = __webpack_require__(/*! ./left_arrow */ "./frontend/components/locations/left_arrow.jsx");
-
-var _left_arrow2 = _interopRequireDefault(_left_arrow);
-
-var _right_arrow = __webpack_require__(/*! ./right_arrow */ "./frontend/components/locations/right_arrow.jsx");
-
-var _right_arrow2 = _interopRequireDefault(_right_arrow);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Slider = function (_Component) {
-  _inherits(Slider, _Component);
-
-  function Slider(props) {
-    _classCallCheck(this, Slider);
-
-    var _this = _possibleConstructorReturn(this, (Slider.__proto__ || Object.getPrototypeOf(Slider)).call(this, props));
-
-    _this.state = {
-      images: [],
-      currentIndex: 0,
-      translateValue: 0
-    };
-    _this.goToPrevSlide = _this.goToPrevSlide.bind(_this);
-    _this.goToNextSlide = _this.goToNextSlide.bind(_this);
-    _this.slideWidth = _this.slideWidth.bind(_this);
-    return _this;
-  }
-
-  _createClass(Slider, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.setState({ images: this.props.photos });
-    }
-  }, {
-    key: 'componentDidUpdate',
-    value: function componentDidUpdate(prevProps) {
-      if (this.props.photos !== prevProps.photos) {
-        this.setState({ images: this.props.photos, currentIndex: 0, translateValue: 0 });
-      }
-    }
-  }, {
-    key: 'goToPrevSlide',
-    value: function goToPrevSlide() {
-      var _this2 = this;
-
-      if (this.state.currentIndex === 0) {
-        return this.setState({
-          currentIndex: this.state.images.length - 1,
-          translateValue: 0
-        });
-      }
-
-      console.log(this.state.currentIndex);
-      this.setState(function (prevState) {
-        return {
-          currentIndex: prevState.currentIndex - 1,
-          translateValue: prevState.translateValue - -_this2.slideWidth()
-        };
-      });
-    }
-  }, {
-    key: 'goToNextSlide',
-    value: function goToNextSlide() {
-      var _this3 = this;
-
-      if (this.state.currentIndex === this.state.images.length - 1) {
-        return this.setState({
-          currentIndex: 0,
-          translateValue: 0
-        });
-      }
-
-      console.log(this.state.currentIndex);
-      this.setState(function (prevState) {
-        return {
-          currentIndex: prevState.currentIndex + 1,
-          translateValue: prevState.translateValue + -_this3.slideWidth()
-        };
-      });
-    }
-  }, {
-    key: 'slideWidth',
-    value: function slideWidth() {
-      return document.querySelector('.slide').clientWidth;
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'slider' },
-        _react2.default.createElement(
-          'div',
-          { className: 'slider-wrapper',
-            style: {
-              transform: 'translateX(' + this.state.translateValue + 'px)',
-              transition: 'transform ease-out 0.45s'
-            } },
-          this.state.images.map(function (image, i) {
-            return _react2.default.createElement(_slide2.default, { className: 'location-photo-slide', key: i, image: image });
-          })
-        ),
-        _react2.default.createElement(_left_arrow2.default, {
-          goToPrevSlide: this.goToPrevSlide
-        }),
-        _react2.default.createElement(_right_arrow2.default, {
-          goToNextSlide: this.goToNextSlide
-        })
-      );
-    }
-  }]);
-
-  return Slider;
-}(_react.Component);
-
-exports.default = Slider;
 
 /***/ }),
 
@@ -4169,15 +3910,23 @@ var UserShow = function (_React$Component) {
       startDate: "",
       endDate: "",
       errors: "",
-      success: ""
+      success: "",
+      hidden: true
     };
     _this.handleStartDate = _this.handleStartDate.bind(_this);
     _this.handleEndDate = _this.handleEndDate.bind(_this);
     _this.handleLocationClick = _this.handleLocationClick.bind(_this);
+    _this.toggleDateSelector = _this.toggleDateSelector.bind(_this);
     return _this;
   }
 
   _createClass(UserShow, [{
+    key: 'toggleDateSelector',
+    value: function toggleDateSelector() {
+      var css = this.state.hidden ? false : true;
+      this.setState({ hidden: css });
+    }
+  }, {
     key: 'handleLocationClick',
     value: function handleLocationClick() {
       this.props.history.push('/location/' + this.props.user.location.city);
@@ -4238,6 +3987,7 @@ var UserShow = function (_React$Component) {
       var _this5 = this;
 
       var user = this.props.user || {};
+      var currentUser = this.props.currentUser || {};
       var successMessage = void 0;
       var userPhoto = void 0;
       if (user.photoUrl) {
@@ -4263,6 +4013,12 @@ var UserShow = function (_React$Component) {
       var country = location.country || null;
 
       var hiddenFormState = "user-show-hidden";
+      var hiddenFormStateAddOn = "hidden";
+      if (this.state.hidden) {
+        hiddenFormStateAddOn = "hidden";
+      } else {
+        hiddenFormStateAddOn = "show";
+      }
 
       var errorMessage = void 0;
       var errors = void 0;
@@ -4288,6 +4044,24 @@ var UserShow = function (_React$Component) {
             null,
             this.state.success
           )
+        );
+      }
+
+      var sendRequestButton = void 0;
+      var sendReviewButton = void 0;
+
+      if (user.id !== currentUser.id) {
+        sendRequestButton = _react2.default.createElement(
+          'button',
+          { className: 'user-show-send-request-review-button message', onClick: function onClick() {
+              return _this5.toggleDateSelector();
+            } },
+          'Send Request'
+        );
+        sendReviewButton = _react2.default.createElement(
+          'button',
+          { className: 'user-show-send-request-review-button review' },
+          'Write a Review'
         );
       }
 
@@ -4337,21 +4111,13 @@ var UserShow = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { className: 'user-show-button-div' },
-              _react2.default.createElement(
-                'button',
-                { className: 'user-show-send-message-button' },
-                'Send Request'
-              ),
-              _react2.default.createElement(
-                'button',
-                { className: 'user-show-send-message-button' },
-                'Write a Review'
-              )
+              sendRequestButton,
+              sendReviewButton
             )
           ),
           _react2.default.createElement(
             'form',
-            { className: hiddenFormState, onSubmit: function onSubmit(e) {
+            { className: hiddenFormState + (' ' + hiddenFormStateAddOn), onSubmit: function onSubmit(e) {
                 return _this5.handleSubmit(e);
               } },
             errorMessage,
@@ -4410,6 +4176,24 @@ var UserShow = function (_React$Component) {
                   'Clear'
                 )
               )
+            )
+          ),
+          _react2.default.createElement(
+            'form',
+            { className: 'user-show-review-form', onSubmit: function onSubmit(e) {
+                return _this5.handleSubmit(e);
+              } },
+            _react2.default.createElement(
+              'h1',
+              { className: 'user-show-write-review-h1' },
+              'Write a Review for ',
+              user.first_name
+            ),
+            _react2.default.createElement(
+              'section',
+              { className: 'user-show-write-review-section' },
+              _react2.default.createElement('input', { type: 'text' }),
+              _react2.default.createElement('textarea', { rows: '4', cols: '50' })
             )
           ),
           _react2.default.createElement(
@@ -4502,7 +4286,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var msp = function msp(state, ownProps) {
   return {
-    user: state.entities.users[ownProps.match.params.userId]
+    user: state.entities.users[ownProps.match.params.userId],
+    currentUser: state.entities.users[state.session.id]
   };
 };
 

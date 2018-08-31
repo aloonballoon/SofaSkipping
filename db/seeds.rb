@@ -21,10 +21,8 @@ sp = Location.create!(city: "Sao Paulo", country: "Brazil", lat: -23.5505199, ln
 cr = Location.create!(city: "Caracas", country: "Venezuela", lat: -23.5505199, lng: -46.63330940000003)
 tk = Location.create!(city: "Tokyo", country: "Japan", lat: -23.5505199, lng: -46.63330940000003)
 bj = Location.create!(city: "Beijing", country: "China", lat: -23.5505199, lng: -46.63330940000003)
-
-
-
-
+kh = Location.create!(city: "Khumjung", country: "Nepal", lat: 27.9343193, lng: 86.7818523)
+fp = Location.create!(city: "French Polynesia", country: "French Polynesia", lat: -17.679742, lng: -149.406843)
 
 
 alan = User.create!(first_name: "Alan", last_name: "Uraz", username: 'alanuraz', email: 'alanuraz@gmail.com', home_location_id: sf.id, age: 28, bio: "first member", password: "hellothere")
@@ -39,6 +37,7 @@ adrienne = User.create!(first_name: "Adrienne", last_name: "Smith", username: "s
 jess = User.create!(first_name: "Jess", last_name: "Or", username: "jbird", email: "jj@jj.com", home_location_id: ny.id, age: 29, bio: "hella", password: 'hellothere')
 john = User.create!(first_name: "John", last_name: "Freedman", username: "jjj", email: "jj@freedman.com", home_location_id: la.id, age: 29, bio: "hella", password: 'hellothere')
 john = User.create!(first_name: "John", last_name: "Freedman", username: "freeeed", email: "jf@freedman.com", home_location_id: la.id, age: 29, bio: "hella", password: 'hellothere')
+simcha = User.create!(first_name: "Simcha", last_name: "Cohen", username: "simisimiyay", email: "simcha@aa.com", home_location_id: ny.id, age: 26, bio: "I am Alan's best friend", password: 'hellothere')
 
 Booking.create!(host_id: alan.id, guest_id: ayda.id, start_date: "2018/05/13", end_date: "2018/06/15", confirmed: true)
 Booking.create!(host_id: ayda.id, guest_id: leana.id, start_date: "2018/07/13", end_date: "2018/08/15", confirmed: true)
@@ -47,6 +46,16 @@ Booking.create!(host_id: leana.id, guest_id: ayda.id, start_date: "2018/10/13", 
 Booking.create!(host_id: guest.id, guest_id: alan.id, start_date: "2018/11/13", end_date: "2018/12/15", confirmed: true)
 Booking.create!(host_id: alan.id, guest_id: guest.id, start_date: "2019/01/13", end_date: "2019/01/15", confirmed: true)
 
+Booking.create!(host_id: ayda.id, guest_id: guest.id, start_date: "2019/02/13", end_date: "2019/02/15", confirmed: true)
+Booking.create!(host_id: leana.id, guest_id: guest.id, start_date: "2019/03/13", end_date: "2019/03/15", confirmed: true)
+Booking.create!(host_id: adrienne.id, guest_id: guest.id, start_date: "2019/04/13", end_date: "2019/04/15", confirmed: true)
+Booking.create!(host_id: simcha.id, guest_id: guest.id, start_date: "2019/05/13", end_date: "2019/05/15", confirmed: true)
+
+Booking.create!(host_id: guest.id, guest_id: ayda.id, start_date: "2018/01/13", end_date: "2018/01/15", confirmed: true)
+Booking.create!(host_id: guest.id, guest_id: leana.id, start_date: "2018/02/13", end_date: "2018/02/15", confirmed: true)
+Booking.create!(host_id: guest.id, guest_id: jess.id, start_date: "2018/03/13", end_date: "2018/03/15", confirmed: true)
+Booking.create!(host_id: guest.id, guest_id: simcha.id, start_date: "2018/04/13", end_date: "2018/04/15", confirmed: true)
+
 users_arr = []
 50.times do
   age = (1..100).to_a.sample
@@ -54,7 +63,7 @@ users_arr = []
   fname = Faker::Name.first_name
   lname = Faker::Name.last_name
   email = "#{fname}#{lname}@aa.com"
-  random_city = [sf, la, ny, ch, ist, bj, tk, sp].sample
+  random_city = [sf, la, ny, ch, ist, bj, tk, sp, kh, fp].sample
   user = User.create!(first_name: fname, last_name: lname, home_location_id: random_city.id, email: email, password: "hellothere", bio: quote, age: age)
   users_arr << user
 end

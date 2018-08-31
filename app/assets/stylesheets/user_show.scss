@@ -62,11 +62,11 @@
   min-height: 100px;
   box-shadow: 2px 2px 8px #777777;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 
-.user-show-send-message-button {
+.user-show-send-request-review-button {
   height: 40px;
   width: 120px;
   background-color: #2980B9;
@@ -75,6 +75,10 @@
   border-radius: 5px;
   font-weight: bolder;
   margin-right: 10px;
+}
+
+.user-show-send-request-review-button.message {
+  margin-left: 80px;
 }
 
 .user-show-user-status-div {
@@ -139,25 +143,35 @@
   margin-top: 10px;
 }
 
-.user-show-hidden {
+.user-show-hidden.hidden {
+  max-height: 0px;
+  opacity: 0;
+}
+
+.user-show-hidden.hidden * {
+  display: none;
+}
+
+.user-show-hidden.show{
+  transition: max-height 2s ease, opacity 4s ease;
+  opacity: 1;
+  max-height: 200px;
   max-width: 780px;
   min-width: 550px;
   background-color: white;
   margin: 20px;
   margin-top: 20px;
-  min-height: 150px;
   box-shadow: 2px 2px 8px #777777;
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  overflow: hidden;
 }
 
 .user-show-date-section {
   width: 100%;
   height: 100%;
   display: flex;
-
 }
 
 .user-show-section-date-div {
@@ -172,8 +186,6 @@
   width: 150px;
   height: 25px;
 }
-
-
 
 .user-show-request-buttons-div {
   display:flex;
@@ -248,4 +260,36 @@
 
 .user-show-hang-out-banner {
   margin: 10px;
+}
+
+.user-show-review-form {
+  height: 200px;
+  max-width: 780px;
+  min-width: 550px;
+  background-color: white;
+  margin: 20px;
+  margin-top: 20px;
+  box-shadow: 2px 2px 8px #777777;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.user-show-write-review-h1 {
+  margin: 10px;
+}
+
+.user-show-write-review-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-show-write-review-section input {
+  margin: 10px;
+  width: 50%;
+}
+
+.user-show-write-review-section textarea {
+  margin: 10px;
+  width: 50%;
 }
