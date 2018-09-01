@@ -3913,6 +3913,7 @@ var UserShow = function (_React$Component) {
       success: "",
       hidden: true
     };
+
     _this.handleStartDate = _this.handleStartDate.bind(_this);
     _this.handleEndDate = _this.handleEndDate.bind(_this);
     _this.handleLocationClick = _this.handleLocationClick.bind(_this);
@@ -3981,6 +3982,14 @@ var UserShow = function (_React$Component) {
         this.setState({ errors: "Invalid Dates!!" });
       }
     }
+
+    // updateInputField (arg) {
+    //   this.setState({ connectionToInputVal: arg })
+    // }
+
+    // <input type="date" value={this.state.connectionToInputVal}
+    // <CalendarComponent update={this.updateInputField.bind(this)}
+
   }, {
     key: 'render',
     value: function render() {
@@ -4184,7 +4193,7 @@ var UserShow = function (_React$Component) {
                 return _this5.handleSubmit(e);
               } },
             _react2.default.createElement(
-              'h1',
+              'header',
               { className: 'user-show-write-review-h1' },
               'Write a Review for ',
               user.first_name
@@ -4192,8 +4201,31 @@ var UserShow = function (_React$Component) {
             _react2.default.createElement(
               'section',
               { className: 'user-show-write-review-section' },
-              _react2.default.createElement('input', { type: 'text' }),
-              _react2.default.createElement('textarea', { rows: '4', cols: '50' })
+              _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                  'h2',
+                  null,
+                  'Review Title'
+                ),
+                _react2.default.createElement('input', { type: 'text' })
+              ),
+              _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                  'h2',
+                  null,
+                  'Review Body'
+                ),
+                _react2.default.createElement('textarea', { rows: '4', cols: '50' })
+              ),
+              _react2.default.createElement(
+                'button',
+                { className: 'user-show-send-request-review-button submit-review' },
+                'Submit Review'
+              )
             )
           ),
           _react2.default.createElement(

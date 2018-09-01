@@ -11,6 +11,7 @@ class UserShow extends React.Component {
       success: "",
       hidden: true
     }
+
     this.handleStartDate = this.handleStartDate.bind(this);
     this.handleEndDate = this.handleEndDate.bind(this);
     this.handleLocationClick = this.handleLocationClick.bind(this);
@@ -58,6 +59,13 @@ class UserShow extends React.Component {
       this.setState({errors: "Invalid Dates!!"})
     }
   }
+
+  // updateInputField (arg) {
+  //   this.setState({ connectionToInputVal: arg })
+  // }
+
+  // <input type="date" value={this.state.connectionToInputVal}
+  // <CalendarComponent update={this.updateInputField.bind(this)}
 
   render() {
     let user = this.props.user || {};
@@ -140,7 +148,6 @@ class UserShow extends React.Component {
             <div className="user-show-button-div">
               {sendRequestButton}
               {sendReviewButton}
-
             </div>
           </article>
 
@@ -165,10 +172,17 @@ class UserShow extends React.Component {
           </form>
 
           <form className="user-show-review-form" onSubmit={(e) => this.handleSubmit(e)}>
-              <h1 className="user-show-write-review-h1">Write a Review for {user.first_name}</h1>
+              <header className="user-show-write-review-h1">Write a Review for {user.first_name}</header>
               <section className="user-show-write-review-section">
-                <input type="text"></input>
-                <textarea rows="4" cols="50"></textarea>
+                <div>
+                  <h2>Review Title</h2>
+                  <input type="text"></input>
+                </div>
+                <div>
+                  <h2>Review Body</h2>
+                  <textarea rows="4" cols="50"></textarea>
+                </div>
+                <button className="user-show-send-request-review-button submit-review">Submit Review</button>
               </section>
           </form>
 
