@@ -37,11 +37,11 @@ class UserReviews extends React.Component {
 
               <div>
                 <h2>Review Title</h2>
-                <input type="text" value={this.state.title} name="title" onChange={(event) => this.handleChange(event)}/>
+                <input required type="text" value={this.state.title} name="title" onChange={(event) => this.handleChange(event)}/>
               </div>
               <div>
                 <h2>Review Body</h2>
-                <textarea rows="4" cols="50" name="body" onChange={(event) => this.handleChange(event)}></textarea>
+                <textarea required rows="4" cols="50" name="body" onChange={(event) => this.handleChange(event)}></textarea>
               </div>
               <button className="user-show-send-request-review-button submit-review">Submit Review</button>
             </section>

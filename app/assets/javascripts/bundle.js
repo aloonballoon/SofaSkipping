@@ -4188,7 +4188,7 @@ var UserReviews = function (_React$Component) {
                 null,
                 "Review Title"
               ),
-              _react2.default.createElement("input", { type: "text", value: this.state.title, name: "title", onChange: function onChange(event) {
+              _react2.default.createElement("input", { required: true, type: "text", value: this.state.title, name: "title", onChange: function onChange(event) {
                   return _this2.handleChange(event);
                 } })
             ),
@@ -4200,7 +4200,7 @@ var UserReviews = function (_React$Component) {
                 null,
                 "Review Body"
               ),
-              _react2.default.createElement("textarea", { rows: "4", cols: "50", name: "body", onChange: function onChange(event) {
+              _react2.default.createElement("textarea", { required: true, rows: "4", cols: "50", name: "body", onChange: function onChange(event) {
                   return _this2.handleChange(event);
                 } })
             ),
