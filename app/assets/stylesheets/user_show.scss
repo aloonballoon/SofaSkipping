@@ -81,6 +81,10 @@
   margin-left: 80px;
 }
 
+.user-show-send-request-review-button.submit-review {
+  margin-bottom: 15px;
+}
+
 .user-show-user-status-div {
   font-size: 25px;
   font-weight: bold;
@@ -152,10 +156,10 @@
   display: none;
 }
 
-.user-show-hidden.show{
-  transition: max-height 2s ease, opacity 3s ease;
+.user-show-hidden.show {
+  transition: max-height 2s ease, opacity 2s ease;
   opacity: 1;
-  max-height: 200px;
+  max-height: 300px;
   max-width: 780px;
   min-width: 550px;
   background-color: white;
@@ -316,4 +320,16 @@
   margin-bottom: 10px;
   width: 50%;
   max-width: 90%;
+}
+
+.user-show-review-radio-input {
+  max-width: 15px;
+  margin: 0px;
+  margin-right: 5px;
+}
+
+.user-show-radio-input-div{
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
 }

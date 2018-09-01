@@ -1,21 +1,22 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import UserReviews from './user-reviews';
+import UserBookingRequest from './user-booking-request';
 
 class UserShow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: "",
-      endDate: "",
-      errors: "",
-      success: "",
       hidden: true
     }
 
-    this.handleStartDate = this.handleStartDate.bind(this);
-    this.handleEndDate = this.handleEndDate.bind(this);
     this.handleLocationClick = this.handleLocationClick.bind(this);
     this.toggleDateSelector = this.toggleDateSelector.bind(this);
+
+  }
+
+  handleLocationClick() {
+    this.props.history.push(`/location/${this.props.user.location.city}`)
   }
 
   toggleDateSelector() {
@@ -23,41 +24,9 @@ class UserShow extends React.Component {
     this.setState({hidden: css})
   }
 
-  handleLocationClick() {
-    this.props.history.push(`/location/${this.props.user.location.city}`)
-  }
-
-  handleStartDate(e) {
-    this.setState({startDate: e.target.value}, () => console.log(this.state.startDate))
-  }
-
-  handleEndDate(e) {
-    this.setState({endDate: e.target.value}, () => console.log(this.state.endDate))
-  }
-
   componentDidMount() {
     window.scrollTo(0, 0)
     this.props.fetchUser(this.props.match.params.userId)
-  }
-
-  cancelInputs() {
-    this.setState({startDate: "", endDate: ""})
-    this.setState({errors: ""})
-    this.setState({success: ""})
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    if (new Date(this.state.startDate) < new Date(this.state.endDate)) {
-      this.setState({errors: ""})
-      this.props.createTrip({
-        startDate: this.state.startDate,
-        endDate: this.state.endDate,
-        userId: this.props.user.id
-      }).then(() => this.setState({success: "SUCCESS! Awaiting confirmation by host."}))
-    } else {
-      this.setState({errors: "Invalid Dates!!"})
-    }
   }
 
   // updateInputField (arg) {
@@ -70,7 +39,6 @@ class UserShow extends React.Component {
   render() {
     let user = this.props.user || {};
     let currentUser = this.props.currentUser || {};
-    let successMessage;
     let userPhoto
     if (user.photoUrl) {
       userPhoto = user.photoUrl;
@@ -96,31 +64,17 @@ class UserShow extends React.Component {
     let city = location.city || null;
     let country = location.country || null;
 
-    let hiddenFormState = "user-show-hidden";
-    let hiddenFormStateAddOn = "hidden";
-    if (this.state.hidden) {
-      hiddenFormStateAddOn = "hidden";
-    } else {
-      hiddenFormStateAddOn = "show";
-    }
-
-    let errorMessage;
-    let errors;
-    if (this.state.errors !== "") {
-      errors = this.state.errors;
-      errorMessage = <div className="user-show-errors-message-div"><div>{errors}</div></div>
-    }
-
-    if (this.state.success !== "") {
-      successMessage = <div className="user-show-success-message-div"><div>{this.state.success}</div></div>
-    }
-
     let sendRequestButton;
     let sendReviewButton;
 
     if (user.id !== currentUser.id) {
       sendRequestButton = <button className="user-show-send-request-review-button message" onClick={() => this.toggleDateSelector()}>Send Request</button>
       sendReviewButton = <button className="user-show-send-request-review-button review" >Write a Review</button>
+    }
+
+    let props = {
+      hidden: this.state.hidden,
+      otherProps: this.props
     }
 
     return(
@@ -151,40 +105,8 @@ class UserShow extends React.Component {
             </div>
           </article>
 
-          <form className={hiddenFormState + ` ${hiddenFormStateAddOn}`} onSubmit={(e) => this.handleSubmit(e)}>
-              {errorMessage}
-              {successMessage}
-              <h1 className="user-show-hang-out-banner">Send a Request to Hang Out</h1>
-              <div className="user-show-section-date-div">
-                <div className="user-show-arrival-date-div">
-                  <p>Arrival Date</p>
-                  <input required type="date" onChange={(e) => this.handleStartDate(e)} value={this.state.startDate}/>
-                </div>
-                <div className="user-show-departure-date-div">
-                  <p>Departure Date</p>
-                  <input required type="date" onChange={(e) => this.handleEndDate(e)} value={this.state.endDate}/>
-                </div>
-              </div>
-              <div className="user-show-request-buttons-div">
-                <button className="user-show-send-message-button-final">Send</button>
-                <div className="user-show-cancel-div" onClick={() => this.cancelInputs()}><div className="text-div" onClick={() => this.cancelInputs()}>Clear</div></div>
-              </div>
-          </form>
-
-          <form className="user-show-review-form" onSubmit={(e) => this.handleSubmit(e)}>
-              <header className="user-show-write-review-h1">Write a Review for {user.first_name}</header>
-              <section className="user-show-write-review-section">
-                <div>
-                  <h2>Review Title</h2>
-                  <input type="text"></input>
-                </div>
-                <div>
-                  <h2>Review Body</h2>
-                  <textarea rows="4" cols="50"></textarea>
-                </div>
-                <button className="user-show-send-request-review-button submit-review">Submit Review</button>
-              </section>
-          </form>
+          <UserBookingRequest props={props}/>
+          <UserReviews user={user}/>
 
           <section className="user-show-section-bio">
             <header className="user-show-bio-header">
