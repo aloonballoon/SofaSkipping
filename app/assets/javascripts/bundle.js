@@ -4124,8 +4124,10 @@ var UserReviews = function (_React$Component) {
 
     _this.state = {
       title: "",
-      body: ""
+      body: "",
+      recommended: "true"
     };
+
     _this.handleChange = _this.handleChange.bind(_this);
     return _this;
   }
@@ -4133,7 +4135,7 @@ var UserReviews = function (_React$Component) {
   _createClass(UserReviews, [{
     key: "handleChange",
     value: function handleChange(event) {
-      this.setState(_defineProperty({}, event.target.name, event.target.value), console.log(this.state.title));
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
   }, {
     key: "handleSubmit",
@@ -4168,14 +4170,18 @@ var UserReviews = function (_React$Component) {
               _react2.default.createElement(
                 "label",
                 null,
-                _react2.default.createElement("input", { className: "user-show-review-radio-input", type: "radio", id: "review-would-stay" }),
+                _react2.default.createElement("input", { onChange: function onChange(event) {
+                    return _this2.handleChange(event);
+                  }, className: "user-show-review-radio-input", type: "radio", name: "recommended", checked: this.state.recommended === "true", value: "true" }),
                 "Yes, I would recommend ",
                 this.props.user.first_name
               ),
               _react2.default.createElement(
                 "label",
                 null,
-                _react2.default.createElement("input", { className: "user-show-review-radio-input", type: "radio", id: "review-would-not-stay" }),
+                _react2.default.createElement("input", { onChange: function onChange(event) {
+                    return _this2.handleChange(event);
+                  }, className: "user-show-review-radio-input", type: "radio", checked: this.state.recommended === "false", name: "recommended", value: "false" }),
                 "No, I would not recommend ",
                 this.props.user.first_name
               )
@@ -4200,9 +4206,9 @@ var UserReviews = function (_React$Component) {
                 null,
                 "Review Body"
               ),
-              _react2.default.createElement("textarea", { required: true, rows: "4", cols: "50", name: "body", onChange: function onChange(event) {
+              _react2.default.createElement("textarea", { required: true, rows: "7", cols: "50", name: "body", onChange: function onChange(event) {
                   return _this2.handleChange(event);
-                } })
+                }, placeholder: "Write something about " + this.props.user.first_name })
             ),
             _react2.default.createElement(
               "button",
