@@ -45,7 +45,7 @@ class UserBookingRequest extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({hidden: this.props.hidden})
+    this.setState({hidden: this.props.props.hidden})
   }
 
   componentDidUpdate(prevProps) {

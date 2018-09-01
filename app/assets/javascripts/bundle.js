@@ -3955,7 +3955,7 @@ var UserBookingRequest = function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.setState({ hidden: this.props.hidden });
+      this.setState({ hidden: this.props.props.hidden });
     }
   }, {
     key: "componentDidUpdate",
@@ -4106,6 +4106,8 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -4130,9 +4132,13 @@ var UserReviews = function (_React$Component) {
 
   _createClass(UserReviews, [{
     key: "handleChange",
-    value: function handleChange(field) {
-      debugger;
-      this.setState({ field: event.target.value }, console.log(this.state.title));
+    value: function handleChange(event) {
+      this.setState(_defineProperty({}, event.target.name, event.target.value), console.log(this.state.title));
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
     }
   }, {
     key: "render",
@@ -4161,15 +4167,15 @@ var UserReviews = function (_React$Component) {
               { className: "user-show-radio-input-div" },
               _react2.default.createElement(
                 "label",
-                { htmlFor: "review-would-stay" },
-                _react2.default.createElement("input", { className: "user-show-review-radio-input", type: "radio", id: "review-would-stay", name: "review-radio-yes-no" }),
+                null,
+                _react2.default.createElement("input", { className: "user-show-review-radio-input", type: "radio", id: "review-would-stay" }),
                 "Yes, I would recommend ",
                 this.props.user.first_name
               ),
               _react2.default.createElement(
                 "label",
-                { htmlFor: "review-would-not-stay" },
-                _react2.default.createElement("input", { className: "user-show-review-radio-input", type: "radio", id: "review-would-not-stay", name: "review-radio-yes-no" }),
+                null,
+                _react2.default.createElement("input", { className: "user-show-review-radio-input", type: "radio", id: "review-would-not-stay" }),
                 "No, I would not recommend ",
                 this.props.user.first_name
               )
@@ -4182,8 +4188,8 @@ var UserReviews = function (_React$Component) {
                 null,
                 "Review Title"
               ),
-              _react2.default.createElement("input", { type: "text", value: this.state.title, onChange: function onChange() {
-                  return _this2.handleChange("title");
+              _react2.default.createElement("input", { type: "text", value: this.state.title, name: "title", onChange: function onChange(event) {
+                  return _this2.handleChange(event);
                 } })
             ),
             _react2.default.createElement(
@@ -4194,7 +4200,9 @@ var UserReviews = function (_React$Component) {
                 null,
                 "Review Body"
               ),
-              _react2.default.createElement("textarea", { rows: "4", cols: "50" })
+              _react2.default.createElement("textarea", { rows: "4", cols: "50", name: "body", onChange: function onChange(event) {
+                  return _this2.handleChange(event);
+                } })
             ),
             _react2.default.createElement(
               "button",
