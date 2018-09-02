@@ -1252,10 +1252,6 @@ var _slick = __webpack_require__(/*! ./slick */ "./frontend/components/locations
 
 var _slick2 = _interopRequireDefault(_slick);
 
-var _reactLoaderSpinner = __webpack_require__(/*! react-loader-spinner */ "./node_modules/react-loader-spinner/index.js");
-
-var _reactLoaderSpinner2 = _interopRequireDefault(_reactLoaderSpinner);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1275,7 +1271,7 @@ var LocationShow = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (LocationShow.__proto__ || Object.getPrototypeOf(LocationShow)).call(this, props));
 
     _this.state = {
-      photosUrl: "",
+      photosUrl: [],
       locationCityName: "",
       locationCountryName: "",
       loading: true
@@ -1331,8 +1327,6 @@ var LocationShow = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var slick = null;
-      var slider = null;
 
       var location = this.props.location || {};
       var locationCityName = location.city;
@@ -1346,22 +1340,7 @@ var LocationShow = function (_React$Component) {
         return _react2.default.createElement(_location_user_show2.default, { user: guest, key: guest.id });
       });
 
-      if (Array.isArray(this.state.photosUrl)) {
-        slick = _react2.default.createElement(_slick2.default, { photos: this.state.photosUrl });
-      }
-
-      var spinner = void 0;
-
-      if (this.state.loading) {
-        spinner = _react2.default.createElement(_reactLoaderSpinner2.default, {
-          type: 'Puff',
-          color: '#00BFFF',
-          height: '100',
-          width: '100'
-        });
-      } else {
-        spinner = null;
-      }
+      var slick = _react2.default.createElement(_slick2.default, { photos: this.state });
 
       return _react2.default.createElement(
         'div',
@@ -1380,7 +1359,6 @@ var LocationShow = function (_React$Component) {
         _react2.default.createElement(
           'section',
           { className: 'location-google-photos-section' },
-          spinner,
           slick
         ),
         _react2.default.createElement(
@@ -1595,6 +1573,10 @@ var _reactSlick = __webpack_require__(/*! react-slick */ "./node_modules/react-s
 
 var _reactSlick2 = _interopRequireDefault(_reactSlick);
 
+var _reactLoaderSpinner = __webpack_require__(/*! react-loader-spinner */ "./node_modules/react-loader-spinner/index.js");
+
+var _reactLoaderSpinner2 = _interopRequireDefault(_reactLoaderSpinner);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1612,25 +1594,32 @@ var SimpleSlider = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (SimpleSlider.__proto__ || Object.getPrototypeOf(SimpleSlider)).call(this, props));
 
     _this.state = {
-      images: []
+      images: [],
+      loading: true
     };
     return _this;
   }
 
   _createClass(SimpleSlider, [{
-    key: "componentDidMount",
+    key: 'componentDidMount',
     value: function componentDidMount() {
-      this.setState({ images: this.props.photos });
+      var photos = this.props.photos;
+      this.setState({ images: photos.photosUrl, loading: photos.loading });
     }
   }, {
-    key: "componentDidUpdate",
+    key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps) {
-      if (this.props.photos !== prevProps.photos) {
-        this.setState({ images: this.props.photos });
+      var photos = this.props.photos;
+      if (photos.photosUrl !== prevProps.photos.photosUrl) {
+        this.setState({ images: photos.photosUrl });
+      }
+      if (photos.loading !== prevProps.photos.loading) {
+        var loadingState = this.state.loading ? false : true;
+        this.setState({ loading: loadingState });
       }
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       var settings = {
         dots: true,
@@ -1642,21 +1631,36 @@ var SimpleSlider = function (_React$Component) {
         autoplay: true,
         autoplaySpeed: 2000
       };
+
+      var spinner = void 0;
+
+      if (this.state.loading) {
+        spinner = _react2.default.createElement(_reactLoaderSpinner2.default, {
+          type: 'Puff',
+          color: '#00BFFF',
+          height: '100',
+          width: '100'
+        });
+      } else {
+        spinner = null;
+      }
+
       var divStyle = {
         display: 'unset'
       };
 
       var photos = this.state.images.map(function (photo, idx) {
         return _react2.default.createElement(
-          "div",
-          { key: idx, style: divStyle, className: "location-google-slider-photo-div" },
-          _react2.default.createElement("img", { className: "location-google-slider-photo-img", src: photo.getUrl({ maxWidth: 5000, maxHeight: 5000 }) })
+          'div',
+          { key: idx, style: divStyle, className: 'location-google-slider-photo-div' },
+          spinner,
+          _react2.default.createElement('img', { className: 'location-google-slider-photo-img', src: photo.getUrl({ maxWidth: 5000, maxHeight: 5000 }) })
         );
       });
 
       return _react2.default.createElement(
         _reactSlick2.default,
-        _extends({}, settings, { className: "location-google-slider" }),
+        _extends({}, settings, { className: 'location-google-slider' }),
         photos
       );
     }

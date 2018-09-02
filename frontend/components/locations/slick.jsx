@@ -1,21 +1,29 @@
-import React from "react";
-import Slider from "react-slick";
+import React from 'react';
+import Slider from 'react-slick';
+import Loader from 'react-loader-spinner';
 
 class SimpleSlider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      images: []
+      images: [],
+      loading: true
     }
   }
 
   componentDidMount() {
-    this.setState( {images: this.props.photos} )
+    const photos = this.props.photos;
+    this.setState( {images: photos.photosUrl, loading: photos.loading} )
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.photos !== prevProps.photos) {
-      this.setState({images: this.props.photos})
+    let photos = this.props.photos;
+    if (photos.photosUrl !== prevProps.photos.photosUrl) {
+      this.setState({images: photos.photosUrl})
+    }
+    if (photos.loading !== prevProps.photos.loading) {
+      let loadingState = this.state.loading ? false : true;
+      this.setState({loading: loadingState})
     }
   }
 
@@ -30,12 +38,27 @@ class SimpleSlider extends React.Component {
       autoplay: true,
       autoplaySpeed: 2000
     };
+
+    let spinner;
+
+    if (this.state.loading) {
+      spinner = <Loader
+         type="Puff"
+         color="#00BFFF"
+         height="100"
+         width="100"
+      />;
+    } else {
+      spinner = null;
+    }
+
     let divStyle={
           display: 'unset'
         };
 
     let photos = this.state.images.map((photo, idx) => {
       return <div key={idx} style={divStyle} className="location-google-slider-photo-div">
+             {spinner}
              <img className="location-google-slider-photo-img" src={photo.getUrl({maxWidth: 5000, maxHeight: 5000})}/>
              </div>
     })

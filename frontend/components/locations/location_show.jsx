@@ -3,7 +3,6 @@ import GoogleMapReact from 'google-map-react'
 import React from 'react';
 import LocationUserShow from './location_user_show';
 import Slick from './slick';
-import Loader from 'react-loader-spinner';
 let searched = false;
 
 class LocationShow extends React.Component {
@@ -11,7 +10,7 @@ class LocationShow extends React.Component {
     super(props);
 
     this.state = {
-      photosUrl: "",
+      photosUrl: [],
       locationCityName: "",
       locationCountryName: "",
       loading: true
@@ -57,37 +56,20 @@ class LocationShow extends React.Component {
   }
 
   render() {
-    let slick = null;
-    let slider = null;
 
-    const location = this.props.location || {}
-    const locationCityName = location.city
-    const locationCountryName = location.country
+    const location = this.props.location || {};
+    const locationCityName = location.city;
+    const locationCountryName = location.country;
 
     const locationHost = this.props.hosts.map(host => {
       return <LocationUserShow user={host} key={host.id} />
-    })
+    });
 
     const locationGuest = this.props.guests.map(guest => {
       return <LocationUserShow user={guest} key={guest.id} />
-    })
+    });
 
-    if (Array.isArray(this.state.photosUrl)) {
-      slick = <Slick photos={this.state.photosUrl} />
-    }
-
-    let spinner;
-
-    if (this.state.loading) {
-      spinner = <Loader
-         type="Puff"
-         color="#00BFFF"
-         height="100"
-         width="100"
-      />;
-    } else {
-      spinner = null;
-    }
+    let slick = <Slick photos={this.state} />;
 
 
     return(
@@ -98,7 +80,6 @@ class LocationShow extends React.Component {
           </h1>
         </header>
         <section className="location-google-photos-section">
-          {spinner}
           {slick}
         </section>
         <section className="location-user-show-host-and-guest-wrapper">
