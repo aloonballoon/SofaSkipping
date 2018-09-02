@@ -45,12 +45,12 @@ class UserBookingRequest extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({hidden: this.props.props.hidden})
+    this.setState({hidden: this.props.props.hiddenBookings})
   }
 
   componentDidUpdate(prevProps) {
-    let hidden = this.props.props.hidden;
-    if (this.props.props.hidden !== prevProps.props.hidden) {
+    let hidden = this.props.props.hiddenBookings;
+    if (this.props.props.hiddenBookings !== prevProps.props.hiddenBookings) {
       this.setState({hidden: hidden})
     }
   }
@@ -78,7 +78,6 @@ class UserBookingRequest extends React.Component {
     }
 
     return(
-      <div>
         <form className={hiddenFormState + ` ${hiddenFormStateAddOn}`} onSubmit={(e) => this.handleSubmit(e)}>
             {errorMessage}
             {successMessage}
@@ -98,7 +97,6 @@ class UserBookingRequest extends React.Component {
               <div className="user-show-cancel-div" onClick={() => this.cancelInputs()}><div className="text-div" onClick={() => this.cancelInputs()}>Clear</div></div>
             </div>
         </form>
-      </div>
     )
   }
 }

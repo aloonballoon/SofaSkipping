@@ -3955,13 +3955,13 @@ var UserBookingRequest = function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.setState({ hidden: this.props.props.hidden });
+      this.setState({ hidden: this.props.props.hiddenBookings });
     }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      var hidden = this.props.props.hidden;
-      if (this.props.props.hidden !== prevProps.props.hidden) {
+      var hidden = this.props.props.hiddenBookings;
+      if (this.props.props.hiddenBookings !== prevProps.props.hiddenBookings) {
         this.setState({ hidden: hidden });
       }
     }
@@ -4008,68 +4008,64 @@ var UserBookingRequest = function (_React$Component) {
       }
 
       return _react2.default.createElement(
-        "div",
-        null,
+        "form",
+        { className: hiddenFormState + (" " + hiddenFormStateAddOn), onSubmit: function onSubmit(e) {
+            return _this3.handleSubmit(e);
+          } },
+        errorMessage,
+        successMessage,
         _react2.default.createElement(
-          "form",
-          { className: hiddenFormState + (" " + hiddenFormStateAddOn), onSubmit: function onSubmit(e) {
-              return _this3.handleSubmit(e);
-            } },
-          errorMessage,
-          successMessage,
+          "h1",
+          { className: "user-show-hang-out-banner" },
+          "Send a Request to Hang Out"
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "user-show-section-date-div" },
           _react2.default.createElement(
-            "h1",
-            { className: "user-show-hang-out-banner" },
-            "Send a Request to Hang Out"
+            "div",
+            { className: "user-show-arrival-date-div" },
+            _react2.default.createElement(
+              "p",
+              null,
+              "Arrival Date"
+            ),
+            _react2.default.createElement("input", { required: true, type: "date", onChange: function onChange(e) {
+                return _this3.handleStartDate(e);
+              }, value: this.state.startDate })
           ),
           _react2.default.createElement(
             "div",
-            { className: "user-show-section-date-div" },
+            { className: "user-show-departure-date-div" },
             _react2.default.createElement(
-              "div",
-              { className: "user-show-arrival-date-div" },
-              _react2.default.createElement(
-                "p",
-                null,
-                "Arrival Date"
-              ),
-              _react2.default.createElement("input", { required: true, type: "date", onChange: function onChange(e) {
-                  return _this3.handleStartDate(e);
-                }, value: this.state.startDate })
+              "p",
+              null,
+              "Departure Date"
             ),
-            _react2.default.createElement(
-              "div",
-              { className: "user-show-departure-date-div" },
-              _react2.default.createElement(
-                "p",
-                null,
-                "Departure Date"
-              ),
-              _react2.default.createElement("input", { required: true, type: "date", onChange: function onChange(e) {
-                  return _this3.handleEndDate(e);
-                }, value: this.state.endDate })
-            )
+            _react2.default.createElement("input", { required: true, type: "date", onChange: function onChange(e) {
+                return _this3.handleEndDate(e);
+              }, value: this.state.endDate })
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "user-show-request-buttons-div" },
+          _react2.default.createElement(
+            "button",
+            { className: "user-show-send-message-button-final" },
+            "Send"
           ),
           _react2.default.createElement(
             "div",
-            { className: "user-show-request-buttons-div" },
-            _react2.default.createElement(
-              "button",
-              { className: "user-show-send-message-button-final" },
-              "Send"
-            ),
+            { className: "user-show-cancel-div", onClick: function onClick() {
+                return _this3.cancelInputs();
+              } },
             _react2.default.createElement(
               "div",
-              { className: "user-show-cancel-div", onClick: function onClick() {
+              { className: "text-div", onClick: function onClick() {
                   return _this3.cancelInputs();
                 } },
-              _react2.default.createElement(
-                "div",
-                { className: "text-div", onClick: function onClick() {
-                    return _this3.cancelInputs();
-                  } },
-                "Clear"
-              )
+              "Clear"
             )
           )
         )
@@ -4125,7 +4121,10 @@ var UserReviews = function (_React$Component) {
     _this.state = {
       title: "",
       body: "",
-      recommended: "true"
+      recommended: "true",
+      error: "",
+      success: "",
+      hidden: true
     };
 
     _this.handleChange = _this.handleChange.bind(_this);
@@ -4133,6 +4132,18 @@ var UserReviews = function (_React$Component) {
   }
 
   _createClass(UserReviews, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.setState({ hidden: this.props.props.hiddenReviews });
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.props.hiddenReviews !== this.props.props.hiddenReviews) {
+        this.setState({ hidden: this.props.props.hiddenReviews });
+      }
+    }
+  }, {
     key: "handleChange",
     value: function handleChange(event) {
       this.setState(_defineProperty({}, event.target.name, event.target.value));
@@ -4147,74 +4158,109 @@ var UserReviews = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      return _react2.default.createElement(
-        "div",
-        null,
-        _react2.default.createElement(
-          "form",
-          { className: "user-show-review-form", onSubmit: function onSubmit(e) {
-              return _this2.handleSubmit(e);
-            } },
+      var successMessage = void 0;
+      var errorMessage = void 0;
+      var errors = void 0;
+      if (this.state.errors !== "") {
+        errors = this.state.errors;
+        errorMessage = _react2.default.createElement(
+          "div",
+          { className: "user-show-errors-message-div" },
           _react2.default.createElement(
-            "header",
-            { className: "user-show-write-review-h1" },
-            "Write a Review for ",
-            this.props.user.first_name
+            "div",
+            null,
+            errors
+          )
+        );
+      }
+
+      if (this.state.success !== "") {
+        successMessage = _react2.default.createElement(
+          "div",
+          { className: "user-show-success-message-div" },
+          _react2.default.createElement(
+            "div",
+            null,
+            this.state.success
+          )
+        );
+      }
+
+      var hiddenFormState = "user-show-review-form";
+      var hiddenFormStateAddOn = "hidden";
+
+      if (this.state.hidden) {
+        hiddenFormStateAddOn = "hidden";
+      } else {
+        hiddenFormStateAddOn = "show";
+      }
+
+      var user = this.props.props.otherProps.user || {};
+
+      return _react2.default.createElement(
+        "form",
+        { className: hiddenFormState + (" " + hiddenFormStateAddOn), onSubmit: function onSubmit(e) {
+            return _this2.handleSubmit(e);
+          } },
+        _react2.default.createElement(
+          "header",
+          { className: "user-show-write-review-h1" },
+          "Write a Review for ",
+          user.first_name
+        ),
+        _react2.default.createElement(
+          "section",
+          { className: "user-show-write-review-section" },
+          _react2.default.createElement(
+            "div",
+            { className: "user-show-radio-input-div" },
+            _react2.default.createElement(
+              "label",
+              null,
+              _react2.default.createElement("input", { onChange: function onChange(event) {
+                  return _this2.handleChange(event);
+                }, className: "user-show-review-radio-input", type: "radio", name: "recommended", checked: this.state.recommended === "true", value: "true" }),
+              "Yes, I would recommend ",
+              user.first_name
+            ),
+            _react2.default.createElement(
+              "label",
+              null,
+              _react2.default.createElement("input", { onChange: function onChange(event) {
+                  return _this2.handleChange(event);
+                }, className: "user-show-review-radio-input", type: "radio", checked: this.state.recommended === "false", name: "recommended", value: "false" }),
+              "No, I would not recommend ",
+              user.first_name
+            )
           ),
           _react2.default.createElement(
-            "section",
-            { className: "user-show-write-review-section" },
+            "div",
+            null,
             _react2.default.createElement(
-              "div",
-              { className: "user-show-radio-input-div" },
-              _react2.default.createElement(
-                "label",
-                null,
-                _react2.default.createElement("input", { onChange: function onChange(event) {
-                    return _this2.handleChange(event);
-                  }, className: "user-show-review-radio-input", type: "radio", name: "recommended", checked: this.state.recommended === "true", value: "true" }),
-                "Yes, I would recommend ",
-                this.props.user.first_name
-              ),
-              _react2.default.createElement(
-                "label",
-                null,
-                _react2.default.createElement("input", { onChange: function onChange(event) {
-                    return _this2.handleChange(event);
-                  }, className: "user-show-review-radio-input", type: "radio", checked: this.state.recommended === "false", name: "recommended", value: "false" }),
-                "No, I would not recommend ",
-                this.props.user.first_name
-              )
-            ),
-            _react2.default.createElement(
-              "div",
+              "h2",
               null,
-              _react2.default.createElement(
-                "h2",
-                null,
-                "Review Title"
-              ),
-              _react2.default.createElement("input", { required: true, type: "text", value: this.state.title, name: "title", onChange: function onChange(event) {
-                  return _this2.handleChange(event);
-                } })
+              "Review Title"
             ),
+            _react2.default.createElement("input", { required: true, type: "text", value: this.state.title, name: "title", onChange: function onChange(event) {
+                return _this2.handleChange(event);
+              } })
+          ),
+          _react2.default.createElement(
+            "div",
+            null,
             _react2.default.createElement(
-              "div",
+              "h2",
               null,
-              _react2.default.createElement(
-                "h2",
-                null,
-                "Review Body"
-              ),
-              _react2.default.createElement("textarea", { required: true, rows: "7", cols: "50", name: "body", onChange: function onChange(event) {
-                  return _this2.handleChange(event);
-                }, placeholder: "Write something about " + this.props.user.first_name })
+              "Review Body"
             ),
-            _react2.default.createElement(
-              "button",
-              { className: "user-show-send-request-review-button submit-review" },
-              "Submit Review"
-            )
+            _react2.default.createElement("textarea", { required: true, rows: "7", cols: "50", name: "body", onChange: function onChange(event) {
+                return _this2.handleChange(event);
+              }, placeholder: "Write something about " + user.first_name })
+          ),
+          _react2.default.createElement(
+            "button",
+            { className: "user-show-send-request-review-button submit-review" },
+            "Submit Review"
           )
         )
       );
@@ -4277,11 +4323,13 @@ var UserShow = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (UserShow.__proto__ || Object.getPrototypeOf(UserShow)).call(this, props));
 
     _this.state = {
-      hidden: true
+      hiddenBookings: true,
+      hiddenReviews: true
     };
 
     _this.handleLocationClick = _this.handleLocationClick.bind(_this);
     _this.toggleDateSelector = _this.toggleDateSelector.bind(_this);
+    _this.toggleReviewSelector = _this.toggleReviewSelector.bind(_this);
 
     return _this;
   }
@@ -4294,8 +4342,14 @@ var UserShow = function (_React$Component) {
   }, {
     key: 'toggleDateSelector',
     value: function toggleDateSelector() {
-      var css = this.state.hidden ? false : true;
-      this.setState({ hidden: css });
+      var css = this.state.hiddenBookings ? false : true;
+      this.setState({ hiddenBookings: css });
+    }
+  }, {
+    key: 'toggleReviewSelector',
+    value: function toggleReviewSelector() {
+      var css = this.state.hiddenReviews ? false : true;
+      this.setState({ hiddenReviews: css });
     }
   }, {
     key: 'componentDidMount',
@@ -4354,13 +4408,16 @@ var UserShow = function (_React$Component) {
         );
         sendReviewButton = _react2.default.createElement(
           'button',
-          { className: 'user-show-send-request-review-button review' },
+          { className: 'user-show-send-request-review-button review', onClick: function onClick() {
+              return _this2.toggleReviewSelector();
+            } },
           'Write a Review'
         );
       }
 
       var props = {
-        hidden: this.state.hidden,
+        hiddenBookings: this.state.hiddenBookings,
+        hiddenReviews: this.state.hiddenReviews,
         otherProps: this.props
       };
 
@@ -4415,7 +4472,7 @@ var UserShow = function (_React$Component) {
             )
           ),
           _react2.default.createElement(_userBookingRequest2.default, { props: props }),
-          _react2.default.createElement(_userReviews2.default, { user: user }),
+          _react2.default.createElement(_userReviews2.default, { props: props }),
           _react2.default.createElement(
             'section',
             { className: 'user-show-section-bio' },

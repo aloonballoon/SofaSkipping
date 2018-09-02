@@ -7,11 +7,13 @@ class UserShow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hidden: true
+      hiddenBookings: true,
+      hiddenReviews: true
     }
 
     this.handleLocationClick = this.handleLocationClick.bind(this);
     this.toggleDateSelector = this.toggleDateSelector.bind(this);
+    this.toggleReviewSelector = this.toggleReviewSelector.bind(this);
 
   }
 
@@ -20,8 +22,13 @@ class UserShow extends React.Component {
   }
 
   toggleDateSelector() {
-    let css = this.state.hidden ? false : true;
-    this.setState({hidden: css})
+    let css = this.state.hiddenBookings ? false : true;
+    this.setState({hiddenBookings: css})
+  }
+
+  toggleReviewSelector() {
+    let css = this.state.hiddenReviews ? false : true;
+    this.setState({hiddenReviews: css})
   }
 
   componentDidMount() {
@@ -69,11 +76,12 @@ class UserShow extends React.Component {
 
     if (user.id !== currentUser.id) {
       sendRequestButton = <button className="user-show-send-request-review-button message" onClick={() => this.toggleDateSelector()}>Send Request</button>
-      sendReviewButton = <button className="user-show-send-request-review-button review" >Write a Review</button>
+      sendReviewButton = <button className="user-show-send-request-review-button review" onClick={() => this.toggleReviewSelector()} >Write a Review</button>
     }
 
     let props = {
-      hidden: this.state.hidden,
+      hiddenBookings: this.state.hiddenBookings,
+      hiddenReviews: this.state.hiddenReviews,
       otherProps: this.props
     }
 
@@ -106,7 +114,7 @@ class UserShow extends React.Component {
           </article>
 
           <UserBookingRequest props={props}/>
-          <UserReviews user={user}/>
+          <UserReviews props={props}/>
 
           <section className="user-show-section-bio">
             <header className="user-show-bio-header">

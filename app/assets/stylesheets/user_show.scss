@@ -277,7 +277,21 @@
   margin: 10px;
 }
 
-.user-show-review-form {
+.user-show-review-form.hidden {
+  max-height: 0px;
+  opacity: 0;
+}
+
+.user-show-review-form.hidden * {
+  display: none;
+}
+
+.user-show-review-form.show {
+  transition: max-height 1s ease, opacity 2s ease;
+  opacity: 1;
+  overflow: hidden;
+  height: 100%;
+  max-height: 400px;
   max-width: 780px;
   min-width: 550px;
   background-color: white;
