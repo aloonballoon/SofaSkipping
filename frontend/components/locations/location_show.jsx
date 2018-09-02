@@ -3,6 +3,7 @@ import GoogleMapReact from 'google-map-react'
 import React from 'react';
 import LocationUserShow from './location_user_show';
 import Slick from './slick';
+import Loader from 'react-loader-spinner';
 let searched = false;
 
 class LocationShow extends React.Component {
@@ -12,7 +13,8 @@ class LocationShow extends React.Component {
     this.state = {
       photosUrl: "",
       locationCityName: "",
-      locationCountryName: ""
+      locationCountryName: "",
+      loading: true
     }
 
     this.initService = this.initService.bind(this);
@@ -21,14 +23,13 @@ class LocationShow extends React.Component {
 
   componentDidMount() {
     this.props.fetchLocation(this.props.locationName)
-
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       this.initService(this.props.location)
       if (!searched && this.props.city) {
-        this.setState({locationCityName: this.props.city, locationCountryName: this.props.country})
+        this.setState({locationCityName: this.props.city, locationCountryName: this.props.country, loading: true})
         this.initService(location);
         searched = true;
       }
@@ -37,7 +38,7 @@ class LocationShow extends React.Component {
 
   getPlacePhotos() {
     const setPhotos = (place) => {
-      this.setState({photosUrl: place.photos})
+      this.setState({photosUrl: place.photos, loading: false})
     }
 
     let placeService = new google.maps.places.PlacesService(document.createElement('div'));
@@ -75,6 +76,19 @@ class LocationShow extends React.Component {
       slick = <Slick photos={this.state.photosUrl} />
     }
 
+    let spinner;
+
+    if (this.state.loading) {
+      spinner = <Loader
+         type="Puff"
+         color="#00BFFF"
+         height="100"
+         width="100"
+      />;
+    } else {
+      spinner = null;
+    }
+
 
     return(
       <div className="location-show-entire-container-div">
@@ -84,6 +98,7 @@ class LocationShow extends React.Component {
           </h1>
         </header>
         <section className="location-google-photos-section">
+          {spinner}
           {slick}
         </section>
         <section className="location-user-show-host-and-guest-wrapper">

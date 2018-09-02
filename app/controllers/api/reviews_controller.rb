@@ -1,17 +1,22 @@
 class Api::ReviewsController < ApplicationController
 
   def create
-    @review = Review.new(review_params)
-    @review.reviewer_id = current_user.id
-    if @review.save
+    @reviews = Review.new(review_params)
+    @reviews.reviewer_id = current_user.id
+    if @reviews.save
       render 'api/reviews/show'
     else
-      render json: @review.errors.full_messages, status: 422
+      render json: @reviews.errors.full_messages, status: 422
     end
   end
 
+  def show
+    @reviews = Review.where(reviewee_id: params[:id]).includes(:reviewer)
+    render 'api/reviews/show'
+  end
+
   def review_params
-    pararms.require(:review).permit(:reviewee_id, :title, :body)
+    params.require(:review).permit(:reviewee_id, :title, :body, :recommended, :review_date)
   end
 
 end

@@ -6,8 +6,6 @@ const defaultState = {locationSearchTargets: []};
 const locationsSearchReducer = (state = defaultState, action) => {
   Object.freeze(state);
   switch (action.type) {
-      // case RECEIVE_USERS:
-      // return {locationSearchTargets: action.users.search};
       case RECEIVE_LOCATION:
       return {locationSearchTarget: action.locations.locationSearch};
     default:

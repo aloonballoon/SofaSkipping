@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     end
     resource :session, only: [:create, :destroy, :show]
     resources :locations
+    resources :reviews, only: [:create, :show]
     resources :bookings do
       member do
         get 'trips'

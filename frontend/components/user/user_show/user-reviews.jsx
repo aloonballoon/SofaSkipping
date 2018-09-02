@@ -16,6 +16,7 @@ class UserReviews extends React.Component {
   }
 
   componentDidMount() {
+    this.props.props.otherProps.fetchReviews(this.props.props.otherProps.match.params.userId)
     this.setState({hidden: this.props.props.hiddenReviews});
   }
 
@@ -31,6 +32,24 @@ class UserReviews extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth()+1;
+    let yyyy = today.getFullYear();
+
+    if (dd < 10) {
+        dd = '0'+ dd
+    }
+
+    if (mm < 10) {
+        mm = '0'+ mm
+    }
+
+    today = mm + '-' + dd + '-' + yyyy;
+
+    let state = this.state;
+    let params = {title: state.title, body: state.body, recommended: state.recommended, revieweeId: this.props.props.otherProps.match.params.userId, date: today }
+    this.props.props.otherProps.createReviews(params)
   }
 
   render() {
