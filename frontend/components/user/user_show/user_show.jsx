@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import UserReviews from './user-reviews';
-import UserBookingRequest from './user-booking-request';
+import UserReviews from './user_reviews';
+import UserBookingRequest from './user_booking_request';
 
 class UserShow extends React.Component {
   constructor(props) {
@@ -78,7 +78,7 @@ class UserShow extends React.Component {
       sendRequestButton = <button className="user-show-send-request-review-button message" onClick={() => this.toggleDateSelector()}>Send Request</button>
       sendReviewButton = <button className="user-show-send-request-review-button review" onClick={() => this.toggleReviewSelector()} >Write a Review</button>
     }
-    
+
     let props = {
       hiddenBookings: this.state.hiddenBookings,
       hiddenReviews: this.state.hiddenReviews,

@@ -3940,9 +3940,9 @@ exports.default = (0, _reactRouter.withRouter)(UserSearchIndexItems);
 
 /***/ }),
 
-/***/ "./frontend/components/user/user_show/user-booking-request.jsx":
+/***/ "./frontend/components/user/user_show/user_booking_request.jsx":
 /*!*********************************************************************!*\
-  !*** ./frontend/components/user/user_show/user-booking-request.jsx ***!
+  !*** ./frontend/components/user/user_show/user_booking_request.jsx ***!
   \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -4154,9 +4154,9 @@ exports.default = UserBookingRequest;
 
 /***/ }),
 
-/***/ "./frontend/components/user/user_show/user-reviews.jsx":
+/***/ "./frontend/components/user/user_show/user_reviews.jsx":
 /*!*************************************************************!*\
-  !*** ./frontend/components/user/user_show/user-reviews.jsx ***!
+  !*** ./frontend/components/user/user_show/user_reviews.jsx ***!
   \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -4193,8 +4193,8 @@ var UserReviews = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (UserReviews.__proto__ || Object.getPrototypeOf(UserReviews)).call(this, props));
 
     _this.state = {
-      title: undefined,
-      body: undefined,
+      title: "",
+      body: "",
       recommended: "true",
       error: "",
       success: "",
@@ -4202,6 +4202,7 @@ var UserReviews = function (_React$Component) {
     };
 
     _this.handleChange = _this.handleChange.bind(_this);
+    _this.clearForms = _this.clearForms.bind(_this);
     return _this;
   }
 
@@ -4223,7 +4224,7 @@ var UserReviews = function (_React$Component) {
   }, {
     key: "clearForms",
     value: function clearForms() {
-      this.setState({ title: undefined, body: undefined, recommended: "true" });
+      this.setState({ title: "", body: "", recommended: "true" });
     }
   }, {
     key: "handleChange",
@@ -4255,9 +4256,7 @@ var UserReviews = function (_React$Component) {
       var params = { title: state.title, body: state.body, recommended: state.recommended, revieweeId: this.props.props.otherProps.match.params.userId, date: today };
       this.props.props.otherProps.createReviews(params).then(function () {
         return _this2.clearForms();
-      }, function (error) {
-        return _this2.setState({ error: error });
-      });
+      }).then(this.successMessage());
     }
   }, {
     key: "render",
@@ -4402,13 +4401,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
 
-var _userReviews = __webpack_require__(/*! ./user-reviews */ "./frontend/components/user/user_show/user-reviews.jsx");
+var _user_reviews = __webpack_require__(/*! ./user_reviews */ "./frontend/components/user/user_show/user_reviews.jsx");
 
-var _userReviews2 = _interopRequireDefault(_userReviews);
+var _user_reviews2 = _interopRequireDefault(_user_reviews);
 
-var _userBookingRequest = __webpack_require__(/*! ./user-booking-request */ "./frontend/components/user/user_show/user-booking-request.jsx");
+var _user_booking_request = __webpack_require__(/*! ./user_booking_request */ "./frontend/components/user/user_show/user_booking_request.jsx");
 
-var _userBookingRequest2 = _interopRequireDefault(_userBookingRequest);
+var _user_booking_request2 = _interopRequireDefault(_user_booking_request);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4577,8 +4576,8 @@ var UserShow = function (_React$Component) {
               sendReviewButton
             )
           ),
-          _react2.default.createElement(_userBookingRequest2.default, { props: props }),
-          _react2.default.createElement(_userReviews2.default, { props: props }),
+          _react2.default.createElement(_user_booking_request2.default, { props: props }),
+          _react2.default.createElement(_user_reviews2.default, { props: props }),
           _react2.default.createElement(
             'section',
             { className: 'user-show-section-bio' },
