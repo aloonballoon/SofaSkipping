@@ -8,16 +8,7 @@ json.host_ids user.host_ids
 json.guest_ids user.guest_ids
 json.trip_ids user.booking_ids
 json.hosting_ids user.hosting_ids
-
-json.trips do
-  user.bookings.each do |booking|
-    json.set! booking.id do
-      json.extract! booking, :host_id, :guest_id, :start_date, :end_date, :id
-    end
-  end
-end
-
-#
+json.received_review_ids user.received_review_ids
 json.location user.location
 
 

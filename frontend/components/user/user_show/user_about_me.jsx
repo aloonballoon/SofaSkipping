@@ -9,6 +9,7 @@ class UserAboutMe extends React.Component {
   }
 
   render() {
+
     let user = this.props.props.user || {};
 
     return(

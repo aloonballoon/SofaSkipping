@@ -2141,6 +2141,10 @@ var _sign_up_form_container = __webpack_require__(/*! ./sign_up_form_container *
 
 var _sign_up_form_container2 = _interopRequireDefault(_sign_up_form_container);
 
+var _show_reviews = __webpack_require__(/*! ./user/user_show/show_reviews */ "./frontend/components/user/user_show/show_reviews.jsx");
+
+var _show_reviews2 = _interopRequireDefault(_show_reviews);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Modal(_ref) {
@@ -2158,6 +2162,8 @@ function Modal(_ref) {
     case 'signup':
       component = _react2.default.createElement(_sign_up_form_container2.default, null);
       break;
+    case 'showReviews':
+      component = _react2.default.createElement(_show_reviews2.default, null);
     default:
       return null;
   }
@@ -3940,6 +3946,38 @@ exports.default = (0, _reactRouter.withRouter)(UserSearchIndexItems);
 
 /***/ }),
 
+/***/ "./frontend/components/user/user_show/show_reviews.jsx":
+/*!*************************************************************!*\
+  !*** ./frontend/components/user/user_show/show_reviews.jsx ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ShowReviews = function ShowReviews(props) {
+  return _react2.default.createElement(
+    'div',
+    null,
+    'Show Reviews'
+  );
+};
+
+exports.default = ShowReviews;
+
+/***/ }),
+
 /***/ "./frontend/components/user/user_show/user_about_me.jsx":
 /*!**************************************************************!*\
   !*** ./frontend/components/user/user_show/user_about_me.jsx ***!
@@ -3983,6 +4021,7 @@ var UserAboutMe = function (_React$Component) {
   _createClass(UserAboutMe, [{
     key: "render",
     value: function render() {
+
       var user = this.props.props.user || {};
 
       return _react2.default.createElement(
@@ -4237,52 +4276,82 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var UserOverview = function UserOverview(props) {
-  var user = props.props.user || {};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  return _react2.default.createElement(
-    "section",
-    { className: "user-show-section-bio" },
-    _react2.default.createElement(
-      "header",
-      { className: "user-show-bio-header" },
-      "OVERVIEW"
-    ),
-    _react2.default.createElement(
-      "article",
-      { className: "user-show-bio-body" },
-      _react2.default.createElement(
-        "ul",
-        { className: "user-show-overview-ul" },
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UserOverview = function (_React$Component) {
+  _inherits(UserOverview, _React$Component);
+
+  function UserOverview(props) {
+    _classCallCheck(this, UserOverview);
+
+    return _possibleConstructorReturn(this, (UserOverview.__proto__ || Object.getPrototypeOf(UserOverview)).call(this, props));
+  }
+
+  _createClass(UserOverview, [{
+    key: "render",
+    value: function render() {
+
+      var user = this.props.props.user || {};
+
+      return _react2.default.createElement(
+        "section",
+        { className: "user-show-section-bio" },
         _react2.default.createElement(
-          "li",
-          null,
-          _react2.default.createElement("i", { className: "fas fa-language" }),
-          " Languages: No languages listed"
+          "header",
+          { className: "user-show-bio-header" },
+          "OVERVIEW"
         ),
         _react2.default.createElement(
-          "li",
-          null,
-          _react2.default.createElement("i", { className: "fas fa-hourglass-half" }),
-          " Age: ",
-          user.age
-        ),
-        _react2.default.createElement(
-          "li",
-          null,
-          _react2.default.createElement("i", { className: "fas fa-briefcase" }),
-          " Occupation: No occupation listed"
+          "article",
+          { className: "user-show-bio-body" },
+          _react2.default.createElement(
+            "ul",
+            { className: "user-show-overview-ul" },
+            _react2.default.createElement(
+              "li",
+              { onClick: this.showReferences },
+              _react2.default.createElement("i", { className: "fas fa-quote-left" }),
+              " References:"
+            ),
+            _react2.default.createElement(
+              "li",
+              null,
+              _react2.default.createElement("i", { className: "fas fa-language" }),
+              " Languages: No languages listed"
+            ),
+            _react2.default.createElement(
+              "li",
+              null,
+              _react2.default.createElement("i", { className: "fas fa-hourglass-half" }),
+              " Age: ",
+              user.age
+            ),
+            _react2.default.createElement(
+              "li",
+              null,
+              _react2.default.createElement("i", { className: "fas fa-briefcase" }),
+              " Occupation: No occupation listed"
+            )
+          )
         )
-      )
-    )
-  );
-};
+      );
+    }
+  }]);
+
+  return UserOverview;
+}(_react2.default.Component);
 
 exports.default = UserOverview;
 
