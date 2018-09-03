@@ -4205,15 +4205,22 @@ var UserReviews = function (_React$Component) {
   _createClass(UserReviews, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.props.otherProps.fetchReviews(this.props.props.otherProps.match.params.userId);
-      this.setState({ hidden: this.props.props.hiddenReviews });
+      var props = this.props.props;
+      props.otherProps.fetchReviews(props.otherProps.match.params.userId);
+      this.setState({ hidden: props.hiddenReviews });
     }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      if (prevProps.props.hiddenReviews !== this.props.props.hiddenReviews) {
-        this.setState({ hidden: this.props.props.hiddenReviews });
+      var props = this.props.props;
+      if (prevProps.props.hiddenReviews !== props.hiddenReviews) {
+        this.setState({ hidden: props.hiddenReviews });
       }
+    }
+  }, {
+    key: "clearForms",
+    value: function clearForms() {
+      this.setState({ title: "", body: "", recommended: "true" });
     }
   }, {
     key: "handleChange",
@@ -4223,6 +4230,8 @@ var UserReviews = function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      var _this2 = this;
+
       e.preventDefault();
       var today = new Date();
       var dd = today.getDate();
@@ -4241,12 +4250,14 @@ var UserReviews = function (_React$Component) {
 
       var state = this.state;
       var params = { title: state.title, body: state.body, recommended: state.recommended, revieweeId: this.props.props.otherProps.match.params.userId, date: today };
-      this.props.props.otherProps.createReviews(params);
+      this.props.props.otherProps.createReviews(params).then(function () {
+        return _this2.clearForms();
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var successMessage = void 0;
       var errorMessage = void 0;
@@ -4290,7 +4301,7 @@ var UserReviews = function (_React$Component) {
       return _react2.default.createElement(
         "form",
         { className: hiddenFormState + (" " + hiddenFormStateAddOn), onSubmit: function onSubmit(e) {
-            return _this2.handleSubmit(e);
+            return _this3.handleSubmit(e);
           } },
         _react2.default.createElement(
           "header",
@@ -4308,7 +4319,7 @@ var UserReviews = function (_React$Component) {
               "label",
               null,
               _react2.default.createElement("input", { onChange: function onChange(event) {
-                  return _this2.handleChange(event);
+                  return _this3.handleChange(event);
                 }, className: "user-show-review-radio-input", type: "radio", name: "recommended", checked: this.state.recommended === "true", value: "true" }),
               "Yes, I would recommend ",
               user.first_name
@@ -4317,7 +4328,7 @@ var UserReviews = function (_React$Component) {
               "label",
               null,
               _react2.default.createElement("input", { onChange: function onChange(event) {
-                  return _this2.handleChange(event);
+                  return _this3.handleChange(event);
                 }, className: "user-show-review-radio-input", type: "radio", checked: this.state.recommended === "false", name: "recommended", value: "false" }),
               "No, I would not recommend ",
               user.first_name
@@ -4329,10 +4340,10 @@ var UserReviews = function (_React$Component) {
             _react2.default.createElement(
               "h2",
               null,
-              "Review Title"
+              "Title"
             ),
             _react2.default.createElement("input", { required: true, type: "text", value: this.state.title, name: "title", onChange: function onChange(event) {
-                return _this2.handleChange(event);
+                return _this3.handleChange(event);
               } })
           ),
           _react2.default.createElement(
@@ -4341,10 +4352,10 @@ var UserReviews = function (_React$Component) {
             _react2.default.createElement(
               "h2",
               null,
-              "Review Body"
+              "Body"
             ),
-            _react2.default.createElement("textarea", { required: true, rows: "7", cols: "50", name: "body", onChange: function onChange(event) {
-                return _this2.handleChange(event);
+            _react2.default.createElement("textarea", { required: true, rows: "7", value: this.state.body, cols: "50", name: "body", onChange: function onChange(event) {
+                return _this3.handleChange(event);
               }, placeholder: "Write something about " + user.first_name })
           ),
           _react2.default.createElement(

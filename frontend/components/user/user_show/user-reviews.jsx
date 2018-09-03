@@ -16,14 +16,20 @@ class UserReviews extends React.Component {
   }
 
   componentDidMount() {
-    this.props.props.otherProps.fetchReviews(this.props.props.otherProps.match.params.userId)
-    this.setState({hidden: this.props.props.hiddenReviews});
+    let props = this.props.props;
+    props.otherProps.fetchReviews(props.otherProps.match.params.userId);
+    this.setState({hidden: props.hiddenReviews});
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.props.hiddenReviews !== this.props.props.hiddenReviews) {
-      this.setState({hidden: this.props.props.hiddenReviews});
+    let props = this.props.props;
+    if (prevProps.props.hiddenReviews !== props.hiddenReviews) {
+      this.setState({hidden: props.hiddenReviews});
     }
+  }
+
+  clearForms() {
+    this.setState({title: "", body: "", recommended: "true"});
   }
 
   handleChange(event) {
@@ -34,22 +40,22 @@ class UserReviews extends React.Component {
     e.preventDefault();
     let today = new Date();
     let dd = today.getDate();
-    let mm = today.getMonth()+1;
+    let mm = today.getMonth() + 1;
     let yyyy = today.getFullYear();
 
     if (dd < 10) {
-        dd = '0'+ dd
+        dd = '0' + dd
     }
 
     if (mm < 10) {
-        mm = '0'+ mm
+        mm = '0' + mm
     }
 
     today = mm + '-' + dd + '-' + yyyy;
 
     let state = this.state;
     let params = {title: state.title, body: state.body, recommended: state.recommended, revieweeId: this.props.props.otherProps.match.params.userId, date: today }
-    this.props.props.otherProps.createReviews(params)
+    this.props.props.otherProps.createReviews(params).then(() => this.clearForms());
   }
 
   render() {
@@ -92,12 +98,12 @@ class UserReviews extends React.Component {
               </div>
 
               <div>
-                <h2>Review Title</h2>
+                <h2>Title</h2>
                 <input required type="text" value={this.state.title} name="title" onChange={(event) => this.handleChange(event)}/>
               </div>
               <div>
-                <h2>Review Body</h2>
-                <textarea required rows="7" cols="50" name="body" onChange={(event) => this.handleChange(event)} placeholder={"Write something about " + user.first_name}></textarea>
+                <h2>Body</h2>
+                <textarea required rows="7" value={this.state.body} cols="50" name="body" onChange={(event) => this.handleChange(event)} placeholder={"Write something about " + user.first_name}></textarea>
               </div>
               <button className="user-show-send-request-review-button submit-review">Submit Review</button>
             </section>
