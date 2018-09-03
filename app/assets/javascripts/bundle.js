@@ -3940,6 +3940,75 @@ exports.default = (0, _reactRouter.withRouter)(UserSearchIndexItems);
 
 /***/ }),
 
+/***/ "./frontend/components/user/user_show/user_about_me.jsx":
+/*!**************************************************************!*\
+  !*** ./frontend/components/user/user_show/user_about_me.jsx ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UserAboutMe = function (_React$Component) {
+  _inherits(UserAboutMe, _React$Component);
+
+  function UserAboutMe(props) {
+    _classCallCheck(this, UserAboutMe);
+
+    var _this = _possibleConstructorReturn(this, (UserAboutMe.__proto__ || Object.getPrototypeOf(UserAboutMe)).call(this, props));
+
+    _this.state = {};
+    return _this;
+  }
+
+  _createClass(UserAboutMe, [{
+    key: "render",
+    value: function render() {
+      var user = this.props.props.user || {};
+
+      return _react2.default.createElement(
+        "section",
+        { className: "user-show-section-bio" },
+        _react2.default.createElement(
+          "header",
+          { className: "user-show-bio-header" },
+          "ABOUT ME"
+        ),
+        _react2.default.createElement(
+          "article",
+          { className: "user-show-bio-body" },
+          user.bio
+        )
+      );
+    }
+  }]);
+
+  return UserAboutMe;
+}(_react2.default.Component);
+
+exports.default = UserAboutMe;
+
+/***/ }),
+
 /***/ "./frontend/components/user/user_show/user_booking_request.jsx":
 /*!*********************************************************************!*\
   !*** ./frontend/components/user/user_show/user_booking_request.jsx ***!
@@ -4194,21 +4263,21 @@ var UserOverview = function UserOverview(props) {
         _react2.default.createElement(
           "li",
           null,
-          _react2.default.createElement("i", { className: "em em-left_speech_bubble" }),
-          "  No languages listed"
+          _react2.default.createElement("i", { className: "fas fa-language" }),
+          " Languages: No languages listed"
         ),
         _react2.default.createElement(
           "li",
           null,
-          _react2.default.createElement("i", { className: "em em-older_adult" }),
-          "  ",
+          _react2.default.createElement("i", { className: "fas fa-hourglass-half" }),
+          " Age: ",
           user.age
         ),
         _react2.default.createElement(
           "li",
           null,
-          _react2.default.createElement("i", { className: "em em-briefcase" }),
-          "  No occupation listed"
+          _react2.default.createElement("i", { className: "fas fa-briefcase" }),
+          " Occupation: No occupation listed"
         )
       )
     )
@@ -4491,6 +4560,10 @@ var _user_overview = __webpack_require__(/*! ./user_overview */ "./frontend/comp
 
 var _user_overview2 = _interopRequireDefault(_user_overview);
 
+var _user_about_me = __webpack_require__(/*! ./user_about_me */ "./frontend/components/user/user_show/user_about_me.jsx");
+
+var _user_about_me2 = _interopRequireDefault(_user_about_me);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -4661,20 +4734,7 @@ var UserShow = function (_React$Component) {
           _react2.default.createElement(_user_booking_request2.default, { props: props }),
           _react2.default.createElement(_user_reviews2.default, { props: props }),
           _react2.default.createElement(_user_overview2.default, { props: props.otherProps }),
-          _react2.default.createElement(
-            'section',
-            { className: 'user-show-section-bio' },
-            _react2.default.createElement(
-              'header',
-              { className: 'user-show-bio-header' },
-              'ABOUT ME'
-            ),
-            _react2.default.createElement(
-              'article',
-              { className: 'user-show-bio-body' },
-              user.bio
-            )
-          )
+          _react2.default.createElement(_user_about_me2.default, { props: props.otherProps })
         )
       );
     }
