@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import UserReviews from './user_reviews';
 import UserBookingRequest from './user_booking_request';
+import UserOverview from './user_overview';
 
 class UserShow extends React.Component {
   constructor(props) {
@@ -115,26 +116,7 @@ class UserShow extends React.Component {
 
           <UserBookingRequest props={props}/>
           <UserReviews props={props}/>
-
-          <section className="user-show-section-bio">
-            <header className="user-show-bio-header">
-              OVERVIEW
-            </header>
-            <article className="user-show-bio-body">
-            <ul className="user-show-overview-ul">
-              <li>
-               <i className="em em-left_speech_bubble"></i>  No languages listed
-              </li>
-              <li>
-               <i className="em em-older_adult"></i>  {user.age}
-              </li>
-              <li>
-              <i className="em em-briefcase"></i>  No occupation listed
-              </li>
-            </ul>
-            </article>
-          </section>
-
+          <UserOverview props={props.otherProps}/>
 
           <section className="user-show-section-bio">
             <header className="user-show-bio-header">
@@ -144,8 +126,8 @@ class UserShow extends React.Component {
             {user.bio}
             </article>
           </section>
+          
         </section>
-
       </div>
     )
   }

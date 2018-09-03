@@ -14,6 +14,8 @@ class UserReviews extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.clearForms = this.clearForms.bind(this);
+    this.successMessage = this.successMessage.bind(this);
+    this.clearSuccessMessage = this.clearSuccessMessage.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +29,14 @@ class UserReviews extends React.Component {
     if (prevProps.props.hiddenReviews !== props.hiddenReviews) {
       this.setState({hidden: props.hiddenReviews});
     }
+  }
+
+  successMessage() {
+    this.setState({success: "Review successfully sent"}, () => setTimeout(this.clearSuccessMessage, 3000))
+  }
+
+  clearSuccessMessage() {
+    this.setState({success: ""});
   }
 
   clearForms() {
@@ -57,7 +67,7 @@ class UserReviews extends React.Component {
     let state = this.state;
     let params = {title: state.title, body: state.body, recommended: state.recommended, revieweeId: this.props.props.otherProps.match.params.userId, date: today }
     this.props.props.otherProps.createReviews(params)
-    .then(() => this.clearForms()).then((this.successMessage()));
+    .then(() => this.clearForms()).then(() => this.successMessage());
   }
 
   render() {
@@ -74,19 +84,14 @@ class UserReviews extends React.Component {
     }
 
     let hiddenFormState = "user-show-review-form";
-    let hiddenFormStateAddOn = "hidden";
-
-    if (this.state.hidden) {
-      hiddenFormStateAddOn = "hidden";
-    } else {
-      hiddenFormStateAddOn = "show";
-    }
+    let hiddenFormStateAddOn = this.state.hidden ? "hidden" : "show";
 
     let user = this.props.props.otherProps.user || {};
 
     return(
         <form className={hiddenFormState + ` ${hiddenFormStateAddOn}`} onSubmit={(e) => this.handleSubmit(e)}>
             <header className="user-show-write-review-h1">Write a Review for {user.first_name}</header>
+            {successMessage}
             <section className="user-show-write-review-section">
               <div className="user-show-radio-input-div">
                 <label>
@@ -101,7 +106,7 @@ class UserReviews extends React.Component {
 
               <div>
                 <h2>Title</h2>
-                <input required type="text" value={this.state.title} name="title" onChange={(event) => this.handleChange(event)}/>
+                <input required autoComplete="off" type="text" value={this.state.title} name="title" onChange={(event) => this.handleChange(event)}/>
               </div>
               <div>
                 <h2>Body</h2>

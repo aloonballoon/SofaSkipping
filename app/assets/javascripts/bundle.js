@@ -4154,6 +4154,71 @@ exports.default = UserBookingRequest;
 
 /***/ }),
 
+/***/ "./frontend/components/user/user_show/user_overview.jsx":
+/*!**************************************************************!*\
+  !*** ./frontend/components/user/user_show/user_overview.jsx ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UserOverview = function UserOverview(props) {
+  var user = props.props.user || {};
+
+  return _react2.default.createElement(
+    "section",
+    { className: "user-show-section-bio" },
+    _react2.default.createElement(
+      "header",
+      { className: "user-show-bio-header" },
+      "OVERVIEW"
+    ),
+    _react2.default.createElement(
+      "article",
+      { className: "user-show-bio-body" },
+      _react2.default.createElement(
+        "ul",
+        { className: "user-show-overview-ul" },
+        _react2.default.createElement(
+          "li",
+          null,
+          _react2.default.createElement("i", { className: "em em-left_speech_bubble" }),
+          "  No languages listed"
+        ),
+        _react2.default.createElement(
+          "li",
+          null,
+          _react2.default.createElement("i", { className: "em em-older_adult" }),
+          "  ",
+          user.age
+        ),
+        _react2.default.createElement(
+          "li",
+          null,
+          _react2.default.createElement("i", { className: "em em-briefcase" }),
+          "  No occupation listed"
+        )
+      )
+    )
+  );
+};
+
+exports.default = UserOverview;
+
+/***/ }),
+
 /***/ "./frontend/components/user/user_show/user_reviews.jsx":
 /*!*************************************************************!*\
   !*** ./frontend/components/user/user_show/user_reviews.jsx ***!
@@ -4203,6 +4268,8 @@ var UserReviews = function (_React$Component) {
 
     _this.handleChange = _this.handleChange.bind(_this);
     _this.clearForms = _this.clearForms.bind(_this);
+    _this.successMessage = _this.successMessage.bind(_this);
+    _this.clearSuccessMessage = _this.clearSuccessMessage.bind(_this);
     return _this;
   }
 
@@ -4222,6 +4289,20 @@ var UserReviews = function (_React$Component) {
       }
     }
   }, {
+    key: "successMessage",
+    value: function successMessage() {
+      var _this2 = this;
+
+      this.setState({ success: "Review successfully sent" }, function () {
+        return setTimeout(_this2.clearSuccessMessage, 3000);
+      });
+    }
+  }, {
+    key: "clearSuccessMessage",
+    value: function clearSuccessMessage() {
+      this.setState({ success: "" });
+    }
+  }, {
     key: "clearForms",
     value: function clearForms() {
       this.setState({ title: "", body: "", recommended: "true" });
@@ -4234,7 +4315,7 @@ var UserReviews = function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
-      var _this2 = this;
+      var _this3 = this;
 
       e.preventDefault();
       var today = new Date();
@@ -4255,13 +4336,15 @@ var UserReviews = function (_React$Component) {
       var state = this.state;
       var params = { title: state.title, body: state.body, recommended: state.recommended, revieweeId: this.props.props.otherProps.match.params.userId, date: today };
       this.props.props.otherProps.createReviews(params).then(function () {
-        return _this2.clearForms();
-      }).then(this.successMessage());
+        return _this3.clearForms();
+      }).then(function () {
+        return _this3.successMessage();
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var successMessage = void 0;
       var errorMessage = void 0;
@@ -4292,20 +4375,14 @@ var UserReviews = function (_React$Component) {
       }
 
       var hiddenFormState = "user-show-review-form";
-      var hiddenFormStateAddOn = "hidden";
-
-      if (this.state.hidden) {
-        hiddenFormStateAddOn = "hidden";
-      } else {
-        hiddenFormStateAddOn = "show";
-      }
+      var hiddenFormStateAddOn = this.state.hidden ? "hidden" : "show";
 
       var user = this.props.props.otherProps.user || {};
 
       return _react2.default.createElement(
         "form",
         { className: hiddenFormState + (" " + hiddenFormStateAddOn), onSubmit: function onSubmit(e) {
-            return _this3.handleSubmit(e);
+            return _this4.handleSubmit(e);
           } },
         _react2.default.createElement(
           "header",
@@ -4313,6 +4390,7 @@ var UserReviews = function (_React$Component) {
           "Write a Review for ",
           user.first_name
         ),
+        successMessage,
         _react2.default.createElement(
           "section",
           { className: "user-show-write-review-section" },
@@ -4323,7 +4401,7 @@ var UserReviews = function (_React$Component) {
               "label",
               null,
               _react2.default.createElement("input", { onChange: function onChange(event) {
-                  return _this3.handleChange(event);
+                  return _this4.handleChange(event);
                 }, className: "user-show-review-radio-input", type: "radio", name: "recommended", checked: this.state.recommended === "true", value: "true" }),
               "Yes, I would recommend ",
               user.first_name
@@ -4332,7 +4410,7 @@ var UserReviews = function (_React$Component) {
               "label",
               null,
               _react2.default.createElement("input", { onChange: function onChange(event) {
-                  return _this3.handleChange(event);
+                  return _this4.handleChange(event);
                 }, className: "user-show-review-radio-input", type: "radio", checked: this.state.recommended === "false", name: "recommended", value: "false" }),
               "No, I would not recommend ",
               user.first_name
@@ -4346,8 +4424,8 @@ var UserReviews = function (_React$Component) {
               null,
               "Title"
             ),
-            _react2.default.createElement("input", { required: true, type: "text", value: this.state.title, name: "title", onChange: function onChange(event) {
-                return _this3.handleChange(event);
+            _react2.default.createElement("input", { required: true, autoComplete: "off", type: "text", value: this.state.title, name: "title", onChange: function onChange(event) {
+                return _this4.handleChange(event);
               } })
           ),
           _react2.default.createElement(
@@ -4359,7 +4437,7 @@ var UserReviews = function (_React$Component) {
               "Body"
             ),
             _react2.default.createElement("textarea", { required: true, rows: "7", value: this.state.body, cols: "50", name: "body", onChange: function onChange(event) {
-                return _this3.handleChange(event);
+                return _this4.handleChange(event);
               }, placeholder: "Write something about " + user.first_name })
           ),
           _react2.default.createElement(
@@ -4408,6 +4486,10 @@ var _user_reviews2 = _interopRequireDefault(_user_reviews);
 var _user_booking_request = __webpack_require__(/*! ./user_booking_request */ "./frontend/components/user/user_show/user_booking_request.jsx");
 
 var _user_booking_request2 = _interopRequireDefault(_user_booking_request);
+
+var _user_overview = __webpack_require__(/*! ./user_overview */ "./frontend/components/user/user_show/user_overview.jsx");
+
+var _user_overview2 = _interopRequireDefault(_user_overview);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4578,42 +4660,7 @@ var UserShow = function (_React$Component) {
           ),
           _react2.default.createElement(_user_booking_request2.default, { props: props }),
           _react2.default.createElement(_user_reviews2.default, { props: props }),
-          _react2.default.createElement(
-            'section',
-            { className: 'user-show-section-bio' },
-            _react2.default.createElement(
-              'header',
-              { className: 'user-show-bio-header' },
-              'OVERVIEW'
-            ),
-            _react2.default.createElement(
-              'article',
-              { className: 'user-show-bio-body' },
-              _react2.default.createElement(
-                'ul',
-                { className: 'user-show-overview-ul' },
-                _react2.default.createElement(
-                  'li',
-                  null,
-                  _react2.default.createElement('i', { className: 'em em-left_speech_bubble' }),
-                  '  No languages listed'
-                ),
-                _react2.default.createElement(
-                  'li',
-                  null,
-                  _react2.default.createElement('i', { className: 'em em-older_adult' }),
-                  '  ',
-                  user.age
-                ),
-                _react2.default.createElement(
-                  'li',
-                  null,
-                  _react2.default.createElement('i', { className: 'em em-briefcase' }),
-                  '  No occupation listed'
-                )
-              )
-            )
-          ),
+          _react2.default.createElement(_user_overview2.default, { props: props.otherProps }),
           _react2.default.createElement(
             'section',
             { className: 'user-show-section-bio' },
