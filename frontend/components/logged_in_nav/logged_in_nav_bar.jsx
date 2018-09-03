@@ -48,8 +48,8 @@ class LoggedInNav extends React.Component {
     this.props.history.push('/dashboard');
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit() {
+
     switch (this.state.searchFilter) {
       case "Find Members":
         this.props.fetchUsers(this.state.text).then(() => {
@@ -83,7 +83,7 @@ class LoggedInNav extends React.Component {
                    country: country,
                    lat: place.place.geometry.location.lat(),
                    lng: place.place.geometry.location.lng()
-                 })
+                 }, () => this.handleSubmit())
   }
 
 

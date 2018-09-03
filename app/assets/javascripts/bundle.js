@@ -1767,10 +1767,9 @@ var LoggedInNav = function (_React$Component) {
     }
   }, {
     key: 'handleSubmit',
-    value: function handleSubmit(e) {
+    value: function handleSubmit() {
       var _this2 = this;
 
-      e.preventDefault();
       switch (this.state.searchFilter) {
         case "Find Members":
           this.props.fetchUsers(this.state.text).then(function () {
@@ -1794,6 +1793,8 @@ var LoggedInNav = function (_React$Component) {
   }, {
     key: 'handleGoogle',
     value: function handleGoogle(place) {
+      var _this3 = this;
+
       var country = void 0;
       if (Number.isInteger(Number(place.place.address_components.slice(-1)[0].long_name))) {
         country = place.place.address_components.slice(-2)[0].long_name;
@@ -1805,12 +1806,14 @@ var LoggedInNav = function (_React$Component) {
         country: country,
         lat: place.place.geometry.location.lat(),
         lng: place.place.geometry.location.lng()
+      }, function () {
+        return _this3.handleSubmit();
       });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var userPicture = void 0;
       if (this.props.user.photoUrl) {
@@ -1838,35 +1841,35 @@ var LoggedInNav = function (_React$Component) {
         input = _react2.default.createElement(
           'form',
           { className: 'dash-nav-input-form', onFocus: function onFocus() {
-              return _this3.toggleClassOnFocus();
+              return _this4.toggleClassOnFocus();
             }, onBlur: function onBlur() {
-              return _this3.toggleClassOnFocus();
+              return _this4.toggleClassOnFocus();
             }, onSubmit: function onSubmit(e) {
-              return _this3.handleSubmit(e);
+              return _this4.handleSubmit(e);
             } },
           _react2.default.createElement('input', { onChange: function onChange(e) {
-              return _this3.handleChange(e);
+              return _this4.handleChange(e);
             }, value: this.state.text, className: 'dash-nav-search-input', type: 'text', placeholder: placeholder, onSubmit: function onSubmit(e) {
-              return _this3.handleSubmit(e);
+              return _this4.handleSubmit(e);
             } })
         );
       } else if (this.state.searchFilter === "Explore") {
         input = _react2.default.createElement(
           'form',
           { onSubmit: function onSubmit(e) {
-              return _this3.handleSubmit(e);
+              return _this4.handleSubmit(e);
             }, onFocus: function onFocus() {
-              return _this3.toggleClassOnFocus();
+              return _this4.toggleClassOnFocus();
             }, onBlur: function onBlur() {
-              return _this3.toggleClassOnFocus();
+              return _this4.toggleClassOnFocus();
             } },
           _react2.default.createElement(_reactGoogleAutocomplete2.default, {
             className: 'dash-nav-search-input', style: ({ width: '80%' }, { height: '80%' }),
             onChange: function onChange(e) {
-              return _this3.handleChange(e);
+              return _this4.handleChange(e);
             },
             onPlaceSelected: function onPlaceSelected(place) {
-              _this3.handleGoogle({ place: place });
+              _this4.handleGoogle({ place: place });
             },
             types: ['(regions)']
           })
@@ -1879,7 +1882,7 @@ var LoggedInNav = function (_React$Component) {
         _react2.default.createElement(
           'article',
           { className: 'logo', onClick: function onClick() {
-              return _this3.handleDashClick();
+              return _this4.handleDashClick();
             } },
           'SofaSkipping'
         ),
@@ -1908,7 +1911,7 @@ var LoggedInNav = function (_React$Component) {
                 _react2.default.createElement(
                   'li',
                   { onClick: function onClick() {
-                      return _this3.changeSearchFilter("Explore");
+                      return _this4.changeSearchFilter("Explore");
                     } },
                   _react2.default.createElement(
                     'div',
@@ -1919,7 +1922,7 @@ var LoggedInNav = function (_React$Component) {
                 _react2.default.createElement(
                   'li',
                   { onClick: function onClick() {
-                      return _this3.changeSearchFilter("Find Members");
+                      return _this4.changeSearchFilter("Find Members");
                     } },
                   _react2.default.createElement(
                     'div',
@@ -1945,7 +1948,7 @@ var LoggedInNav = function (_React$Component) {
               _react2.default.createElement(
                 'li',
                 { onClick: function onClick() {
-                    return _this3.handleDashClick();
+                    return _this4.handleDashClick();
                   } },
                 _react2.default.createElement(
                   'div',
@@ -1956,7 +1959,7 @@ var LoggedInNav = function (_React$Component) {
               _react2.default.createElement(
                 'li',
                 { onClick: function onClick() {
-                    return _this3.handleProfile();
+                    return _this4.handleProfile();
                   } },
                 _react2.default.createElement(
                   'div',
@@ -1967,7 +1970,7 @@ var LoggedInNav = function (_React$Component) {
               _react2.default.createElement(
                 'li',
                 { onClick: function onClick() {
-                    return _this3.props.logOut();
+                    return _this4.props.logOut();
                   } },
                 _react2.default.createElement(
                   'div',
@@ -4190,8 +4193,8 @@ var UserReviews = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (UserReviews.__proto__ || Object.getPrototypeOf(UserReviews)).call(this, props));
 
     _this.state = {
-      title: "",
-      body: "",
+      title: undefined,
+      body: undefined,
       recommended: "true",
       error: "",
       success: "",
@@ -4220,7 +4223,7 @@ var UserReviews = function (_React$Component) {
   }, {
     key: "clearForms",
     value: function clearForms() {
-      this.setState({ title: "", body: "", recommended: "true" });
+      this.setState({ title: undefined, body: undefined, recommended: "true" });
     }
   }, {
     key: "handleChange",
@@ -4252,6 +4255,8 @@ var UserReviews = function (_React$Component) {
       var params = { title: state.title, body: state.body, recommended: state.recommended, revieweeId: this.props.props.otherProps.match.params.userId, date: today };
       this.props.props.otherProps.createReviews(params).then(function () {
         return _this2.clearForms();
+      }, function (error) {
+        return _this2.setState({ error: error });
       });
     }
   }, {

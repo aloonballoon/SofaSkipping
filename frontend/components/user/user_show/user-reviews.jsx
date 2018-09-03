@@ -4,8 +4,8 @@ class UserReviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      body: "",
+      title: undefined,
+      body: undefined,
       recommended: "true",
       error: "",
       success: "",
@@ -29,7 +29,7 @@ class UserReviews extends React.Component {
   }
 
   clearForms() {
-    this.setState({title: "", body: "", recommended: "true"});
+    this.setState({title: undefined, body: undefined, recommended: "true"});
   }
 
   handleChange(event) {
@@ -55,7 +55,9 @@ class UserReviews extends React.Component {
 
     let state = this.state;
     let params = {title: state.title, body: state.body, recommended: state.recommended, revieweeId: this.props.props.otherProps.match.params.userId, date: today }
-    this.props.props.otherProps.createReviews(params).then(() => this.clearForms());
+    this.props.props.otherProps.createReviews(params)
+    .then(() => this.clearForms(),
+    (error) => this.setState({error: error}));
   }
 
   render() {
