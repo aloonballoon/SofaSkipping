@@ -1373,7 +1373,7 @@ var LocationShow = function (_React$Component) {
               _react2.default.createElement(
                 'h1',
                 null,
-                _react2.default.createElement('i', { className: 'em em-house_with_garden' }),
+                _react2.default.createElement('i', { 'class': 'fas fa-home' }),
                 'Local Hosts'
               )
             ),
@@ -1392,8 +1392,8 @@ var LocationShow = function (_React$Component) {
               _react2.default.createElement(
                 'h1',
                 null,
-                _react2.default.createElement('i', { className: 'em em-small_airplane' }),
-                'Local Travelers'
+                _react2.default.createElement('i', { 'class': 'fas fa-plane-departure' }),
+                '  Local Travelers'
               )
             ),
             _react2.default.createElement(

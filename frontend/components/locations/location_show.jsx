@@ -85,7 +85,7 @@ class LocationShow extends React.Component {
         <section className="location-user-show-host-and-guest-wrapper">
         <section className="location-user-show-section">
         <header className="location-user-show-header">
-          <h1><i className="em em-house_with_garden"></i>Local Hosts</h1>
+          <h1><i class="fas fa-home"></i>Local Hosts</h1>
         </header>
           <article className="location-user-show-article">
           {locationHost}
@@ -94,7 +94,7 @@ class LocationShow extends React.Component {
 
         <section className="location-user-show-section">
         <header className="location-user-show-header">
-          <h1><i className="em em-small_airplane"></i>Local Travelers</h1>
+          <h1><i class="fas fa-plane-departure"></i>  Local Travelers</h1>
         </header>
           <article className="location-user-show-article">
           {locationGuest}

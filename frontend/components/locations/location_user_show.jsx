@@ -11,8 +11,6 @@ class LocationUserShow extends React.Component {
     this.props.history.push(`/members/${this.props.user.id}`)
   }
 
-
-
   render() {
 
     const user = this.props.user || {};
