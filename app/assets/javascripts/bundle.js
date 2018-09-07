@@ -4296,10 +4296,32 @@ var UserOverview = function (_React$Component) {
   function UserOverview(props) {
     _classCallCheck(this, UserOverview);
 
-    return _possibleConstructorReturn(this, (UserOverview.__proto__ || Object.getPrototypeOf(UserOverview)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (UserOverview.__proto__ || Object.getPrototypeOf(UserOverview)).call(this, props));
+
+    _this.state = { reviews: "" };
+    _this.showReferences = _this.showReferences.bind(_this);
+    return _this;
   }
 
   _createClass(UserOverview, [{
+    key: "showReferences",
+    value: function showReferences() {}
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var props = this.props.props;
+      props.fetchReviews(this.props.props.match.params.userId);
+      this.setState({ reviews: props.reviews });
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      var props = this.props.props;
+      if (props.reviews !== prevProps.props.reviews) {
+        this.setState({ reviews: props.reviews });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
 
@@ -4323,7 +4345,8 @@ var UserOverview = function (_React$Component) {
               "li",
               { onClick: this.showReferences },
               _react2.default.createElement("i", { className: "fas fa-quote-left" }),
-              " References:"
+              " Reviews: ",
+              this.state.reviews.length
             ),
             _react2.default.createElement(
               "li",
@@ -4415,7 +4438,6 @@ var UserReviews = function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var props = this.props.props;
-      props.otherProps.fetchReviews(props.otherProps.match.params.userId);
       this.setState({ hidden: props.hiddenReviews });
     }
   }, {
@@ -4845,9 +4867,19 @@ var _review_actions = __webpack_require__(/*! ../../../actions/review_actions */
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state, ownProps) {
+
+  var user = state.entities.users[ownProps.match.params.userId] || {};
+  var currentUser = state.entities.users[state.session.id] || {};
+  var review_ids = user.received_review_ids || [];
+
+  var reviews = review_ids.map(function (id) {
+    return state.entities.reviews[id];
+  });
+
   return {
-    user: state.entities.users[ownProps.match.params.userId],
-    currentUser: state.entities.users[state.session.id]
+    user: user,
+    currentUser: currentUser,
+    reviews: reviews
   };
 };
 

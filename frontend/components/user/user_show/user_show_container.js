@@ -7,9 +7,19 @@ import { fetchReviews } from '../../../actions/review_actions';
 
 
 const msp = (state, ownProps) => {
+
+  let user = state.entities.users[ownProps.match.params.userId] || {};
+  let currentUser = state.entities.users[state.session.id] || {};
+  let review_ids = user.received_review_ids || [];
+  
+  let reviews = review_ids.map(id => {
+    return state.entities.reviews[id];
+  });
+
   return {
-    user: state.entities.users[ownProps.match.params.userId],
-    currentUser: state.entities.users[state.session.id]
+    user: user,
+    currentUser: currentUser,
+    reviews: reviews
   };
 };
 

@@ -20,7 +20,6 @@ class UserReviews extends React.Component {
 
   componentDidMount() {
     let props = this.props.props;
-    props.otherProps.fetchReviews(props.otherProps.match.params.userId);
     this.setState({hidden: props.hiddenReviews});
   }
 
