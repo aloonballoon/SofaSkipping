@@ -300,7 +300,6 @@ var fetchReviews = exports.fetchReviews = function fetchReviews(userId) {
 var createReviews = exports.createReviews = function createReviews(data) {
   return function (dispatch) {
     return ReviewsApiUtil.createReviews(data).then(function (reviews) {
-      debugger;
       return dispatch(receiveReviews(reviews));
     });
   };
@@ -5842,7 +5841,7 @@ var usersReducer = function usersReducer() {
     case _location_actions.RECEIVE_LOCATION:
       return (0, _lodash.merge)({}, state, action.locations.hosts, action.locations.guests);
     case _review_actions.RECEIVE_REVIEWS:
-      return (0, _lodash.merge)({}, state, action.reviews);
+      return (0, _lodash.merge)({}, state, _defineProperty({}, action.reviews.user.id, action.reviews.user));
     case _booking_actions.RECEIVE_TRIP:
       newState = (0, _lodash.merge)({}, state);
       var currentUser = newState[Object.values(action.trip)[0].guest_id];

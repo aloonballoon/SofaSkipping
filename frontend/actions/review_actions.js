@@ -20,7 +20,6 @@ export const fetchReviews = (userId) => {
 export const createReviews = (data) => {
   return dispatch => {
     return ReviewsApiUtil.createReviews(data).then((reviews) => {
-      debugger
       return dispatch(receiveReviews(reviews));
     });
   };
