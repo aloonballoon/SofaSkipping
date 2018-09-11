@@ -9,3 +9,7 @@ reviews = Array(@reviews)
       end
     end
   end
+
+  json.user do
+    reviews.first.reviewee
+  end

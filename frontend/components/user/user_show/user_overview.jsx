@@ -1,4 +1,5 @@
 import React from 'react';
+import RatingsBar from './ratings_bar';
 
 class UserOverview extends React.Component {
   constructor(props) {
@@ -37,6 +38,7 @@ class UserOverview extends React.Component {
         <article className="user-show-bio-body">
         <ul className="user-show-overview-ul">
           <li onClick={this.showReferences}>
+            <RatingsBar reviews={this.props.props.reviews}/>
             <i className="fas fa-quote-left"></i> Reviews: {this.state.reviews.length}
           </li>
           <li>

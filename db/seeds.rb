@@ -56,7 +56,7 @@ Booking.create!(host_id: guest.id, guest_id: leana.id, start_date: "2018/02/13",
 Booking.create!(host_id: guest.id, guest_id: jess.id, start_date: "2018/03/13", end_date: "2018/03/15", confirmed: true)
 Booking.create!(host_id: guest.id, guest_id: simcha.id, start_date: "2018/04/13", end_date: "2018/04/15", confirmed: true)
 
-Review.create!(reviewer_id: guest.id, reviewee_id: alan.id, body: "Great guy. Awesome programmer. Please email him at alanuraz@gmail.com. Visit his site: alanuraz@gmail.com", title: "I'm for hire!", review_date: "2018/08/10", recommended: true)
+Review.create!(reviewer_id: guest.id, reviewee_id: alan.id, body: "Great guy. Awesome programmer. Please email him at alanuraz@gmail.com. Visit his site: alanuraz@gmail.com", title: "I'm for hire!", review_date: "2018/08/10", recommended: true, rating: 5)
 
 users_arr = []
 50.times do

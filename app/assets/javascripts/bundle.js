@@ -300,6 +300,7 @@ var fetchReviews = exports.fetchReviews = function fetchReviews(userId) {
 var createReviews = exports.createReviews = function createReviews(data) {
   return function (dispatch) {
     return ReviewsApiUtil.createReviews(data).then(function (reviews) {
+      debugger;
       return dispatch(receiveReviews(reviews));
     });
   };
@@ -1392,7 +1393,7 @@ var LocationShow = function (_React$Component) {
               _react2.default.createElement(
                 'h1',
                 null,
-                _react2.default.createElement('i', { 'class': 'fas fa-plane-departure' }),
+                _react2.default.createElement('i', { className: 'fas fa-plane-departure' }),
                 '  Local Travelers'
               )
             ),
@@ -1795,6 +1796,7 @@ var LoggedInNav = function (_React$Component) {
     value: function handleGoogle(place) {
       var _this3 = this;
 
+      debugger;
       var country = void 0;
       if (Number.isInteger(Number(place.place.address_components.slice(-1)[0].long_name))) {
         country = place.place.address_components.slice(-2)[0].long_name;
@@ -3946,6 +3948,256 @@ exports.default = (0, _reactRouter.withRouter)(UserSearchIndexItems);
 
 /***/ }),
 
+/***/ "./frontend/components/user/user_show/ratings_bar.jsx":
+/*!************************************************************!*\
+  !*** ./frontend/components/user/user_show/ratings_bar.jsx ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var RatingsBar = function (_React$Component) {
+  _inherits(RatingsBar, _React$Component);
+
+  function RatingsBar(props) {
+    _classCallCheck(this, RatingsBar);
+
+    var _this = _possibleConstructorReturn(this, (RatingsBar.__proto__ || Object.getPrototypeOf(RatingsBar)).call(this, props));
+
+    _this.state = {
+      rating: 0,
+      numReviews: 0
+    };
+    return _this;
+  }
+
+  _createClass(RatingsBar, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var ratingSum = 0;
+      var numReviews = 0;
+      this.props.reviews.forEach(function (review) {
+        ratingSum += review.rating;
+      });
+
+      this.setState({ rating: ratingSum });
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      var reviewsArr = this.props.reviews;
+      if (reviewsArr !== prevProps.reviews) {
+        var ratingSum = 0;
+        var numReviews = 0;
+
+        reviewsArr.forEach(function (review) {
+          ratingSum += review.rating;
+        });
+
+        this.setState({ rating: ratingSum, numReviews: reviewsArr.length });
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var pluralReview = "review";
+      if (this.state.numReviews > 1) {
+        pluralReview = "reviews";
+      }
+
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "span",
+          { className: "heading" },
+          "User Rating"
+        ),
+        _react2.default.createElement("span", { className: "fa fa-star checked" }),
+        _react2.default.createElement("span", { className: "fa fa-star checked" }),
+        _react2.default.createElement("span", { className: "fa fa-star checked" }),
+        _react2.default.createElement("span", { className: "fa fa-star checked" }),
+        _react2.default.createElement("span", { className: "fa fa-star" }),
+        _react2.default.createElement(
+          "p",
+          null,
+          this.state.rating,
+          " star average based on ",
+          this.state.numReviews,
+          " ",
+          pluralReview,
+          "."
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "row" },
+          _react2.default.createElement(
+            "div",
+            { className: "side" },
+            _react2.default.createElement(
+              "div",
+              null,
+              "5 star"
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "middle" },
+            _react2.default.createElement(
+              "div",
+              { className: "bar-container" },
+              _react2.default.createElement("div", { className: "bar-5" })
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "side right" },
+            _react2.default.createElement(
+              "div",
+              null,
+              "150"
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "side" },
+            _react2.default.createElement(
+              "div",
+              null,
+              "4 star"
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "middle" },
+            _react2.default.createElement(
+              "div",
+              { className: "bar-container" },
+              _react2.default.createElement("div", { className: "bar-4" })
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "side right" },
+            _react2.default.createElement(
+              "div",
+              null,
+              "63"
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "side" },
+            _react2.default.createElement(
+              "div",
+              null,
+              "3 star"
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "middle" },
+            _react2.default.createElement(
+              "div",
+              { className: "bar-container" },
+              _react2.default.createElement("div", { className: "bar-3" })
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "side right" },
+            _react2.default.createElement(
+              "div",
+              null,
+              "15"
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "side" },
+            _react2.default.createElement(
+              "div",
+              null,
+              "2 star"
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "middle" },
+            _react2.default.createElement(
+              "div",
+              { className: "bar-container" },
+              _react2.default.createElement("div", { className: "bar-2" })
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "side right" },
+            _react2.default.createElement(
+              "div",
+              null,
+              "6"
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "side" },
+            _react2.default.createElement(
+              "div",
+              null,
+              "1 star"
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "middle" },
+            _react2.default.createElement(
+              "div",
+              { className: "bar-container" },
+              _react2.default.createElement("div", { className: "bar-1" })
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "side right" },
+            _react2.default.createElement(
+              "div",
+              null,
+              "20"
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return RatingsBar;
+}(_react2.default.Component);
+
+exports.default = RatingsBar;
+
+/***/ }),
+
 /***/ "./frontend/components/user/user_show/show_reviews.jsx":
 /*!*************************************************************!*\
   !*** ./frontend/components/user/user_show/show_reviews.jsx ***!
@@ -4282,6 +4534,10 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _ratings_bar = __webpack_require__(/*! ./ratings_bar */ "./frontend/components/user/user_show/ratings_bar.jsx");
+
+var _ratings_bar2 = _interopRequireDefault(_ratings_bar);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4304,17 +4560,17 @@ var UserOverview = function (_React$Component) {
   }
 
   _createClass(UserOverview, [{
-    key: "showReferences",
+    key: 'showReferences',
     value: function showReferences() {}
   }, {
-    key: "componentDidMount",
+    key: 'componentDidMount',
     value: function componentDidMount() {
       var props = this.props.props;
       props.fetchReviews(this.props.props.match.params.userId);
       this.setState({ reviews: props.reviews });
     }
   }, {
-    key: "componentDidUpdate",
+    key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps) {
       var props = this.props.props;
       if (props.reviews !== prevProps.props.reviews) {
@@ -4322,50 +4578,51 @@ var UserOverview = function (_React$Component) {
       }
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
 
       var user = this.props.props.user || {};
 
       return _react2.default.createElement(
-        "section",
-        { className: "user-show-section-bio" },
+        'section',
+        { className: 'user-show-section-bio' },
         _react2.default.createElement(
-          "header",
-          { className: "user-show-bio-header" },
-          "OVERVIEW"
+          'header',
+          { className: 'user-show-bio-header' },
+          'OVERVIEW'
         ),
         _react2.default.createElement(
-          "article",
-          { className: "user-show-bio-body" },
+          'article',
+          { className: 'user-show-bio-body' },
           _react2.default.createElement(
-            "ul",
-            { className: "user-show-overview-ul" },
+            'ul',
+            { className: 'user-show-overview-ul' },
             _react2.default.createElement(
-              "li",
+              'li',
               { onClick: this.showReferences },
-              _react2.default.createElement("i", { className: "fas fa-quote-left" }),
-              " Reviews: ",
+              _react2.default.createElement(_ratings_bar2.default, { reviews: this.props.props.reviews }),
+              _react2.default.createElement('i', { className: 'fas fa-quote-left' }),
+              ' Reviews: ',
               this.state.reviews.length
             ),
             _react2.default.createElement(
-              "li",
+              'li',
               null,
-              _react2.default.createElement("i", { className: "fas fa-language" }),
-              " Languages: No languages listed"
+              _react2.default.createElement('i', { className: 'fas fa-language' }),
+              ' Languages: No languages listed'
             ),
             _react2.default.createElement(
-              "li",
+              'li',
               null,
-              _react2.default.createElement("i", { className: "fas fa-hourglass-half" }),
-              " Age: ",
+              _react2.default.createElement('i', { className: 'fas fa-hourglass-half' }),
+              ' Age: ',
               user.age
             ),
             _react2.default.createElement(
-              "li",
+              'li',
               null,
-              _react2.default.createElement("i", { className: "fas fa-briefcase" }),
-              " Occupation: No occupation listed"
+              _react2.default.createElement('i', { className: 'fas fa-briefcase' }),
+              ' Occupation: No occupation listed'
             )
           )
         )
@@ -4724,6 +4981,7 @@ var UserShow = function (_React$Component) {
       var user = this.props.user || {};
       var currentUser = this.props.currentUser || {};
       var userPhoto = void 0;
+
       if (user.photoUrl) {
         userPhoto = user.photoUrl;
       } else if (user.first_name === "Alan" && user.last_name === "Uraz") {
@@ -5560,6 +5818,8 @@ var _booking_actions = __webpack_require__(/*! ../actions/booking_actions */ "./
 
 var _location_actions = __webpack_require__(/*! ../actions/location_actions */ "./frontend/actions/location_actions.js");
 
+var _review_actions = __webpack_require__(/*! ../actions/review_actions */ "./frontend/actions/review_actions.js");
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var defaultState = {};
@@ -5581,6 +5841,8 @@ var usersReducer = function usersReducer() {
       return (0, _lodash.merge)({}, state, action.users);
     case _location_actions.RECEIVE_LOCATION:
       return (0, _lodash.merge)({}, state, action.locations.hosts, action.locations.guests);
+    case _review_actions.RECEIVE_REVIEWS:
+      return (0, _lodash.merge)({}, state, action.reviews);
     case _booking_actions.RECEIVE_TRIP:
       newState = (0, _lodash.merge)({}, state);
       var currentUser = newState[Object.values(action.trip)[0].guest_id];

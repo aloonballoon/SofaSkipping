@@ -72,6 +72,7 @@ class LoggedInNav extends React.Component {
   }
 
   handleGoogle(place) {
+    debugger
     let country;
     if (Number.isInteger(Number(place.place.address_components.slice(-1)[0].long_name))) {
       country = place.place.address_components.slice(-2)[0].long_name

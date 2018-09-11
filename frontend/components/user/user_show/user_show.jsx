@@ -48,7 +48,8 @@ class UserShow extends React.Component {
   render() {
     let user = this.props.user || {};
     let currentUser = this.props.currentUser || {};
-    let userPhoto
+    let userPhoto;
+
     if (user.photoUrl) {
       userPhoto = user.photoUrl;
     } else if (

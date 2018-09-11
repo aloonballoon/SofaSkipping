@@ -18,7 +18,7 @@ class Review < ApplicationRecord
 
   belongs_to :reviewee,
   primary_key: :id,
-  foreign_key: :reviewer_id,
+  foreign_key: :reviewee_id,
   class_name: :User
 
 
