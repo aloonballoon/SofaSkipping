@@ -1373,7 +1373,7 @@ var LocationShow = function (_React$Component) {
               _react2.default.createElement(
                 'h1',
                 null,
-                _react2.default.createElement('i', { 'class': 'fas fa-home' }),
+                _react2.default.createElement('i', { className: 'fas fa-home' }),
                 'Local Hosts'
               )
             ),

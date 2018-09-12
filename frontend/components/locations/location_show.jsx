@@ -85,7 +85,7 @@ class LocationShow extends React.Component {
         <section className="location-user-show-host-and-guest-wrapper">
         <section className="location-user-show-section">
         <header className="location-user-show-header">
-          <h1><i class="fas fa-home"></i>Local Hosts</h1>
+          <h1><i className="fas fa-home"></i>Local Hosts</h1>
         </header>
           <article className="location-user-show-article">
           {locationHost}
