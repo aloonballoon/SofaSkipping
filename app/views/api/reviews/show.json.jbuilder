@@ -10,9 +10,11 @@ reviews = Array(@reviews)
     end
   end
 
-  user = reviews.first.reviewee
+  if reviews.length != 0
+    user = reviews.first.reviewee
 
-  json.set! :user do
-    json.extract! user, :id, :username, :email, :first_name, :last_name, :user_status, :bio, :age, :home_location_id
-    json.received_review_ids user.received_review_ids
+    json.set! :user do
+      json.extract! user, :id, :username, :email, :first_name, :last_name, :user_status, :bio, :age, :home_location_id
+      json.received_review_ids user.received_review_ids
+    end
   end
