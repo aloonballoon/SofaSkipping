@@ -1341,25 +1341,32 @@ var LocationShow = function (_React$Component) {
       });
 
       var slick = _react2.default.createElement(_slick2.default, { photos: this.state });
+      var divStyle = {
+        backgroundImage: 'url(' + window.travel_photo + ')'
+      };
 
       return _react2.default.createElement(
         'div',
         { className: 'location-show-entire-container-div' },
         _react2.default.createElement(
-          'header',
-          { className: 'location-show-background-image-header' },
-          _react2.default.createElement(
-            'h1',
-            { className: 'location-show-title-h1' },
-            locationCityName,
-            ', ',
-            locationCountryName
-          )
-        ),
-        _react2.default.createElement(
           'section',
           { className: 'location-google-photos-section' },
-          slick
+          _react2.default.createElement(
+            'div',
+            { className: 'div-background-image', style: divStyle },
+            _react2.default.createElement(
+              'header',
+              { className: 'location-show-background-image-header' },
+              _react2.default.createElement(
+                'h1',
+                { className: 'location-show-title-h1' },
+                locationCityName,
+                ', ',
+                locationCountryName
+              )
+            ),
+            slick
+          )
         ),
         _react2.default.createElement(
           'section',
@@ -1628,7 +1635,7 @@ var SimpleSlider = function (_React$Component) {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 2000
       };
 
@@ -1646,10 +1653,12 @@ var SimpleSlider = function (_React$Component) {
       }
 
       var divStyle = {
-        display: 'unset'
+        display: 'unset',
+        backgroundImage: 'url(${window.travel_photo})'
       };
 
-      var photos = this.state.images.map(function (photo, idx) {
+      var photos = this.state.images || [];
+      var gotUrlPhotos = photos.map(function (photo, idx) {
         return _react2.default.createElement(
           'div',
           { key: idx, style: divStyle, className: 'location-google-slider-photo-div' },
@@ -1661,7 +1670,7 @@ var SimpleSlider = function (_React$Component) {
       return _react2.default.createElement(
         _reactSlick2.default,
         _extends({}, settings, { className: 'location-google-slider' }),
-        photos
+        gotUrlPhotos
       );
     }
   }]);
@@ -1795,7 +1804,6 @@ var LoggedInNav = function (_React$Component) {
     value: function handleGoogle(place) {
       var _this3 = this;
 
-      debugger;
       var country = void 0;
       if (Number.isInteger(Number(place.place.address_components.slice(-1)[0].long_name))) {
         country = place.place.address_components.slice(-2)[0].long_name;

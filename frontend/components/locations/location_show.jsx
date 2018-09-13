@@ -70,17 +70,21 @@ class LocationShow extends React.Component {
     });
 
     let slick = <Slick photos={this.state} />;
-
+    let divStyle = {
+      backgroundImage: `url(${window.travel_photo})`
+    }
 
     return(
       <div className="location-show-entire-container-div">
-        <header className="location-show-background-image-header">
-          <h1 className="location-show-title-h1">
-            {locationCityName}, {locationCountryName}
-          </h1>
-        </header>
         <section className="location-google-photos-section">
-          {slick}
+          <div className="div-background-image" style={divStyle}>
+          <header className="location-show-background-image-header">
+          <h1 className="location-show-title-h1">
+          {locationCityName}, {locationCountryName}
+          </h1>
+          </header>
+            {slick}
+          </div>
         </section>
         <section className="location-user-show-host-and-guest-wrapper">
         <section className="location-user-show-section">

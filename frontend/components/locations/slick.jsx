@@ -35,7 +35,7 @@ class SimpleSlider extends React.Component {
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
-      autoplay: true,
+      autoplay: false,
       autoplaySpeed: 2000
     };
 
@@ -53,19 +53,22 @@ class SimpleSlider extends React.Component {
     }
 
     let divStyle={
-          display: 'unset'
+          display: 'unset',
+          backgroundImage: 'url(${window.travel_photo})'
         };
 
-    let photos = this.state.images.map((photo, idx) => {
+    let photos = this.state.images || [];
+    let gotUrlPhotos = photos.map((photo, idx) => {
       return <div key={idx} style={divStyle} className="location-google-slider-photo-div">
-             {spinner}
-             <img className="location-google-slider-photo-img" src={photo.getUrl({maxWidth: 5000, maxHeight: 5000})}/>
+              {spinner}
+                <img className="location-google-slider-photo-img" src={photo.getUrl({maxWidth: 5000, maxHeight: 5000})}/>
              </div>
+
     })
 
     return (
       <Slider {...settings} className="location-google-slider">
-          {photos}
+          {gotUrlPhotos}
       </Slider>
     );
   }
