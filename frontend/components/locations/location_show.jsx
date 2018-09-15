@@ -8,6 +8,7 @@ let searched = false;
 class LocationShow extends React.Component {
   constructor(props) {
     super(props);
+    this.kayak = React.createRef();
 
     this.state = {
       photosUrl: [],
@@ -21,12 +22,14 @@ class LocationShow extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchLocation(this.props.locationName)
+    this.props.fetchLocation(this.props.locationName);
+    const kayak = this.refs.kayak;
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       this.initService(this.props.location)
+
       if (!searched && this.props.city) {
         this.setState({locationCityName: this.props.city, locationCountryName: this.props.country, loading: true})
         this.initService(location);
@@ -74,6 +77,13 @@ class LocationShow extends React.Component {
       backgroundImage: `url(${window.travel_photo})`
     }
 
+    // let containerElem = this.kayak;
+    // debugger
+    //     KAYAK.embed({
+    //     container: containerElem,
+    //     /* more options */
+    //     });
+
     return(
       <div className="location-show-entire-container-div">
         <section className="location-google-photos-section">
@@ -105,6 +115,8 @@ class LocationShow extends React.Component {
           </article>
         </section>
         </section>
+        <div id="widgetContainer" ref={this.kayak}>
+        </div>
 
       </div>
 
