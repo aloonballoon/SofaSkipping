@@ -20,6 +20,7 @@ class UserOverview extends React.Component {
 
   componentDidUpdate(prevProps) {
     let props = this.props.props;
+
     if (props.reviews !== prevProps.props.reviews) {
       this.setState({reviews: props.reviews})
     }

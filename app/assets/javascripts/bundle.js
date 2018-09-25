@@ -3986,10 +3986,6 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactStarRatings = __webpack_require__(/*! react-star-ratings */ "./node_modules/react-star-ratings/build/index.js");
-
-var _reactStarRatings2 = _interopRequireDefault(_reactStarRatings);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4010,13 +4006,11 @@ var RatingsBar = function (_React$Component) {
       rating: 0,
       numReviews: 0
     };
-
-    _this.changeRating = _this.changeRating.bind(_this);
     return _this;
   }
 
   _createClass(RatingsBar, [{
-    key: 'componentDidMount',
+    key: "componentDidMount",
     value: function componentDidMount() {
       var ratingSum = 0;
       var numReviews = 0;
@@ -4027,7 +4021,7 @@ var RatingsBar = function (_React$Component) {
       this.setState({ rating: ratingSum });
     }
   }, {
-    key: 'componentDidUpdate',
+    key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
       var reviewsArr = this.props.reviews;
       if (reviewsArr !== prevProps.reviews) {
@@ -4042,14 +4036,7 @@ var RatingsBar = function (_React$Component) {
       }
     }
   }, {
-    key: 'changeRating',
-    value: function changeRating(newRating) {
-      this.setState({
-        rating: newRating
-      });
-    }
-  }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var pluralReview = "review";
       if (this.state.numReviews > 1) {
@@ -4057,171 +4044,164 @@ var RatingsBar = function (_React$Component) {
       }
 
       return _react2.default.createElement(
-        'div',
+        "div",
         null,
-        _react2.default.createElement(_reactStarRatings2.default, {
-          rating: this.state.rating,
-          starRatedColor: 'blue',
-          changeRating: this.changeRating,
-          numberOfStars: 5,
-          name: 'rating'
-        }),
         _react2.default.createElement(
-          'span',
-          { className: 'heading' },
-          'User Rating'
+          "span",
+          { className: "heading" },
+          "User Rating"
         ),
-        _react2.default.createElement('span', { className: 'fa fa-star checked' }),
-        _react2.default.createElement('span', { className: 'fa fa-star checked' }),
-        _react2.default.createElement('span', { className: 'fa fa-star checked' }),
-        _react2.default.createElement('span', { className: 'fa fa-star checked' }),
-        _react2.default.createElement('span', { className: 'fa fa-star' }),
+        _react2.default.createElement("span", { className: "fa fa-star checked" }),
+        _react2.default.createElement("span", { className: "fa fa-star checked" }),
+        _react2.default.createElement("span", { className: "fa fa-star checked" }),
+        _react2.default.createElement("span", { className: "fa fa-star checked" }),
+        _react2.default.createElement("span", { className: "fa fa-star" }),
         _react2.default.createElement(
-          'p',
+          "p",
           null,
           this.state.rating,
-          ' star average based on ',
+          " star average based on ",
           this.state.numReviews,
-          ' ',
+          " ",
           pluralReview,
-          '.'
+          "."
         ),
         _react2.default.createElement(
-          'div',
-          { className: 'row' },
+          "div",
+          { className: "row" },
           _react2.default.createElement(
-            'div',
-            { className: 'side' },
+            "div",
+            { className: "side" },
             _react2.default.createElement(
-              'div',
+              "div",
               null,
-              '5 star'
+              "5 star"
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'middle' },
+            "div",
+            { className: "middle" },
             _react2.default.createElement(
-              'div',
-              { className: 'bar-container' },
-              _react2.default.createElement('div', { className: 'bar-5' })
+              "div",
+              { className: "bar-container" },
+              _react2.default.createElement("div", { className: "bar-5" })
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'side right' },
+            "div",
+            { className: "side right" },
             _react2.default.createElement(
-              'div',
+              "div",
               null,
-              '150'
+              "150"
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'side' },
+            "div",
+            { className: "side" },
             _react2.default.createElement(
-              'div',
+              "div",
               null,
-              '4 star'
+              "4 star"
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'middle' },
+            "div",
+            { className: "middle" },
             _react2.default.createElement(
-              'div',
-              { className: 'bar-container' },
-              _react2.default.createElement('div', { className: 'bar-4' })
+              "div",
+              { className: "bar-container" },
+              _react2.default.createElement("div", { className: "bar-4" })
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'side right' },
+            "div",
+            { className: "side right" },
             _react2.default.createElement(
-              'div',
+              "div",
               null,
-              '63'
+              "63"
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'side' },
+            "div",
+            { className: "side" },
             _react2.default.createElement(
-              'div',
+              "div",
               null,
-              '3 star'
+              "3 star"
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'middle' },
+            "div",
+            { className: "middle" },
             _react2.default.createElement(
-              'div',
-              { className: 'bar-container' },
-              _react2.default.createElement('div', { className: 'bar-3' })
+              "div",
+              { className: "bar-container" },
+              _react2.default.createElement("div", { className: "bar-3" })
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'side right' },
+            "div",
+            { className: "side right" },
             _react2.default.createElement(
-              'div',
+              "div",
               null,
-              '15'
+              "15"
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'side' },
+            "div",
+            { className: "side" },
             _react2.default.createElement(
-              'div',
+              "div",
               null,
-              '2 star'
+              "2 star"
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'middle' },
+            "div",
+            { className: "middle" },
             _react2.default.createElement(
-              'div',
-              { className: 'bar-container' },
-              _react2.default.createElement('div', { className: 'bar-2' })
+              "div",
+              { className: "bar-container" },
+              _react2.default.createElement("div", { className: "bar-2" })
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'side right' },
+            "div",
+            { className: "side right" },
             _react2.default.createElement(
-              'div',
+              "div",
               null,
-              '6'
+              "6"
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'side' },
+            "div",
+            { className: "side" },
             _react2.default.createElement(
-              'div',
+              "div",
               null,
-              '1 star'
+              "1 star"
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'middle' },
+            "div",
+            { className: "middle" },
             _react2.default.createElement(
-              'div',
-              { className: 'bar-container' },
-              _react2.default.createElement('div', { className: 'bar-1' })
+              "div",
+              { className: "bar-container" },
+              _react2.default.createElement("div", { className: "bar-1" })
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'side right' },
+            "div",
+            { className: "side right" },
             _react2.default.createElement(
-              'div',
+              "div",
               null,
-              '20'
+              "20"
             )
           )
         )
@@ -4611,6 +4591,7 @@ var UserOverview = function (_React$Component) {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps) {
       var props = this.props.props;
+
       if (props.reviews !== prevProps.props.reviews) {
         this.setState({ reviews: props.reviews });
       }
@@ -4695,6 +4676,10 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactStarRatings = __webpack_require__(/*! react-star-ratings */ "./node_modules/react-star-ratings/build/index.js");
+
+var _reactStarRatings2 = _interopRequireDefault(_reactStarRatings);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -4719,24 +4704,26 @@ var UserReviews = function (_React$Component) {
       recommended: "true",
       error: "",
       success: "",
-      hidden: true
+      hidden: true,
+      rating: 5
     };
 
     _this.handleChange = _this.handleChange.bind(_this);
     _this.clearForms = _this.clearForms.bind(_this);
     _this.successMessage = _this.successMessage.bind(_this);
     _this.clearSuccessMessage = _this.clearSuccessMessage.bind(_this);
+    _this.changeRating = _this.changeRating.bind(_this);
     return _this;
   }
 
   _createClass(UserReviews, [{
-    key: "componentDidMount",
+    key: 'componentDidMount',
     value: function componentDidMount() {
       var props = this.props.props;
       this.setState({ hidden: props.hiddenReviews });
     }
   }, {
-    key: "componentDidUpdate",
+    key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps) {
       var props = this.props.props;
       if (prevProps.props.hiddenReviews !== props.hiddenReviews) {
@@ -4744,7 +4731,14 @@ var UserReviews = function (_React$Component) {
       }
     }
   }, {
-    key: "successMessage",
+    key: 'changeRating',
+    value: function changeRating(newRating) {
+      this.setState({
+        rating: newRating
+      });
+    }
+  }, {
+    key: 'successMessage',
     value: function successMessage() {
       var _this2 = this;
 
@@ -4753,22 +4747,22 @@ var UserReviews = function (_React$Component) {
       });
     }
   }, {
-    key: "clearSuccessMessage",
+    key: 'clearSuccessMessage',
     value: function clearSuccessMessage() {
       this.setState({ success: "" });
     }
   }, {
-    key: "clearForms",
+    key: 'clearForms',
     value: function clearForms() {
       this.setState({ title: "", body: "", recommended: "true" });
     }
   }, {
-    key: "handleChange",
+    key: 'handleChange',
     value: function handleChange(event) {
       this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
   }, {
-    key: "handleSubmit",
+    key: 'handleSubmit',
     value: function handleSubmit(e) {
       var _this3 = this;
 
@@ -4797,7 +4791,7 @@ var UserReviews = function (_React$Component) {
       });
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       var _this4 = this;
 
@@ -4807,10 +4801,10 @@ var UserReviews = function (_React$Component) {
       if (this.state.errors !== "") {
         errors = this.state.errors;
         errorMessage = _react2.default.createElement(
-          "div",
-          { className: "user-show-errors-message-div" },
+          'div',
+          { className: 'user-show-errors-message-div' },
           _react2.default.createElement(
-            "div",
+            'div',
             null,
             errors
           )
@@ -4819,10 +4813,10 @@ var UserReviews = function (_React$Component) {
 
       if (this.state.success !== "") {
         successMessage = _react2.default.createElement(
-          "div",
-          { className: "user-show-success-message-div" },
+          'div',
+          { className: 'user-show-success-message-div' },
           _react2.default.createElement(
-            "div",
+            'div',
             null,
             this.state.success
           )
@@ -4835,70 +4829,77 @@ var UserReviews = function (_React$Component) {
       var user = this.props.props.otherProps.user || {};
 
       return _react2.default.createElement(
-        "form",
-        { className: hiddenFormState + (" " + hiddenFormStateAddOn), onSubmit: function onSubmit(e) {
+        'form',
+        { className: hiddenFormState + (' ' + hiddenFormStateAddOn), onSubmit: function onSubmit(e) {
             return _this4.handleSubmit(e);
           } },
         _react2.default.createElement(
-          "header",
-          { className: "user-show-write-review-h1" },
-          "Write a Review for ",
+          'header',
+          { className: 'user-show-write-review-h1' },
+          'Write a Review for ',
           user.first_name
         ),
         successMessage,
         _react2.default.createElement(
-          "section",
-          { className: "user-show-write-review-section" },
+          'section',
+          { className: 'user-show-write-review-section' },
+          _react2.default.createElement(_reactStarRatings2.default, {
+            rating: this.state.rating,
+            starRatedColor: 'blue',
+            changeRating: this.changeRating,
+            numberOfStars: 5,
+            name: 'rating'
+          }),
           _react2.default.createElement(
-            "div",
-            { className: "user-show-radio-input-div" },
+            'div',
+            { className: 'user-show-radio-input-div' },
             _react2.default.createElement(
-              "label",
+              'label',
               null,
-              _react2.default.createElement("input", { onChange: function onChange(event) {
+              _react2.default.createElement('input', { onChange: function onChange(event) {
                   return _this4.handleChange(event);
-                }, className: "user-show-review-radio-input", type: "radio", name: "recommended", checked: this.state.recommended === "true", value: "true" }),
-              "Yes, I would recommend ",
+                }, className: 'user-show-review-radio-input', type: 'radio', name: 'recommended', checked: this.state.recommended === "true", value: 'true' }),
+              'Yes, I would recommend ',
               user.first_name
             ),
             _react2.default.createElement(
-              "label",
+              'label',
               null,
-              _react2.default.createElement("input", { onChange: function onChange(event) {
+              _react2.default.createElement('input', { onChange: function onChange(event) {
                   return _this4.handleChange(event);
-                }, className: "user-show-review-radio-input", type: "radio", checked: this.state.recommended === "false", name: "recommended", value: "false" }),
-              "No, I would not recommend ",
+                }, className: 'user-show-review-radio-input', type: 'radio', checked: this.state.recommended === "false", name: 'recommended', value: 'false' }),
+              'No, I would not recommend ',
               user.first_name
             )
           ),
           _react2.default.createElement(
-            "div",
+            'div',
             null,
             _react2.default.createElement(
-              "h2",
+              'h2',
               null,
-              "Title"
+              'Title'
             ),
-            _react2.default.createElement("input", { required: true, autoComplete: "off", type: "text", value: this.state.title, name: "title", onChange: function onChange(event) {
+            _react2.default.createElement('input', { required: true, autoComplete: 'off', type: 'text', value: this.state.title, name: 'title', onChange: function onChange(event) {
                 return _this4.handleChange(event);
               } })
           ),
           _react2.default.createElement(
-            "div",
+            'div',
             null,
             _react2.default.createElement(
-              "h2",
+              'h2',
               null,
-              "Body"
+              'Body'
             ),
-            _react2.default.createElement("textarea", { required: true, rows: "7", value: this.state.body, cols: "50", name: "body", onChange: function onChange(event) {
+            _react2.default.createElement('textarea', { required: true, rows: '7', value: this.state.body, cols: '50', name: 'body', onChange: function onChange(event) {
                 return _this4.handleChange(event);
               }, placeholder: "Write something about " + user.first_name })
           ),
           _react2.default.createElement(
-            "button",
-            { className: "user-show-send-request-review-button submit-review" },
-            "Submit Review"
+            'button',
+            { className: 'user-show-send-request-review-button submit-review' },
+            'Submit Review'
           )
         )
       );

@@ -1,5 +1,4 @@
 import React from 'react';
-import StarRatings from 'react-star-ratings';
 
 class RatingsBar extends React.Component {
   constructor(props) {
@@ -8,8 +7,6 @@ class RatingsBar extends React.Component {
       rating: 0,
       numReviews: 0
     };
-
-    this.changeRating = this.changeRating.bind(this);
   }
 
   componentDidMount() {
@@ -37,12 +34,6 @@ class RatingsBar extends React.Component {
     }
   }
 
-  changeRating(newRating) {
-    this.setState({
-      rating: newRating
-    });
-  }
-
   render() {
     let pluralReview = "review";
     if (this.state.numReviews > 1) {
@@ -51,13 +42,7 @@ class RatingsBar extends React.Component {
 
     return(
       <div>
-        <StarRatings
-          rating={this.state.rating}
-          starRatedColor="blue"
-          changeRating={this.changeRating}
-          numberOfStars={5}
-          name='rating'
-        />
+
         <span className="heading">User Rating</span>
         <span className="fa fa-star checked"></span>
         <span className="fa fa-star checked"></span>

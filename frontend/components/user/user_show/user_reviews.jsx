@@ -1,4 +1,5 @@
 import React from 'react';
+import StarRatings from 'react-star-ratings';
 
 class UserReviews extends React.Component {
   constructor(props) {
@@ -9,13 +10,15 @@ class UserReviews extends React.Component {
       recommended: "true",
       error: "",
       success: "",
-      hidden: true
+      hidden: true,
+      rating: 5
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.clearForms = this.clearForms.bind(this);
     this.successMessage = this.successMessage.bind(this);
     this.clearSuccessMessage = this.clearSuccessMessage.bind(this);
+    this.changeRating = this.changeRating.bind(this);
   }
 
   componentDidMount() {
@@ -28,6 +31,12 @@ class UserReviews extends React.Component {
     if (prevProps.props.hiddenReviews !== props.hiddenReviews) {
       this.setState({hidden: props.hiddenReviews});
     }
+  }
+
+  changeRating(newRating) {
+    this.setState({
+      rating: newRating
+    });
   }
 
   successMessage() {
@@ -92,6 +101,13 @@ class UserReviews extends React.Component {
             <header className="user-show-write-review-h1">Write a Review for {user.first_name}</header>
             {successMessage}
             <section className="user-show-write-review-section">
+            <StarRatings
+              rating={this.state.rating}
+              starRatedColor="blue"
+              changeRating={this.changeRating}
+              numberOfStars={5}
+              name='rating'
+            />
               <div className="user-show-radio-input-div">
                 <label>
                   <input onChange={(event) => this.handleChange(event)} className="user-show-review-radio-input" type="radio" name="recommended" checked={this.state.recommended === "true"} value="true"/>
