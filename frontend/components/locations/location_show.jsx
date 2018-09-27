@@ -76,14 +76,7 @@ class LocationShow extends React.Component {
     let divStyle = {
       backgroundImage: `url(${window.travel_photo})`
     }
-
-    // let containerElem = this.kayak;
-    // debugger
-    //     KAYAK.embed({
-    //     container: containerElem,
-    //     /* more options */
-    //     });
-
+    
     return(
       <div className="location-show-entire-container-div">
         <section className="location-google-photos-section">

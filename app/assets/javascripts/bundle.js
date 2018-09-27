@@ -1347,15 +1347,9 @@ var LocationShow = function (_React$Component) {
       var slick = _react2.default.createElement(_slick2.default, { photos: this.state });
       var divStyle = {
         backgroundImage: 'url(' + window.travel_photo + ')'
+      };
 
-        // let containerElem = this.kayak;
-        // debugger
-        //     KAYAK.embed({
-        //     container: containerElem,
-        //     /* more options */
-        //     });
-
-      };return _react2.default.createElement(
+      return _react2.default.createElement(
         'div',
         { className: 'location-show-entire-container-div' },
         _react2.default.createElement(
@@ -4403,7 +4397,7 @@ var UserBookingRequest = function (_React$Component) {
 
       var otherProps = this.props.props.otherProps;
       e.preventDefault();
-      debugger;
+
       if (this.invalidStartDate()) {
         this.setState({ errors: "Invalid Start Date" });
       } else if (new Date(this.state.startDate) < new Date(this.state.endDate)) {

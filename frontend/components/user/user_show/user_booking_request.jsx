@@ -24,7 +24,7 @@ class UserBookingRequest extends React.Component {
 
   componentDidUpdate(prevProps) {
     let hidden = this.props.props.hiddenBookings;
-    
+
     if (this.props.props.hiddenBookings !== prevProps.props.hiddenBookings) {
       this.setState({hidden: hidden})
     }
@@ -51,7 +51,7 @@ class UserBookingRequest extends React.Component {
   handleSubmit(e) {
     const otherProps = this.props.props.otherProps;
     e.preventDefault();
-    debugger
+    
     if (this.invalidStartDate()) {
       this.setState({errors: "Invalid Start Date"})
     } else if (new Date(this.state.startDate) < new Date(this.state.endDate)) {
