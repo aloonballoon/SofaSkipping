@@ -9,8 +9,9 @@
     "cities.json": "^1.1.2",
     "countries-list": "^2.3.2",
     "google-map-react": "^1.0.6",
+    "rc-calendar": "^9.7.8",
     "react": "^16.4.1",
-    "react-calendar": "^2.17.1",
+    "react-calendar": "^2.17.3",
     "react-dom": "^16.4.1",
     "react-google-autocomplete": "^1.0.16",
     "react-loader-spinner": "^2.1.0",
@@ -24,6 +25,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "slick-carousel": "^1.8.1",
+    "style-loader": "^0.23.0",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8"
   },
@@ -44,5 +46,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^1.0.0"
+  }
 }

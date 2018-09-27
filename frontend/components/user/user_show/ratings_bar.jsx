@@ -10,18 +10,10 @@ class RatingsBar extends React.Component {
   }
 
   componentDidMount() {
-    let ratingSum = 0;
-    let numReviews = 0;
-    this.props.reviews.forEach(review => {
-      ratingSum += review.rating;
-
-    })
-
-    this.setState({rating: ratingSum});
   }
 
   componentDidUpdate(prevProps) {
-    let reviewsArr = this.props.reviews;
+    let reviewsArr = this.props.reviews || [];
     if (reviewsArr !== prevProps.reviews) {
       let ratingSum = 0;
       let numReviews = 0;

@@ -271,7 +271,8 @@
 }
 
 .user-show-overview-ul li{
-  margin: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .user-show-hang-out-banner {
@@ -324,36 +325,36 @@
   margin-top: 10px;
 }
 
-.user-show-write-review-section input {
+.reviews-title-input {
   margin-top: 10px;
   margin-bottom: 10px;
   width: 50%;
 }
 
-.user-show-write-review-section textarea {
+.reviews-textarea {
   margin-top: 10px;
   margin-bottom: 10px;
   width: 50%;
   max-width: 90%;
 }
 
-.user-show-write-review-section textarea:hover {
+.reviews-textarea:hover {
   border-color: #D4490B;
   box-shadow: 0 0 5px #D4490B;
 }
 
-.user-show-write-review-section input:hover {
+.reviews-title-input:hover {
   border-color: #D4490B;
-  box-shadow: 0 0 5px #D4490B;
+  box-shadow: 0 0 3px #D4490B;
 }
 
-.user-show-write-review-section input:focus{
+.reviews-title-input:focus{
   outline: none;
   border-color: #D4490B;
   box-shadow: 0 0 3px #D4490B;
 }
 
-.user-show-write-review-section textarea:focus{
+.reviews-textarea:focus{
   outline: none;
   border-color: #D4490B;
   box-shadow: 0 0 5px #D4490B;

@@ -1,4 +1,5 @@
 import React from 'react';
+import Calendar from 'rc-calendar';
 
 class UserBookingRequest extends React.Component {
   constructor(props) {
@@ -8,11 +9,13 @@ class UserBookingRequest extends React.Component {
       endDate: "",
       errors: "",
       success: "",
-      hidden: true
+      hidden: true,
+      date: ""
     }
 
     this.handleStartDate = this.handleStartDate.bind(this);
     this.handleEndDate = this.handleEndDate.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   handleStartDate(e) {
@@ -55,6 +58,10 @@ class UserBookingRequest extends React.Component {
     }
   }
 
+
+  onChange(date) {
+    this.setState({ date })
+  }
   render() {
     let successMessage;
     let errorMessage;
@@ -81,6 +88,7 @@ class UserBookingRequest extends React.Component {
         <form className={hiddenFormState + ` ${hiddenFormStateAddOn}`} onSubmit={(e) => this.handleSubmit(e)}>
             {errorMessage}
             {successMessage}
+            <Calendar/>
             <h1 className="user-show-hang-out-banner">Send a Request to Hang Out</h1>
             <div className="user-show-section-date-div">
               <div className="user-show-arrival-date-div">

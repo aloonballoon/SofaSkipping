@@ -98,16 +98,17 @@ class UserReviews extends React.Component {
 
     return(
         <form className={hiddenFormState + ` ${hiddenFormStateAddOn}`} onSubmit={(e) => this.handleSubmit(e)}>
+
             <header className="user-show-write-review-h1">Write a Review for {user.first_name}</header>
             {successMessage}
             <section className="user-show-write-review-section">
-            <StarRatings
-              rating={this.state.rating}
-              starRatedColor="blue"
-              changeRating={this.changeRating}
-              numberOfStars={5}
-              name='rating'
-            />
+              <StarRatings
+                rating={this.state.rating}
+                starRatedColor="blue"
+                changeRating={this.changeRating}
+                numberOfStars={5}
+                name='rating'
+              />
               <div className="user-show-radio-input-div">
                 <label>
                   <input onChange={(event) => this.handleChange(event)} className="user-show-review-radio-input" type="radio" name="recommended" checked={this.state.recommended === "true"} value="true"/>
@@ -121,11 +122,11 @@ class UserReviews extends React.Component {
 
               <div>
                 <h2>Title</h2>
-                <input required autoComplete="off" type="text" value={this.state.title} name="title" onChange={(event) => this.handleChange(event)}/>
+                <input className="reviews-title-input" required autoComplete="off" type="text" value={this.state.title} name="title" onChange={(event) => this.handleChange(event)}/>
               </div>
               <div>
                 <h2>Body</h2>
-                <textarea required rows="7" value={this.state.body} cols="50" name="body" onChange={(event) => this.handleChange(event)} placeholder={"Write something about " + user.first_name}></textarea>
+                <textarea className="reviews-textarea" required rows="7" value={this.state.body} cols="50" name="body" onChange={(event) => this.handleChange(event)} placeholder={"Write something about " + user.first_name}></textarea>
               </div>
               <button className="user-show-send-request-review-button submit-review">Submit Review</button>
             </section>

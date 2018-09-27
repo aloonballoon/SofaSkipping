@@ -5,12 +5,8 @@ class UserOverview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {reviews: ""};
-    this.showReferences = this.showReferences.bind(this);
   }
 
-  showReferences() {
-
-  }
 
   componentDidMount() {
     let props = this.props.props;
@@ -37,9 +33,9 @@ class UserOverview extends React.Component {
           OVERVIEW
         </header>
         <article className="user-show-bio-body">
+        <RatingsBar reviews={this.props.props.reviews}/>
         <ul className="user-show-overview-ul">
-          <li onClick={this.showReferences}>
-            <RatingsBar reviews={this.props.props.reviews}/>
+          <li>
             <i className="fas fa-quote-left"></i> Reviews: {this.state.reviews.length}
           </li>
           <li>
