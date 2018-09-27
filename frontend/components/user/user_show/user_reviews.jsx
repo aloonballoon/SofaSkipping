@@ -11,7 +11,7 @@ class UserReviews extends React.Component {
       error: "",
       success: "",
       hidden: true,
-      rating: 5
+      rating: 3
     }
 
     this.handleChange = this.handleChange.bind(this);

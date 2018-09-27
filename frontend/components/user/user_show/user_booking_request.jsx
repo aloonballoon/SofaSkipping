@@ -1,4 +1,5 @@
 import React from 'react';
+import 'react-dates/initialize';
 
 class UserBookingRequest extends React.Component {
   constructor(props) {
