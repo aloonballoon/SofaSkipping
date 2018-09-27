@@ -1,5 +1,4 @@
 import React from 'react';
-import Calendar from 'rc-calendar';
 
 class UserBookingRequest extends React.Component {
   constructor(props) {
@@ -15,36 +14,6 @@ class UserBookingRequest extends React.Component {
 
     this.handleStartDate = this.handleStartDate.bind(this);
     this.handleEndDate = this.handleEndDate.bind(this);
-    this.onChange = this.onChange.bind(this);
-  }
-
-  handleStartDate(e) {
-    this.setState({startDate: e.target.value})
-  }
-
-  handleEndDate(e) {
-    this.setState({endDate: e.target.value})
-  }
-
-  cancelInputs() {
-    this.setState({startDate: "", endDate: ""})
-    this.setState({errors: ""})
-    this.setState({success: ""})
-  }
-
-  handleSubmit(e) {
-    const otherProps = this.props.props.otherProps;
-    e.preventDefault();
-    if (new Date(this.state.startDate) < new Date(this.state.endDate)) {
-      this.setState({errors: ""})
-      otherProps.createTrip({
-        startDate: this.state.startDate,
-        endDate: this.state.endDate,
-        userId: otherProps.user.id
-      }).then(() => this.setState({success: "SUCCESS! Awaiting confirmation by host."}))
-    } else {
-      this.setState({errors: "Invalid Dates!!"})
-    }
   }
 
   componentDidMount() {
@@ -58,10 +27,69 @@ class UserBookingRequest extends React.Component {
     }
   }
 
-
-  onChange(date) {
-    this.setState({ date })
+  handleStartDate(e) {
+    this.setState({startDate: e.target.value})
   }
+
+  handleEndDate(e) {
+    this.setState({endDate: e.target.value})
+  }
+
+  handleChange(date) {
+     this.setState({startDate: date});
+   }
+
+  cancelInputs() {
+    this.setState({startDate: "", endDate: ""})
+    this.setState({errors: ""})
+    this.setState({success: ""})
+  }
+
+  handleSubmit(e) {
+    const otherProps = this.props.props.otherProps;
+    e.preventDefault();
+    debugger
+    if (this.invalidStartDate()) {
+      this.setState({errors: "Invalid Start Date"})
+    } else if (new Date(this.state.startDate) < new Date(this.state.endDate)) {
+      this.setState({errors: ""})
+      otherProps.createTrip({
+        startDate: this.state.startDate,
+        endDate: this.state.endDate,
+        userId: otherProps.user.id
+      }).then(() => this.setState({success: "SUCCESS! Awaiting confirmation by host."}))
+    }  else {
+      this.setState({errors: "Invalid Dates!!"})
+    }
+  }
+
+  invalidStartDate() {
+    if (new Date(this.state.startDate) < new Date(this.todaysDate())) {
+      return true;
+    }
+  }
+
+  todaysDate() {
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1;
+    let yyyy = today.getFullYear();
+
+    if (dd < 10) {
+        dd = '0'+ dd
+    }
+
+    if (mm < 10) {
+        mm = '0'+ mm
+    }
+
+    today = yyyy + '-' + mm + '-' + dd;
+    return today;
+  }
+
+
+
+
   render() {
     let successMessage;
     let errorMessage;
@@ -88,7 +116,7 @@ class UserBookingRequest extends React.Component {
         <form className={hiddenFormState + ` ${hiddenFormStateAddOn}`} onSubmit={(e) => this.handleSubmit(e)}>
             {errorMessage}
             {successMessage}
-            <Calendar/>
+
             <h1 className="user-show-hang-out-banner">Send a Request to Hang Out</h1>
             <div className="user-show-section-date-div">
               <div className="user-show-arrival-date-div">

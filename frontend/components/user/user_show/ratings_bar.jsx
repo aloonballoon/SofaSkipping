@@ -9,9 +9,6 @@ class RatingsBar extends React.Component {
     };
   }
 
-  componentDidMount() {
-  }
-
   componentDidUpdate(prevProps) {
     let reviewsArr = this.props.reviews || [];
     if (reviewsArr !== prevProps.reviews) {
