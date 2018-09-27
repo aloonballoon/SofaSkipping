@@ -78,7 +78,7 @@ class UserShow extends React.Component {
     let sendReviewButton;
 
     if (user.id !== currentUser.id) {
-      sendRequestButton = <button className="user-show-send-request-review-button message" onClick={() => this.toggleDateSelector()}>Send Request</button>
+      sendRequestButton = <button className="user-show-send-request-review-button message" onClick={() => this.toggleDateSelector()}>Request to Hang Out</button>
       sendReviewButton = <button className="user-show-send-request-review-button review" onClick={() => this.toggleReviewSelector()} >Write a Review</button>
     }
 

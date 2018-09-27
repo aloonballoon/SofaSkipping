@@ -15,6 +15,7 @@ class UserBookingRequest extends React.Component {
 
     this.handleStartDate = this.handleStartDate.bind(this);
     this.handleEndDate = this.handleEndDate.bind(this);
+
   }
 
   componentDidMount() {
@@ -23,6 +24,7 @@ class UserBookingRequest extends React.Component {
 
   componentDidUpdate(prevProps) {
     let hidden = this.props.props.hiddenBookings;
+    
     if (this.props.props.hiddenBookings !== prevProps.props.hiddenBookings) {
       this.setState({hidden: hidden})
     }

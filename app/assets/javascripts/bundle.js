@@ -4356,6 +4356,7 @@ var UserBookingRequest = function (_React$Component) {
 
     _this.handleStartDate = _this.handleStartDate.bind(_this);
     _this.handleEndDate = _this.handleEndDate.bind(_this);
+
     return _this;
   }
 
@@ -4368,6 +4369,7 @@ var UserBookingRequest = function (_React$Component) {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps) {
       var hidden = this.props.props.hiddenBookings;
+
       if (this.props.props.hiddenBookings !== prevProps.props.hiddenBookings) {
         this.setState({ hidden: hidden });
       }
@@ -5074,7 +5076,7 @@ var UserShow = function (_React$Component) {
           { className: 'user-show-send-request-review-button message', onClick: function onClick() {
               return _this2.toggleDateSelector();
             } },
-          'Send Request'
+          'Request to Hang Out'
         );
         sendReviewButton = _react2.default.createElement(
           'button',
