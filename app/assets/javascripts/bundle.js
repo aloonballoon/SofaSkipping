@@ -2729,7 +2729,6 @@ var UpcomingHostingsItem = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (UpcomingHostingsItem.__proto__ || Object.getPrototypeOf(UpcomingHostingsItem)).call(this, props));
 
-    _this.state = _this.props;
     _this.handleUserClick = _this.handleUserClick.bind(_this);
     _this.cancelHosting = _this.cancelHosting.bind(_this);
     _this.confirmHosting = _this.confirmHosting.bind(_this);
@@ -3101,7 +3100,6 @@ var UpcomingTripsItem = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (UpcomingTripsItem.__proto__ || Object.getPrototypeOf(UpcomingTripsItem)).call(this, props));
 
-    _this.state = _this.props;
     _this.handleUserClick = _this.handleUserClick.bind(_this);
     _this.handleLocationClick = _this.handleLocationClick.bind(_this);
     return _this;
@@ -4009,13 +4007,17 @@ var RatingsBar = function (_React$Component) {
       var reviewsArr = this.props.reviews || [];
       if (reviewsArr !== prevProps.reviews) {
         var ratingSum = 0;
-        var numReviews = 0;
+        var numReviews = reviewsArr.length;
+        debugger;
 
         reviewsArr.forEach(function (review) {
           ratingSum += review.rating;
         });
 
-        this.setState({ rating: ratingSum, numReviews: reviewsArr.length });
+        var ratingAverage = ratingSum / numReviews;
+        ratingAverage = Math.round(ratingAverage);
+
+        this.setState({ rating: ratingAverage, numReviews: reviewsArr.length });
       }
     }
   }, {

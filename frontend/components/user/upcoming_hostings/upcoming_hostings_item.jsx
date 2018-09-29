@@ -4,7 +4,6 @@ import { withRouter } from 'react-router';
 class UpcomingHostingsItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props;
     this.handleUserClick = this.handleUserClick.bind(this);
     this.cancelHosting = this.cancelHosting.bind(this);
     this.confirmHosting = this.confirmHosting.bind(this);

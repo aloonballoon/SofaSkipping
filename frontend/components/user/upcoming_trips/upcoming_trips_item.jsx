@@ -4,7 +4,7 @@ import { withRouter } from 'react-router'
 class UpcomingTripsItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props;
+
     this.handleUserClick = this.handleUserClick.bind(this);
     this.handleLocationClick = this.handleLocationClick.bind(this);
   }

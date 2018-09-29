@@ -13,13 +13,17 @@ class RatingsBar extends React.Component {
     let reviewsArr = this.props.reviews || [];
     if (reviewsArr !== prevProps.reviews) {
       let ratingSum = 0;
-      let numReviews = 0;
+      let numReviews = reviewsArr.length;
+      debugger
 
       reviewsArr.forEach(review => {
         ratingSum += review.rating;
       })
 
-      this.setState({rating: ratingSum, numReviews: reviewsArr.length});
+      let ratingAverage = ratingSum / numReviews;
+      ratingAverage = Math.round(ratingAverage);
+
+      this.setState({rating: ratingAverage, numReviews: reviewsArr.length});
     }
   }
 
