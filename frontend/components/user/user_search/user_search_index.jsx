@@ -5,7 +5,6 @@ import UserSearchIndexItems from './user_search_index_items';
 class UserSearchIndex extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props
   }
 
   componentDidMount() {

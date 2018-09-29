@@ -1766,8 +1766,7 @@ var LoggedInNav = function (_React$Component) {
   }, {
     key: 'changeSearchFilter',
     value: function changeSearchFilter(filter) {
-      this.setState({ searchFilter: filter });
-      this.setState({ text: "" });
+      this.setState({ searchFilter: filter, text: "" });
     }
   }, {
     key: 'handleProfile',
@@ -3728,10 +3727,7 @@ var UserSearchIndex = function (_React$Component) {
   function UserSearchIndex(props) {
     _classCallCheck(this, UserSearchIndex);
 
-    var _this = _possibleConstructorReturn(this, (UserSearchIndex.__proto__ || Object.getPrototypeOf(UserSearchIndex)).call(this, props));
-
-    _this.state = _this.props;
-    return _this;
+    return _possibleConstructorReturn(this, (UserSearchIndex.__proto__ || Object.getPrototypeOf(UserSearchIndex)).call(this, props));
   }
 
   _createClass(UserSearchIndex, [{

@@ -36,8 +36,7 @@ class LoggedInNav extends React.Component {
   }
 
   changeSearchFilter(filter) {
-    this.setState({searchFilter: filter})
-    this.setState({text: ""});
+    this.setState({searchFilter: filter, text: ""})
   }
 
   handleProfile() {
