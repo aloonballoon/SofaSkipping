@@ -5,7 +5,8 @@ class RatingsBar extends React.Component {
     super(props);
     this.state = {
       rating: 0,
-      numReviews: 0
+      numReviews: 0,
+      reviewCounts: {5: 0, 4: 0, 3:0, 2:0, 1:0}
     };
   }
 
@@ -13,21 +14,22 @@ class RatingsBar extends React.Component {
     let reviewsArr = this.props.reviews || [];
 
     if (reviewsArr !== prevProps.reviews) {
-      debugger
       let ratingSum = 0;
       let numReviews = reviewsArr.length;
 
       reviewsArr.forEach(review => {
-        debugger
         ratingSum += review.rating;
       })
 
       let ratingAverage = ratingSum / numReviews;
-      debugger
       ratingAverage = Math.round(ratingAverage);
 
       this.setState({rating: ratingAverage, numReviews: reviewsArr.length});
     }
+  }
+
+  countReviews() {
+
   }
 
   render() {
