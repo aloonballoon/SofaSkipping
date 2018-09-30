@@ -51,7 +51,7 @@ class UserBookingRequest extends React.Component {
   handleSubmit(e) {
     const otherProps = this.props.props.otherProps;
     e.preventDefault();
-    
+
     if (this.invalidStartDate()) {
       this.setState({errors: "Invalid Start Date"})
     } else if (new Date(this.state.startDate) < new Date(this.state.endDate)) {
@@ -61,6 +61,7 @@ class UserBookingRequest extends React.Component {
         endDate: this.state.endDate,
         userId: otherProps.user.id
       }).then(() => this.setState({success: "SUCCESS! Awaiting confirmation by host."}))
+        .then(() => setTimeout(() => this.setState({success: ""}), 3000))
     }  else {
       this.setState({errors: "Invalid Dates!!"})
     }
@@ -90,9 +91,6 @@ class UserBookingRequest extends React.Component {
     return today;
   }
 
-
-
-
   render() {
     let successMessage;
     let errorMessage;
@@ -116,6 +114,7 @@ class UserBookingRequest extends React.Component {
     }
 
     return(
+
         <form className={hiddenFormState + ` ${hiddenFormStateAddOn}`} onSubmit={(e) => this.handleSubmit(e)}>
             {errorMessage}
             {successMessage}

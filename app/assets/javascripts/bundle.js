@@ -4004,7 +4004,6 @@ var RatingsBar = function (_React$Component) {
       if (reviewsArr !== prevProps.reviews) {
         var ratingSum = 0;
         var numReviews = reviewsArr.length;
-        debugger;
 
         reviewsArr.forEach(function (review) {
           ratingSum += review.rating;
@@ -4406,6 +4405,10 @@ var UserBookingRequest = function (_React$Component) {
           userId: otherProps.user.id
         }).then(function () {
           return _this2.setState({ success: "SUCCESS! Awaiting confirmation by host." });
+        }).then(function () {
+          return setTimeout(function () {
+            return _this2.setState({ success: "" });
+          }, 3000);
         });
       } else {
         this.setState({ errors: "Invalid Dates!!" });

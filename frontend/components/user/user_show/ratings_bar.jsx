@@ -14,7 +14,6 @@ class RatingsBar extends React.Component {
     if (reviewsArr !== prevProps.reviews) {
       let ratingSum = 0;
       let numReviews = reviewsArr.length;
-      debugger
 
       reviewsArr.forEach(review => {
         ratingSum += review.rating;
