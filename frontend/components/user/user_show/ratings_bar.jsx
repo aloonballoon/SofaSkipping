@@ -6,7 +6,12 @@ class RatingsBar extends React.Component {
     this.state = {
       rating: 0,
       numReviews: 0,
-      reviewCounts: {5: 0, 4: 0, 3:0, 2:0, 1:0}
+      reviewCounts: {5: 0, 4: 0, 3:0, 2:0, 1:0},
+      bar1Width: 0,
+      bar2Width: 0,
+      bar3Width: 0,
+      bar4Width: 0,
+      bar5Width: 0
     };
   }
 
@@ -26,8 +31,20 @@ class RatingsBar extends React.Component {
       let ratingAverage = ratingSum / numReviews;
       ratingAverage = Math.round(ratingAverage);
 
-      this.setState({rating: ratingAverage, numReviews: reviewsArr.length, reviewCounts: reviewCounts});
+      this.setState({rating: ratingAverage, numReviews: reviewsArr.length, reviewCounts: reviewCounts}, () => this.createBarWidths());
     }
+  }
+
+  createBarWidths() {
+    let reviewCounts = this.state.reviewCounts;
+    let total = this.state.numReviews;
+
+    this.setState({bar1Width: reviewCounts[1] / total * 100,
+                   bar2Width: reviewCounts[2] / total * 100,
+                   bar3Width: reviewCounts[3] / total * 100,
+                   bar4Width: reviewCounts[4] / total * 100,
+                   bar5Width: reviewCounts[5] / total * 100,
+                  })
   }
 
   render() {
@@ -36,6 +53,27 @@ class RatingsBar extends React.Component {
     if (this.state.numReviews > 1) {
       pluralReview = "reviews";
     }
+
+    let div5Style = {
+      width: String(this.state.bar5Width) + '%'
+    }
+
+    let div4Style = {
+      width: String(this.state.bar4Width) + '%'
+    }
+
+    let div3Style = {
+      width: String(this.state.bar3Width) + '%'
+    }
+
+    let div2Style = {
+      width: String(this.state.bar2Width) + '%'
+    }
+
+    let div1Style = {
+      width: String(this.state.bar1Width) + '%'
+    }
+
 
     return(
       <div>
@@ -54,7 +92,7 @@ class RatingsBar extends React.Component {
           </div>
           <div className="middle">
             <div className="bar-container">
-              <div className="bar-5"></div>
+              <div style={div5Style} className="bar-5"></div>
             </div>
           </div>
           <div className="side right">
@@ -65,7 +103,7 @@ class RatingsBar extends React.Component {
           </div>
           <div className="middle">
             <div className="bar-container">
-              <div className="bar-4"></div>
+              <div style={div4Style} className="bar-4"></div>
             </div>
           </div>
           <div className="side right">
@@ -76,7 +114,7 @@ class RatingsBar extends React.Component {
           </div>
           <div className="middle">
             <div className="bar-container">
-              <div className="bar-3"></div>
+              <div style={div3Style} className="bar-3"></div>
             </div>
           </div>
           <div className="side right">
@@ -87,7 +125,7 @@ class RatingsBar extends React.Component {
           </div>
           <div className="middle">
             <div className="bar-container">
-              <div className="bar-2"></div>
+              <div style={div2Style} className="bar-2"></div>
             </div>
           </div>
           <div className="side right">
@@ -98,7 +136,7 @@ class RatingsBar extends React.Component {
           </div>
           <div className="middle">
             <div className="bar-container">
-              <div className="bar-1"></div>
+              <div style={div1Style} className="bar-1"></div>
             </div>
           </div>
           <div className="side right">

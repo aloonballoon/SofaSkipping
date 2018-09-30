@@ -3993,7 +3993,12 @@ var RatingsBar = function (_React$Component) {
     _this.state = {
       rating: 0,
       numReviews: 0,
-      reviewCounts: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 }
+      reviewCounts: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 },
+      bar1Width: 0,
+      bar2Width: 0,
+      bar3Width: 0,
+      bar4Width: 0,
+      bar5Width: 0
     };
     return _this;
   }
@@ -4001,6 +4006,8 @@ var RatingsBar = function (_React$Component) {
   _createClass(RatingsBar, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
+      var _this2 = this;
+
       var reviewsArr = this.props.reviews || [];
       var reviewCounts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
 
@@ -4016,8 +4023,23 @@ var RatingsBar = function (_React$Component) {
         var ratingAverage = ratingSum / numReviews;
         ratingAverage = Math.round(ratingAverage);
 
-        this.setState({ rating: ratingAverage, numReviews: reviewsArr.length, reviewCounts: reviewCounts });
+        this.setState({ rating: ratingAverage, numReviews: reviewsArr.length, reviewCounts: reviewCounts }, function () {
+          return _this2.createBarWidths();
+        });
       }
+    }
+  }, {
+    key: "createBarWidths",
+    value: function createBarWidths() {
+      var reviewCounts = this.state.reviewCounts;
+      var total = this.state.numReviews;
+
+      this.setState({ bar1Width: reviewCounts[1] / total * 100,
+        bar2Width: reviewCounts[2] / total * 100,
+        bar3Width: reviewCounts[3] / total * 100,
+        bar4Width: reviewCounts[4] / total * 100,
+        bar5Width: reviewCounts[5] / total * 100
+      });
     }
   }, {
     key: "render",
@@ -4027,6 +4049,26 @@ var RatingsBar = function (_React$Component) {
       if (this.state.numReviews > 1) {
         pluralReview = "reviews";
       }
+
+      var div5Style = {
+        width: String(this.state.bar5Width) + '%'
+      };
+
+      var div4Style = {
+        width: String(this.state.bar4Width) + '%'
+      };
+
+      var div3Style = {
+        width: String(this.state.bar3Width) + '%'
+      };
+
+      var div2Style = {
+        width: String(this.state.bar2Width) + '%'
+      };
+
+      var div1Style = {
+        width: String(this.state.bar1Width) + '%'
+      };
 
       return _react2.default.createElement(
         "div",
@@ -4069,7 +4111,7 @@ var RatingsBar = function (_React$Component) {
             _react2.default.createElement(
               "div",
               { className: "bar-container" },
-              _react2.default.createElement("div", { className: "bar-5" })
+              _react2.default.createElement("div", { style: div5Style, className: "bar-5" })
             )
           ),
           _react2.default.createElement(
@@ -4096,7 +4138,7 @@ var RatingsBar = function (_React$Component) {
             _react2.default.createElement(
               "div",
               { className: "bar-container" },
-              _react2.default.createElement("div", { className: "bar-4" })
+              _react2.default.createElement("div", { style: div4Style, className: "bar-4" })
             )
           ),
           _react2.default.createElement(
@@ -4123,7 +4165,7 @@ var RatingsBar = function (_React$Component) {
             _react2.default.createElement(
               "div",
               { className: "bar-container" },
-              _react2.default.createElement("div", { className: "bar-3" })
+              _react2.default.createElement("div", { style: div3Style, className: "bar-3" })
             )
           ),
           _react2.default.createElement(
@@ -4150,7 +4192,7 @@ var RatingsBar = function (_React$Component) {
             _react2.default.createElement(
               "div",
               { className: "bar-container" },
-              _react2.default.createElement("div", { className: "bar-2" })
+              _react2.default.createElement("div", { style: div2Style, className: "bar-2" })
             )
           ),
           _react2.default.createElement(
@@ -4177,7 +4219,7 @@ var RatingsBar = function (_React$Component) {
             _react2.default.createElement(
               "div",
               { className: "bar-container" },
-              _react2.default.createElement("div", { className: "bar-1" })
+              _react2.default.createElement("div", { style: div1Style, className: "bar-1" })
             )
           ),
           _react2.default.createElement(
