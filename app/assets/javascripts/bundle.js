@@ -4023,6 +4023,7 @@ var RatingsBar = function (_React$Component) {
     key: "render",
     value: function render() {
       var pluralReview = "review";
+
       if (this.state.numReviews > 1) {
         pluralReview = "reviews";
       }
@@ -4077,7 +4078,7 @@ var RatingsBar = function (_React$Component) {
             _react2.default.createElement(
               "div",
               null,
-              "150"
+              this.state.reviewCounts[5]
             )
           ),
           _react2.default.createElement(
@@ -4104,7 +4105,7 @@ var RatingsBar = function (_React$Component) {
             _react2.default.createElement(
               "div",
               null,
-              "63"
+              this.state.reviewCounts[4]
             )
           ),
           _react2.default.createElement(
@@ -4131,7 +4132,7 @@ var RatingsBar = function (_React$Component) {
             _react2.default.createElement(
               "div",
               null,
-              "15"
+              this.state.reviewCounts[3]
             )
           ),
           _react2.default.createElement(
@@ -4158,7 +4159,7 @@ var RatingsBar = function (_React$Component) {
             _react2.default.createElement(
               "div",
               null,
-              "6"
+              this.state.reviewCounts[2]
             )
           ),
           _react2.default.createElement(
@@ -4185,7 +4186,7 @@ var RatingsBar = function (_React$Component) {
             _react2.default.createElement(
               "div",
               null,
-              "20"
+              this.state.reviewCounts[1]
             )
           )
         )

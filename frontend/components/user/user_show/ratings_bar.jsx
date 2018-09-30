@@ -32,6 +32,7 @@ class RatingsBar extends React.Component {
 
   render() {
     let pluralReview = "review";
+
     if (this.state.numReviews > 1) {
       pluralReview = "reviews";
     }
@@ -57,7 +58,7 @@ class RatingsBar extends React.Component {
             </div>
           </div>
           <div className="side right">
-            <div>150</div>
+            <div>{this.state.reviewCounts[5]}</div>
           </div>
           <div className="side">
             <div>4 star</div>
@@ -68,7 +69,7 @@ class RatingsBar extends React.Component {
             </div>
           </div>
           <div className="side right">
-            <div>63</div>
+            <div>{this.state.reviewCounts[4]}</div>
           </div>
           <div className="side">
             <div>3 star</div>
@@ -79,7 +80,7 @@ class RatingsBar extends React.Component {
             </div>
           </div>
           <div className="side right">
-            <div>15</div>
+            <div>{this.state.reviewCounts[3]}</div>
           </div>
           <div className="side">
             <div>2 star</div>
@@ -90,7 +91,7 @@ class RatingsBar extends React.Component {
             </div>
           </div>
           <div className="side right">
-            <div>6</div>
+            <div>{this.state.reviewCounts[2]}</div>
           </div>
           <div className="side">
             <div>1 star</div>
@@ -101,7 +102,7 @@ class RatingsBar extends React.Component {
             </div>
           </div>
           <div className="side right">
-            <div>20</div>
+            <div>{this.state.reviewCounts[1]}</div>
           </div>
         </div>
 
