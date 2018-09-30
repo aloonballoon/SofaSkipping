@@ -73,7 +73,7 @@ class UserReviews extends React.Component {
     today = mm + '-' + dd + '-' + yyyy;
 
     let state = this.state;
-    let params = {title: state.title, body: state.body, recommended: state.recommended, revieweeId: this.props.props.otherProps.match.params.userId, date: today }
+    let params = {title: state.title, body: state.body, recommended: state.recommended, revieweeId: this.props.props.otherProps.match.params.userId, date: today, rating: this.state.rating }
     this.props.props.otherProps.createReviews(params)
     .then(() => this.clearForms()).then(() => this.successMessage());
   }
@@ -130,6 +130,7 @@ class UserReviews extends React.Component {
               </div>
               <button className="user-show-send-request-review-button submit-review">Submit Review</button>
             </section>
+            
         </form>
     )
   }

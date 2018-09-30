@@ -8,7 +8,8 @@ export const createReviews = (params) => {
         reviewee_id: params.revieweeId,
         body: params.body,
         recommended: params.recommended,
-        review_date: params.date
+        review_date: params.date,
+        rating: params.rating
       }
     }
   });

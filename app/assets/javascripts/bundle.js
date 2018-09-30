@@ -4001,15 +4001,19 @@ var RatingsBar = function (_React$Component) {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
       var reviewsArr = this.props.reviews || [];
+
       if (reviewsArr !== prevProps.reviews) {
+        debugger;
         var ratingSum = 0;
         var numReviews = reviewsArr.length;
 
         reviewsArr.forEach(function (review) {
+          debugger;
           ratingSum += review.rating;
         });
 
         var ratingAverage = ratingSum / numReviews;
+        debugger;
         ratingAverage = Math.round(ratingAverage);
 
         this.setState({ rating: ratingAverage, numReviews: reviewsArr.length });
@@ -4802,7 +4806,7 @@ var UserReviews = function (_React$Component) {
       today = mm + '-' + dd + '-' + yyyy;
 
       var state = this.state;
-      var params = { title: state.title, body: state.body, recommended: state.recommended, revieweeId: this.props.props.otherProps.match.params.userId, date: today };
+      var params = { title: state.title, body: state.body, recommended: state.recommended, revieweeId: this.props.props.otherProps.match.params.userId, date: today, rating: this.state.rating };
       this.props.props.otherProps.createReviews(params).then(function () {
         return _this3.clearForms();
       }).then(function () {
@@ -6124,7 +6128,8 @@ var createReviews = exports.createReviews = function createReviews(params) {
         reviewee_id: params.revieweeId,
         body: params.body,
         recommended: params.recommended,
-        review_date: params.date
+        review_date: params.date,
+        rating: params.rating
       }
     }
   });
