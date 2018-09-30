@@ -4002,6 +4002,7 @@ var RatingsBar = function (_React$Component) {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
       var reviewsArr = this.props.reviews || [];
+      var reviewCounts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
 
       if (reviewsArr !== prevProps.reviews) {
         var ratingSum = 0;
@@ -4009,17 +4010,15 @@ var RatingsBar = function (_React$Component) {
 
         reviewsArr.forEach(function (review) {
           ratingSum += review.rating;
+          reviewCounts[review.rating] += 1;
         });
 
         var ratingAverage = ratingSum / numReviews;
         ratingAverage = Math.round(ratingAverage);
 
-        this.setState({ rating: ratingAverage, numReviews: reviewsArr.length });
+        this.setState({ rating: ratingAverage, numReviews: reviewsArr.length, reviewCounts: reviewCounts });
       }
     }
-  }, {
-    key: "countReviews",
-    value: function countReviews() {}
   }, {
     key: "render",
     value: function render() {
