@@ -24,6 +24,7 @@ class UserSearchIndexItems extends React.Component {
    const city = user.location.city;
    const country = user.location.country;
    const userStatus = user.user_status;
+   
    if (user.photoUrl) {
      userPhoto = user.photoUrl;
    } else {

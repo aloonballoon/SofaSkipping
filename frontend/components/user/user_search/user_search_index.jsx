@@ -11,10 +11,6 @@ class UserSearchIndex extends React.Component {
     this.props.fetchUsers(this.props.searchParam);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState(nextProps)
-  }
-
   render() {
     const users = this.props.users.map((user, idx) => {
       return <UserSearchIndexItems user={user} key={idx} fetchUser={this.props.fetchUser} />

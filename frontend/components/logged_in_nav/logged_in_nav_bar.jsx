@@ -72,6 +72,7 @@ class LoggedInNav extends React.Component {
 
   handleGoogle(place) {
     let country;
+
     if (Number.isInteger(Number(place.place.address_components.slice(-1)[0].long_name))) {
       country = place.place.address_components.slice(-2)[0].long_name
     } else {
@@ -85,22 +86,22 @@ class LoggedInNav extends React.Component {
                  }, () => this.handleSubmit())
   }
 
+  render() {
 
-render() {
+    let userPicture;
+    let errors;
 
-  let userPicture;
-  if (this.props.user.photoUrl) {
-    userPicture = this.props.user.photoUrl
-  } else {
-    userPicture = window.profile_pic_placeholder
-  }
+    if (this.props.user.photoUrl) {
+      userPicture = this.props.user.photoUrl
+    } else {
+      userPicture = window.profile_pic_placeholder
+    }
 
-  let errors;
-  if (this.props.errors.length === 0) {
-    errors = null;
-  } else {
-    errors = this.props.errors.message
-  }
+    if (this.props.errors.length === 0) {
+      errors = null;
+    } else {
+      errors = this.props.errors.message
+    }
 
     let placeholder;
     if (this.state.searchFilter === "Find Members") {

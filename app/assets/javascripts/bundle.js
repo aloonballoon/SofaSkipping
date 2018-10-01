@@ -1809,6 +1809,7 @@ var LoggedInNav = function (_React$Component) {
       var _this3 = this;
 
       var country = void 0;
+
       if (Number.isInteger(Number(place.place.address_components.slice(-1)[0].long_name))) {
         country = place.place.address_components.slice(-2)[0].long_name;
       } else {
@@ -1829,13 +1830,14 @@ var LoggedInNav = function (_React$Component) {
       var _this4 = this;
 
       var userPicture = void 0;
+      var errors = void 0;
+
       if (this.props.user.photoUrl) {
         userPicture = this.props.user.photoUrl;
       } else {
         userPicture = window.profile_pic_placeholder;
       }
 
-      var errors = void 0;
       if (this.props.errors.length === 0) {
         errors = null;
       } else {
@@ -3736,11 +3738,6 @@ var UserSearchIndex = function (_React$Component) {
       this.props.fetchUsers(this.props.searchParam);
     }
   }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      this.setState(nextProps);
-    }
-  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -3889,6 +3886,7 @@ var UserSearchIndexItems = function (_React$Component) {
       var city = user.location.city;
       var country = user.location.country;
       var userStatus = user.user_status;
+
       if (user.photoUrl) {
         userPhoto = user.photoUrl;
       } else {
@@ -6013,11 +6011,6 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     store = (0, _store2.default)();
   }
-
-  window.fetchHosts = _users_util.fetchHosts;
-  window.getState = store.getState;
-  window.logIn = _session_actions.logIn;
-  window.dispatch = store.dispatch;
 
   var root = document.getElementById('root');
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
