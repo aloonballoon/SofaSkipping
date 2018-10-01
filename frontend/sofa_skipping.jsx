@@ -25,6 +25,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store} />, root);
-  window.fetchUser = fetchUser;
-  window.updateStatus = updateStatus;
 });
