@@ -1783,7 +1783,7 @@ var LoggedInNav = function (_React$Component) {
     value: function handleSubmit(e) {
       var _this2 = this;
 
-      e ? e.stopPropagation() : null;
+      e ? e.preventDefault() : null;
 
       switch (this.state.searchFilter) {
         case "Find Members":

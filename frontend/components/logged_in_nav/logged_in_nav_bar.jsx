@@ -48,7 +48,7 @@ class LoggedInNav extends React.Component {
   }
 
   handleSubmit(e) {
-    e ? e.stopPropagation() : null;
+    e ? e.preventDefault() : null;
 
     switch (this.state.searchFilter) {
       case "Find Members":
