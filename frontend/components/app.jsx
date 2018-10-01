@@ -21,9 +21,9 @@ const App = () => (
     <Modal />
     <header>
       <AuthRoute exact path='/' component={GreetingsContainer} />
+      <ProtectedRoute component={LoggedInNavContainer} />
     </header>
     <section>
-      <ProtectedRoute component={LoggedInNavContainer} />
       <ProtectedRoute exact path='/dashboard' component={UserDashboardContainer} />
       <ProtectedRoute exact path='/location/:location' component={LocationShowContainer} />
       <ProtectedRoute exact path='/membersearch/:name' component={UserSearchIndexContainer} />

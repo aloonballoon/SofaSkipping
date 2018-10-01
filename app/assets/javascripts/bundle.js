@@ -607,12 +607,12 @@ var App = function App() {
     _react2.default.createElement(
       'header',
       null,
-      _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _greetings_container2.default })
+      _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _greetings_container2.default }),
+      _react2.default.createElement(_route_util.ProtectedRoute, { component: _logged_in_nav_bar_container2.default })
     ),
     _react2.default.createElement(
       'section',
       null,
-      _react2.default.createElement(_route_util.ProtectedRoute, { component: _logged_in_nav_bar_container2.default }),
       _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/dashboard', component: _user_dashboard_container2.default }),
       _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/location/:location', component: _locations_show_container2.default }),
       _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/membersearch/:name', component: _user_search_index_container2.default }),
@@ -1734,7 +1734,7 @@ var LoggedInNav = function (_React$Component) {
     _this.state = {
       user: _this.props.user,
       text: "",
-      searchFilter: "Find Members",
+      searchFilter: "Explore",
       lat: "",
       lng: "",
       city: "",
@@ -1780,8 +1780,10 @@ var LoggedInNav = function (_React$Component) {
     }
   }, {
     key: 'handleSubmit',
-    value: function handleSubmit() {
+    value: function handleSubmit(e) {
       var _this2 = this;
+
+      e ? e.stopPropagation() : null;
 
       switch (this.state.searchFilter) {
         case "Find Members":
@@ -1853,6 +1855,7 @@ var LoggedInNav = function (_React$Component) {
 
       var input = void 0;
       if (this.state.searchFilter === "Find Members") {
+
         input = _react2.default.createElement(
           'form',
           { className: 'dash-nav-input-form', onFocus: function onFocus() {

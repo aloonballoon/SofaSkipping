@@ -9,7 +9,7 @@ class LoggedInNav extends React.Component {
     this.state = {
       user: this.props.user,
       text: "",
-      searchFilter: "Find Members",
+      searchFilter: "Explore",
       lat: "",
       lng: "",
       city: "",
@@ -47,7 +47,8 @@ class LoggedInNav extends React.Component {
     this.props.history.push('/dashboard');
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e ? e.stopPropagation() : null;
 
     switch (this.state.searchFilter) {
       case "Find Members":
@@ -112,12 +113,18 @@ class LoggedInNav extends React.Component {
 
     let input;
     if (this.state.searchFilter === "Find Members") {
-        input = <form className="dash-nav-input-form" onFocus={() => this.toggleClassOnFocus()} onBlur={() => this.toggleClassOnFocus()} onSubmit={(e) => this.handleSubmit(e)}>
+
+        input = <form className="dash-nav-input-form" onFocus={() => this.toggleClassOnFocus()} onBlur={() =>
+                  this.toggleClassOnFocus()} onSubmit={(e) => this.handleSubmit(e)}>
+
                   <input onChange= {(e) => this.handleChange(e)} value={this.state.text} className="dash-nav-search-input" type="text" placeholder={placeholder} onSubmit={(e) => this.handleSubmit(e)}>
                   </input>
+
                 </form>
     } else if (this.state.searchFilter === "Explore") {
-        input = <form onSubmit={(e) => this.handleSubmit(e)} onFocus={() => this.toggleClassOnFocus()} onBlur={() => this.toggleClassOnFocus()}>
+        input = <form onSubmit={(e) => this.handleSubmit(e)} onFocus={() => this.toggleClassOnFocus()} onBlur={() =>
+                  this.toggleClassOnFocus()}>
+
                   <Autocomplete
                     className="dash-nav-search-input" style={{width: '80%'}, {height: '80%'}}
                     onChange={(e) => this.handleChange(e)}
@@ -126,6 +133,7 @@ class LoggedInNav extends React.Component {
                     }}
                     types={['(regions)']}
                   />
+
                 </form>}
 
     return (
