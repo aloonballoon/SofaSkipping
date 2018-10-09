@@ -38,6 +38,7 @@ class SessionForm extends React.Component {
   handleGuest(e) {
     e.preventDefault();
     const guestUser = {email: 'guest@guest.com', password: '123456'};
+    
     if (this.props.formType === 'signup') {
       this.props.guestLogIn(guestUser).then(this.props.closeModal);
     } else if (this.props.formType === 'login') {

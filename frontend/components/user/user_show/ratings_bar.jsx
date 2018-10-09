@@ -1,4 +1,5 @@
 import React from 'react';
+import StarRatings from  'react-star-ratings';
 
 class RatingsBar extends React.Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class RatingsBar extends React.Component {
         reviewCounts[review.rating] += 1;
       })
 
-      let ratingAverage = ratingSum / numReviews;
+      let ratingAverage = ratingSum / numReviews || 0;
       ratingAverage = Math.round(ratingAverage);
 
       this.setState({rating: ratingAverage, numReviews: reviewsArr.length, reviewCounts: reviewCounts}, () => this.createBarWidths());
@@ -48,10 +49,10 @@ class RatingsBar extends React.Component {
   }
 
   render() {
-    let pluralReview = "review";
+    let pluralReview = "reviews";
 
-    if (this.state.numReviews > 1) {
-      pluralReview = "reviews";
+    if (this.state.numReviews === 1) {
+      pluralReview = "review";
     }
 
     let div5Style = {
@@ -78,12 +79,12 @@ class RatingsBar extends React.Component {
     return(
       <div>
 
-        <span className="heading">User Rating</span>
-        <span className="fa fa-star checked"></span>
-        <span className="fa fa-star checked"></span>
-        <span className="fa fa-star checked"></span>
-        <span className="fa fa-star checked"></span>
-        <span className="fa fa-star"></span>
+      <StarRatings
+        rating={this.state.rating}
+        starRatedColor="green"
+        numberOfStars={5}
+        name='rating'
+      />
         <p>{this.state.rating} star average based on {this.state.numReviews} {pluralReview}.</p>
 
         <div className="row">

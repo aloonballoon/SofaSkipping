@@ -21,10 +21,6 @@ class SimpleSlider extends React.Component {
     if (photos.photosUrl !== prevProps.photos.photosUrl) {
       this.setState({images: photos.photosUrl})
     }
-    if (photos.loading !== prevProps.photos.loading) {
-      let loadingState = this.state.loading ? false : true;
-      this.setState({loading: loadingState})
-    }
   }
 
   render() {
@@ -35,7 +31,7 @@ class SimpleSlider extends React.Component {
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
-      autoplay: false,
+      autoplay: true,
       autoplaySpeed: 2000
     };
 
@@ -60,16 +56,17 @@ class SimpleSlider extends React.Component {
     let photos = this.state.images || [];
     let gotUrlPhotos = photos.map((photo, idx) => {
       return <div key={idx} style={divStyle} className="location-google-slider-photo-div">
-              {spinner}
                 <img className="location-google-slider-photo-img" src={photo.getUrl({maxWidth: 5000, maxHeight: 5000})}/>
              </div>
 
     })
 
     return (
-      <Slider {...settings} className="location-google-slider">
-          {gotUrlPhotos}
-      </Slider>
+      <div>
+        <Slider {...settings} className="location-google-slider">
+            {gotUrlPhotos}
+        </Slider>
+      </div>
     );
   }
 }

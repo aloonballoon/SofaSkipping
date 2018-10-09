@@ -40,7 +40,7 @@ class LocationShow extends React.Component {
 
   getPlacePhotos() {
     const setPhotos = (place) => {
-      this.setState({photosUrl: place.photos, loading: false})
+      this.setState({ photosUrl: place.photos, loading: false })
     }
 
     let placeService = new google.maps.places.PlacesService(document.createElement('div'));
@@ -76,7 +76,7 @@ class LocationShow extends React.Component {
     let divStyle = {
       backgroundImage: `url(${window.travel_photo})`
     }
-    
+
     return(
       <div className="location-show-entire-container-div">
         <section className="location-google-photos-section">

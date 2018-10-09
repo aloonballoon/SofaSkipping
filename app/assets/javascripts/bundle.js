@@ -1625,10 +1625,6 @@ var SimpleSlider = function (_React$Component) {
       if (photos.photosUrl !== prevProps.photos.photosUrl) {
         this.setState({ images: photos.photosUrl });
       }
-      if (photos.loading !== prevProps.photos.loading) {
-        var loadingState = this.state.loading ? false : true;
-        this.setState({ loading: loadingState });
-      }
     }
   }, {
     key: 'render',
@@ -1640,7 +1636,7 @@ var SimpleSlider = function (_React$Component) {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: false,
+        autoplay: true,
         autoplaySpeed: 2000
       };
 
@@ -1667,15 +1663,18 @@ var SimpleSlider = function (_React$Component) {
         return _react2.default.createElement(
           'div',
           { key: idx, style: divStyle, className: 'location-google-slider-photo-div' },
-          spinner,
           _react2.default.createElement('img', { className: 'location-google-slider-photo-img', src: photo.getUrl({ maxWidth: 5000, maxHeight: 5000 }) })
         );
       });
 
       return _react2.default.createElement(
-        _reactSlick2.default,
-        _extends({}, settings, { className: 'location-google-slider' }),
-        gotUrlPhotos
+        'div',
+        null,
+        _react2.default.createElement(
+          _reactSlick2.default,
+          _extends({}, settings, { className: 'location-google-slider' }),
+          gotUrlPhotos
+        )
       );
     }
   }]);
@@ -2172,6 +2171,7 @@ function Modal(_ref) {
   if (!modal) {
     return null;
   }
+
   var component = void 0;
   switch (modal) {
     case 'login':
@@ -2344,6 +2344,7 @@ var SessionForm = function (_React$Component) {
     value: function handleGuest(e) {
       e.preventDefault();
       var guestUser = { email: 'guest@guest.com', password: '123456' };
+
       if (this.props.formType === 'signup') {
         this.props.guestLogIn(guestUser).then(this.props.closeModal);
       } else if (this.props.formType === 'login') {
@@ -3975,6 +3976,10 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactStarRatings = __webpack_require__(/*! react-star-ratings */ "./node_modules/react-star-ratings/build/index.js");
+
+var _reactStarRatings2 = _interopRequireDefault(_reactStarRatings);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4005,7 +4010,7 @@ var RatingsBar = function (_React$Component) {
   }
 
   _createClass(RatingsBar, [{
-    key: "componentDidUpdate",
+    key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps) {
       var _this2 = this;
 
@@ -4021,7 +4026,7 @@ var RatingsBar = function (_React$Component) {
           reviewCounts[review.rating] += 1;
         });
 
-        var ratingAverage = ratingSum / numReviews;
+        var ratingAverage = ratingSum / numReviews || 0;
         ratingAverage = Math.round(ratingAverage);
 
         this.setState({ rating: ratingAverage, numReviews: reviewsArr.length, reviewCounts: reviewCounts }, function () {
@@ -4030,7 +4035,7 @@ var RatingsBar = function (_React$Component) {
       }
     }
   }, {
-    key: "createBarWidths",
+    key: 'createBarWidths',
     value: function createBarWidths() {
       var reviewCounts = this.state.reviewCounts;
       var total = this.state.numReviews;
@@ -4043,12 +4048,12 @@ var RatingsBar = function (_React$Component) {
       });
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
-      var pluralReview = "review";
+      var pluralReview = "reviews";
 
-      if (this.state.numReviews > 1) {
-        pluralReview = "reviews";
+      if (this.state.numReviews === 1) {
+        pluralReview = "review";
       }
 
       var div5Style = {
@@ -4072,162 +4077,158 @@ var RatingsBar = function (_React$Component) {
       };
 
       return _react2.default.createElement(
-        "div",
+        'div',
         null,
+        _react2.default.createElement(_reactStarRatings2.default, {
+          rating: this.state.rating,
+          starRatedColor: 'green',
+          numberOfStars: 5,
+          name: 'rating'
+        }),
         _react2.default.createElement(
-          "span",
-          { className: "heading" },
-          "User Rating"
-        ),
-        _react2.default.createElement("span", { className: "fa fa-star checked" }),
-        _react2.default.createElement("span", { className: "fa fa-star checked" }),
-        _react2.default.createElement("span", { className: "fa fa-star checked" }),
-        _react2.default.createElement("span", { className: "fa fa-star checked" }),
-        _react2.default.createElement("span", { className: "fa fa-star" }),
-        _react2.default.createElement(
-          "p",
+          'p',
           null,
           this.state.rating,
-          " star average based on ",
+          ' star average based on ',
           this.state.numReviews,
-          " ",
+          ' ',
           pluralReview,
-          "."
+          '.'
         ),
         _react2.default.createElement(
-          "div",
-          { className: "row" },
+          'div',
+          { className: 'row' },
           _react2.default.createElement(
-            "div",
-            { className: "side" },
+            'div',
+            { className: 'side' },
             _react2.default.createElement(
-              "div",
+              'div',
               null,
-              "5 star"
+              '5 star'
             )
           ),
           _react2.default.createElement(
-            "div",
-            { className: "middle" },
+            'div',
+            { className: 'middle' },
             _react2.default.createElement(
-              "div",
-              { className: "bar-container" },
-              _react2.default.createElement("div", { style: div5Style, className: "bar-5" })
+              'div',
+              { className: 'bar-container' },
+              _react2.default.createElement('div', { style: div5Style, className: 'bar-5' })
             )
           ),
           _react2.default.createElement(
-            "div",
-            { className: "side right" },
+            'div',
+            { className: 'side right' },
             _react2.default.createElement(
-              "div",
+              'div',
               null,
               this.state.reviewCounts[5]
             )
           ),
           _react2.default.createElement(
-            "div",
-            { className: "side" },
+            'div',
+            { className: 'side' },
             _react2.default.createElement(
-              "div",
+              'div',
               null,
-              "4 star"
+              '4 star'
             )
           ),
           _react2.default.createElement(
-            "div",
-            { className: "middle" },
+            'div',
+            { className: 'middle' },
             _react2.default.createElement(
-              "div",
-              { className: "bar-container" },
-              _react2.default.createElement("div", { style: div4Style, className: "bar-4" })
+              'div',
+              { className: 'bar-container' },
+              _react2.default.createElement('div', { style: div4Style, className: 'bar-4' })
             )
           ),
           _react2.default.createElement(
-            "div",
-            { className: "side right" },
+            'div',
+            { className: 'side right' },
             _react2.default.createElement(
-              "div",
+              'div',
               null,
               this.state.reviewCounts[4]
             )
           ),
           _react2.default.createElement(
-            "div",
-            { className: "side" },
+            'div',
+            { className: 'side' },
             _react2.default.createElement(
-              "div",
+              'div',
               null,
-              "3 star"
+              '3 star'
             )
           ),
           _react2.default.createElement(
-            "div",
-            { className: "middle" },
+            'div',
+            { className: 'middle' },
             _react2.default.createElement(
-              "div",
-              { className: "bar-container" },
-              _react2.default.createElement("div", { style: div3Style, className: "bar-3" })
+              'div',
+              { className: 'bar-container' },
+              _react2.default.createElement('div', { style: div3Style, className: 'bar-3' })
             )
           ),
           _react2.default.createElement(
-            "div",
-            { className: "side right" },
+            'div',
+            { className: 'side right' },
             _react2.default.createElement(
-              "div",
+              'div',
               null,
               this.state.reviewCounts[3]
             )
           ),
           _react2.default.createElement(
-            "div",
-            { className: "side" },
+            'div',
+            { className: 'side' },
             _react2.default.createElement(
-              "div",
+              'div',
               null,
-              "2 star"
+              '2 star'
             )
           ),
           _react2.default.createElement(
-            "div",
-            { className: "middle" },
+            'div',
+            { className: 'middle' },
             _react2.default.createElement(
-              "div",
-              { className: "bar-container" },
-              _react2.default.createElement("div", { style: div2Style, className: "bar-2" })
+              'div',
+              { className: 'bar-container' },
+              _react2.default.createElement('div', { style: div2Style, className: 'bar-2' })
             )
           ),
           _react2.default.createElement(
-            "div",
-            { className: "side right" },
+            'div',
+            { className: 'side right' },
             _react2.default.createElement(
-              "div",
+              'div',
               null,
               this.state.reviewCounts[2]
             )
           ),
           _react2.default.createElement(
-            "div",
-            { className: "side" },
+            'div',
+            { className: 'side' },
             _react2.default.createElement(
-              "div",
+              'div',
               null,
-              "1 star"
+              '1 star'
             )
           ),
           _react2.default.createElement(
-            "div",
-            { className: "middle" },
+            'div',
+            { className: 'middle' },
             _react2.default.createElement(
-              "div",
-              { className: "bar-container" },
-              _react2.default.createElement("div", { style: div1Style, className: "bar-1" })
+              'div',
+              { className: 'bar-container' },
+              _react2.default.createElement('div', { style: div1Style, className: 'bar-1' })
             )
           ),
           _react2.default.createElement(
-            "div",
-            { className: "side right" },
+            'div',
+            { className: 'side right' },
             _react2.default.createElement(
-              "div",
+              'div',
               null,
               this.state.reviewCounts[1]
             )
@@ -4334,6 +4335,11 @@ var UserAboutMe = function (_React$Component) {
           "article",
           { className: "user-show-bio-body" },
           user.bio
+        ),
+        _react2.default.createElement(
+          "button",
+          null,
+          "Update User Profile"
         )
       );
     }
