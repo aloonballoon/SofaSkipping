@@ -93,12 +93,12 @@ class RatingsBar extends React.Component {
     return(
       <div>
 
-      <StarRatings
-        rating={this.state.rating}
-        starRatedColor="green"
-        numberOfStars={5}
-        name='rating'
-      />
+        <StarRatings
+          rating={this.state.rating}
+          starRatedColor="green"
+          numberOfStars={5}
+          name='rating'
+        />
         <p>{this.state.rating} star average based on {this.state.numReviews} {pluralReview}.</p>
 
         <div className="row">
