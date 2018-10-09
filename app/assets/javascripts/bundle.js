@@ -4006,6 +4006,8 @@ var RatingsBar = function (_React$Component) {
       bar4Width: 0,
       bar5Width: 0
     };
+
+    _this.checkReviewsRatings = _this.checkReviewsRatings.bind(_this);
     return _this;
   }
 
@@ -4016,8 +4018,9 @@ var RatingsBar = function (_React$Component) {
 
       var reviewsArr = this.props.reviews || [];
       var reviewCounts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+      var reviewsReady = this.checkReviewsRatings();
 
-      if (reviewsArr !== prevProps.reviews) {
+      if (reviewsArr !== prevProps.reviews && reviewsReady) {
         var ratingSum = 0;
         var numReviews = reviewsArr.length;
 
@@ -4033,6 +4036,18 @@ var RatingsBar = function (_React$Component) {
           return _this2.createBarWidths();
         });
       }
+    }
+  }, {
+    key: 'checkReviewsRatings',
+    value: function checkReviewsRatings() {
+      var reviewsArr = this.props.reviews || [];
+      reviewsArr.forEach(function (review) {
+        if (review.rating === undefined) {
+          return false;
+        }
+      });
+
+      return true;
     }
   }, {
     key: 'createBarWidths',
@@ -4274,6 +4289,72 @@ var ShowReviews = function ShowReviews(props) {
 };
 
 exports.default = ShowReviews;
+
+/***/ }),
+
+/***/ "./frontend/components/user/user_show/update_user_form.jsx":
+/*!*****************************************************************!*\
+  !*** ./frontend/components/user/user_show/update_user_form.jsx ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UpdateUserForm = function (_React$Component) {
+  _inherits(UpdateUserForm, _React$Component);
+
+  function UpdateUserForm(props) {
+    _classCallCheck(this, UpdateUserForm);
+
+    var _this = _possibleConstructorReturn(this, (UpdateUserForm.__proto__ || Object.getPrototypeOf(UpdateUserForm)).call(this, props));
+
+    _this.state = {};
+    return _this;
+  }
+
+  _createClass(UpdateUserForm, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {}
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        _react2.default.Fragment,
+        null,
+        _react2.default.createElement(
+          "form",
+          { className: "user-update-form" },
+          _react2.default.createElement("input", { className: "user-update-firstname", type: "text" }),
+          _react2.default.createElement("input", { className: "user-update-lastname", type: "text" })
+        )
+      );
+    }
+  }]);
+
+  return UpdateUserForm;
+}(_react2.default.Component);
+
+exports.default = UpdateUserForm;
 
 /***/ }),
 
@@ -5024,6 +5105,10 @@ var _user_about_me = __webpack_require__(/*! ./user_about_me */ "./frontend/comp
 
 var _user_about_me2 = _interopRequireDefault(_user_about_me);
 
+var _update_user_form = __webpack_require__(/*! ./update_user_form */ "./frontend/components/user/user_show/update_user_form.jsx");
+
+var _update_user_form2 = _interopRequireDefault(_update_user_form);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -5195,7 +5280,8 @@ var UserShow = function (_React$Component) {
           _react2.default.createElement(_user_booking_request2.default, { props: props }),
           _react2.default.createElement(_user_reviews2.default, { props: props }),
           _react2.default.createElement(_user_overview2.default, { props: props.otherProps }),
-          _react2.default.createElement(_user_about_me2.default, { props: props.otherProps })
+          _react2.default.createElement(_user_about_me2.default, { props: props.otherProps }),
+          _react2.default.createElement(_update_user_form2.default, null)
         )
       );
     }

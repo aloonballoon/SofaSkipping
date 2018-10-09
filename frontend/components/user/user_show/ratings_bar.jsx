@@ -14,13 +14,16 @@ class RatingsBar extends React.Component {
       bar4Width: 0,
       bar5Width: 0
     };
+
+    this.checkReviewsRatings = this.checkReviewsRatings.bind(this);
   }
 
   componentDidUpdate(prevProps) {
     let reviewsArr = this.props.reviews || [];
     let reviewCounts = {5: 0, 4: 0, 3:0, 2:0, 1:0};
+    let reviewsReady = this.checkReviewsRatings();
 
-    if (reviewsArr !== prevProps.reviews) {
+    if (reviewsArr !== prevProps.reviews && reviewsReady) {
       let ratingSum = 0;
       let numReviews = reviewsArr.length;
 
@@ -34,6 +37,17 @@ class RatingsBar extends React.Component {
 
       this.setState({rating: ratingAverage, numReviews: reviewsArr.length, reviewCounts: reviewCounts}, () => this.createBarWidths());
     }
+  }
+
+  checkReviewsRatings() {
+    let reviewsArr = this.props.reviews || [];
+    reviewsArr.forEach(review => {
+      if (review.rating === undefined) {
+        return false;
+      }
+    })
+
+    return true;
   }
 
   createBarWidths() {

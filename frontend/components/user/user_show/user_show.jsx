@@ -4,6 +4,7 @@ import UserReviews from './user_reviews';
 import UserBookingRequest from './user_booking_request';
 import UserOverview from './user_overview';
 import UserAboutMe from './user_about_me';
+import UpdateUserForm from './update_user_form';
 
 class UserShow extends React.Component {
   constructor(props) {
@@ -120,6 +121,7 @@ class UserShow extends React.Component {
           <UserReviews props={props}/>
           <UserOverview props={props.otherProps}/>
           <UserAboutMe props={props.otherProps}/>
+          <UpdateUserForm/>
 
         </section>
       </div>
