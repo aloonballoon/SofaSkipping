@@ -18,7 +18,6 @@ class UpdateUserForm extends React.Component {
         <form className="user-update-form">
           <input className="user-update-firstname" type="text"/>
           <input className="user-update-lastname" type="text"/>
-
         </form>
       </React.Fragment>
     )

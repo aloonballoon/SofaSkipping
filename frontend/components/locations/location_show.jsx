@@ -8,7 +8,6 @@ let searched = false;
 class LocationShow extends React.Component {
   constructor(props) {
     super(props);
-    this.kayak = React.createRef();
 
     this.state = {
       photosUrl: [],
@@ -23,7 +22,6 @@ class LocationShow extends React.Component {
 
   componentDidMount() {
     this.props.fetchLocation(this.props.locationName);
-    const kayak = this.refs.kayak;
   }
 
   componentDidUpdate(prevProps) {
@@ -108,8 +106,6 @@ class LocationShow extends React.Component {
           </article>
         </section>
         </section>
-        <div id="widgetContainer" ref={this.kayak}>
-        </div>
 
       </div>
 

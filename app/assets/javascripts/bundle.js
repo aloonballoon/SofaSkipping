@@ -1270,8 +1270,6 @@ var LocationShow = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (LocationShow.__proto__ || Object.getPrototypeOf(LocationShow)).call(this, props));
 
-    _this.kayak = _react2.default.createRef();
-
     _this.state = {
       photosUrl: [],
       locationCityName: "",
@@ -1288,7 +1286,6 @@ var LocationShow = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.fetchLocation(this.props.locationName);
-      var kayak = this.refs.kayak;
     }
   }, {
     key: 'componentDidUpdate',
@@ -1413,8 +1410,7 @@ var LocationShow = function (_React$Component) {
               locationGuest
             )
           )
-        ),
-        _react2.default.createElement('div', { id: 'widgetContainer', ref: this.kayak })
+        )
       );
     }
   }]);

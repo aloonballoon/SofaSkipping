@@ -9,6 +9,7 @@
 User.destroy_all
 Location.destroy_all
 Booking.destroy_all
+Review.destroy_all
 
 
 
@@ -38,6 +39,8 @@ jess = User.create!(first_name: "Jess", last_name: "Or", username: "jbird", emai
 john = User.create!(first_name: "John", last_name: "Freedman", username: "jjj", email: "jj@freedman.com", home_location_id: la.id, age: 29, bio: "hella", password: 'hellothere')
 john = User.create!(first_name: "John", last_name: "Freedman", username: "freeeed", email: "jf@freedman.com", home_location_id: la.id, age: 29, bio: "hella", password: 'hellothere')
 simcha = User.create!(first_name: "Simcha", last_name: "Cohen", username: "simisimiyay", email: "simcha@aa.com", home_location_id: ny.id, age: 26, bio: "I am Alan's best friend", password: 'hellothere')
+james = User.create!(first_name: "James", last_name: "Dreyfus", username: "simissgdfgsimiyay", email: "simchsdfa@aa.com", home_location_id: fp.id, age: 26, bio: "I am Alan's best friend", password: 'hellothere')
+mike = User.create!(first_name: "Mike", last_name: "Ralpheo", username: "simisimdsfgdfgssiyay", email: "sisdfaaamcha@aa.com", home_location_id: kh.id, age: 26, bio: "I am Alan's best friend", password: 'hellothere')
 
 Booking.create!(host_id: alan.id, guest_id: ayda.id, start_date: "2018/05/13", end_date: "2018/06/15", confirmed: true)
 Booking.create!(host_id: ayda.id, guest_id: leana.id, start_date: "2018/07/13", end_date: "2018/08/15", confirmed: true)
@@ -56,10 +59,13 @@ Booking.create!(host_id: guest.id, guest_id: leana.id, start_date: "2018/02/13",
 Booking.create!(host_id: guest.id, guest_id: jess.id, start_date: "2018/03/13", end_date: "2018/03/15", confirmed: true)
 Booking.create!(host_id: guest.id, guest_id: simcha.id, start_date: "2018/04/13", end_date: "2018/04/15", confirmed: true)
 
+
+
 Review.create!(reviewer_id: guest.id, reviewee_id: alan.id, body: "Great guy. Awesome programmer. Please email him at alanuraz@gmail.com. Visit his site: alanuraz@gmail.com", title: "I'm for hire!", review_date: "2018/08/10", recommended: true, rating: 5)
 Review.create!(reviewer_id: leana.id, reviewee_id: alan.id, body: "He's great", title: "Cool dude", review_date: "2018/08/10", recommended: true, rating: 5)
 
 users_arr = []
+#make fake users
 50.times do
   age = (1..100).to_a.sample
   quote = Faker::DumbAndDumber.quote
@@ -69,4 +75,21 @@ users_arr = []
   random_city = [sf, la, ny, ch, ist, bj, tk, sp, kh, fp].sample
   user = User.create!(first_name: fname, last_name: lname, home_location_id: random_city.id, email: email, password: "hellothere", bio: quote, age: age)
   users_arr << user
+end
+
+#make fake reviews
+# 20.times do
+#   quote = Faker::Lebowski.quote
+# end
+
+#make fake bookings
+50.times do
+  host = users_arr.sample
+  guest = users_arr.sample
+
+  until guest != host
+    guest = users_arr.sample
+  end
+
+  Booking.create!(host_id: host.id, guest_id: guest.id, start_date: "2018/04/13", end_date: "2018/04/15", confirmed: true)
 end
