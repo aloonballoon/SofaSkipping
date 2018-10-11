@@ -42,6 +42,22 @@ simcha = User.create!(first_name: "Simcha", last_name: "Cohen", username: "simis
 james = User.create!(first_name: "James", last_name: "Dreyfus", username: "simissgdfgsimiyay", email: "simchsdfa@aa.com", home_location_id: fp.id, age: 26, bio: "I am Alan's best friend", password: 'hellothere')
 mike = User.create!(first_name: "Mike", last_name: "Ralpheo", username: "simisimdsfgdfgssiyay", email: "sisdfaaamcha@aa.com", home_location_id: kh.id, age: 26, bio: "I am Alan's best friend", password: 'hellothere')
 
+main_users = []
+main_users << simcha
+main_users << alan
+main_users << ayda
+main_users << leana
+main_users << sam
+main_users << markie
+main_users << guest
+main_users << travis
+main_users << adrienne
+main_users << jess
+main_users << john
+
+
+
+
 Booking.create!(host_id: alan.id, guest_id: ayda.id, start_date: "2018/05/13", end_date: "2018/06/15", confirmed: true)
 Booking.create!(host_id: ayda.id, guest_id: leana.id, start_date: "2018/07/13", end_date: "2018/08/15", confirmed: true)
 Booking.create!(host_id: alan.id, guest_id: leana.id, start_date: "2018/09/13", end_date: "2018/10/15", confirmed: true)
@@ -77,10 +93,39 @@ users_arr = []
   users_arr << user
 end
 
-#make fake reviews
-# 20.times do
-#   quote = Faker::Lebowski.quote
-# end
+# make fake reviews for fake users
+200.times do
+  quote = Faker::Lebowski.quote
+  title = Faker::GreekPhilosophers.quote
+  random_rating = (1..5).to_a.sample
+  random_boolean = [true, false].sample
+  review_date = "2018/08/10"
+  reviewer = users_arr.sample
+  reviewee = users_arr.sample
+
+  until reviewee != reviewer
+    reviewee = users_arr.sample
+  end
+
+  Review.create!(reviewer_id: reviewer.id, reviewee_id: reviewee.id, body: quote, title: title, review_date: review_date, recommended: random_boolean, rating: random_rating)
+end
+
+# make fake reviews for main users
+100.times do
+  quote = Faker::Lebowski.quote
+  title = ["Great", "Horrible", "Best Place Ever", "It was ok", "Nasty couch", "Hire me"].sample
+  random_rating = (1..5).to_a.sample
+  random_boolean = [true, false].sample
+  review_date = "2018/08/10"
+  reviewer = main_users.sample
+  reviewee = main_users.sample
+
+  until reviewee != reviewer
+    reviewee = users_arr.sample
+  end
+
+    Review.create!(reviewer_id: reviewer.id, reviewee_id: reviewee.id, body: quote, title: title, review_date: review_date, recommended: random_boolean, rating: random_rating)
+end
 
 #make fake bookings
 50.times do
