@@ -132,8 +132,9 @@ end
   host = users_arr.sample
   guest = users_arr.sample
 
-  until guest != host
+  until guest != host && host.location != guest.location
     guest = users_arr.sample
+    host = users_arr.sample
   end
 
   Booking.create!(host_id: host.id, guest_id: guest.id, start_date: "2018/04/13", end_date: "2018/04/15", confirmed: true)

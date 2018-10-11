@@ -20,9 +20,6 @@ class UserAboutMe extends React.Component {
         <article className="user-show-bio-body">
           {user.bio}
         </article>
-        <button>
-          Update User Profile
-        </button>
       </section>
     )
   }

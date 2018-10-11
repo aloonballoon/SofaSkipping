@@ -4346,11 +4346,6 @@ var UserAboutMe = function (_React$Component) {
           "article",
           { className: "user-show-bio-body" },
           user.bio
-        ),
-        _react2.default.createElement(
-          "button",
-          null,
-          "Update User Profile"
         )
       );
     }
