@@ -9,23 +9,19 @@ class UserOverview extends React.Component {
 
 
   componentDidMount() {
-    let props = this.props.props;
-    props.fetchReviews(this.props.props.match.params.userId);
-    this.setState({reviews: props.reviews});
+    this.props.fetchReviews(this.props.match.params.userId);
   }
 
   componentDidUpdate(prevProps) {
-    let props = this.props.props;
-
-    if (props.reviews !== prevProps.props.reviews) {
-      this.setState({reviews: props.reviews})
+    if (this.props.match.params.userId !== prevProps.match.params.userId) {
+      this.props.fetchReviews(this.props.match.params.userId);
     }
   }
 
 
   render() {
 
-    let user = this.props.props.user || {};
+    const user = this.props.user || {};
 
     return(
       <section className="user-show-section-bio">
@@ -33,10 +29,10 @@ class UserOverview extends React.Component {
           OVERVIEW
         </header>
         <article className="user-show-bio-body">
-        <RatingsBar reviews={this.props.props.reviews}/>
+        <RatingsBar reviews={this.props.reviews}/>
         <ul className="user-show-overview-ul">
           <li>
-            <i className="fas fa-quote-left"></i> Reviews: {this.state.reviews.length}
+            <i className="fas fa-quote-left"></i> Reviews: {this.props.reviews.length}
           </li>
           <li>
             <i className="fas fa-language"></i> Languages: No languages listed

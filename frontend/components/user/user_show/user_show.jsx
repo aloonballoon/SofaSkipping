@@ -118,7 +118,7 @@ class UserShow extends React.Component {
 
           <UserBookingRequest props={props}/>
           <UserReviews props={props}/>
-          <UserOverview props={props.otherProps}/>
+          <UserOverview {...props.otherProps}/>
           <UserAboutMe props={props.otherProps}/>
 
         </section>
