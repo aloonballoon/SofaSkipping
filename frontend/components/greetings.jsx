@@ -7,6 +7,7 @@ class Greetings extends React.Component {
 
 
  render() {
+   let button;
 
    const sessionLinks = () => {
      return (
@@ -17,20 +18,8 @@ class Greetings extends React.Component {
     );
    };
 
-   let loggedIn;
-   if (typeof this.props.currentUser === "undefined") {
-        loggedIn = false;
-      } else {
-        loggedIn = true;
-      }
-
-    let button;
-    let message;
-    if (loggedIn) {
-      message = `Hello ${this.props.currentUser.first_name}.`;
-      button = <button onClick={() => this.props.logOut()}>Log Out</button>;
-    }
-
+   loggedIn = this.props.currentUser !== undefined;
+   button = loggedIn ? <button onClick={() => this.props.logOut()}>Log Out</button> : null;
 
     return (
       <header className="top-nav">
@@ -40,8 +29,6 @@ class Greetings extends React.Component {
         {sessionLinks()}
         {button}
       </header>
-
-
     );
   }
 }
