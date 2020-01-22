@@ -7,7 +7,6 @@ class Greetings extends React.Component {
 
 
  render() {
-   let button;
 
    const sessionLinks = () => {
      return (
@@ -18,8 +17,8 @@ class Greetings extends React.Component {
     );
    };
 
-   loggedIn = this.props.currentUser !== undefined;
-   button = loggedIn ? <button onClick={() => this.props.logOut()}>Log Out</button> : null;
+   const loggedIn = this.props.currentUser !== undefined;
+   const button = loggedIn ? <button onClick={() => this.props.logOut()}>Log Out</button> : null;
 
     return (
       <header className="top-nav">
